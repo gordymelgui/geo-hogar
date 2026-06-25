@@ -1,0 +1,54 @@
+name: Automatic Real Estate Scraper & Metrics Calculator
+
+on:
+  schedule:
+    # Se ejecuta a las 04:00 AM UTC (00:00 hs de Paraguay) los días 1 y 15 de cada mes (dos veces al mes)
+    - cron: '0 4 1,15 * *'
+  workflow_dispatch: # Permite ejecutarlo manualmente desde la pestaña Actions en GitHub
+
+permissions:
+  contents: write
+
+jobs:
+  scrape-and-calculate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: |
+          cd backend
+          npm install
+
+      - name: Create Service Account Key file
+        run: |
+          echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > backend/service-account.json
+
+      - name: Run Scraper
+        run: |
+          cd backend
+          npm run scrape
+
+      - name: Calculate Metrics & Upload to Firestore
+        run: |
+          cd backend
+          npm run calculate
+
+      - name: Run Macro Scraper
+        run: |
+          cd backend
+          node scrape-macro.js
+
+      - name: Commit and push fallback files
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/propiedades.json js/data.js data/macro-metrics.json backend/propiedades-extraidas.json backend/propiedades-procesadas.json || true
+          git commit -m "auto: update scraped real estate data and metrics" || echo "No changes to commit"
+          git push || echo "Push failed, continuing"
