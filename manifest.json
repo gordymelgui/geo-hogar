@@ -1,0 +1,22 @@
+{
+  "name": "GeoHogar — Encuentra tu próximo hogar",
+  "short_name": "GeoHogar",
+  "description": "GeoHogar: la plataforma de bienes raíces más avanzada.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://img.icons8.com/fluency/192/home.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "https://img.icons8.com/fluency/512/home.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}

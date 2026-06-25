@@ -1,0 +1,2487 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <!-- PWA & Mobile App Settings -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="GeoHogar" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#0f172a" />
+  <link rel="apple-touch-icon" href="https://img.icons8.com/fluency/512/home.png" />
+  <link rel="icon" type="image/png" href="https://img.icons8.com/fluency/512/home.png" />
+  <link rel="manifest" href="/manifest.json" />
+  <title data-i18n="app_title">GeoHogar — Encuentra tu próximo hogar</title>
+  <meta name="description"
+    content="GeoHogar: la plataforma de bienes raíces más avanzada. Explora propiedades con mapas interactivos, filtros inteligentes y análisis de mercado en tiempo real." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Syne:wght@700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+  <link rel="stylesheet" href="css/style.css?v=29.0" />
+  <style>
+    /* Splash Screen Styles */
+    .splash-screen {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: #0f172a !important;
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.5s ease, visibility 0.5s;
+      visibility: visible;
+      opacity: 1;
+    }
+    .splash-screen.fade-out {
+      opacity: 0 !important;
+      visibility: hidden !important;
+    }
+    .splash-content {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-family: 'Inter', -apple-system, sans-serif;
+    }
+    .splash-logo {
+      width: 85px;
+      height: 85px;
+      background: linear-gradient(135deg, #ff2a5f, #ff7e5f);
+      border-radius: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 12px 24px rgba(255, 42, 95, 0.35);
+      margin-bottom: 1.5rem;
+      animation: floatLogo 3s ease-in-out infinite;
+    }
+    .splash-title {
+      font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif;
+      font-weight: 800;
+      font-size: 2.4rem;
+      color: white !important;
+      margin: 0 0 8px 0;
+      letter-spacing: -0.03em;
+    }
+    .splash-subtitle {
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: 0.9rem;
+      color: #94a3b8 !important;
+      margin: 0 0 2rem 0;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+    .splash-loader-bar {
+      width: 140px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .splash-loader-progress {
+      height: 100%;
+      width: 30%;
+      background: linear-gradient(135deg, #ff2a5f, #ff7e5f);
+      border-radius: 10px;
+      animation: loadingProgress 1.5s ease-in-out infinite;
+    }
+    @keyframes floatLogo {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+    @keyframes loadingProgress {
+      0% { transform: translateX(-100%); }
+      50% { transform: translateX(100%); }
+      100% { transform: translateX(300%); }
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    try {
+      localStorage.setItem('geohogar_local_premium', 'true');
+    } catch (e) {
+      console.warn("Could not set local premium status:", e);
+    }
+  </script>
+
+  <!-- ===== SPLASH SCREEN / LOADING ===== -->
+  <div class="splash-screen" id="splash-screen">
+    <div class="splash-content">
+      <div class="splash-logo">
+        <svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+          <path d="M9 11l3-3 3 3v4a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-4z" />
+        </svg>
+      </div>
+      <div class="splash-title" data-i18n="app_name">GeoHogar</div>
+      <p class="splash-subtitle" data-i18n="splash_subtitle">Tu próximo hogar a un mapa de distancia</p>
+      <div class="splash-loader-bar">
+        <div class="splash-loader-progress"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Fail-safe para ocultar la pantalla de carga automáticamente si tarda demasiado
+    setTimeout(function() {
+      var splash = document.getElementById('splash-screen');
+      if (splash && !splash.classList.contains('fade-out')) {
+        console.warn("Desactivación automática de Splash Screen por límite de tiempo (Fail-Safe).");
+        splash.classList.add('fade-out');
+        setTimeout(function() { splash.remove(); }, 600);
+      }
+    }, 3500); // 3.5 segundos de espera máxima
+  </script>
+
+  <!-- ===== LOGIN SCREEN ===== -->
+  <div class="login-screen" id="login-screen">
+    <div class="login-bg">
+      <div class="login-blob login-blob-1"></div>
+      <div class="login-blob login-blob-2"></div>
+      <div class="login-blob login-blob-3"></div>
+    </div>
+
+    <div class="login-card">
+      <div class="login-logo sidebar-logo" style="margin-bottom: 2rem; justify-content: center;">
+        <div class="logo-icon">G</div>
+        <span class="logo-text" style="color: #ffffff !important; font-weight: 800; text-shadow: 0 2px 10px rgba(0,0,0,0.3);">GeoHogar</span>
+      </div>
+
+      <div class="login-tabs">
+        <button class="login-tab active" data-tab="login" data-i18n="login_title">Iniciar sesión</button>
+        <button class="login-tab" data-tab="register" data-i18n="register_title">Crear cuenta</button>
+      </div>
+
+      <div class="login-error" id="login-error" style="display:none"></div>
+
+      <!-- Login Form -->
+      <form id="form-login" class="login-form active">
+        <div class="login-field">
+          <label data-i18n="email_label">Correo electrónico</label>
+          <input type="email" id="login-email" data-i18n="email_placeholder" placeholder="tu@email.com" required autocomplete="email" />
+        </div>
+        <div class="login-field">
+          <label data-i18n="password_label">Contraseña</label>
+          <input type="password" id="login-password" placeholder="••••••••" required autocomplete="current-password" />
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.2rem; width:100%; gap:10px;">
+          <label style="display:flex; align-items:center; gap:6px; cursor:pointer; font-size:0.8rem; font-weight:700; color:var(--text2); user-select:none;">
+            <input type="checkbox" id="login-remember" checked style="accent-color:var(--accent); width:16px; height:16px; border-radius:4px; margin:0;" />
+            <span data-i18n="keep_connected">Mantenerse conectado</span>
+          </label>
+          <button type="button" class="forgot-link" id="forgot-password" style="margin:0; font-size:0.8rem; background:none; border:none; cursor:pointer;" data-i18n="forgot_password">¿Olvidaste tu contraseña?</button>
+        </div>
+        <button type="submit" class="login-btn-primary">
+          <span id="login-btn-text" data-i18n="login_title">Iniciar sesión</span>
+          <span id="login-spinner" class="login-spinner" style="display:none"></span>
+        </button>
+        <div class="login-divider"><span data-i18n="login_divider">o continuar con</span></div>
+        <button type="button" class="login-btn-google" id="google-signin-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          <span data-i18n="login_google">Continuar con Google</span>
+        </button>
+      </form>
+
+      <!-- Register Form -->
+      <form id="form-register" class="login-form">
+        <div class="login-field">
+          <label data-i18n="name_label">Nombre completo</label>
+          <input type="text" id="reg-name" data-i18n="reg_name_placeholder" placeholder="Ej: Juan Pérez" required autocomplete="name" />
+        </div>
+        <div class="login-field">
+          <label data-i18n="email_label">Correo electrónico</label>
+          <input type="email" id="reg-email" data-i18n="email_placeholder" placeholder="tu@email.com" required autocomplete="email" />
+        </div>
+        <div class="login-field">
+          <label data-i18n="password_label">Contraseña</label>
+          <input type="password" id="reg-password" data-i18n="reg_password_placeholder" placeholder="Mínimo 6 caracteres" required autocomplete="new-password" />
+        </div>
+        <button type="submit" class="login-btn-primary" style="margin-top:0.5rem">
+          <span id="reg-btn-text" data-i18n="register_title">Crear cuenta</span>
+          <span id="reg-spinner" class="login-spinner" style="display:none"></span>
+        </button>
+      </form>
+
+      <p class="login-terms" data-i18n="accept_terms">Al continuar aceptás los <a href="#">Términos de servicio</a> y la <a href="#">Política de privacidad</a> de GeoHogar.</p>
+    </div>
+  </div>
+
+  <div class="app-shell hidden" id="app-shell">
+  <!-- ===== SIDEBAR NAV ===== -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon" style="display: flex; align-items: center; justify-content: center; border-radius: 12px; background: linear-gradient(135deg, #ff2a5f, #ff7e5f); width: 36px; height: 36px;">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+      </div>
+      <span class="logo-text">GeoHogar</span>
+    </div>
+    <ul class="sidebar-links">
+      <li><a href="#" class="sidebar-link active" data-view="explore" id="nav-explore">
+          <svg viewBox="0 0 24 24">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+            <polyline points="9 22 9 12 15 12 15 22" />
+          </svg>
+          <span data-i18n="nav_explore">Explorar</span>
+        </a></li>
+      <li><a href="#" class="sidebar-link" data-view="map" id="nav-map">
+          <svg viewBox="0 0 24 24">
+            <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6" />
+            <line x1="8" y1="2" x2="8" y2="18" />
+            <line x1="16" y1="6" x2="16" y2="22" />
+          </svg>
+          <span data-i18n="nav_map">Mapa</span>
+        </a></li>
+      <li><a href="#" class="sidebar-link" data-view="messages" id="nav-messages">
+          <svg viewBox="0 0 24 24">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+          </svg>
+          <span data-i18n="nav_messages">Mensajes</span>
+          <span class="badge badge-red" id="msg-badge">0</span>
+        </a></li>
+      <li><a href="#" class="sidebar-link" data-view="favorites" id="nav-favorites">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+          </svg>
+          <span data-i18n="nav_favorites">Favoritos</span>
+          <span class="badge" id="fav-badge">0</span>
+        </a></li>
+      <li><a href="#" class="sidebar-link" data-view="publish" id="nav-publish">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="8" x2="12" y2="16" />
+            <line x1="8" y1="12" x2="16" y2="12" />
+          </svg>
+          <span data-i18n="nav_publish">Publicar</span>
+        </a></li>
+      <li><a href="#" class="sidebar-link" data-view="alerts" id="nav-alerts">
+          <svg viewBox="0 0 24 24">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+          <span data-i18n="nav_alerts">Alertas</span>
+          <span class="badge badge-red" id="alerts-badge" style="display:none">0</span>
+        </a></li>
+      <li><a href="#" class="sidebar-link" data-view="analytics" id="nav-analytics">
+          <svg viewBox="0 0 24 24">
+            <line x1="18" y1="20" x2="18" y2="10" />
+            <line x1="12" y1="20" x2="12" y2="4" />
+            <line x1="6" y1="20" x2="6" y2="14" />
+          </svg>
+          <span data-i18n="nav_analytics">Mercado</span>
+        </a></li>
+      <li><a href="#" class="sidebar-link" data-view="glossary" id="nav-glossary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+          <span data-i18n="nav_glossary">Ayuda & Glosario</span>
+        </a></li>
+      <li><a href="#" class="sidebar-link premium-locked" data-view="broker" id="nav-broker" style="margin-top: 15px; background: rgba(212, 175, 55, 0.08); border: 1px solid rgba(212, 175, 55, 0.3);">
+          <svg viewBox="0 0 24 24" stroke="#D4AF37">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          <span style="color: #D4AF37; font-weight: 800;" data-i18n="nav_broker">Broker PRO</span>
+        </a></li>
+    </ul>
+    <!-- Sidebar Theme Selector -->
+    <div class="sidebar-theme">
+      <span style="font-size: 0.85rem; font-weight: 800; color: var(--text2); font-family: 'Plus Jakarta Sans', sans-serif;" data-i18n="theme_mode">Tema Visual</span>
+      <button id="theme-toggle-btn" style="background: var(--surface2); border: 1px solid var(--border); border-radius: 30px; width: 56px; height: 28px; display: flex; align-items: center; padding: 2px; cursor: pointer; position: relative; transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1); outline: none; border-color: var(--border);" aria-label="Toggle Dark Mode">
+        <div id="theme-toggle-circle" style="width: 22px; height: 22px; border-radius: 50%; background: var(--accent-gradient); display: flex; align-items: center; justify-content: center; transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1); box-shadow: var(--shadow-sm); transform: translateX(0);"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></div>
+      </button>
+    </div>
+
+    <!-- Sidebar Language Selector -->
+    <div class="sidebar-lang">
+      <div class="lang-selector" id="sidebar-lang-selector" style="position: relative; width: 100%;">
+        <button class="lang-btn" id="sidebar-lang-btn" aria-haspopup="true" aria-expanded="false">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <svg class="lang-icon" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="2" y1="12" x2="22" y2="12" />
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+            </svg>
+            <span class="current-lang-text">ES</span>
+          </div>
+          <svg class="chevron-icon" viewBox="0 0 24 24">
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </button>
+        <div class="lang-dropdown" id="sidebar-lang-dropdown">
+          <button class="lang-opt" data-lang="es"> Español</button>
+          <button class="lang-opt" data-lang="en"> English</button>
+          <button class="lang-opt" data-lang="de"> Deutsch</button>
+          <button class="lang-opt" data-lang="pt"> Português</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar Currency Selector -->
+    <div class="sidebar-lang" style="margin-top: 10px;">
+      <div class="curr-selector" id="sidebar-curr-selector" style="position: relative; width: 100%;">
+        <button class="curr-btn lang-btn" id="sidebar-curr-btn" aria-haspopup="true" aria-expanded="false">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <svg class="lang-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="1" x2="12" y2="23"></line>
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+            <span class="current-curr-text">USD</span>
+          </div>
+          <svg class="chevron-icon" viewBox="0 0 24 24">
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </button>
+        <div class="curr-dropdown lang-dropdown" id="sidebar-curr-dropdown">
+          <button class="curr-opt lang-opt" data-curr="USD"> USD - Dólar</button>
+          <button class="curr-opt lang-opt" data-curr="PYG"> PYG - Guaraníes</button>
+          <button class="curr-opt lang-opt" data-curr="BRL"> BRL - Real</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-user" id="sidebar-user-btn">
+      <div class="user-avatar">CM</div>
+      <div class="user-info">
+        <p class="user-name">Carlos Martínez</p>
+        <p class="user-status"><span class="status-dot"></span><span data-i18n="user_status_connected">Conectado</span></p>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main-content" id="main-content">
+
+    <!-- ===== TOP BAR ===== -->
+    <header class="topbar">
+      <button class="menu-toggle" id="menu-toggle">
+        <svg viewBox="0 0 24 24">
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <line x1="3" y1="12" x2="21" y2="12" />
+          <line x1="3" y1="18" x2="21" y2="18" />
+        </svg>
+      </button>
+      <div class="search-bar" id="main-search-bar">
+        <svg class="search-icon" viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="8" />
+          <line x1="21" y1="21" x2="16.65" y2="16.65" />
+        </svg>
+        <input type="text" id="global-search" data-i18n="search_placeholder" placeholder="Buscar por barrio, ciudad o dirección..."
+          autocomplete="off" />
+        <button class="filter-btn" id="filter-toggle-btn">
+          <svg viewBox="0 0 24 24">
+            <line x1="4" y1="6" x2="20" y2="6" />
+            <line x1="8" y1="12" x2="16" y2="12" />
+            <line x1="11" y1="18" x2="13" y2="18" />
+          </svg>
+          <span data-i18n="filter_btn">Filtros</span>
+        </button>
+      </div>
+      <div class="topbar-actions">
+        <!-- Language Selector -->
+        <div class="lang-selector" id="topbar-lang-selector">
+          <button class="lang-btn" id="topbar-lang-btn" aria-haspopup="true" aria-expanded="false">
+            <svg class="lang-icon" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="2" y1="12" x2="22" y2="12" />
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+            </svg>
+            <span class="current-lang-text">ES</span>
+            <svg class="chevron-icon" viewBox="0 0 24 24">
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </button>
+          <div class="lang-dropdown" id="topbar-lang-dropdown">
+            <button class="lang-opt" data-lang="es"> Español</button>
+            <button class="lang-opt" data-lang="en"> English</button>
+            <button class="lang-opt" data-lang="de"> Deutsch</button>
+            <button class="lang-opt" data-lang="pt"> Português</button>
+          </div>
+        </div>
+
+        <!-- Currency Selector -->
+        <div class="curr-selector" id="topbar-curr-selector" style="position: relative; display: flex; align-items: center; margin-right: 15px;">
+          <button class="curr-btn lang-btn" id="topbar-curr-btn" aria-haspopup="true" aria-expanded="false">
+            <svg class="lang-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="1" x2="12" y2="23"></line>
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+            <span class="current-curr-text">USD</span>
+            <svg class="chevron-icon" viewBox="0 0 24 24">
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </button>
+          <div class="curr-dropdown lang-dropdown" id="topbar-curr-dropdown">
+            <button class="curr-opt lang-opt" data-curr="USD"> USD - Dólar</button>
+            <button class="curr-opt lang-opt" data-curr="PYG"> PYG - Guaraníes</button>
+            <button class="curr-opt lang-opt" data-curr="BRL"> BRL - Real</button>
+          </div>
+        </div>
+
+        <button class="notif-btn" id="notif-btn">
+          <svg viewBox="0 0 24 24">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+          </svg>
+          <span class="notif-dot"></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ===== FILTER PANEL ===== -->
+    <div class="filter-panel hidden" id="filter-panel">
+      <div class="filter-grid">
+        <div class="filter-group">
+          <label data-i18n="filter_type">Tipo</label>
+          <select id="f-type">
+            <option value="" data-i18n="op_all">Todos</option>
+            <option value="Casa" data-i18n="cat_casa">Casa</option>
+            <option value="Departamento" data-i18n="cat_depto">Departamento</option>
+            <option value="Dúplex" data-i18n="cat_duplex">Dúplex</option>
+            <option value="Penthouse" data-i18n="cat_penthouse">Penthouse</option>
+            <option value="PH" data-i18n="cat_ph">PH</option>
+            <option value="Terreno" data-i18n="cat_terreno">Terreno</option>
+            <option value="Oficina" data-i18n="cat_oficina">Oficina</option>
+            <option value="Local" data-i18n="cat_local">Local</option>
+            <option value="Galpón" data-i18n="cat_galpon">Galpón</option>
+            <option value="Estancia" data-i18n="cat_estancia">Estancia</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label data-i18n="filter_city">Ciudad</label>
+          <select id="f-city">
+            <option value="" data-i18n="city_all">Todas</option>
+            <option value="Asunción" data-i18n="city_asuncion">Asunción</option>
+            <option value="Luque" data-i18n="city_luque">Luque</option>
+            <option value="San Lorenzo" data-i18n="city_san_lorenzo">San Lorenzo</option>
+            <option value="Lambaré" data-i18n="city_lambare">Lambaré</option>
+            <option value="Fernando de la Mora" data-i18n="city_fernando">Fernando de la Mora</option>
+            <option value="Ciudad del Este" data-i18n="city_cde">Ciudad del Este</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label data-i18n="filter_pmin">Precio mín (USD)</label>
+          <input type="number" id="f-pmin" data-i18n="placeholder_min" placeholder="0" />
+        </div>
+        <div class="filter-group">
+          <label data-i18n="filter_pmax">Precio máx (USD)</label>
+          <input type="number" id="f-pmax" data-i18n="placeholder_no_limit" placeholder="Sin límite" />
+        </div>
+        <div class="filter-group">
+          <label data-i18n="filter_mmin">m² mín</label>
+          <input type="number" id="f-mmin" data-i18n="placeholder_min" placeholder="0" />
+        </div>
+        <div class="filter-group">
+          <label data-i18n="filter_rooms">Ambientes</label>
+          <div class="pill-group" id="f-rooms">
+            <button class="pill active" data-val="" data-i18n="op_all">Todos</button>
+            <button class="pill" data-val="1">1</button>
+            <button class="pill" data-val="2">2</button>
+            <button class="pill" data-val="3">3</button>
+            <button class="pill" data-val="4">4+</button>
+          </div>
+        </div>
+        <div class="filter-group filter-actions">
+          <button class="btn-secondary" id="filter-clear" data-i18n="clear">Limpiar</button>
+          <button class="btn-primary" id="filter-apply" data-i18n="apply">Aplicar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== VIEW: EXPLORE ===== -->
+    <section class="view active" id="view-explore">
+      <div class="explore-hero-card">
+        <div class="hero-bg-shapes">
+          <div class="hero-shape shape-1"></div>
+          <div class="hero-shape shape-2"></div>
+        </div>
+        <div class="hero-content">
+          <span class="welcome-label" data-i18n="welcome_back">Bienvenido de vuelta </span>
+          <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 2px 0 6px 0;">
+            <h1 id="welcome-user-name" data-i18n="loading_user" style="margin: 0;">Cargando usuario...</h1>
+            <div id="hero-stat-plan" class="premium-inline-badge" style="cursor: pointer;">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+              <span id="hero-plan-status" data-i18n="status_standard">Estándar</span>
+            </div>
+          </div>
+          <p class="hero-subtitle" data-i18n="hero_subtitle" style="margin-bottom: 0;">Explorá las mejores oportunidades inmobiliarias y análisis en tiempo real de Paraguay.</p>
+        </div>
+      </div>
+
+      <!-- Filtros de Inversión Inteligentes -->
+      <div class="smart-filters-row">
+        <div style="display: flex; align-items: center; gap: 6px; margin-right: 6px; flex-shrink: 0;">
+          <span class="smart-filters-title" style="margin-right: 0;" data-i18n="investment_filters"> Filtros de Inversión</span>
+          <button id="btn-explore-glossary" style="background: none; border: none; padding: 4px; color: var(--text2); display: flex; align-items: center; justify-content: center; cursor: pointer;" title="Ver explicaciones">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          </button>
+        </div>
+        <button class="smart-pill" id="explore-roi-btn"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" class="pill-icon"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg> <span data-i18n="high_roi">Alta Rentabilidad (>7%)</span></button>
+        <button class="smart-pill" id="explore-market-value-btn"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" class="pill-icon"><polygon points="6 3 18 3 22 9 12 21 2 9 6 3"/></svg> <span data-i18n="underpriced">Bajo Valor (Oportunidad)</span></button>
+      </div>
+
+      <!-- Categorías rápidas -->
+      <div class="quick-cats">
+        <button class="cat-btn active" data-cat="">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <span data-i18n="cat_all">Todos</span>
+        </button>
+        <button class="cat-btn" data-cat="Casa">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span data-i18n="cat_casa">Casas</span>
+        </button>
+        <button class="cat-btn" data-cat="Departamento">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><line x1="9" y1="22" x2="9" y2="16"/><line x1="15" y1="22" x2="15" y2="16"/><line x1="9" y1="16" x2="15" y2="16"/><path d="M8 6h2v2H8V6zm6 0h2v2h-2V6zm-6 4h2v2H8v-2zm6 0h2v2h-2v-2z"/></svg>
+          <span data-i18n="cat_depto">Departamentos</span>
+        </button>
+        <button class="cat-btn" data-cat="Dúplex">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M2 20V9l5-4 5 4v11H2zm10 0V9l5-4 5 4v11H12z"/></svg>
+          <span data-i18n="cat_duplex">Dúplex</span>
+        </button>
+        <button class="cat-btn" data-cat="Penthouse">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 22 8.5 12 15 2 8.5 12 2"/><path d="M2 8.5v6.5l10 6 10-6v-6.5"/></svg>
+          <span data-i18n="cat_penthouse">Penthouse</span>
+        </button>
+        <button class="cat-btn" data-cat="PH">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 21h18M3 7v14M21 7v14M6 7h12V3H6v4zM9 12h2v3H9v-3zm4 0h2v3h-2v-3z"/></svg>
+          <span data-i18n="cat_ph">PH</span>
+        </button>
+        <button class="cat-btn" data-cat="Terreno">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-2.5-4-5.5c-.5 3-2 3.9-4 5.5S6 13 6 15a7 7 0 0 0 7 7z"/></svg>
+          <span data-i18n="cat_terreno">Terrenos</span>
+        </button>
+        <button class="cat-btn" data-cat="Oficina">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          <span data-i18n="cat_oficina">Oficinas</span>
+        </button>
+        <button class="cat-btn" data-cat="Local">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/><path d="M12 2v10"/></svg>
+          <span data-i18n="cat_local">Locales</span>
+        </button>
+        <button class="cat-btn" data-cat="Galpón">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 21h18M3 10l9-6 9 6v11H3V10z"/><path d="M9 21v-8h6v8"/></svg>
+          <span data-i18n="cat_galpon">Galpones</span>
+        </button>
+        <button class="cat-btn" data-cat="Estancia">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94.77z"/><path d="M10.7 13.3a1 1 0 0 0 0-1.4l-1.6-1.6a1 1 0 0 0-1.4 0l-3.77 3.77a6 6 0 0 1 7.94-.77z"/></svg>
+          <span data-i18n="cat_estancia">Estancias</span>
+        </button>
+      </div>
+
+      <!-- Feed Toggle (Organic vs Premium Scraped Radar) -->
+      <div class="feed-toggle-container">
+        <button class="feed-toggle-btn active" id="feed-toggle-organic" data-source="organic">
+          <span data-i18n="community_ads"> Anuncios de la Comunidad</span>
+        </button>
+        <button class="feed-toggle-btn" id="feed-toggle-scraped" data-source="scraped">
+          <span data-i18n="radar_opps"> Radar de Oportunidades</span>
+          <span class="pro-tag trial" data-i18n="pro_tag_trial">3 gratis</span>
+        </button>
+      </div>
+
+      <!-- Info Banner explaining Radar PRO -->
+      <div id="radar-info-banner" class="hidden" style="background: linear-gradient(135deg, rgba(255, 224, 125, 0.12), rgba(212, 175, 55, 0.12)); border: 1.5px solid #d4af37; border-radius: 18px; padding: 1.2rem; margin: 1rem 0 1.5rem 0; display: flex; align-items: flex-start; gap: 12px; box-shadow: 0 4px 15px rgba(212,175,55,0.05);">
+        <div style="font-size: 1.5rem; line-height: 1;"></div>
+        <div style="text-align: left;">
+          <h4 style="margin: 0 0 4px; font-weight: 800; color: #b45309; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.95rem;" data-i18n="radar_info_title">Radar de Oportunidades PRO</h4>
+          <p style="margin: 0; font-size: 0.82rem; color: #92400e; line-height: 1.4; font-weight: 500;" data-i18n="radar_info_desc">
+            Este radar recopila y analiza en tiempo real publicaciones inmobiliarias de múltiples portales en Paraguay. Filtra y destaca automáticamente propiedades que se encuentran <strong>subvaluadas</strong> (bajo el precio promedio por m² de su zona) o que ofrecen una <strong>alta rentabilidad (ROI estimado &gt;7% anual)</strong>.
+          </p>
+        </div>
+      </div>
+
+      <!-- Propiedades destacadas -->
+      <div class="section-header">
+        <h2 data-i18n="featured_properties">Propiedades Destacadas</h2>
+        <span class="results-count" id="results-count">12 resultados</span>
+      </div>
+      <div class="properties-grid" id="properties-grid"></div>
+
+      <!-- Market Pulse -->
+      <div class="section-header" style="margin-top:2.5rem">
+        <h2 data-i18n="market_pulse">Pulso del Mercado</h2>
+        <span class="badge-live" data-i18n="live">● EN VIVO</span>
+      </div>
+      <div class="market-cards">
+        <div class="market-card up">
+          <div class="market-card-header">
+            <span class="market-zone">Villa Morra</span>
+            <span class="market-change">▲ 3.2%</span>
+          </div>
+          <div class="market-price">USD 1,650 <small>/m²</small></div>
+          <div class="market-bar">
+            <div class="market-bar-fill" style="width:78%"></div>
+          </div>
+          <span class="market-label" data-i18n="market_high_demand">Alta demanda</span>
+        </div>
+        <div class="market-card up">
+          <div class="market-card-header">
+            <span class="market-zone">Carmelitas</span>
+            <span class="market-change">▲ 1.8%</span>
+          </div>
+          <div class="market-price">USD 1,580 <small>/m²</small></div>
+          <div class="market-bar">
+            <div class="market-bar-fill" style="width:65%"></div>
+          </div>
+          <span class="market-label" data-i18n="market_medium_demand">Demanda media</span>
+        </div>
+        <div class="market-card down">
+          <div class="market-card-header">
+            <span class="market-zone">Asunción Centro</span>
+            <span class="market-change">▼ 0.5%</span>
+          </div>
+          <div class="market-price">USD 1,150 <small>/m²</small></div>
+          <div class="market-bar">
+            <div class="market-bar-fill" style="width:42%"></div>
+          </div>
+          <span class="market-label" data-i18n="market_opportunity">Oportunidad</span>
+        </div>
+        <div class="market-card up">
+          <div class="market-card-header">
+            <span class="market-zone">Las Mercedes</span>
+            <span class="market-change">▲ 2.1%</span>
+          </div>
+          <div class="market-price">USD 1,400 <small>/m²</small></div>
+          <div class="market-bar">
+            <div class="market-bar-fill" style="width:88%"></div>
+          </div>
+          <span class="market-label" data-i18n="market_very_high_demand">Muy alta demanda</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== VIEW: MAP ===== -->
+    <section class="view" id="view-map">
+      <div class="map-container">
+        <!-- Floating Map Search Bar -->
+        <div class="map-search-container">
+          <svg class="map-search-icon" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="map-search-input" data-i18n="map_search_placeholder" placeholder="Buscar propiedades en el mapa..." autocomplete="off" />
+          <button class="map-search-clear hidden" id="map-search-clear-btn" data-i18n-title="clear_search_tooltip" title="Limpiar búsqueda">✕</button>
+        </div>
+        <div id="map"></div>
+        <div class="map-sidebar">
+          <div class="map-sidebar-header" id="map-sidebar-header-btn">
+            <span class="mobile-drag-handle"></span>
+            <h3 data-i18n="props_in_view">Propiedades en vista</h3>
+          </div>
+          <!-- Map Feed Toggle -->
+          <div class="map-feed-toggle-container">
+            <button class="map-toggle-btn active" id="map-toggle-organic" data-source="organic" data-i18n="map_community">
+               Comunidad
+            </button>
+            <button class="map-toggle-btn" id="map-toggle-scraped" data-source="scraped">
+              <span data-i18n="map_radar"> Radar PRO</span>
+              <span class="pro-tag" data-i18n="pro_badge">PRO</span>
+            </button>
+          </div>
+          <!-- Filtros del Inversor (ROI, Bajo Valor) -->
+          <div class="investor-filter-panel" style="padding:1.2rem 1.5rem; border-bottom:1px solid var(--border); background:var(--surface2)">
+            <h4 style="margin:0 0 0.8rem; font-size:0.85rem; font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; color:var(--text2); text-transform:uppercase; letter-spacing:0.5px; display:flex; align-items:center; gap:6px">
+              <span data-i18n="investment_filters"> Filtros de Inversión</span>
+              <button id="btn-map-glossary" style="background: none; border: none; padding: 2px; color: var(--text2); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; vertical-align: middle;" data-i18n-title="view_explanations_tooltip" title="Ver explicaciones">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+              </button>
+            </h4>
+            <div style="display:flex; gap:10px; flex-wrap:wrap">
+              <button class="investor-pill" id="filter-roi-btn"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" class="pill-icon"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg> <span data-i18n="high_roi">Alta Rentabilidad (>7%)</span></button>
+              <button class="investor-pill" id="filter-market-value-btn"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" class="pill-icon"><polygon points="6 3 18 3 22 9 12 21 2 9 6 3"/></svg> <span data-i18n="underpriced_short">Bajo Valor (Desc.)</span></button>
+              <button class="investor-pill premium-locked" id="filter-radar-broker-btn" style="background: linear-gradient(135deg, rgba(212,175,55,0.1), rgba(212,175,55,0.05)); border: 1px solid #D4AF37; color: #D4AF37;"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" class="pill-icon"><circle cx="12" cy="12" r="10"/><path d="M12 2v20M2 12h20M12 12l5-5"/></svg> <span data-i18n="radar_broker">Radar Broker</span></button>
+            </div>
+          </div>
+          <div id="map-list" class="map-list"></div>
+        </div>
+        <div class="map-controls">
+          <!-- Centrar en propiedades -->
+          <button class="map-ctrl-btn" id="map-center-btn" data-i18n-title="map_tooltip_center" title="Centrar en propiedades">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="3"/>
+              <line x1="12" y1="2" x2="12" y2="6"/>
+              <line x1="12" y1="18" x2="12" y2="22"/>
+              <line x1="2" y1="12" x2="6" y2="12"/>
+              <line x1="18" y1="12" x2="22" y2="12"/>
+            </svg>
+          </button>
+          <!-- Toggle satélite -->
+          <button class="map-ctrl-btn" id="map-satellite-btn" data-i18n-title="map_tooltip_satellite" title="Vista satélite">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/>
+              <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+          </button>
+          <!-- Toggle heatmap -->
+          <button class="map-ctrl-btn" id="map-heatmap-toggle" data-i18n-title="map_tooltip_heatmap" title="Zonas de demanda">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+              <path d="M12 18c3.314 0 6-2.686 6-6s-2.686-6-6-6-6 2.686-6 6 2.686 6 6 6z" fill-opacity="0.3"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== VIEW: FAVORITES ===== -->
+    <section class="view" id="view-favorites">
+      <div class="section-header">
+        <h2 data-i18n="my_favorites">Mis Favoritos</h2>
+      </div>
+      <div class="properties-grid" id="favorites-grid">
+        <div class="empty-state">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+          </svg>
+          <p data-i18n="empty_favs_desc">Guardá propiedades para verlas aquí</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== VIEW: MESSAGES ===== -->
+    <section class="view" id="view-messages">
+      <div class="messages-layout">
+        <div class="conversations-list">
+          <div class="conv-header">
+            <h3 data-i18n="messages_title">Mensajes</h3>
+          </div>
+          <div id="conv-list"></div>
+        </div>
+        <div class="chat-area" id="chat-area">
+          <div class="chat-placeholder" style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;text-align:center;color:var(--text2);padding:2rem;">
+            <div style="background:var(--surface2);width:100px;height:100px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem;box-shadow:var(--shadow-sm);">
+              <svg viewBox="0 0 24 24" style="width:48px;height:48px;stroke:var(--accent);stroke-width:1.5;fill:none;">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                <path d="M8 9h8" />
+                <path d="M8 13h5" />
+              </svg>
+            </div>
+            <h3 style="color:var(--text);font-family:'Plus Jakarta Sans', sans-serif;font-weight:800;font-size:1.4rem;margin-bottom:0.5rem;" data-i18n="select_chat">Seleccioná una conversación</h3>
+            <p style="font-size:1rem;max-width:300px;line-height:1.5;">Tus mensajes, ofertas y contactos con dueños y brokers aparecerán aquí.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== VIEW: PUBLISH ===== -->
+    <section class="view" id="view-publish" style="position: relative;">
+      <div class="publish-content-wrapper publish-container">
+        <div class="publish-header">
+          <h2 data-i18n="publish_title">Publicar Propiedad</h2>
+          <p data-i18n="publish_subtitle">Completá los datos y llegá a miles de compradores</p>
+        </div>
+        
+        <!-- Tarjeta de Sincronización Masiva con Google Sheets (Colapsable) -->
+        <div class="google-sheets-sync-collapsible">
+          <button type="button" id="btn-toggle-sheets-sync" class="collapsible-header" style="width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 1.5rem; background: transparent; border: none; font-family: inherit; cursor: pointer; text-align: left; outline: none;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--text)" stroke-width="2" style="flex-shrink: 0;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+              <div>
+                <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.05rem; font-weight: 800; color: var(--text); margin: 0; display: flex; align-items: center; gap: 8px;">
+                  <span data-i18n="sheets_sync_title">Sincronización Masiva (Google Sheets)</span>
+                  <span style="font-size: 0.7rem; background: #D4AF37; color: white; padding: 2px 6px; border-radius: 6px; font-weight: 800;"> PRO</span>
+                </h3>
+                <p style="font-size: 0.8rem; color: var(--text2); margin: 2px 0 0 0;" data-i18n="sheets_sync_desc">Cargar propiedades desde una planilla de cálculo pública</p>
+              </div>
+            </div>
+            <svg id="sheets-chevron" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--text2)" stroke-width="2.5" style="transition: transform 0.3s; flex-shrink: 0;"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          
+          <div id="sheets-sync-content" class="hidden" style="padding: 0 1.5rem 1.5rem 1.5rem; border-top: 1px solid var(--border); background: rgba(255,255,255,0.4);">
+            <p style="font-size: 0.85rem; color: var(--text2); line-height: 1.5; margin: 1rem 0 1.2rem 0;" data-i18n="sheets_sync_help">
+              Podés gestionar todas tus propiedades en tiempo real usando Google Sheets. Creá una planilla con las columnas requeridas (id, title, type, op, price, m2, rooms, baths, address, description, lat, lng, image), publicala como CSV en la web y pegá el enlace aquí.
+            </p>
+            <div class="sync-card-body" style="display: flex; gap: 10px; flex-wrap: wrap;">
+              <input type="text" id="sheets-sync-url" data-i18n="sheets_sync_placeholder" placeholder="Pegá el enlace de tu Google Sheet publicado..." style="flex: 1; min-width: 250px; padding: 12px 16px; border: 2px solid var(--border); border-radius: 10px; font-size: 0.9rem;" />
+              <button type="button" id="btn-sync-sheets" class="btn-primary-compact" data-i18n="sync_btn"> Sincronizar</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="publish-form-body">
+          <form id="publish-form">
+            <div class="form-section-title" data-i18n="photos_section"> Fotos de la propiedad</div>
+            <div class="image-upload-zone" id="image-upload-zone">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              <p data-i18n="upload_photos_label"><strong>Subí fotos</strong> o arrastrá aquí</p>
+              <p style="font-size:0.8rem" data-i18n="upload_photos_sub">JPG, PNG, WebP — máx. 5 fotos</p>
+              <input type="file" id="prop-image-input" accept="image/*" multiple style="display:none" />
+            </div>
+            <div class="image-preview" id="image-preview"></div>
+
+            <div class="form-section-title" data-i18n="data_section"> Datos del inmueble</div>
+            <div class="form-grid">
+              <div class="form-group full-width">
+                <label data-i18n="pub_field_title">Título del aviso *</label>
+                <input type="text" id="pub-title" data-i18n="pub_placeholder_title" placeholder="Ej: Hermoso departamento en Asunción con vista al río" required />
+              </div>
+              <div class="form-group">
+                <label data-i18n="pub_field_type">Tipo de propiedad *</label>
+                <select id="pub-type" required>
+                  <option value="Casa" data-i18n="cat_casa">Casa</option>
+                  <option value="Departamento" data-i18n="cat_depto" selected>Departamento</option>
+                  <option value="Dúplex" data-i18n="cat_duplex">Dúplex</option>
+                  <option value="Penthouse" data-i18n="cat_penthouse">Penthouse</option>
+                  <option value="PH" data-i18n="cat_ph">PH</option>
+                  <option value="Terreno" data-i18n="cat_terreno">Terreno</option>
+                  <option value="Oficina" data-i18n="cat_oficina">Oficina</option>
+                  <option value="Local" data-i18n="cat_local">Local</option>
+                  <option value="Galpón" data-i18n="cat_galpon">Galpón</option>
+                  <option value="Estancia" data-i18n="cat_estancia">Estancia</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label data-i18n="pub_field_op">Operación *</label>
+                <select id="pub-op" required>
+                  <option value="Venta" data-i18n="op_venta">Venta</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label data-i18n="pub_field_price">Precio (USD) *</label>
+                <input type="number" id="pub-price" placeholder="150000" min="1" required />
+              </div>
+              <div class="form-group">
+                <label data-i18n="pub_field_m2">Superficie total (m²) *</label>
+                <input type="number" id="pub-m2" placeholder="80" min="1" required />
+              </div>
+              <div class="form-group">
+                <label data-i18n="pub_field_rooms">Ambientes *</label>
+                <input type="number" id="pub-rooms" placeholder="3" min="1" max="20" required />
+              </div>
+              <div class="form-group">
+                <label data-i18n="pub_field_baths">Baños</label>
+                <input type="number" id="pub-baths" placeholder="2" min="1" max="10" value="1" />
+              </div>
+              <div class="form-group full-width">
+                <label data-i18n="pub_field_address">Dirección *</label>
+                <input type="text" id="pub-address" data-i18n="pub_placeholder_address" placeholder="Ej: Av. Mariscal López 1234, Asunción" required />
+              </div>
+              <div class="form-group full-width">
+                <label data-i18n="pub_field_desc">Descripción</label>
+                <textarea id="pub-desc" rows="4" data-i18n="pub_placeholder_desc" placeholder="Describí las características más destacadas..."></textarea>
+              </div>
+              <div class="form-group full-width">
+                <label data-i18n="pub_field_map">Ubicación en el mapa <span style="font-size:0.8rem;color:var(--text2);font-weight:500">— arrastrá el marcador para ajustar</span></label>
+                <div id="publish-map" class="publish-map-container"></div>
+              </div>
+            </div>
+            <button type="submit" class="btn-primary btn-large" id="pub-submit-btn" data-i18n="pub_submit">
+               Publicar propiedad
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== VIEW: ALERTS ===== -->
+    <section class="view" id="view-alerts">
+      <div class="alerts-page">
+
+        <!-- Header -->
+        <div class="alerts-page-header">
+          <div>
+            <h2 data-i18n="alerts_header_title">Centro de Alertas</h2>
+            <p data-i18n="alerts_header_desc">Configurá qué novedades querés recibir y cuándo</p>
+          </div>
+          <button class="btn-primary" id="btn-new-alert" style="flex-shrink:0">
+            <svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:white;stroke-width:2.5;fill:none;margin-right:6px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <span data-i18n="new_alert">Nueva alerta</span>
+          </button>
+        </div>
+
+        <!-- Create Alert Form Card -->
+        <div class="alert-form-card" id="alert-form-card">
+          <div class="alert-form-title">
+            <svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:var(--accent);stroke-width:2;fill:none"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <span data-i18n="create_new_alert">Crear nueva alerta</span>
+          </div>
+
+          <div class="alert-type-grid" id="alert-type-grid">
+            <button class="alert-type-btn active" data-type="price_drop">
+              <span class="alert-type-icon"></span>
+              <span class="alert-type-label" data-i18n="alert_type_price_drop">Baja de precio</span>
+              <span class="alert-type-hint" data-i18n="alert_type_price_drop_desc">Cuando una propiedad baja su precio en X%</span>
+            </button>
+            <button class="alert-type-btn" data-type="new_listing">
+              <span class="alert-type-icon"></span>
+              <span class="alert-type-label" data-i18n="alert_type_new_listing">Nueva propiedad</span>
+              <span class="alert-type-hint" data-i18n="alert_type_new_listing_desc">Cuando aparece un nuevo inmueble que coincide con tu búsqueda</span>
+            </button>
+            <button class="alert-type-btn" data-type="fav_update">
+              <span class="alert-type-icon"></span>
+              <span class="alert-type-label" data-i18n="alert_type_fav_update">Favs. actualizados</span>
+              <span class="alert-type-hint" data-i18n="alert_type_fav_update_desc">Cuando haya cambios en inmuebles de tus favoritos</span>
+            </button>
+            <button class="alert-type-btn premium-locked" data-type="flipping" style="background: rgba(212, 175, 55, 0.05); border: 1px dashed rgba(212, 175, 55, 0.5);">
+              <span class="alert-type-icon"></span>
+              <span class="alert-type-label" style="color: #D4AF37; font-weight: 800;" data-i18n="alert_type_flipping">Flipping & Remates <span style="font-size: 0.7rem; background: #D4AF37; color: white; padding: 2px 6px; border-radius: 10px; margin-left: 5px;">PRO</span></span>
+              <span class="alert-type-hint" data-i18n="alert_type_flipping_desc">Notifica cuando se publique una propiedad un 20% por debajo de la tasación promedio de su zona</span>
+            </button>
+            <button class="alert-type-btn" data-type="zone_rise">
+              <span class="alert-type-icon"></span>
+              <span class="alert-type-label" data-i18n="alert_type_zone_rise">Zona en alza</span>
+              <span class="alert-type-hint" data-i18n="alert_type_zone_rise_desc">Cuando el precio promedio de una zona sube X%, para comprar antes</span>
+            </button>
+          </div>
+
+          <div class="alert-form-fields">
+            <div class="alert-field-row">
+              <div class="alert-field">
+                <label data-i18n="alert_field_zone">Zona / Barrio</label>
+                <select id="alert-zone">
+                  <option value="" data-i18n="alert_zone_all">Todas las zonas</option>
+                  <option value="Asunción Centro" data-i18n="city_asuncion_centro">Asunción Centro</option>
+                  <option value="San Lorenzo" data-i18n="city_san_lorenzo">San Lorenzo</option>
+                  <option value="Fernando de la Mora" data-i18n="city_fernando">Fernando de la Mora</option>
+                  <option value="Luque" data-i18n="city_luque">Luque</option>
+                  <option value="Lambaré" data-i18n="city_lambare">Lambaré</option>
+                  <option value="Capiatá" data-i18n="city_capiata">Capiatá</option>
+                  <option value="Villa Elisa" data-i18n="city_villa_elisa">Villa Elisa</option>
+                  <option value="Mariano Roque Alonso" data-i18n="city_mra">Mariano Roque Alonso</option>
+                </select>
+              </div>
+              <div class="alert-field">
+                <label data-i18n="filter_type">Tipo de propiedad</label>
+                <select id="alert-prop-type">
+                  <option value="" data-i18n="alert_type_any">Cualquier tipo</option>
+                  <option value="Departamento" data-i18n="cat_depto">Departamento</option>
+                  <option value="Casa" data-i18n="cat_casa">Casa</option>
+                  <option value="PH" data-i18n="cat_ph">PH</option>
+                  <option value="Terreno" data-i18n="cat_terreno">Terreno</option>
+                  <option value="Oficina" data-i18n="cat_oficina">Oficina</option>
+                </select>
+              </div>
+              <div class="alert-field">
+                <label data-i18n="filter_op">Operación</label>
+                <select id="alert-op">
+                  <option value="Venta" data-i18n="op_venta">Venta</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="alert-field-row">
+              <div class="alert-field">
+                <label data-i18n="filter_pmin">Precio mín. (USD)</label>
+                <input type="number" id="alert-pmin" data-i18n="placeholder_min" placeholder="Sin mínimo" min="0" />
+              </div>
+              <div class="alert-field">
+                <label data-i18n="filter_pmax">Precio máx. (USD)</label>
+                <input type="number" id="alert-pmax" data-i18n="placeholder_no_limit" placeholder="Sin máximo" min="0" />
+              </div>
+              <div class="alert-field">
+                <label data-i18n="alert_field_threshold">% de baja para notificar</label>
+                <select id="alert-threshold">
+                  <option value="1" data-i18n="alert_threshold_any">Cualquier baja</option>
+                  <option value="3">≥ 3%</option>
+                  <option value="5" selected>≥ 5%</option>
+                  <option value="10">≥ 10%</option>
+                  <option value="15">≥ 15%</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="alert-field-row">
+              <div class="alert-field" style="flex:2">
+                <label data-i18n="alert_field_name">Nombre de la alerta</label>
+                <input type="text" id="alert-name" data-i18n="alert_name_placeholder" placeholder="Ej: Dptos baratos en Asunción" />
+              </div>
+              <div class="alert-field">
+                <label data-i18n="alert_field_freq">Frecuencia</label>
+                <select id="alert-freq">
+                  <option value="instant" data-i18n="alert_freq_instant">Inmediata</option>
+                  <option value="daily" data-i18n="alert_freq_daily" selected>Diaria</option>
+                  <option value="weekly" data-i18n="alert_freq_weekly">Semanal</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="alert-form-actions">
+            <button class="btn-secondary" id="alert-cancel-btn" data-i18n="alert_cancel">Cancelar</button>
+            <button class="btn-primary" id="alert-save-btn">
+              <svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:white;stroke-width:2.5;fill:none"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="alert_save_btn">Guardar alerta</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Active Alerts List -->
+        <div class="alerts-section-title" data-i18n="alerts_active_title">Alertas activas</div>
+        <div id="alerts-list" class="alerts-list"></div>
+
+        <!-- Empty state -->
+        <div id="alerts-empty" class="alerts-empty" style="display:none">
+          <div class="alerts-empty-icon"></div>
+          <h3 data-i18n="alerts_empty">Sin alertas activas</h3>
+          <p data-i18n="alerts_empty_desc">Creá tu primera alerta y te avisamos cuando haya novedades que te interesen</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== VIEW: ANALYTICS ===== -->
+    <section class="view" id="view-analytics" style="position: relative;">
+      <div class="premium-locked-overlay hidden" id="analytics-paywall-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(12px); z-index: 500; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2rem;">
+        <div style="width:80px;height:80px;border-radius:24px;background:linear-gradient(135deg,#FFE07D,#D4AF37);display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem;box-shadow:0 10px 30px rgba(212,175,55,0.4);">
+          <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="#0f172a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <h2 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; background: linear-gradient(135deg, #FFE07D, #D4AF37); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 2rem; margin: 0 0 10px;" data-i18n="paywall_title">Contenido Exclusivo Premium</h2>
+        <p style="color: var(--text2); max-width: 420px; font-weight: 600; line-height: 1.6; margin: 0 0 2rem; font-size: 0.95rem;" data-i18n="paywall_desc">El panel de gráficos históricos, mapa de calor y tendencias de oferta está reservado para usuarios con membresía de Inversor Premium.</p>
+        <button class="btn-primary" id="btn-analytics-upgrade" style="padding: 14px 28px; border-radius: 12px; font-weight: 700; background: linear-gradient(135deg, #FFE07D, #D4AF37); color: #0f172a; border: none; box-shadow: 0 8px 20px rgba(212,175,55,0.25); cursor: pointer; transition: transform 0.2s;" data-i18n="paywall_upgrade_btn">
+          Obtener Acceso Premium
+        </button>
+      </div>
+      <div class="analytics-header">
+        <h2 data-i18n="analytics_title">Análisis de Mercado</h2>
+        <p data-i18n="analytics_subtitle">Datos actualizados en tiempo real para tomar las mejores decisiones</p>
+      </div>
+
+      <!-- Data Source Tabs for Analytics -->
+      <div class="data-source-tabs" id="analytics-source-tabs">
+        <button class="source-tab active" data-source="all">Vista Global</button>
+        <button class="source-tab" data-source="official">Red Verificada</button>
+        <button class="source-tab" data-source="radar">Datos Externos</button>
+        <button class="source-tab" data-source="estimation">Datos Locales</button>
+      </div>
+      <!-- Macro Intelligence Dashboard (Hidden by default, shown for 'official' / Red Verificada) -->
+      <div id="macro-intelligence-dashboard" class="macro-dashboard" style="display: none;">
+        <div class="macro-header">
+          <div class="macro-title-row">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            <h3 style="margin:0;font-size:1.3rem;font-weight:800;">Inteligencia Macro (Paraguay)</h3>
+          </div>
+          <p class="macro-subtitle" style="margin:5px 0 0 0;color:var(--text2);font-size:0.9rem;">Datos oficiales para toma de decisiones y validación de inversiones.</p>
+        </div>
+        
+        <div class="macro-cards-grid">
+          <div class="macro-card highlight">
+            <div class="macro-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+            <h4>IED Inmobiliaria</h4>
+            <div class="macro-value">USD 931M</div>
+            <p class="macro-trend positive">+15% vs 2023</p>
+          </div>
+          
+          <div class="macro-card">
+            <div class="macro-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+            <h4>Rentabilidad Forbes</h4>
+            <div class="macro-value">7.5% - 9%</div>
+            <p class="macro-desc">ROI bruto anual (USD)</p>
+          </div>
+          
+          <div class="macro-card" id="card-moody">
+            <div class="macro-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <h4>Grado Inversión</h4>
+            <div class="macro-value" id="val-moody">Baa3</div>
+            <p class="macro-desc">Moody's (Grado de Inversión)</p>
+          </div>
+          
+          <div class="macro-card">
+            <div class="macro-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <h4>Precio Promedio M²</h4>
+            <div class="macro-value">$1,385</div>
+            <p class="macro-desc">Asunción (Crecimiento +4%)</p>
+          </div>
+
+          <!-- Nuevos Cards Automáticos -->
+          <div class="macro-card" id="card-gdp">
+            <div class="macro-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg></div>
+            <h4>Crecimiento PIB</h4>
+            <div class="macro-value" id="val-gdp">--%</div>
+            <p class="macro-desc">Banco Mundial</p>
+          </div>
+          
+          <div class="macro-card" id="card-inflation">
+            <div class="macro-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <h4>Inflación IPC</h4>
+            <div class="macro-value" id="val-inflation">--%</div>
+            <p class="macro-desc">Meta BCP (Banco Mundial)</p>
+          </div>
+
+          <div class="macro-card" id="card-currencies" style="padding: 1rem;">
+            <h4 style="margin-bottom: 0.5rem; display: flex; align-items: center; gap: 6px;">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              Cotizaciones
+            </h4>
+            <div style="display: flex; flex-direction: column; gap: 6px; font-size: 0.9rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="color: var(--text2); font-weight: 600;">🇺🇸 USD</span>
+                <span id="val-usd" style="font-weight: 800; color: var(--text);">--</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="color: var(--text2); font-weight: 600;">🇪🇺 EUR</span>
+                <span id="val-eur" style="font-weight: 800; color: var(--text);">--</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="color: var(--text2); font-weight: 600;">🇧🇷 BRL</span>
+                <span id="val-brl" style="font-weight: 800; color: var(--text);">--</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="color: var(--text2); font-weight: 600;">🇧🇷 BRL</span>
+                <span id="val-brl" style="font-weight: 800; color: var(--text);">--</span>
+              </div>
+            </div>
+            <p class="macro-desc" style="margin-top: 8px;">Yahoo Finance (Actualizado hoy)</p>
+          </div>
+
+        </div>
+
+        <div class="macro-charts-row" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+          <!-- Chart 1: Evolución IED -->
+          <div class="analytics-card" style="margin:0;">
+            <h3 style="font-size:1.05rem; margin-bottom:1rem;">Evolución IED Inmobiliaria (BCP)</h3>
+            <div class="chart-wrapper" style="position: relative; width: 100%; height: 250px;">
+              <canvas id="macro-chart-ied"></canvas>
+            </div>
+          </div>
+          <!-- Chart 2: Comparativa ROI -->
+          <div class="analytics-card" style="margin:0;">
+            <h3 style="font-size:1.05rem; margin-bottom:1rem;">Comparativa ROI Regional</h3>
+            <div class="chart-wrapper" style="position: relative; width: 100%; height: 250px;">
+              <canvas id="macro-chart-roi"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Actionable Tools Grid -->
+        <h3 style="margin-bottom:1rem; font-size:1.2rem; font-weight:800;">Herramientas de Decisión Inmediata</h3>
+        <div class="macro-action-tools-grid" style="display:grid; grid-template-columns: 1fr 1.5fr; gap: 1.5rem; margin-bottom: 2rem;">
+          
+          <!-- Tool 1: Termómetro de Mercado -->
+          <div class="macro-tool-card" style="background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:1.5rem;">
+            <h4 style="margin:0 0 1rem 0; font-size:1rem; display:flex; align-items:center; gap:8px;">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg>
+              Termómetro de Mercado
+            </h4>
+            <div style="position:relative; height:120px; display:flex; flex-direction:column; justify-content:center; align-items:center;">
+              <div style="width:100%; background:#e2e8f0; height:12px; border-radius:6px; overflow:hidden; position:relative;">
+                <div style="position:absolute; top:0; left:0; height:100%; width:100%; background:linear-gradient(90deg, #3b82f6 0%, #10b981 50%, #ef4444 100%);"></div>
+                <div style="position:absolute; top:-2px; left:75%; width:4px; height:16px; background:#0f172a; border-radius:2px; box-shadow:0 0 0 2px white; transition:left 0.5s ease;" id="macro-thermometer-needle"></div>
+              </div>
+              <div style="display:flex; justify-content:space-between; width:100%; margin-top:8px; font-size:0.75rem; color:var(--text2); font-weight:600;">
+                <span>Favorable para Comprar<br>(Precios más bajos)</span>
+                <span style="text-align:right;">Favorable para Vender<br>(Alta demanda y precios)</span>
+              </div>
+            </div>
+            <div style="margin-top:1rem; padding:10px; background:rgba(16,185,129,0.1); border-radius:10px; text-align:center;">
+              <strong style="color:#10b981; font-size:0.9rem;">Recomendación: ALQUILAR / PLUSVALÍA</strong>
+              <p style="margin:4px 0 0 0; font-size:0.8rem; color:var(--text2);">Alta demanda de renta en zonas corporativas.</p>
+            </div>
+          </div>
+
+          <!-- Tool 2: Calculadora de ROI -->
+          <div class="macro-tool-card" style="background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:1.5rem; box-shadow: 0 4px 20px rgba(0,0,0,0.03); position:relative; overflow:hidden;">
+            <!-- Glow background -->
+            <div style="position:absolute; top:-50px; right:-50px; width:150px; height:150px; background:radial-gradient(circle, rgba(255,42,95,0.08) 0%, rgba(255,42,95,0) 70%); border-radius:50%; z-index:0;"></div>
+            
+            <h4 style="margin:0 0 1.2rem 0; font-size:1.05rem; display:flex; align-items:center; gap:8px; position:relative; z-index:1;">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--accent)" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg>
+              Calculadora de Inversión (Estándar Forbes)
+            </h4>
+            
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px; margin-bottom:1.5rem; position:relative; z-index:1;">
+              <div>
+                <label style="font-size:0.8rem; color:var(--text2); font-weight:600; margin-bottom:6px; display:block;">Precio Propiedad (USD)</label>
+                <div style="position:relative;">
+                  <span style="position:absolute; left:12px; top:50%; transform:translateY(-50%); color:var(--text2); font-weight:700;">$</span>
+                  <input type="number" id="macro-calc-price" value="150000" style="width:100%; padding:12px 12px 12px 30px; border-radius:12px; border:1px solid var(--border); background:var(--bg); font-weight:800; font-size:1.1rem; outline:none; transition:border-color 0.2s;">
+                </div>
+              </div>
+              <div>
+                <label style="font-size:0.8rem; color:var(--text2); font-weight:600; margin-bottom:6px; display:block;">ROI Esperado (%)</label>
+                <div style="position:relative;">
+                  <span style="position:absolute; right:12px; top:50%; transform:translateY(-50%); color:var(--text2); font-weight:700;">%</span>
+                  <input type="number" id="macro-calc-roi" value="8" step="0.5" style="width:100%; padding:12px 30px 12px 12px; border-radius:12px; border:1px solid var(--border); background:var(--bg); font-weight:800; font-size:1.1rem; outline:none; transition:border-color 0.2s;">
+                </div>
+              </div>
+            </div>
+            
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px; position:relative; z-index:1;">
+              
+              <!-- Left Card: Monthly Income -->
+              <div style="background:linear-gradient(145deg, rgba(16,185,129,0.08), rgba(16,185,129,0.02)); border:1px solid rgba(16,185,129,0.2); border-radius:16px; padding:16px; text-align:center; transition:transform 0.2s ease, box-shadow 0.2s ease; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
+                <span style="display:block; font-size:0.75rem; color:#10b981; font-weight:700; text-transform:uppercase; letter-spacing:0.5px;">Ingreso Mensual</span>
+                <span id="macro-calc-monthly" style="display:block; font-size:1.6rem; font-weight:800; color:#10b981; margin-top:8px;">USD 1,000</span>
+              </div>
+              
+              <!-- Right Card: ROI -->
+              <div style="background:linear-gradient(145deg, rgba(255,42,95,0.08), rgba(255,42,95,0.02)); border:1px solid rgba(255,42,95,0.2); border-radius:16px; padding:16px; text-align:center; transition:transform 0.2s ease, box-shadow 0.2s ease; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
+                <span style="display:block; font-size:0.75rem; color:#ff2a5f; font-weight:700; text-transform:uppercase; letter-spacing:0.5px;">Recupero</span>
+                <span id="macro-calc-years" style="display:block; font-size:1.6rem; font-weight:800; color:#ff2a5f; margin-top:8px;">12.5 Años</span>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+        <!-- Hot Zones -->
+        <h3 style="margin-bottom:1rem; font-size:1.2rem; font-weight:800;">Top Zonas de Inversión Recomendadas</h3>
+        <div class="macro-hotzones" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+          <!-- Hot Zone 1 -->
+          <div class="hotzone-card" style="background:linear-gradient(145deg, var(--surface), var(--bg)); border:1px solid var(--border); border-radius:16px; padding:1.2rem; position:relative; overflow:hidden;">
+            <div style="position:absolute; top:0; right:0; background:rgba(255,42,95,0.1); color:var(--accent); font-size:0.7rem; font-weight:800; padding:4px 10px; border-bottom-left-radius:12px;">TOP 1</div>
+            <h4 style="margin:0 0 4px 0; font-size:1.1rem; color:var(--text);">Eje Corporativo (Ykua Satí)</h4>
+            <p style="margin:0 0 12px 0; font-size:0.8rem; color:var(--text2);">Alta liquidez. Demanda ejecutiva y expatriados.</p>
+            <div style="display:flex; justify-content:space-between; margin-bottom:12px; font-size:0.85rem; font-weight:700;">
+              <span>ROI Proyectado: <span style="color:#10b981">8.5%</span></span>
+              <span>USD 1,800/m²</span>
+            </div>
+            <button class="btn-primary-compact w-100 btn-hotzone-filter" data-zone="Ycuá Satí" style="width:100%;">Explorar propiedades aquí</button>
+          </div>
+          <!-- Hot Zone 2 -->
+          <div class="hotzone-card" style="background:linear-gradient(145deg, var(--surface), var(--bg)); border:1px solid var(--border); border-radius:16px; padding:1.2rem; position:relative; overflow:hidden;">
+            <div style="position:absolute; top:0; right:0; background:rgba(16,185,129,0.1); color:#10b981; font-size:0.7rem; font-weight:800; padding:4px 10px; border-bottom-left-radius:12px;">TOP 2</div>
+            <h4 style="margin:0 0 4px 0; font-size:1.1rem; color:var(--text);">Villa Morra</h4>
+            <p style="margin:0 0 12px 0; font-size:0.8rem; color:var(--text2);">Epicentro comercial y residencial. Gran reventa.</p>
+            <div style="display:flex; justify-content:space-between; margin-bottom:12px; font-size:0.85rem; font-weight:700;">
+              <span>ROI Proyectado: <span style="color:#10b981">7.8%</span></span>
+              <span>USD 1,550/m²</span>
+            </div>
+            <button class="btn-primary-compact w-100 btn-hotzone-filter" data-zone="Villa Morra" style="width:100%;">Explorar propiedades aquí</button>
+          </div>
+          <!-- Hot Zone 3 -->
+          <div class="hotzone-card" style="background:linear-gradient(145deg, var(--surface), var(--bg)); border:1px solid var(--border); border-radius:16px; padding:1.2rem; position:relative; overflow:hidden;">
+            <div style="position:absolute; top:0; right:0; background:rgba(59,130,246,0.1); color:#3b82f6; font-size:0.7rem; font-weight:800; padding:4px 10px; border-bottom-left-radius:12px;">TOP 3</div>
+            <h4 style="margin:0 0 4px 0; font-size:1.1rem; color:var(--text);">Las Mercedes</h4>
+            <p style="margin:0 0 12px 0; font-size:0.8rem; color:var(--text2);">Zona emergente premium. Fuerte demanda joven.</p>
+            <div style="display:flex; justify-content:space-between; margin-bottom:12px; font-size:0.85rem; font-weight:700;">
+              <span>ROI Proyectado: <span style="color:#10b981">8.0%</span></span>
+              <span>USD 1,350/m²</span>
+            </div>
+            <button class="btn-primary-compact w-100 btn-hotzone-filter" data-zone="Las Mercedes" style="width:100%;">Explorar propiedades aquí</button>
+          </div>
+        </div>
+
+        <div class="macro-footer">
+          <p style="margin:0;font-size:0.85rem;color:var(--text2);display:flex;align-items:center;gap:6px;">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            Fuentes: REDIEX, BCP y Forbes (Datos proyectados al 2026). Las rentabilidades son brutas y estimativas.
+          </p>
+        </div>
+      </div>
+
+      <div id="standard-analytics-content">
+      <!-- Stats Grid for KPI Overview -->
+      <div class="analytics-stats-grid">
+        <div class="analytics-stat-card">
+          <div class="stat-icon">
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-label" data-i18n="stat_avg_price_label">Precio Promedio m²</span>
+            <span class="stat-val" id="stat-avg-price">USD 1,385</span>
+            <span class="stat-subtext text-up" data-i18n="stat_price_change">▲ 2.4% este mes</span>
+            <span class="source-badge est">Estimación de Oferta</span>
+          </div>
+        </div>
+        <div class="analytics-stat-card">
+          <div class="stat-icon">
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-label">
+              <span data-i18n="stat_avg_roi_label">Retorno Promedio (ROI)</span>
+              <span class="glossary-info-icon" data-glossary="roi" title="Ver definición de ROI">(?)</span>
+            </span>
+            <span class="stat-val" id="stat-avg-roi">7.2%</span>
+            <span class="stat-subtext text-up" data-i18n="stat_roi_yield">Rendimiento Alto</span>
+            <span class="source-badge est">Estimación de Oferta</span>
+          </div>
+        </div>
+        <div class="analytics-stat-card">
+          <div class="stat-icon">
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-label">
+              <span data-i18n="stat_opps_label">Oportunidades de Compra</span>
+              <span class="glossary-info-icon" data-glossary="underpriced" title="Ver definición">(?)</span>
+            </span>
+            <span class="stat-val" id="stat-underpriced-count">77</span>
+            <span class="stat-subtext text-accent" data-i18n="stat_discount">Descuento disponible</span>
+            <span class="source-badge algo">Algoritmo Radar</span>
+          </div>
+        </div>
+        <div class="analytics-stat-card" id="card-macro-embi">
+          <div class="stat-icon" style="background: rgba(59, 130, 246, 0.1); color: #3b82f6;">
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-label">
+              Riesgo País (EMBI)
+            </span>
+            <span class="stat-val" id="stat-macro-embi-val">150 pts</span>
+            <span class="stat-subtext text-up" id="stat-macro-embi-sub">Grado de Inversión (Baa3)</span>
+            <span class="source-badge verified" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">Oficial JP Morgan / Moody's</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="analytics-grid">
+        <!-- Interactive Heatmap Card -->
+        <div class="analytics-card wide">
+          <div class="heatmap-header-container">
+            <h3 data-i18n="heatmap_title">Mapa de Calor Interactivo</h3>
+            <div class="heatmap-controls-row">
+              <button class="heatmap-ctrl-btn active" data-metric="demand" data-i18n="heatmap_btn_demand">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px"><path d="M8.5 14.5A2.5 2.5 0 0011 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 01-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 002.5 2.5z"/></svg>Demanda
+              </button>
+              <button class="heatmap-ctrl-btn" data-metric="price" data-i18n="heatmap_btn_price">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Precios/m²
+              </button>
+              <button class="heatmap-ctrl-btn" data-metric="roi" data-i18n="heatmap_btn_roi">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>Rendimiento (ROI)
+              </button>
+            </div>
+          </div>
+          <div id="heatmap-container" style="height:350px;border-radius:16px;overflow:hidden;margin-bottom:1rem;"></div>
+          <div id="heatmap-legend" class="heatmap-legend-bar">
+            <!-- Dynamic Legend -->
+          </div>
+        </div>
+
+        <!-- Prices by Neighborhood / City -->
+        <div class="analytics-card wide">
+          <div class="card-header-flex" style="margin-bottom:1rem;">
+            <h3 data-i18n="chart_prices_title" style="margin-bottom:0;">Precio Promedio por Zona (USD/m²)</h3>
+            <div class="zone-view-tabs" id="price-view-tabs">
+              <button class="zone-tab-btn active" data-view="neighborhood" id="price-tab-neighborhoods">Barrios</button>
+              <button class="zone-tab-btn" data-view="city" id="price-tab-cities">Ciudades</button>
+            </div>
+          </div>
+          <div class="chart-wrapper" style="height: 280px;">
+            <canvas id="chart-prices"></canvas>
+          </div>
+          <p class="chart-explanation" id="price-chart-explanation" style="font-size:0.75rem;color:var(--text2);margin-top:0.8rem;text-align:center;">Muestra el precio promedio por metro cuadrado de los barrios más demandados, permitiendo identificar zonas subvaluadas.</p>
+        </div>
+
+        <!-- Macro vs Real ROI Projection -->
+        <div class="analytics-card wide">
+          <h3>Rentabilidad Promedio vs. Referencia del Sector</h3>
+          <div class="chart-wrapper" style="height: 280px;">
+            <canvas id="chart-macro"></canvas>
+          </div>
+          <p class="chart-explanation" style="font-size:0.75rem;color:var(--text2);margin-top:0.8rem;text-align:center;">Compara el retorno promedio estimado de las propiedades en la app vs. referencias externas del mercado regional.</p>
+        </div>
+
+        <!-- Distribution by type -->
+        <div class="analytics-card">
+          <h3 data-i18n="chart_types_title">Distribución de Oferta por Tipo</h3>
+          <div class="chart-wrapper">
+            <canvas id="chart-types"></canvas>
+          </div>
+          <p class="chart-explanation" style="font-size:0.75rem;color:var(--text2);margin-top:0.8rem;text-align:center;">Proporción de tipos de propiedades en el mercado (casas, departamentos, terrenos, etc.).</p>
+        </div>
+
+        <!-- Price Range Distribution -->
+        <div class="analytics-card">
+          <div class="card-header-flex" style="margin-bottom:0.8rem;">
+            <h3 data-i18n="chart_price_range_title" style="margin-bottom:0;">Distribución por Rango de Precio</h3>
+            <div class="zone-view-tabs" id="range-view-tabs">
+              <button class="zone-tab-btn active" data-view="neighborhood" id="range-tab-neighborhoods">Barrios</button>
+              <button class="zone-tab-btn" data-view="city" id="range-tab-cities">Ciudades</button>
+            </div>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="chart-ops"></canvas>
+          </div>
+          <p class="chart-explanation" id="range-chart-explanation" style="font-size:0.75rem;color:var(--text2);margin-top:0.8rem;text-align:center;">Volumen de propiedades en barrios de Asunción agrupadas por rango de precio (USD).</p>
+        </div>
+
+        <!-- Dynamic Neighborhood Rankings -->
+        <div class="analytics-card">
+          <div class="card-header-flex">
+            <h3 data-i18n="rank_neighborhoods_title" style="margin-bottom:0;" id="ranking-section-title">Ranking de Zonas</h3>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
+              <div class="zone-view-tabs" id="rank-view-tabs">
+                <button class="zone-tab-btn active" data-view="neighborhood" id="rank-tab-neighborhoods">Barrios</button>
+                <button class="zone-tab-btn" data-view="city" id="rank-tab-cities">Ciudades</button>
+              </div>
+              <div class="ranking-sort-options">
+                <button class="rank-sort-btn active" data-sort="roi" data-i18n="roi_label">ROI</button>
+                <button class="rank-sort-btn" data-sort="price" data-i18n="usd_m2_label">USD/m²</button>
+              </div>
+            </div>
+          </div>
+          <div class="ranking-list" id="neighborhood-ranking-list">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+
+        <!-- Interactive Calculator -->
+        <div class="analytics-card">
+          <h3 data-i18n="calc_title" style="display:flex;align-items:center;gap:8px;">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg>
+            Validador Inteligente de Inversión
+          </h3>
+          <p style="font-size:0.8rem; color:var(--text2); margin-top:-0.8rem; margin-bottom:1.2rem; font-weight: 500;" data-i18n="calc_subtitle">
+            Evaluá al instante el precio y rentabilidad de cualquier propiedad.
+          </p>
+          <div class="calculator-form">
+            <div class="calc-row">
+              <div class="calc-group">
+                <label data-i18n="calc_label_zone">Barrio</label>
+                <select id="calc-zone" style="width:100%; padding:10px; border-radius:10px; border:1px solid var(--border); background:var(--surface); font-weight:700; color:var(--text)">
+                  <option value="Villa Morra">Villa Morra</option>
+                  <option value="Carmelitas">Carmelitas</option>
+                  <option value="Las Mercedes">Las Mercedes</option>
+                  <option value="Ycuá Satí">Ycuá Satí</option>
+                  <option value="Luque">Luque</option>
+                  <option value="Lambaré">Lambaré</option>
+                  <option value="Centro">Asunción Centro</option>
+                </select>
+              </div>
+            </div>
+            <div class="calc-row" style="display:flex; gap:10px; margin-top:10px">
+              <div class="calc-group" style="flex:1">
+                <label data-i18n="calc_label_price">Precio (USD)</label>
+                <input type="number" id="calc-price" value="120000" style="width:100%; padding:10px; border-radius:10px; border:1px solid var(--border); font-weight:700" />
+              </div>
+              <div class="calc-group" style="flex:1">
+                <label data-i18n="calc_label_m2">Superficie (m²)</label>
+                <input type="number" id="calc-m2" value="75" style="width:100%; padding:10px; border-radius:10px; border:1px solid var(--border); font-weight:700" />
+              </div>
+            </div>
+            <div class="calc-results-box" style="margin-top:1.5rem; padding:1.2rem; background:var(--surface2); border-radius:16px; border:1px solid var(--border);">
+              <div class="calc-res-item" style="display:flex; justify-content:space-between; margin-bottom:8px">
+                <span style="font-size:0.85rem; color:var(--text2); font-weight:600" data-i18n="calc_label_price_m2">Precio por m²:</span>
+                <span id="calc-res-m2price" style="font-weight:800; color:var(--text)">USD 1,600/m²</span>
+              </div>
+              <div class="calc-res-item" style="display:flex; justify-content:space-between; margin-bottom:8px">
+                <span style="font-size:0.85rem; color:var(--text2); font-weight:600" data-i18n="calc_label_deviation">Desvío de Mercado:</span>
+                <span id="calc-res-deviation" style="font-weight:800; color:#10b981">-3% bajo promedio</span>
+              </div>
+              <div class="calc-res-item" style="display:flex; justify-content:space-between; margin-bottom:8px">
+                <span style="font-size:0.85rem; color:var(--text2); font-weight:600" data-i18n="calc_label_roi">ROI Anual Estimado:</span>
+                <span id="calc-res-roi" style="font-weight:800; color:#10b981">7.0%</span>
+              </div>
+              <div class="calc-res-verdict" id="calc-res-verdict" style="margin-top:12px; padding:8px 12px; border-radius:8px; text-align:center; font-size:0.8rem; font-weight:800; background:rgba(16,185,129,0.1); color:#10b981" data-i18n="calc_verdict_placeholder">
+                 COMPRA RECOMENDADA (Buen ROI y valor acorde)
+              </div>
+              
+              <!-- Detailed investment outlook block -->
+              <div id="calc-detailed-outlook-box" style="margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--border); display: none; flex-direction: column; gap: 8px;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <span style="font-size:0.8rem; color:var(--text2); font-weight:600" data-i18n="calc_days_to_sell">Tiempo de Venta Estimado:</span>
+                  <span id="calc-res-days-to-sell" style="font-weight:700; color:var(--text); font-size:0.8rem;">-</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <span style="font-size:0.8rem; color:var(--text2); font-weight:600" data-i18n="calc_market_trend">Tendencia del Mercado:</span>
+                  <span id="calc-res-market-trend" style="font-weight:700; color:var(--text); font-size:0.8rem;">-</span>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:4px; margin-top:4px;">
+                  <span style="font-size:0.8rem; color:var(--text2); font-weight:600" data-i18n="calc_recommendation_outlook">Perspectiva de Inversión:</span>
+                  <p id="calc-res-outlook-desc" style="font-size:0.78rem; color:var(--text); line-height:1.4; margin:0; font-weight:500; text-align:left;"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+      </div>
+    </section>
+
+    <!-- ===== VIEW: BROKER PRO ===== -->
+    <section class="view" id="view-broker" style="position: relative; overflow-x: hidden; background: var(--bg);">
+      
+      <!-- Premium Mesh Background -->
+      <div class="broker-mesh-bg"></div>
+
+      <!-- Paywall overlay (hidden by default) -->
+      <div class="premium-locked-overlay hidden" id="broker-paywall-overlay">
+        <div style="font-size:4rem;margin-bottom:1rem;"></div>
+        <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.8rem;margin-bottom:12px;">Acceso Exclusivo PRO</h2>
+        <p style="color:var(--text2);max-width:380px;line-height:1.6;margin-bottom:2rem;">Las herramientas de captación de leads, embudos marca blanca y radar predictivo son exclusivas para Brokers Premium.</p>
+        <button class="btn-primary" style="padding:14px 28px;border-radius:12px;font-weight:700;border:none;cursor:pointer;">Obtener Acceso Premium</button>
+      </div>
+      
+      <div class="broker-content-wrapper">
+
+        <!-- ══ HEADER ══ -->
+        <div class="broker-header stagger-in">
+          <div>
+            <h2 class="broker-main-title">
+              <span class="text-gradient">Broker PRO</span>
+              <span class="vip-badge">PRO</span>
+            </h2>
+            <p class="broker-subtitle">Leads · Alertas de Oportunidad · Tasación IA · Embudos</p>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+            <button onclick="if(window.exportLeadsCSV) exportLeadsCSV()" style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:9px 16px;font-weight:700;font-size:.85rem;cursor:pointer;color:var(--text2);display:flex;align-items:center;gap:6px;">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Exportar CSV
+            </button>
+          </div>
+        </div>
+
+
+
+        <!-- ══ KPI STRIP ══ -->
+        <div class="broker-kpi-strip stagger-in">
+          <div class="broker-kpi-card">
+            <div class="broker-kpi-icon" style="background:rgba(255,42,95,.1);color:var(--accent);">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            </div>
+            <div>
+              <div class="broker-kpi-val" id="kpi-total-leads">—</div>
+              <div class="broker-kpi-label">Leads activos</div>
+            </div>
+          </div>
+          <div class="broker-kpi-card">
+            <div class="broker-kpi-icon" style="background:rgba(239,68,68,.1);color:#ef4444;">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0011 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 01-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 002.5 2.5z"/></svg>
+            </div>
+            <div>
+              <div class="broker-kpi-val" id="kpi-hot-leads">—</div>
+              <div class="broker-kpi-label">Leads calientes</div>
+            </div>
+          </div>
+          <div class="broker-kpi-card">
+            <div class="broker-kpi-icon" style="background:rgba(245,158,11,.1);color:#f59e0b;">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+            <div>
+              <div class="broker-kpi-val" id="kpi-owner-leads">—</div>
+              <div class="broker-kpi-label">Dueños directos</div>
+            </div>
+          </div>
+          <div class="broker-kpi-card">
+            <div class="broker-kpi-icon" style="background:rgba(16,185,129,.1);color:#10b981;">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+            </div>
+            <div>
+              <div class="broker-kpi-val" id="kpi-matches">—</div>
+              <div class="broker-kpi-label">Matches con tus props</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══ TABS ══ -->
+        <div class="broker-tabs stagger-in">
+          <button class="broker-tab-btn active glass-btn" data-target="broker-leads">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            <span>Leads en vivo</span>
+            <div class="tab-underline"></div>
+          </button>
+          <button class="broker-tab-btn glass-btn" data-target="broker-notifs">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <span>Centro</span>
+            <span id="broker-notif-badge" style="display:none;background:var(--accent);color:white;border-radius:100px;padding:1px 7px;font-size:0.7rem;font-weight:800;margin-left:4px;"></span>
+            <div class="tab-underline"></div>
+          </button>
+          <button class="broker-tab-btn glass-btn" data-target="broker-alert-config">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M20 12h-2M17.66 17.66l-1.41-1.41M12 20v-2M6.34 17.66l-1.41 1.41M4 12H2M6.34 6.34L4.93 4.93"/></svg>
+            <span>Mis Alertas</span>
+            <div class="tab-underline"></div>
+          </button>
+          <button class="broker-tab-btn glass-btn" data-target="broker-valuation">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><line x1="8" y1="16" x2="8" y2="16.01"/><line x1="16" y1="16" x2="16" y2="16.01"/></svg>
+            <span>Tasación IA</span>
+            <div class="tab-underline"></div>
+          </button>
+          <button class="broker-tab-btn glass-btn" data-target="broker-funnels">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+            <span>Embudos</span>
+            <div class="tab-underline"></div>
+          </button>
+        </div>
+
+        <!-- ── TAB 1: LEADS EN VIVO ── -->
+        <div class="broker-tab-content active" id="broker-leads">
+          <!-- Controls: filter + export inline in header -->
+          <div class="leads-header stagger-in">
+            <div>
+              <h3 class="leads-title">Bolsa de Compradores Activos</h3>
+              <p style="color:var(--text2);font-size:.88rem;margin-top:2px;">Compradores y dueños directos buscando propiedades ahora</p>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+              <!-- Filter toggle -->
+              <div class="toggle-group">
+                <button class="toggle-btn active" id="toggle-all-leads" onclick="setLeadFilter(false)">Todos</button>
+                <button class="toggle-btn" id="toggle-owner-leads" onclick="setLeadFilter(true)">
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:4px"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                  Dueño Directo
+                </button>
+              </div>
+              <div class="live-indicator">
+                <span class="live-dot pulse-animation"></span>
+                <span>En vivo</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="leads-grid" id="broker-leads-list">
+            <div id="broker-leads-scanner" class="glass-card stagger-in scanner-card" style="grid-column:1/-1;">
+              <div class="scanner-line"></div>
+              <svg viewBox="0 0 24 24" class="scanner-icon" stroke="currentColor" fill="none"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+              <p class="scanner-text">Conectando al mercado de leads...</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── TAB 2: CENTRO DE NOTIFICACIONES ── -->
+        <div class="broker-tab-content" id="broker-notifs" style="display:none;">
+          <div class="stagger-in" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;">
+            <div>
+              <h3 style="font-weight:800;font-size:1.3rem;">Centro de Oportunidades</h3>
+              <p style="color:var(--text2);font-size:.88rem;margin-top:3px;">Alertas de precio/m² y propiedades fuera de mercado detectadas por el sistema</p>
+            </div>
+            <button onclick="markAllBrokerNotifsRead()" style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:8px 16px;font-weight:700;font-size:0.85rem;cursor:pointer;color:var(--text2);white-space:nowrap;">
+              Marcar leídas
+            </button>
+          </div>
+          <div id="broker-notifs-list" class="stagger-in">
+            <!-- Populated by broker-alerts.js -->
+          </div>
+        </div>
+
+        <!-- ── TAB 3: MIS ALERTAS BROKER ── -->
+        <div class="broker-tab-content" id="broker-alert-config" style="display:none;">
+          <div class="stagger-in" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;">
+            <div>
+              <h3 style="font-weight:800;font-size:1.3rem;margin-bottom:4px;">Alertas de Mercado PRO</h3>
+              <p style="color:var(--text2);font-size:0.9rem;">Motor dinámico de precio/m² por zona — alertas aisladas del plan gratuito</p>
+            </div>
+            <button onclick="openCreateBrokerAlertModal()" style="background:var(--accent-gradient);color:white;border:none;border-radius:12px;padding:12px 20px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;white-space:nowrap;">
+              + Nueva Alerta
+            </button>
+          </div>
+          <div id="broker-alerts-list" class="stagger-in">
+            <!-- Populated by broker-alerts.js -->
+          </div>
+          
+          <div class="glass-card stagger-in" style="padding:1.5rem;margin-top:1.5rem;background:rgba(56,189,248,0.03);border-color:rgba(56,189,248,0.2);">
+            <div style="display:flex;gap:12px;align-items:flex-start;">
+              <div style="width:36px;height:36px;border-radius:10px;background:rgba(56,189,248,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+              </div>
+              <div>
+                <div style="font-weight:700;margin-bottom:4px;">Alertas completamente aisladas</div>
+                <p style="color:var(--text2);font-size:0.88rem;line-height:1.6;margin:0;">Estas alertas se guardan en <code style="background:var(--surface2);padding:1px 6px;border-radius:4px;font-size:0.8rem;">broker_alerts</code> y son independientes de las alertas del plan gratuito. Usan precio/m² dinámico calculado desde los datos reales del mercado.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── TAB 4: TASACIÓN POR IA ── -->
+        <div class="broker-tab-content" id="broker-valuation" style="display:none;">
+          <div id="broker-valuation-content">
+            <!-- Populated by broker-valuation.js -->
+          </div>
+        </div>
+
+        <!-- ── TAB 5: EMBUDOS ── -->
+        <div class="broker-tab-content" id="broker-funnels" style="display:none;">
+          <div class="glass-card tilt-card stagger-in funnel-hero-card">
+            <div class="funnel-hero-content">
+              <h3 class="funnel-title">Tu enlace de tasación Marca Blanca</h3>
+              <p class="funnel-desc">Comparte este enlace en tus redes. Los propietarios tasarán su casa gratis con IA y sus datos te llegarán como leads exclusivos.</p>
+              <div class="funnel-input-group">
+                <div class="glass-input-wrapper">
+                  <input type="text" id="broker-funnel-link" readonly value="https://geohogar.com/tasar/mi-perfil-pro" class="glass-input" />
+                </div>
+                <button class="btn-primary magnetic-btn copy-link-btn" onclick="navigator.clipboard.writeText(document.getElementById('broker-funnel-link').value); if(window.showToast) showToast('Enlace copiado!', 'success');">
+                  Copiar Enlace
+                </button>
+              </div>
+            </div>
+            <div class="funnel-hero-graphic">
+              <div class="graphic-circle pulse-animation"></div>
+              <div class="graphic-icon" style="display:flex;align-items:center;justify-content:center;">
+                <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+              </div>
+            </div>
+          </div>
+          
+          <h3 class="stats-section-title stagger-in">Métricas de Captación (Mes actual)</h3>
+          <div class="funnel-stats-grid stagger-in">
+            <div class="glass-card tilt-card stat-card">
+              <div class="stat-icon-wrapper" style="color: var(--accent); background: rgba(255, 42, 95, 0.1);">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              </div>
+              <div class="stat-number count-up" data-target="128">0</div>
+              <div class="stat-label">Visitas al embudo</div>
+            </div>
+            <div class="glass-card tilt-card stat-card">
+              <div class="stat-icon-wrapper" style="color: #10b981; background: rgba(16, 185, 129, 0.1);">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+              </div>
+              <div class="stat-number count-up" data-target="14">0</div>
+              <div class="stat-label">Tasaciones completadas</div>
+            </div>
+            <div class="glass-card tilt-card stat-card">
+              <div class="stat-icon-wrapper" style="color: #38bdf8; background: rgba(56, 189, 248, 0.1);">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+              </div>
+              <div class="stat-number count-up" data-target="3">0</div>
+              <div class="stat-label">Propiedades captadas</div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- end broker-content-wrapper -->
+    </section>
+
+    <!-- ===== VIEW: GLOSSARY ===== -->
+    <section class="view" id="view-glossary">
+      <div class="explore-hero-card" style="margin-bottom: 2rem;">
+        <div class="hero-bg-shapes">
+          <div class="hero-shape shape-1"></div>
+          <div class="hero-shape shape-2"></div>
+        </div>
+        <div class="hero-content">
+          <h1 data-i18n="help_title" style="margin: 0 0 6px 0;">Glosario & Manual de Uso</h1>
+          <p class="hero-subtitle" data-i18n="help_subtitle" style="margin-bottom: 0;">Todo lo que necesitas saber sobre los tecnicismos inmobiliarios y cómo dominar GeoHogar.</p>
+        </div>
+      </div>
+
+      <div class="feed-toggle-container" style="margin-bottom: 2rem; display: flex; gap: 10px;">
+        <button class="feed-toggle-btn active" id="help-tab-btn-glossary" onclick="window.switchHelpTab('glossary')">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" style="display:inline-block;vertical-align:middle;margin-right:8px"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" /><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" /></svg>
+          <span data-i18n="help_tab_glossary">Glosario de Términos</span>
+        </button>
+        <button class="feed-toggle-btn" id="help-tab-btn-guide" onclick="window.switchHelpTab('guide')">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" style="display:inline-block;vertical-align:middle;margin-right:8px"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+          <span data-i18n="help_tab_guide">Manual de la App</span>
+        </button>
+      </div>
+
+      <!-- Tab: Glossary of Terms -->
+      <div id="help-content-glossary" class="help-tab-panel">
+        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+          
+          <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.1rem; font-weight: 800; color: var(--text); border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; margin-top: 0.5rem; display: flex; align-items: center; gap: 8px;">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+            <span data-i18n="glossary_header_basics">Terminologías y Tecnicismos Básicos</span>
+          </div>
+
+          <!-- ROI -->
+          <div style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-left: 5px solid #10b981; border-radius: 12px; box-shadow: var(--shadow-sm); transition: transform 0.2s;">
+            <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: var(--text); font-size: 1.15rem; margin-bottom: 8px; display: flex; align-items: center; gap: 10px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+              <span data-i18n="glossary_roi_title">ROI (Retorno de Inversión)</span>
+            </h3>
+            <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin: 0; font-weight: 500;" data-i18n="glossary_roi_desc">
+              Mide la rentabilidad anual bruta estimada del alquiler en relación al precio de compra de la propiedad. Fórmula: (Alquiler Mensual × 12) / Precio de Compra. Un ROI mayor al 7.0% anual se considera un rendimiento alto y óptimo para inversiones inmobiliarias en Paraguay.
+            </p>
+          </div>
+
+          <!-- Bajo Valor de Mercado -->
+          <div style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-left: 5px solid #f59e0b; border-radius: 12px; box-shadow: var(--shadow-sm); transition: transform 0.2s;">
+            <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: var(--text); font-size: 1.15rem; margin-bottom: 8px; display: flex; align-items: center; gap: 10px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <span data-i18n="glossary_low_value_title">Bajo Valor de Mercado (Oportunidad)</span>
+            </h3>
+            <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin: 0; font-weight: 500;" data-i18n="glossary_low_value_desc">
+              Indica que el precio por metro cuadrado (USD/m²) de la propiedad está sustancialmente por debajo del promedio histórico estimado para esa misma zona y categoría de inmueble. Representa una compra con descuento inmediato y potencial de plusvalía a corto plazo.
+            </p>
+          </div>
+
+          <!-- Radar de Oportunidades -->
+          <div style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-left: 5px solid #6366f1; border-radius: 12px; box-shadow: var(--shadow-sm); transition: transform 0.2s;">
+            <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: var(--text); font-size: 1.15rem; margin-bottom: 8px; display: flex; align-items: center; gap: 10px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+              <span data-i18n="glossary_radar_title">Radar de Oportunidades</span>
+            </h3>
+            <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin: 0; font-weight: 500;" data-i18n="glossary_radar_desc">
+              Algoritmo inteligente de GeoHogar que escanea, procesa y filtra publicaciones de múltiples portales en tiempo real. Clasifica las propiedades destacando automáticamente aquellas subvaluadas o con altas tasas de retorno de inversión antes que nadie en el mercado.
+            </p>
+          </div>
+
+          <!-- Cap Rate -->
+          <div style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-left: 5px solid #06b6d4; border-radius: 12px; box-shadow: var(--shadow-sm); transition: transform 0.2s;">
+            <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: var(--text); font-size: 1.15rem; margin-bottom: 8px; display: flex; align-items: center; gap: 10px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+              <span data-i18n="glossary_cap_rate_title">Cap Rate (Tasa de Capitalización)</span>
+            </h3>
+            <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin: 0; font-weight: 500;" data-i18n="glossary_cap_rate_desc">
+              Indica el rendimiento neto anual de una propiedad alquilada. A diferencia del ROI bruto, el Cap Rate deduce todos los costos operativos (mantenimiento, expensas, impuestos e inactividad) del ingreso bruto anual. Fórmula: Ingreso Operativo Neto (NOI) / Valor del Inmueble.
+            </p>
+          </div>
+
+          <!-- Flipping Inmobiliario -->
+          <div style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-left: 5px solid #ec4899; border-radius: 12px; box-shadow: var(--shadow-sm); transition: transform 0.2s;">
+            <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: var(--text); font-size: 1.15rem; margin-bottom: 8px; display: flex; align-items: center; gap: 10px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+              <span data-i18n="glossary_flipping_title">Flipping Inmobiliario</span>
+            </h3>
+            <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin: 0; font-weight: 500;" data-i18n="glossary_flipping_desc">
+              Estrategia de inversión que consiste en adquirir inmuebles con alto descuento (comúnmente por debajo del valor de tasación) o que requieren reformas estéticas, para luego revenderlas a su verdadero valor de mercado en el menor tiempo posible, capturando una ganancia neta rápida.
+            </p>
+          </div>
+
+          <!-- Validador Inteligente -->
+          <div style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-left: 5px solid #8b5cf6; border-radius: 12px; box-shadow: var(--shadow-sm); transition: transform 0.2s;">
+            <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: var(--text); font-size: 1.15rem; margin-bottom: 8px; display: flex; align-items: center; gap: 10px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg>
+              <span data-i18n="glossary_val_title">Validador Inteligente</span>
+            </h3>
+            <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin: 0; font-weight: 500;" data-i18n="glossary_val_desc">
+              Algoritmo predictivo de tasación automática basado en IA. Analiza las dimensiones, ambientes y ubicación de cualquier propiedad para calcular su desvío porcentual respecto a la media de la zona, estimar el tiempo de venta promedio en días y emitir un veredicto de inversión.
+            </p>
+          </div>
+
+          <!-- Valor m2 -->
+          <div style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-left: 5px solid #14b8a6; border-radius: 12px; box-shadow: var(--shadow-sm); transition: transform 0.2s;">
+            <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: var(--text); font-size: 1.15rem; margin-bottom: 8px; display: flex; align-items: center; gap: 10px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/></svg>
+              <span data-i18n="glossary_m2_title">Valor del Metro Cuadrado (USD/m²)</span>
+            </h3>
+            <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin: 0; font-weight: 500;" data-i18n="glossary_m2_desc">
+              Métrica de comparación estándar en el rubro inmobiliario. Permite evaluar objetivamente la relación precio-tamaño de diferentes inmuebles eliminando el sesgo de la superficie total, permitiendo comparar de forma homogénea distintas ofertas de una misma zona.
+            </p>
+          </div>
+
+          <!-- Pulso de Mercado -->
+          <div style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-left: 5px solid #3b82f6; border-radius: 12px; box-shadow: var(--shadow-sm); transition: transform 0.2s;">
+            <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: var(--text); font-size: 1.15rem; margin-bottom: 8px; display: flex; align-items: center; gap: 10px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+              <span data-i18n="glossary_pulse_title">Muestra y Pulso del Mercado</span>
+            </h3>
+            <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin: 0; font-weight: 500;" data-i18n="glossary_pulse_desc">
+              Indicadores estadísticos del comportamiento del mercado inmobiliario. Se alimentan de la agregación de cientos de anuncios en vivo en Paraguay para establecer el precio promedio real de cada barrio, tasas de demanda y variaciones porcentuales mensuales.
+            </p>
+          </div>
+
+          <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.1rem; font-weight: 800; color: var(--text); border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; margin-top: 1.5rem; display: flex; align-items: center; gap: 8px;">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#D4AF37" stroke-width="2.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+            <span data-i18n="glossary_header_premium">Servicios del Modo de Pago (Plan Inversor Premium)</span>
+          </div>
+
+          <!-- Membresia Premium -->
+          <div style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-left: 5px solid #D4AF37; border-radius: 12px; box-shadow: var(--shadow-sm); transition: transform 0.2s;">
+            <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: #b45309; font-size: 1.15rem; margin-bottom: 8px; display: flex; align-items: center; gap: 10px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+              <span data-i18n="glossary_premium_title">Membresía Inversor Premium</span>
+            </h3>
+            <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin: 0; font-weight: 500;" data-i18n="glossary_premium_desc">
+              Plan de suscripción diseñado para compradores e inversores inmobiliarios. Desbloquea el acceso ilimitado al Radar de Oportunidades (anuncios web externos filtrados por ROI y descuento), el Validador de Precios detallado con desglose de mercado, alertas de flipping y el Mapa de Calor de demanda.
+            </p>
+          </div>
+
+          <!-- Radar PRO -->
+          <div style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-left: 5px solid #D4AF37; border-radius: 12px; box-shadow: var(--shadow-sm); transition: transform 0.2s;">
+            <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: #b45309; font-size: 1.15rem; margin-bottom: 8px; display: flex; align-items: center; gap: 10px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+              <span data-i18n="glossary_premium_radar_title">Radar PRO sin límites</span>
+            </h3>
+            <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin: 0; font-weight: 500;" data-i18n="glossary_premium_radar_desc">
+              Accede al catálogo de propiedades analizadas y extraídas de múltiples portales externos en Paraguay. Filtra sin restricciones las oportunidades con ROI superior al 7% o descuentos superiores al 10% del precio de mercado.
+            </p>
+          </div>
+
+          <!-- Heatmaps Premium -->
+          <div style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-left: 5px solid #D4AF37; border-radius: 12px; box-shadow: var(--shadow-sm); transition: transform 0.2s;">
+            <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: #b45309; font-size: 1.15rem; margin-bottom: 8px; display: flex; align-items: center; gap: 10px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><circle cx="12" cy="12" r="3"/></svg>
+              <span data-i18n="glossary_premium_heatmap_title">Mapas de Calor Avanzados</span>
+            </h3>
+            <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin: 0; font-weight: 500;" data-i18n="glossary_premium_heatmap_desc">
+              Visualiza de forma gráfica en el mapa interactivo las zonas calientes de Asunción y principales urbes de Paraguay. Alterna capas de densidad de demanda de alquileres, precios por metro cuadrado y rendimientos promedio de rentabilidad.
+            </p>
+          </div>
+
+          <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.1rem; font-weight: 800; color: var(--text); border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; margin-top: 1.5rem; display: flex; align-items: center; gap: 8px;">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#b45309" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            <span data-i18n="glossary_header_broker">Herramientas para Profesionales (Plan Broker PRO)</span>
+          </div>
+
+          <!-- Plan Broker PRO -->
+          <div style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-left: 5px solid #b45309; border-radius: 12px; box-shadow: var(--shadow-sm); transition: transform 0.2s;">
+            <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: #b45309; font-size: 1.15rem; margin-bottom: 8px; display: flex; align-items: center; gap: 10px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+              <span data-i18n="glossary_broker_title">Plan Broker PRO</span>
+            </h3>
+            <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin: 0; font-weight: 500;" data-i18n="glossary_broker_desc">
+              Herramienta profesional avanzada diseñada exclusivamente para agentes inmobiliarios y brokers. Ofrece embudos de captación de propiedades directas de dueños, acceso directo a la bolsa de compradores en tiempo real, pines dorados de alta prioridad y herramientas de prospección comercial.
+            </p>
+          </div>
+
+          <!-- Bolsa de Compradores -->
+          <div style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-left: 5px solid #b45309; border-radius: 12px; box-shadow: var(--shadow-sm); transition: transform 0.2s;">
+            <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: #b45309; font-size: 1.15rem; margin-bottom: 8px; display: flex; align-items: center; gap: 10px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <span data-i18n="glossary_broker_leads_title">Bolsa de Compradores (Leads en Vivo)</span>
+            </h3>
+            <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin: 0; font-weight: 500;" data-i18n="glossary_broker_leads_desc">
+              Permite a los brokers ver en tiempo real qué tipo de propiedades están buscando los usuarios de GeoHogar en el mapa. Incluye detalles de presupuesto, zona de interés, y opción de contacto directo para ofrecer inmuebles de su propia cartera.
+            </p>
+          </div>
+
+          <!-- Funnel tasacion -->
+          <div style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-left: 5px solid #b45309; border-radius: 12px; box-shadow: var(--shadow-sm); transition: transform 0.2s;">
+            <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: #b45309; font-size: 1.15rem; margin-bottom: 8px; display: flex; align-items: center; gap: 10px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+              <span data-i18n="glossary_broker_funnel_title">Embudo de Tasación Marca Blanca</span>
+            </h3>
+            <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin: 0; font-weight: 500;" data-i18n="glossary_broker_funnel_desc">
+              Enlace web personalizable que el Broker puede compartir en sus redes sociales. Permite a los propietarios tasar su inmueble gratis con la IA de GeoHogar. A cambio, los datos de contacto del propietario y la tasación se envían en exclusiva al Broker para captar la propiedad.
+            </p>
+          </div>
+
+          <!-- Pines Dorados -->
+          <div style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-left: 5px solid #b45309; border-radius: 12px; box-shadow: var(--shadow-sm); transition: transform 0.2s;">
+            <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: #b45309; font-size: 1.15rem; margin-bottom: 8px; display: flex; align-items: center; gap: 10px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
+              <span data-i18n="glossary_broker_pines_title">Pines de Ubicación Dorados</span>
+            </h3>
+            <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin: 0; font-weight: 500;" data-i18n="glossary_broker_pines_desc">
+              Los anuncios publicados por Brokers PRO se destacan con un marcador dorado premium en el mapa principal y se posicionan al principio de la lista del explorador de propiedades, maximizando la exposición y clics de potenciales compradores.
+            </p>
+          </div>
+
+          <!-- Radar Predictivo -->
+          <div style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-left: 5px solid #b45309; border-radius: 12px; box-shadow: var(--shadow-sm); transition: transform 0.2s;">
+            <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: #b45309; font-size: 1.15rem; margin-bottom: 8px; display: flex; align-items: center; gap: 10px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+              <span data-i18n="glossary_broker_radar_title">Radar Predictivo de Prospección</span>
+            </h3>
+            <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin: 0; font-weight: 500;" data-i18n="glossary_broker_radar_desc">
+              Panel de analíticas avanzadas que muestra el balance entre oferta (propiedades en venta/alquiler) y demanda (búsquedas activas) en cada barrio, permitiendo identificar zonas de alta demanda insatisfecha para enfocar la captación de exclusivas.
+            </p>
+          </div>
+          <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.1rem; font-weight: 800; color: var(--text); border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; margin-top: 1.5rem; display: flex; align-items: center; gap: 8px;">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+            <span data-i18n="glossary_section_tags_title">Significado de Etiquetas y Distintivos</span>
+          </div>
+
+          <!-- ROI Tag -->
+          <div style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-left: 5px solid #10b981; border-radius: 12px; box-shadow: var(--shadow-sm);">
+            <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: var(--text); font-size: 1.15rem; margin-bottom: 8px; display: flex; align-items: center; gap: 10px;">
+              <span class="clean-badge badge-premium-green" style="font-size: 0.85rem; padding: 4px 8px; border-radius: 6px; display: inline-flex; align-items: center; gap: 4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>ROI %</span>
+              <span data-i18n="glossary_tag_roi_title">Etiqueta de Alta Rentabilidad (Verde)</span>
+            </h3>
+            <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin: 0; font-weight: 500;" data-i18n="glossary_tag_roi_desc">
+              Esta etiqueta verde en las tarjetas de propiedades destaca que el inmueble tiene un retorno de inversión anual estimado superior al 7.0%. Ideal para inversores que buscan flujo de caja rápido.
+            </p>
+          </div>
+
+          <!-- Discount Tag -->
+          <div style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-left: 5px solid #f59e0b; border-radius: 12px; box-shadow: var(--shadow-sm);">
+            <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: var(--text); font-size: 1.15rem; margin-bottom: 8px; display: flex; align-items: center; gap: 10px;">
+              <span class="clean-badge badge-premium-orange" style="font-size: 0.85rem; padding: 4px 8px; border-radius: 6px; display: inline-flex; align-items: center; gap: 4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 22l10-4 10 4L12 2z"/></svg>-%</span>
+              <span data-i18n="glossary_tag_discount_title">Etiqueta de Bajo Precio (Naranja)</span>
+            </h3>
+            <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin: 0; font-weight: 500;" data-i18n="glossary_tag_discount_desc">
+              Indica el porcentaje de descuento de la propiedad respecto al promedio por m² en la misma zona. Un valor de -15% significa que la propiedad está listada 15% más barata que la media del barrio.
+            </p>
+          </div>
+
+          <!-- GF Badge -->
+          <div style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-left: 5px solid #D4AF37; border-radius: 12px; box-shadow: var(--shadow-sm);">
+            <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: var(--text); font-size: 1.15rem; margin-bottom: 8px; display: flex; align-items: center; gap: 10px;">
+              <span class="clean-badge badge-gf-gold" style="font-size: 0.85rem; padding: 4px 8px; border-radius: 6px; display: inline-flex; align-items: center; gap: 4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>GF</span>
+              <span data-i18n="glossary_tag_gf_title">Insignia GF (Broker PRO)</span>
+            </h3>
+            <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin: 0; font-weight: 500;" data-i18n="glossary_tag_gf_desc">
+              Identifica las propiedades publicadas por agentes inmobiliarios suscritos a Broker PRO. Garantiza que la propiedad tiene intermediación profesional, documentación pre-verificada y respuesta rápida.
+            </p>
+          </div>
+
+          <!-- Premium Badge -->
+          <div style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-left: 5px solid #8b5cf6; border-radius: 12px; box-shadow: var(--shadow-sm);">
+            <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: var(--text); font-size: 1.15rem; margin-bottom: 8px; display: flex; align-items: center; gap: 10px;">
+              <span class="clean-badge badge-premium-gold" style="font-size: 0.85rem; padding: 4px 8px; border-radius: 6px; background: linear-gradient(135deg, #FFE07D, #D4AF37); color: #0f172a; display: inline-block;">Premium</span>
+              <span data-i18n="glossary_tag_premium_title">Insignia Inversor Premium</span>
+            </h3>
+            <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin: 0; font-weight: 500;" data-i18n="glossary_tag_premium_desc">
+              Distingue los anuncios publicados por usuarios con membresía Inversor Premium. Estas propiedades suelen contar con análisis de mercado adjuntos y priorización de contacto directo.
+            </p>
+          </div>
+
+          <!-- Type Badge -->
+          <div style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-left: 5px solid #6b7280; border-radius: 12px; box-shadow: var(--shadow-sm);">
+            <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: var(--text); font-size: 1.15rem; margin-bottom: 8px; display: flex; align-items: center; gap: 10px;">
+              <span class="clean-badge badge-type" style="font-size: 0.85rem; padding: 4px 8px; border-radius: 6px; display: inline-block; background: var(--surface2); color: var(--text2);">Departamento</span>
+              <span data-i18n="glossary_tag_type_title">Etiqueta de Tipo de Inmueble</span>
+            </h3>
+            <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin: 0; font-weight: 500;" data-i18n="glossary_tag_type_desc">
+              Etiqueta gris que indica el tipo de construcción o categoría del inmueble (Casa, Departamento, Dúplex, Terreno, Galpón, Oficina, etc.).
+            </p>
+          </div>
+
+          <!-- Operation Badge -->
+          <div style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-left: 5px solid #3b82f6; border-radius: 12px; box-shadow: var(--shadow-sm);">
+            <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: var(--text); font-size: 1.15rem; margin-bottom: 8px; display: flex; align-items: center; gap: 10px;">
+              <span class="clean-badge badge-op bg-red-soft" style="font-size: 0.85rem; padding: 4px 8px; border-radius: 6px; display: inline-block; color: #ff2a5f; background: rgba(255, 42, 95, 0.1);">Venta</span>
+              <span data-i18n="glossary_tag_op_title">Etiqueta de Tipo de Operación</span>
+            </h3>
+            <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin: 0; font-weight: 500;" data-i18n="glossary_tag_op_desc">
+              Diferencia visualmente entre inmuebles en Venta (color rojo suave) y Alquiler (color azul suave), permitiendo una rápida identificación en el feed o mapa.
+            </p>
+          </div>
+
+          <!-- Verified Badge -->
+          <div style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-left: 5px solid #3b82f6; border-radius: 12px; box-shadow: var(--shadow-sm);">
+            <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: var(--text); font-size: 1.15rem; margin-bottom: 8px; display: flex; align-items: center; gap: 10px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="none" style="display: inline-block; vertical-align: middle;"><path d="M12 2l2.36 1.48L17 3.03l1.16 2.65L20.88 7l-.6 2.87L22 12l-1.72 2.13.6 2.87-2.72 1.32L17 20.97l-2.64-.45L12 22l-2.36-1.48L7 20.97l-1.16-2.65L3.12 17l.6-2.87L2 12l1.72-2.13-.6-2.87 2.72-1.32L7 3.03l2.64.45L12 2z" fill="#3b82f6" /><path d="M9.5 12l1.83 1.83L15.5 9" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span data-i18n="glossary_tag_verified_title">Sello de Verificación de Identidad</span>
+            </h3>
+            <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin: 0; font-weight: 500;" data-i18n="glossary_tag_verified_desc">
+              Sello azul de verificación que aparece junto al nombre del publicador. Garantiza que GeoHogar ha validado la identidad del anunciante como Broker Verificado o Inversor Verificado.
+            </p>
+          </div>
+
+
+        </div>
+      </div>
+
+      <!-- Tab: User Guide -->
+      <div id="help-content-guide" class="help-tab-panel" style="display: none;">
+        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+          <!-- Step 1 -->
+          <div style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow-sm);">
+            <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: var(--accent); font-size: 1.15rem; margin-bottom: 10px;" data-i18n="guide_step1_title">
+              1. Buscar y Filtrar Oportunidades
+            </h3>
+            <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin: 0; font-weight: 500;" data-i18n="guide_step1_desc">
+              En el feed principal, puedes buscar por barrio o aplicar filtros independientes. El botón de **Alta Rentabilidad** destaca propiedades con ROI >7%, y el de **Bajo Valor** muestra inmuebles rebajados respecto al promedio.
+            </p>
+          </div>
+
+          <!-- Step 2 -->
+          <div style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow-sm);">
+            <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: var(--accent); font-size: 1.15rem; margin-bottom: 10px;" data-i18n="guide_step2_title">
+              2. Análisis en el Mapa y Heatmaps
+            </h3>
+            <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin: 0; font-weight: 500;" data-i18n="guide_step2_desc">
+              Usa la vista de Mapa para ubicar propiedades visualmente. Activa la capa de **Zonas de demanda (Heatmap)** para visualizar los barrios con mayor actividad, precios de metro cuadrado más altos o retornos de alquiler más convenientes.
+            </p>
+          </div>
+
+          <!-- Step 3 -->
+          <div style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow-sm);">
+            <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: var(--accent); font-size: 1.15rem; margin-bottom: 10px;" data-i18n="guide_step3_title">
+              3. Centro de Alertas en Tiempo Real
+            </h3>
+            <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin: 0; font-weight: 500;" data-i18n="guide_step3_desc">
+              Configura alertas para tus zonas preferidas. Elige qué te interesa (baja de precio de favoritos, nuevas propiedades, o alertas de flipping) y recibe avisos inmediatos en tu panel y correo para actuar antes que otros compradores.
+            </p>
+          </div>
+
+          <!-- Step 4 -->
+          <div style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow-sm);">
+            <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: var(--accent); font-size: 1.15rem; margin-bottom: 10px;" data-i18n="guide_step4_title">
+              4. Publicar y Sincronización Masiva
+            </h3>
+            <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin: 0; font-weight: 500;" data-i18n="guide_step4_desc">
+              Puedes publicar tus propiedades de forma individual llenando el formulario, o usar la opción PRO de **Sincronización con Google Sheets**. Simplemente publica tu planilla como CSV en la web y pégala para cargar todo tu catálogo en segundos.
+            </p>
+          </div>
+
+          <!-- Step 5 -->
+          <div style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow-sm);">
+            <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: var(--accent); font-size: 1.15rem; margin-bottom: 10px;" data-i18n="guide_step5_title">
+              5. Broker PRO y Tasador Inteligente
+            </h3>
+            <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin: 0; font-weight: 500;" data-i18n="guide_step5_desc">
+              Como Broker PRO, accede al listado de compradores activos buscando propiedades, o usa tu enlace de tasación de marca blanca. Compártelo en tus redes; los dueños tasarán sus casas gratis con IA y sus datos te llegarán directamente a ti.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- ===== GLOSSARY MODAL ===== -->
+  <div class="modal-overlay hidden" id="glossary-modal-overlay" style="z-index: 12000;">
+    <div class="modal" style="max-width: 600px; height: auto; max-height: 85vh; border-radius: 24px;">
+      <button class="modal-close" id="glossary-modal-close" style="top: 15px; right: 15px;">
+        <svg viewBox="0 0 24 24" width="20" height="20">
+          <line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2.5" />
+          <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2.5" />
+        </svg>
+      </button>
+      <div style="padding: 2.5rem 2rem 2rem 2rem; overflow-y: auto; flex: 1; -webkit-overflow-scrolling: touch;">
+        <h2 style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.6rem; font-weight: 800; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px; flex-shrink: 0;">
+          <span style="background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;" data-i18n="glossary_title">Glosario de Inversiones</span>
+        </h2>
+        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+          <div style="padding: 1.2rem; background: rgba(16, 185, 129, 0.08); border-left: 4px solid #10b981; border-radius: 0 16px 16px 0;">
+            <h4 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: #065f46; font-size: 1rem; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;" data-i18n="glossary_roi_title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+              ROI (Retorno de Inversión)
+            </h4>
+            <p style="font-size: 0.88rem; color: #047857; line-height: 1.5; margin: 0; font-weight: 500;" data-i18n="glossary_roi_desc">
+              Mide la rentabilidad anual estimada del alquiler en relación al precio de compra de la propiedad. Un ROI superior al 7% anual se considera alto y óptimo para inversores en Paraguay.
+            </p>
+          </div>
+          <div style="padding: 1.2rem; background: rgba(245, 158, 11, 0.08); border-left: 4px solid #f59e0b; border-radius: 0 16px 16px 0;">
+            <h4 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: #92400e; font-size: 1rem; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;" data-i18n="glossary_low_value_title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              Bajo Valor de Mercado
+            </h4>
+            <p style="font-size: 0.88rem; color: #b45309; line-height: 1.5; margin: 0; font-weight: 500;" data-i18n="glossary_low_value_desc">
+              Indica que el precio por metro cuadrado (USD/m²) de la propiedad está al menos un 8% por debajo del promedio de su misma categoría y zona. Representa una compra con descuento inmediato.
+            </p>
+          </div>
+          <div style="padding: 1.2rem; background: rgba(99, 102, 241, 0.08); border-left: 4px solid #6366f1; border-radius: 0 16px 16px 0;">
+            <h4 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: #3730a3; font-size: 1rem; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;" data-i18n="glossary_radar_title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+              Radar de Oportunidades
+            </h4>
+            <p style="font-size: 0.88rem; color: #4f46e5; line-height: 1.5; margin: 0; font-weight: 500;" data-i18n="glossary_radar_desc">
+              Algoritmo inteligente que busca, compara y filtra en tiempo real las publicaciones premium detectando desfases de precios y rentabilidad máxima para alertar a los inversores antes que nadie.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PROPERTY DETAIL MODAL ===== -->
+  <div class="modal-overlay hidden" id="modal-overlay">
+    <div class="modal" id="property-modal">
+      <button class="modal-close" id="modal-close">
+        <svg viewBox="0 0 24 24">
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      </button>
+      <div class="modal-gallery" id="modal-gallery"></div>
+      <div class="modal-body">
+        <div class="modal-main">
+          <div class="modal-badges" id="modal-badges"></div>
+          <h2 id="modal-title"></h2>
+          <p class="modal-address" id="modal-address"></p>
+          <div class="modal-price-row">
+            <span class="modal-price" id="modal-price"></span>
+            <button class="btn-fav-modal" id="modal-fav-btn" style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" /></svg>
+          <span data-i18n="modal_btn_save">Guardar</span>
+        </button>
+          </div>
+          <div class="modal-features" id="modal-features"></div>
+          <div class="modal-desc" id="modal-desc"></div>
+          <div class="modal-map-container">
+            <h3 data-i18n="location_title">Ubicación</h3>
+            <div id="modal-map"></div>
+          </div>
+        </div>
+        <div class="modal-sidebar">
+          <div class="agent-card">
+            <div class="agent-avatar" id="modal-agent-avatar"></div>
+            <div class="agent-info">
+              <p class="agent-name" id="modal-agent-name"></p>
+              <p class="agent-label" data-i18n="modal_verified_owner">Propietario verificado ✓</p>
+            </div>
+          </div>
+          <div class="contact-actions-grid" style="display:grid; grid-template-columns: 1fr; gap: 8px; margin: 15px 0;">
+            <button class="btn-primary btn-contact" id="modal-contact-btn" style="display:flex; align-items:center; justify-content:center; gap:8px; width:100%; border-radius:12px; padding:12px;">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <span data-i18n="chat_btn_internal">Contactar Propietario</span>
+            </button>
+            <a id="modal-whatsapp-btn" target="_blank" style="display:flex; align-items:center; justify-content:center; gap:8px; background:#25d366; color:white; border-radius:12px; padding:12px; font-weight:700; text-decoration:none; text-align:center; transition: opacity 0.2s; cursor:pointer;">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.625 1.45 5.24.002 9.5-4.254 9.503-9.495.002-2.54-1.02-4.928-2.877-6.78C16.04 2.476 13.655 1.45 11.12 1.45c-5.244 0-9.51 4.258-9.513 9.502-.002 1.725.457 3.41 1.32 4.903L1.93 20.25l4.717-1.096z"/></svg>
+              <span data-i18n="whatsapp_btn">WhatsApp</span>
+            </a>
+            <a id="modal-phone-btn" style="display:flex; align-items:center; justify-content:center; gap:8px; background:var(--surface2); color:var(--text); border:1.5px solid var(--border); border-radius:12px; padding:12px; font-weight:700; text-decoration:none; text-align:center; transition: all 0.2s; cursor:pointer;">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <span data-i18n="call_owner_btn">Llamar Propietario</span>
+            </a>
+          </div>
+          <div class="price-analysis">
+            <h4 data-i18n="modal_price_analysis">Análisis de precio</h4>
+            <div class="price-bar-wrapper">
+              <div class="price-bar-track">
+                <div class="price-bar-fill" id="modal-price-bar"></div>
+              </div>
+              <div class="price-labels">
+                <span data-i18n="price_level_low">Bajo</span><span data-i18n="price_level_avg">Mercado</span><span data-i18n="price_level_high">Alto</span>
+              </div>
+            </div>
+            <p class="price-insight" id="modal-price-insight"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== NOTIFICATION PANEL ===== -->
+  <div class="notif-panel hidden" id="notif-panel">
+    <div class="notif-header">
+      <h3 data-i18n="notif_title">Notificaciones</h3><button id="notif-close">✕</button>
+    </div>
+    <div class="notif-list" id="notif-list"></div>
+  </div>
+
+  <!-- ===== USER PROFILE PANEL ===== -->
+  <div class="profile-panel hidden" id="profile-panel">
+    <div class="profile-header">
+      <button class="profile-close" id="profile-close">✕</button>
+      <div class="profile-avatar-lg">CM</div>
+      <h3 class="profile-name">Carlos Martínez</h3>
+      <p class="profile-email">carlos@propmarket.com</p>
+      <span class="status-badge">● <span data-i18n="user_status_connected">Conectado</span></span>
+    </div>
+    
+    <div class="profile-details-card" style="padding: 1.2rem; background: var(--surface2); border-radius: 16px; margin: 15px; border: 1px solid var(--border); text-align: left;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+        <span style="font-size: 0.85rem; font-weight: 700; color: var(--text2);" data-i18n="membership_current">Membresía actual:</span>
+        <span id="profile-membership-badge" style="font-weight: 800; font-size: 0.75rem; padding: 4px 10px; border-radius: 100px; background: var(--border); color: var(--text); transition: all 0.2s;" data-i18n="status_standard">Estándar</span>
+      </div>
+      <div style="font-size: 0.8rem; color: var(--text2); line-height: 1.4; margin-bottom: 12px; font-weight: 500;" data-i18n="membership_desc">
+        Los inversores Premium tienen acceso completo al Radar de Oportunidades, ROI inteligente y analíticas en tiempo real.
+      </div>
+    </div>
+
+    <div style="padding: 0 15px; margin-top: auto; margin-bottom: 20px; display: flex; flex-direction: column; gap: 10px;">
+      <button class="logout-link" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; border-radius: 12px; padding: 12px; font-size: 0.9rem; font-weight: 700; background: transparent; border: 2px solid #ef4444; color: #ef4444; cursor: pointer; transition: all 0.2s;">
+        <span data-i18n="logout_btn"> Cerrar sesión</span>
+      </button>
+    </div>
+  </div>
+  <div class="overlay-bg hidden" id="overlay-bg"></div>
+
+  <!-- ===== MOBILE BOTTOM NAV ===== -->
+  <nav class="bottom-nav" id="bottom-nav">
+    <div class="bottom-nav-items">
+      <button class="bottom-nav-btn active" data-view="explore">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span data-i18n="nav_explore">Explorar</span>
+      </button>
+      <button class="bottom-nav-btn" data-view="map">
+        <svg viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+        <span data-i18n="nav_map">Mapa</span>
+      </button>
+      <button class="bottom-nav-btn publish-btn" data-view="publish">
+        <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        <span data-i18n="nav_publish">Publicar</span>
+      </button>
+      <button class="bottom-nav-btn" data-view="messages" style="position: relative;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
+        <span id="msg-badge-mobile" style="display:none; position:absolute; top:4px; right:12px; background:#ff2a5f; color:white; font-size:10px; font-weight:bold; padding:2px 5px; border-radius:10px;">0</span>
+        <span data-i18n="nav_messages">Mensajes</span>
+      </button>
+      <button class="bottom-nav-btn" id="mobile-profile-btn">
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span data-i18n="nav_profile">Perfil</span>
+      </button>
+    </div>
+  </nav>
+
+  </div><!-- End app-shell -->
+
+  <!-- Firebase App, Auth & Firestore SDK (UMD Compat) -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js" defer></script>
+
+  <!-- Firebase Auth Implementation -->
+  <script src="js/firebase-auth.js?v=23.9" defer></script>
+
+  <!-- Login UI controller -->
+  <script>
+    (function() {
+      function setLoading(btnTextId, spinnerId, loading) {
+        var btnText = document.getElementById(btnTextId);
+        var spinner = document.getElementById(spinnerId);
+        if (btnText) btnText.style.display = loading ? 'none' : 'inline';
+        if (spinner) spinner.style.display = loading ? 'inline-block' : 'none';
+      }
+      function showError(msg) {
+        var err = document.getElementById('login-error');
+        if (!err) return;
+        err.textContent = msg;
+        err.style.display = msg ? 'block' : 'none';
+        if (!msg) err.style.color = '';
+      }
+      function waitForFirebase() {
+        if (window.doLogin && window.doRegister && window.doGoogleSignIn) return true;
+        showError(window.t('auth_initializing'));
+        return false;
+      }
+      document.querySelectorAll('.login-tab').forEach(function(tab) {
+        tab.addEventListener('click', function() {
+          document.querySelectorAll('.login-tab').forEach(function(t) { t.classList.remove('active'); });
+          document.querySelectorAll('.login-form').forEach(function(f) { f.classList.remove('active'); });
+          tab.classList.add('active');
+          document.getElementById('form-' + tab.dataset.tab).classList.add('active');
+          showError('');
+        });
+      });
+      document.getElementById('form-login').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        if (!waitForFirebase()) return;
+        showError('');
+        var email = document.getElementById('login-email').value;
+        var pass = document.getElementById('login-password').value;
+        var remember = document.getElementById('login-remember') ? document.getElementById('login-remember').checked : true;
+        setLoading('login-btn-text', 'login-spinner', true);
+        try {
+          var err = await window.doLogin(email, pass, remember);
+          if (err) showError(err);
+        } catch(error) {
+          showError(window.t('auth_unexpected_login_err'));
+        } finally {
+          setLoading('login-btn-text', 'login-spinner', false);
+        }
+      });
+      document.getElementById('form-register').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        if (!waitForFirebase()) return;
+        showError('');
+        var name = document.getElementById('reg-name').value;
+        var email = document.getElementById('reg-email').value;
+        var pass = document.getElementById('reg-password').value;
+        if (pass.length < 6) return showError(window.t('auth_weak_password'));
+        setLoading('reg-btn-text', 'reg-spinner', true);
+        try {
+          var err = await window.doRegister(name, email, pass);
+          if (err) showError(err);
+        } catch(error) {
+          showError(window.t('auth_unexpected_reg_err'));
+        } finally {
+          setLoading('reg-btn-text', 'reg-spinner', false);
+        }
+      });
+      document.getElementById('google-signin-btn').addEventListener('click', async function() {
+        if (!waitForFirebase()) return;
+        showError('');
+        try {
+          var err = await window.doGoogleSignIn();
+          if (err) showError(err);
+        } catch(error) {
+          showError(window.t('auth_google_conn_err'));
+        }
+      });
+      document.getElementById('forgot-password').addEventListener('click', async function(e) {
+        e.preventDefault();
+        if (!waitForFirebase()) return;
+        var email = document.getElementById('login-email').value;
+        if (!email) return showError(window.t('auth_email_required'));
+        var err = await window.doResetPassword(email);
+        if (!err) {
+          document.getElementById('login-error').style.color = '#6ee7b7';
+          showError(' ' + window.t('auth_reset_email_sent'));
+        } else showError(err);
+      });
+      document.querySelectorAll('.logout-link').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          if (window.doLogout) window.doLogout();
+        });
+      });
+    })();
+  </script>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer></script>
+  <!-- ===== PREMIUM PAYWALL MODAL ===== -->
+  <div class="premium-modal-overlay hidden" id="premium-paywall-modal-overlay">
+    <div class="premium-modal-card" id="premium-paywall-modal">
+      <button class="premium-close-btn" id="premium-paywall-close">✕</button>
+      <div class="premium-crown-container"></div>
+      <h2 class="premium-title" data-i18n="premium_paywall_title">Acceso Inversor Premium</h2>
+      <p class="premium-description" data-i18n="premium_paywall_desc">Desbloqueá herramientas profesionales de inversión y tomá decisiones basadas en datos reales.</p>
+      <div class="premium-features-list">
+        <!-- Investor Features -->
+        <div class="premium-feature-item">
+          <div class="premium-feature-icon"></div>
+          <div class="premium-feature-text">
+            <span class="premium-feature-title" data-i18n="premium_feature_1_title">ROI Inteligente</span>
+            <span class="premium-feature-desc" data-i18n="premium_feature_1_desc">Filtro y cálculo de ROI exacto (>7.0% anual) para rentabilizar tu capital.</span>
+          </div>
+        </div>
+        <div class="premium-feature-item">
+          <div class="premium-feature-icon"></div>
+          <div class="premium-feature-text">
+            <span class="premium-feature-title" data-i18n="premium_feature_2_title">Propiedades Subvaluadas</span>
+            <span class="premium-feature-desc" data-i18n="premium_feature_2_desc">Detección automática de inmuebles por debajo del valor de mercado.</span>
+          </div>
+        </div>
+        <div class="premium-feature-item">
+          <div class="premium-feature-icon"></div>
+          <div class="premium-feature-text">
+            <span class="premium-feature-title" data-i18n="premium_feature_3_title">Analíticas en Tiempo Real</span>
+            <span class="premium-feature-desc" data-i18n="premium_feature_3_desc">Evolución de precios, gráficos interactivos y mapa de calor de demanda.</span>
+          </div>
+        </div>
+        
+        <!-- Broker PRO Features -->
+        <div class="premium-feature-item broker-feature">
+          <div class="premium-feature-icon"></div>
+          <div class="premium-feature-text">
+            <span class="premium-feature-title" data-i18n="premium_broker_feature_1_title">Bolsa de Compradores (Leads)</span>
+            <span class="premium-feature-desc" data-i18n="premium_broker_feature_1_desc">Accede a la demanda en tiempo real. Contacta compradores para ofrecer tu inventario publicado o privado.</span>
+          </div>
+        </div>
+        <div class="premium-feature-item broker-feature">
+          <div class="premium-feature-icon"></div>
+          <div class="premium-feature-text">
+            <span class="premium-feature-title" data-i18n="premium_broker_feature_2_title">Alertas de Flipping & Remates</span>
+            <span class="premium-feature-desc" data-i18n="premium_broker_feature_2_desc">Recibe avisos inmediatos cuando ingresen propiedades con grandes descuentos al mercado.</span>
+          </div>
+        </div>
+        <div class="premium-feature-item broker-feature">
+          <div class="premium-feature-icon"></div>
+          <div class="premium-feature-text">
+            <span class="premium-feature-title" data-i18n="premium_broker_feature_3_title">Posicionamiento Destacado</span>
+            <span class="premium-feature-desc" data-i18n="premium_broker_feature_3_desc">Tus propiedades aparecen primeras en el mapa con el pin dorado de Broker Verificado.</span>
+          </div>
+        </div>
+        <div class="premium-feature-item broker-feature">
+          <div class="premium-feature-icon"></div>
+          <div class="premium-feature-text">
+            <span class="premium-feature-title" data-i18n="premium_broker_feature_4_title">Embudos de Captación</span>
+            <span class="premium-feature-desc" data-i18n="premium_broker_feature_4_desc">Página de tasación marca blanca para captar exclusivos de dueños directos desde tus redes.</span>
+          </div>
+        </div>
+        <div class="premium-feature-item broker-feature">
+          <div class="premium-feature-icon"></div>
+          <div class="premium-feature-text">
+            <span class="premium-feature-title" data-i18n="premium_broker_feature_5_title">Radar Predictivo de Zonas</span>
+            <span class="premium-feature-desc" data-i18n="premium_broker_feature_5_desc">Visualiza barrios con alta demanda y baja oferta para enfocar tus esfuerzos de captación.</span>
+          </div>
+        </div>
+      </div>
+      <button class="premium-cta-btn" id="btn-activate-premium" onclick="window.open('https://wa.me/595999999999?text=Hola,%20quiero%20activar%20mi%20Plan%20Premium%20en%20GeoHogar', '_blank')">
+        Contactar a Ventas
+      </button>
+    </div>
+  </div>
+
+  <script src="js/currency.js?v=23.2" defer></script>
+  <script src="js/i18n.js?v=27.4" defer></script>
+  <script src="js/firebase-db.js?v=27.5" defer></script>
+  <script src="js/map.js?v=27.2" defer></script>
+  <script src="js/glossary.js?v=27.1" defer></script>
+  <script src="js/ui.js?v=28.2" defer></script>
+  <script src="js/ai-assistant.js?v=27.0" defer></script>
+  <script src="js/alerts.js?v=27.0" defer></script>
+  <script src="js/app.js?v=28.2" defer></script>
+  <script src="js/broker.js?v=28.0" defer></script>
+  <script src="js/broker-alerts.js?v=28.0" defer></script>
+  <script src="js/broker-valuation.js?v=28.0" defer></script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(reg => console.log('Service Worker registrado con éxito:', reg.scope))
+          .catch(err => console.error('Error al registrar el Service Worker:', err));
+      });
+    }
+  </script>
+</body>
+</html>

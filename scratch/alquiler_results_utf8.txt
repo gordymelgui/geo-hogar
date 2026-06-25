@@ -1,0 +1,164 @@
+﻿.\index.html:260:<span data-i18n="nav_publish">Publicar</span>
+.\index.html:777:<h2 data-i18n="publish_title">Publicar Propiedad</h2>
+.\index.html:841:<label data-i18n="pub_field_op">Operaci¾n *</label>
+.\index.html:844:<option value="Alquiler" data-i18n="op_alquiler">Alquiler</option>
+.\index.html:877:Publicar propiedad
+.\index.html:963:<label data-i18n="filter_op">Operaci¾n</label>
+.\index.html:965:<option value="" data-i18n="alert_op_any">Venta y alquiler</option>
+.\index.html:967:<option value="Alquiler" data-i18n="op_alquiler">Alquiler</option>
+.\index.html:1514:Mide la rentabilidad anual bruta estimada del alquiler en relaci¾n al precio de compra de la propied
+.\index.html:1629:Visualiza de forma grßfica en el mapa interactivo las zonas calientes de Asunci¾n y principales urbe
+.\index.html:1689:Panel de analÝticas avanzadas que muestra el balance entre oferta (propiedades en venta/alquiler) y 
+.\index.html:1756:<span data-i18n="glossary_tag_op_title">Etiqueta de Tipo de Operaci¾n</span>
+.\index.html:1759:Diferencia visualmente entre inmuebles en Venta (color rojo suave) y Alquiler (color azul suave), pe
+.\index.html:1797:Usa la vista de Mapa para ubicar propiedades visualmente. Activa la capa de **Zonas de demanda (Heat
+.\index.html:1814:4. Publicar y Sincronizaci¾n Masiva
+.\index.html:1817:Puedes publicar tus propiedades de forma individual llenando el formulario, o usar la opci¾n PRO de 
+.\index.html:1857:Mide la rentabilidad anual estimada del alquiler en relaci¾n al precio de compra de la propiedad. Un
+.\index.html:2003:<span data-i18n="nav_publish">Publicar</span>
+.\backend\calculate-metrics.js:4:// Tarifas de alquiler estimadas por m2 al mes en d¾lares (USD) seg·n la ubicaci¾n (para calcular el
+.\backend\calculate-metrics.js:140:title: "Alquiler de Departamento Monoambiente en el Centro",
+.\backend\calculate-metrics.js:147:op: "Alquiler",
+.\backend\calculate-metrics.js:162:title: "Alquiler Casa Duplex 3 Dormitorios Amoblada",
+.\backend\calculate-metrics.js:169:op: "Alquiler",
+.\backend\calculate-metrics.js:201:// Si un alquiler es mayor a 12,000 USD/mes, definitivamente estß en GuaranÝes
+.\backend\calculate-metrics.js:202:if (p.op === 'Alquiler' && p.price > 12000) {
+.\backend\calculate-metrics.js:206:// Si es un alquiler entre 2,500 y 12,000 pero el precio por m2 da mayor a 25 USD/m2 (fuera de merca
+.\backend\calculate-metrics.js:208:if (p.op === 'Alquiler' && p.price >= 2500 && (p.price / p.m2) > 25) {
+.\backend\calculate-metrics.js:229:// C. Calcular Rentabilidad (ROI) o Alquiler Estimado
+.\backend\calculate-metrics.js:231:// Estimar la tasa de alquiler mensual por m2 en base a barrio o ciudad
+.\backend\calculate-metrics.js:254:// ROI = (Alquiler Anual / Precio Compra) * 100
+.\backend\calculate-metrics.js:264:// Si es alquiler
+.\backend\calculate-metrics.js:266:p.rentEstimated = p.price; // El alquiler estimado es el alquiler real
+.\backend\calculate-metrics.js:369:// Si uno no tiene ROI (es alquiler), ordenar por descuento
+.\backend\scraper.js:66:if (target.label.includes('Alquiler')) parsed.op = 'Alquiler';
+.\backend\scraper.js:93:if (title && priceText && !['Venta', 'Alquiler', 'Proyectos', 'Inmobiliarias', 'Noticias'].includes(
+.\backend\scraper.js:97:const op = target.label.includes('Alquiler') ? 'Alquiler' : 'Venta';
+.\js\ai-assistant.js:259:// Operaci¾n
+.\js\ai-assistant.js:260:if (norm.includes('alquiler') || norm.includes('alquilar') || norm.includes('arrendar')) criteria.op
+.\js\ai-assistant.js:291:const stopWords = ['el', 'la', 'un', 'una', 'mi', 'mis', 'este', 'esta', 'mapa', 'venta', 'alquiler'
+.\js\ai-assistant.js:366:} else if (norm.includes('publicar') || norm.includes('subir') || norm.includes('vender')) {
+.\js\app.js:437:const opClass = prop.op === 'Venta' ? 'venta' : 'alquiler';
+.\js\app.js:441:card.innerHTML = `<div class="prop-img-wrap"><span class="prop-badge">${window.translatePropType ? w
+.\js\app.js:482:.filter(p => p.op !== 'Alquiler' && p.pm2 > 0);
+.\js\app.js:531:if (p.op !== 'Alquiler' && pm2 > 0) { neighborhoodMap[zone].total += pm2; neighborhoodMap[zone].coun
+.\js\app.js:689:if (p.op !== 'Alquiler' && pm2 > 0) zoneMap[zone].prices.push(pm2);
+.\js\app.js:744:if (p.op !== 'Alquiler' && pm2 > 0) { neighborhoodMap[zone].total += pm2; neighborhoodMap[zone].coun
+.\js\broker-valuation.js:38:<label class="val-field-label">OPERACIËN</label>
+.\js\broker-valuation.js:41:<option value="Alquiler">Alquiler</option>
+.\js\broker-valuation.js:165:const isAlquiler = op === 'Alquiler';
+.\js\broker-valuation.js:167:avgPriceM2: isAlquiler ? 8 : 1400,
+.\js\broker-valuation.js:168:minPriceM2: isAlquiler ? 5 : 900,
+.\js\broker-valuation.js:169:maxPriceM2: isAlquiler ? 15 : 2200,
+.\js\broker-valuation.js:170:estimatedPrice: isAlquiler ? 8 * m2 : 1400 * m2,
+.\js\broker-valuation.js:171:priceRange: { min: isAlquiler ? 5 * m2 : 900 * m2, max: isAlquiler ? 15 * m2 : 2200 * m2 },
+.\js\broker-valuation.js:212:- Operaci¾n: ${op}
+.\js\broker-valuation.js:224:3. Una recomendaci¾n breve para el broker (si publicar, negociar, o captar)
+.\js\broker-valuation.js:245:const currency = op === 'Alquiler' ? 'USD/mes' : 'USD';
+.\js\data.js:111:"title": "Alquiler de Departamento Monoambiente en el Centro",
+.\js\data.js:118:"op": "Alquiler",
+.\js\data.js:137:"title": "Alquiler Casa Duplex 3 Dormitorios Amoblada",
+.\js\data.js:144:"op": "Alquiler",
+.\js\data.js:170:"op": "Alquiler",
+.\js\data.js:188:"title": "Departamento en Alquiler en Edificio. Casa Vista, Avenida Santa Teresa, Asunci¾n, Paraguay
+.\js\data.js:194:"link": "https://www.infocasas.com.py/departamento-en-alquiler-en-edificio-casa-vista-avenida-santa-
+.\js\data.js:195:"op": "Alquiler",
+.\js\data.js:795:"op": "Alquiler",
+.\js\data.js:813:"title": "Departamento En Alquiler û Av. Molas L¾pez",
+.\js\data.js:819:"link": "https://www.infocasas.com.py/departamento-en-alquiler-û-av-molas-lopez/193633919",
+.\js\data.js:820:"op": "Alquiler",
+.\js\data.js:845:"op": "Alquiler",
+.\js\data.js:863:"title": "Departamento - Alquiler - Paraguay Asunci¾n Los Laureles",
+.\js\data.js:869:"link": "https://www.infocasas.com.py/departamento-alquiler-paraguay-asuncion-los-laureles/193028840
+.\js\data.js:870:"op": "Alquiler",
+.\js\data.js:1163:"title": "En alquiler departamento en Villa Morra De 175 M2 ",
+.\js\data.js:1169:"link": "https://www.infocasas.com.py/en-alquiler-departamento-en-villa-morra-de-175-m2-/192911916",
+.\js\data.js:1170:"op": "Alquiler",
+.\js\data.js:1245:"op": "Alquiler",
+.\js\data.js:1270:"op": "Alquiler",
+.\js\data.js:1295:"op": "Alquiler",
+.\js\data.js:1320:"op": "Alquiler",
+.\js\data.js:1588:"title": "DEPARTAMENTO DE 3 DORMITORIOS EN ALQUILER.",
+.\js\data.js:1594:"link": "https://www.infocasas.com.py/departamento-de-3-dormitorios-en-alquiler/193528323",
+.\js\data.js:1595:"op": "Alquiler",
+.\js\data.js:1620:"op": "Alquiler",
+.\js\data.js:1713:"title": "Departamento exclusivo de 2 dormitorios en alquiler! - Urban Molas MA0604",
+.\js\data.js:1719:"link": "https://www.infocasas.com.py/departamento-exclusivo-de-2-dormitorios-en-alquiler-urban-mola
+.\js\data.js:1720:"op": "Alquiler",
+.\js\data.js:1745:"op": "Alquiler",
+.\js\data.js:1770:"op": "Alquiler",
+.\js\data.js:1795:"op": "Alquiler",
+.\js\data.js:2470:"op": "Alquiler",
+.\js\data.js:2488:"title": "Departamento - Alquiler - Ycuß SatÝ, Asunci¾n, Paraguay",
+.\js\data.js:2494:"link": "https://www.infocasas.com.py/departamento-alquiler-ycua-sati-asuncion-paraguay/193542411",
+.\js\data.js:2495:"op": "Alquiler",
+.\js\data.js:2520:"op": "Alquiler",
+.\js\data.js:2545:"op": "Alquiler",
+.\js\data.js:2563:"title": "En Alquiler Departamento 2 Dormitorios A Estrenar Los Laureles",
+.\js\data.js:2569:"link": "https://www.infocasas.com.py/en-alquiler-departamento-2-dormitorios-a-estrenar-los-laureles
+.\js\data.js:2570:"op": "Alquiler",
+.\js\data.js:2595:"op": "Alquiler",
+.\js\data.js:2620:"op": "Alquiler",
+.\js\data.js:2645:"op": "Alquiler",
+.\js\data.js:2670:"op": "Alquiler",
+.\js\data.js:2695:"op": "Alquiler",
+.\js\data.js:2713:"title": "Alquiler Departamento de 1 Dormitorio en el Edificio Laurus",
+.\js\data.js:2719:"link": "https://www.infocasas.com.py/alquiler-departamento-de-1-dormitorio-en-el-edificio-laurus/19
+.\js\data.js:2720:"op": "Alquiler",
+.\js\data.js:2745:"op": "Alquiler",
+.\js\data.js:2770:"op": "Alquiler",
+.\js\data.js:2795:"op": "Alquiler",
+.\js\data.js:2820:"op": "Alquiler",
+.\js\data.js:2845:"op": "Alquiler",
+.\js\data.js:2863:"title": "En Alquiler 2 dormitorios amoblado Barrio Herrera",
+.\js\data.js:2869:"link": "https://www.infocasas.com.py/en-alquiler-2-dormitorios-amoblado-barrio-herrera/193407314",
+.\js\data.js:2870:"op": "Alquiler",
+.\js\data.js:2895:"op": "Alquiler",
+.\js\data.js:2920:"op": "Alquiler",
+.\js\data.js:2945:"op": "Alquiler",
+.\js\data.js:2970:"op": "Alquiler",
+.\js\data.js:2988:"title": "En Alquiler depto. Amoblado de 1 Dormitorio en Life de Gaulle",
+.\js\data.js:2994:"link": "https://www.infocasas.com.py/en-alquiler-depto-amoblado-de-1-dormitorio-en-life-de-gaulle/1
+.\js\data.js:2995:"op": "Alquiler",
+.\js\data.js:3013:"title": "Exclusivo Departamento en Alquiler en el Prestigioso Barrio Herrera",
+.\js\data.js:3019:"link": "https://www.infocasas.com.py/exclusivo-departamento-en-alquiler-en-el-prestigioso-barrio-he
+.\js\data.js:3020:"op": "Alquiler",
+.\js\data.js:3045:"op": "Alquiler",
+.\js\data.js:3070:"op": "Alquiler",
+.\js\firebase-db.js:346:// Match operation (Venta/Alquiler)
+.\js\i18n.js:4:glossary_roi_desc: "Mide la rentabilidad anual bruta estimada del alquiler en relaci¾n al precio de 
+.\js\i18n.js:24:glossary_premium_heatmap_desc: "Visualiza de forma grßfica en el mapa interactivo las zonas caliente
+.\js\i18n.js:82:glossary_roi_desc: "Mide la rentabilidad anual estimada del alquiler en relaci¾n al precio de compra
+.\js\i18n.js:103:nav_publish: "Publicar",
+.\js\i18n.js:150:publish_title: "Publicar Propiedad",
+.\js\i18n.js:161:pub_field_op: "Operaci¾n *",
+.\js\i18n.js:169:pub_submit: " Publicar propiedad",
+.\js\i18n.js:212:filter_op: "Operaci¾n",
+.\js\i18n.js:225:op_alquiler: "Alquiler",
+.\js\i18n.js:365:alert_op_any: "Venta y alquiler",
+.\js\i18n.js:415:ranking_avg_rent: "Alquiler promedio: USD {amount}/mes",
+.\js\i18n.js:463:glossary_roi_desc: "Mide la rentabilidad anual bruta estimada del alquiler en relaci¾n al precio de 
+.\js\i18n.js:485:glossary_premium_heatmap_desc: "Visualiza de forma grßfica en el mapa interactivo las zonas caliente
+.\js\i18n.js:497:glossary_broker_radar_desc: "Panel de analÝticas avanzadas que muestra el balance entre oferta (prop
+.\js\i18n.js:503:guide_step2_desc: "Usa la vista de Mapa para ubicar propiedades visualmente. Activa la capa de **Zon
+.\js\i18n.js:506:guide_step4_title: "4. Publicar y Sincronizaci¾n Masiva",
+.\js\i18n.js:507:guide_step4_desc: "Puedes publicar tus propiedades de forma individual llenando el formulario, o usa
+.\js\i18n.js:521:glossary_tag_op_title: "Etiqueta de Tipo de Operaci¾n",
+.\js\i18n.js:522:glossary_tag_op_desc: "Diferencia visualmente entre inmuebles en Venta (color rojo suave) y Alquiler
+.\js\i18n.js:750:op_alquiler: "Rent",
+.\js\i18n.js:1275:op_alquiler: "Miete",
+.\js\i18n.js:1585:glossary_cap_rate_desc: "Indica o rendimento lÝquido anual de um im¾vel alugado. Ao contrßrio do ROI
+.\js\i18n.js:1676:nav_publish: "Publicar",
+.\js\i18n.js:1723:publish_title: "Publicar Propriedade",
+.\js\i18n.js:1742:pub_submit: " Publicar propriedade",
+.\js\i18n.js:1798:op_alquiler: "Aluguel",
+.\js\i18n.js:2042:glossary_cap_rate_desc: "Indica o rendimento lÝquido anual esperado de um im¾vel de aluguel. Ao cont
+.\js\i18n.js:2079:guide_step4_title: "4. Publicar e SincronizaþÒo Massiva",
+.\js\i18n.js:2080:guide_step4_desc: "VocÛ pode publicar seus im¾veis individualmente preenchendo o formulßrio, ou usar
+.\js\map.js:423:const translatedOp = prop.op === 'Venta' ? window.t('op_venta') : window.t('op_alquiler');
+.\js\ui.js:75:// 6. Filtros Avanzados (Operaci¾n, Ciudad, Precio, M2, Ambientes)
+.\js\ui.js:182:<option value="">Toda operaci¾n</option>
+.\js\ui.js:184:<option value="Alquiler">Alquiler</option>
+.\js\ui.js:453:const opClass = prop.op === 'Venta' ? 'venta' : 'alquiler';
+.\js\ui.js:483:const opBadge = `<span class="clean-badge badge-op ${prop.op === 'Venta' ? 'bg-red-soft' : 'bg-blue-
+.\js\ui.js:595:document.getElementById('fav-alquiler').textContent = favProps.filter(p=>p.op==='Alquiler').length;

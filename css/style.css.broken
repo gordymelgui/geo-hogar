@@ -1,0 +1,78 @@
+Created At: 2026-05-25T19:45:56Z
+Completed At: 2026-05-25T19:45:56Z
+The following changes were made by the replace_file_content tool to: c:\Users\jordy\Desktop\app hipo\css\style.css. If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+[diff_block_start]
+@@ -743,97 +743,7 @@
+ .agent-label { color: #10b981; font-size: 0.85rem; font-weight: 600; margin-top: 2px; }
+ .btn-contact { width: 100%; margin-bottom: 1rem; }
+ 
+-/* Mobile & Tablet Adaptations */
+-@media (max-width: 1024px) {
+-  body { overflow: hidden; width: 100%; }
+-  .main-content { width: 100%; overflow-x: hidden; }
+-
+-  /* Sidebar as Drawer */
+-  .sidebar { 
+-    position: fixed; 
+-    top: 0; 
+-    left: -280px; 
+-    width: 280px; 
+-    height: 100%; 
+-    z-index: 2010; 
+-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+-    box-shadow: 20px 0 50px rgba(0,0,0,0.1);
+-  }
+-  .sidebar.open { transform: translateX(280px); }
+-  
+-  .sidebar-logo, .sidebar-user { display: flex; }
+-  .sidebar-links { flex-direction: column; width: 100%; justify-content: flex-start; padding: 0; align-items: stretch; }
+-  .sidebar-link { flex-direction: row; gap: 12px; padding: 14px 16px; border-radius: 14px; font-size: 1rem; }
+-  .sidebar-link.active { transform: none; }
+-
+-  .main-content { margin-bottom: 0; }
+-  
+-  .topbar { padding: 0.8rem 1rem; gap: 0.6rem; height: 70px; }
+-  .menu-toggle { display: flex !important; align-items: center; justify-content: center; background: white; border: 1px solid var(--border); border-radius: 12px; width: 42px; height: 42px; padding: 0; flex-shrink: 0; }
+-  .menu-toggle svg { width: 22px; height: 22px; stroke: var(--text); stroke-width: 2; }
+-
+-  .search-bar { padding: 6px 12px; border-radius: 12px; gap: 8px; min-width: 0; flex: 1; }
+-  .search-icon { width: 18px; height: 18px; flex-shrink: 0; }
+-  .search-bar input { font-size: 0.85rem; width: 100%; min-width: 0; flex: 1; }
+-  .filter-btn { padding: 8px; border-radius: 10px; flex-shrink: 0; }
+-  .filter-btn span { disp
+<truncated 1514 bytes>
+alytics-card { padding: 1rem; border-radius: 12px; width: 100% !important; margin-bottom: 1rem; min-width: 0; box-shadow: none; border-left: none; border-right: none; }
+-  .analytics-card h3 { font-size: 0.95rem; margin-bottom: 0.6rem; }
+-  .chart-wrapper { height: 180px; width: 100%; max-width: 100%; }
+-  #heatmap-container { height: 250px !important; width: 100% !important; }
+-  
+-  #view-analytics { padding: 1rem 0.5rem; width: 100%; overflow-x: hidden; }
+-  .analytics-card.wide { width: 100% !important; }
+-  
+-  .stats-row { display: none; } /* Removed stats from mobile view for cleaner app look as requested */
+-
+-  .quick-cats { margin-bottom: 1.5rem; gap: 8px; flex-wrap: nowrap !important; overflow-x: auto !important; scrollbar-width: none; }
+-  .quick-cats::-webkit-scrollbar { display: none; }
+-  .cat-btn { padding: 8px 14px; font-size: 0.85rem; border-radius: 10px; flex-shrink: 0; }
+-
+-  /* Smart Filters Mobile */
+-  .smart-filters-row { padding-bottom: 1rem; }
+-
+-  /* Market Pulse Mobile */
+-  .market-cards { display: flex; overflow-x: auto; flex-wrap: nowrap !important; gap: 12px; scrollbar-width: none; padding-bottom: 1rem; margin-top: 1rem; }
+-  .market-cards::-webkit-scrollbar { display: none; }
+-  .market-card { min-width: 250px; flex-shrink: 0; margin-bottom: 0; padding: 1.5rem; }
+-
+-  /* Google Sheets Sync Card */
+-  .sync-card-body { flex-direction: column; gap: 10px; }
+-  .sync-card-body .btn-primary-compact { width: 100%; justify-content: center; }
+-
+-  .section-header h2 { font-size: 1.5rem; }
+-  .properties-grid { grid-template-columns: 1fr; gap: 1.5rem; }
++
+   .form-grid { grid-template-columns: 1fr; gap: 1rem; }
+   .publish-container { padding: 1.5rem; border-radius: 0; border: none; box-shadow: none; }
+   .publish-container h2 { font-size: 1.8rem; }
+[diff_block_end]
+
+Please note that the above snippet only shows the MODIFIED lines from the last change. It shows up to 3 lines of unchanged lines before and after the modified lines. The actual file contents may have many more lines not shown.
