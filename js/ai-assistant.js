@@ -5,7 +5,7 @@
 
 class GeoHogarAI {
     constructor() {
-        this.apiKey = 'YOUR_GEMINI_KEY_1'; // Gemini API Key Configured
+        this.apiKey = window.CONFIG?.GEMINI_API_KEY_1 || 'YOUR_GEMINI_API_KEY_1_HERE'; // Gemini API Key Configured
         this.isListening = false;
         this.recognition = null;
         this.messages = [];
@@ -380,7 +380,7 @@ class GeoHogarAI {
     }
 
     async callAI(prompt) {
-        const cleanKey = 'YOUR_GEMINI_KEY_2'.trim();
+        const cleanKey = (window.CONFIG?.GEMINI_API_KEY_2 || 'YOUR_GEMINI_API_KEY_2_HERE').trim();
         const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${cleanKey}`;
         
         const activeView = document.querySelector('.view.active')?.id || 'explore';

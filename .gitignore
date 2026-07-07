@@ -1,3 +1,5 @@
 node_modules/
 .vscode/
 .firebase/
+js/config.local.js
+backend/service-account.json

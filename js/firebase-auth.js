@@ -62,7 +62,7 @@
   }
 
   const firebaseConfig = {
-    apiKey: "YOUR_FIREBASE_KEY",
+    apiKey: window.CONFIG?.FIREBASE_API_KEY || "YOUR_FIREBASE_API_KEY_HERE",
     authDomain: "geo-hogar-7985e.firebaseapp.com",
     projectId: "geo-hogar-7985e",
     storageBucket: "geo-hogar-7985e.firebasestorage.app",
