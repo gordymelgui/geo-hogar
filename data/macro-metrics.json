@@ -1,11 +1,11 @@
 {
-  "gdpGrowth": 4.2,
-  "inflation": 3.8,
-  "usdPyg": 6138,
-  "eurPyg": 7117,
-  "brlPyg": 1187,
+  "gdpGrowth": 6.6,
+  "inflation": 4,
+  "usdPyg": 6039,
+  "eurPyg": 6926,
+  "brlPyg": 1190,
   "mortgageRate": 8.5,
   "moodyRating": "Baa3",
   "fdiReturn": 18,
-  "lastUpdated": "2026-06-09T20:43:14.529Z"
+  "lastUpdated": "2026-07-15T06:19:58.439Z"
 }
