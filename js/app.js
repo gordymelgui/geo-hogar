@@ -581,13 +581,43 @@ function updateAnalyticsKPIs(props) {
   const statUnderpricedCount = document.getElementById('stat-underpriced-count');
   const statPropsCount = document.getElementById('stat-properties-count');
   
-  if (statAvgPrice) statAvgPrice.textContent = avgPriceM2 ? window.formatPriceM2(avgPriceM2) : '—';
-  if (statAvgRoi) statAvgRoi.textContent = avgRoi > 0 ? `${avgRoi}%` : '—';
-  if (statUnderpricedCount) statUnderpricedCount.textContent = underpricedCount;
-  if (statPropsCount) statPropsCount.textContent = props.length;
+window.animateNumberCount = function(el, targetNum, formatFn, durationMs = 600) {
+  if (!el) return;
+  const num = parseFloat(targetNum);
+  if (isNaN(num) || num === 0) {
+    el.textContent = targetNum ? (formatFn ? formatFn(num) : targetNum) : '—';
+    return;
+  }
+  
+  el.classList.remove('metric-value-updated');
+  void el.offsetWidth;
+  el.classList.add('metric-value-updated');
 
-  // Riesgo País EMBI is static/verified from JP Morgan, already populated in HTML
-  // We can fetch it dynamically in the future, but currently it's hardcoded in the HTML as 150 pts.
+  const startVal = parseFloat(el.getAttribute('data-curr-num')) || 0;
+  const startTime = performance.now();
+
+  function updateStep(now) {
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed / durationMs, 1);
+    const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+    const currentVal = startVal + (num - startVal) * easeProgress;
+    
+    el.textContent = formatFn ? formatFn(currentVal) : Math.round(currentVal);
+    
+    if (progress < 1) {
+      requestAnimationFrame(updateStep);
+    } else {
+      el.setAttribute('data-curr-num', num);
+    }
+  }
+
+  requestAnimationFrame(updateStep);
+};
+
+  if (statAvgPrice) window.animateNumberCount(statAvgPrice, avgPriceM2, (val) => val > 0 ? window.formatPriceM2(Math.round(val)) : '—');
+  if (statAvgRoi) window.animateNumberCount(statAvgRoi, parseFloat(avgRoi), (val) => val > 0 ? `${val.toFixed(1)}%` : '—');
+  if (statUnderpricedCount) window.animateNumberCount(statUnderpricedCount, underpricedCount, (val) => Math.round(val));
+  if (statPropsCount) window.animateNumberCount(statPropsCount, props.length, (val) => Math.round(val));
 }
 
 // ─── Known Metro Cities ────────────────────────────────────────────────
@@ -770,11 +800,11 @@ function updateAnalytics(props) {
 window.getThemePalette = function() {
   const scheme = (document.documentElement && document.documentElement.getAttribute('data-theme-color')) || 'coral';
   const palettes = {
-    coral:  ['#ff2a5f', '#ff5252', '#f97316', '#f59e0b', '#10b981', '#38bdf8', '#6366f1'],
-    sage:   ['#84a375', '#79986a', '#5b784f', '#8ea981', '#98b08c', '#a1b696', '#38bdf8'],
-    cobalt: ['#2563eb', '#3b82f6', '#0284c7', '#38bdf8', '#06b6d4', '#14b8a6', '#6366f1'],
-    gold:   ['#D4AF37', '#eab308', '#f59e0b', '#d97706', '#b45309', '#78350f', '#10b981'],
-    violet: ['#8b5cf6', '#a855f7', '#d946ef', '#ec4899', '#f43f5e', '#6366f1', '#38bdf8']
+    coral:  ['#ff2a5f', '#ff4d79', '#ff6b8e', '#ff8aa4', '#ffa8b9', '#d91d4a', '#b31238', '#8c0926'],
+    sage:   ['#84a375', '#79986a', '#6d895e', '#617a52', '#546b46', '#92ae84', '#a1ba94', '#b0c6a4'],
+    cobalt: ['#2563eb', '#3b82f6', '#1d4ed8', '#1e40af', '#1e3a8a', '#60a5fa', '#93c5fd', '#bfdbfe'],
+    gold:   ['#D4AF37', '#c29f2e', '#b08f25', '#9e7f1c', '#8c6f13', '#e0be53', '#ebd070', '#f5de8c'],
+    violet: ['#8b5cf6', '#7c3aed', '#6d28d9', '#5b21b6', '#4c1d95', '#a78bfa', '#c4b5fd', '#ddd6fe']
   };
   return palettes[scheme] || palettes.coral;
 };

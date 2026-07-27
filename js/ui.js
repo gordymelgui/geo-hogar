@@ -3057,25 +3057,54 @@ document.addEventListener('DOMContentLoaded', () => {
     document.documentElement.setAttribute('data-theme-color', scheme);
     safeStorage.setItem('geohogar_color_scheme', scheme);
 
-    document.querySelectorAll('.color-scheme-dot').forEach(dot => {
-      dot.classList.toggle('active', dot.dataset.scheme === scheme);
-    });
+    const paletteSelect = document.getElementById('sidebar-palette-select');
+    if (paletteSelect && paletteSelect.value !== scheme) {
+      paletteSelect.value = scheme;
+    }
 
-    if (window._analyticsCharts && window._analyticsCharts.initialized) {
+    if (window._analyticsCharts) {
       if (window.renderAnalyticsCharts) window.renderAnalyticsCharts();
+    }
+    if (typeof buildMacroCharts === 'function') {
+      buildMacroCharts();
     }
   };
 
   const savedColorScheme = safeStorage.getItem('geohogar_color_scheme') || 'coral';
   window.applyColorScheme(savedColorScheme);
 
-  document.querySelectorAll('.color-scheme-dot').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const scheme = btn.dataset.scheme;
-      window.applyColorScheme(scheme);
+  // Wire up sidebar settings selects
+  const paletteSelect = document.getElementById('sidebar-palette-select');
+  if (paletteSelect) {
+    paletteSelect.value = savedColorScheme;
+    paletteSelect.addEventListener('change', (e) => {
+      window.applyColorScheme(e.target.value);
     });
-  });
+  }
+
+  const langSelect = document.getElementById('sidebar-lang-native-select');
+  if (langSelect) {
+    langSelect.value = localStorage.getItem('geohogar_lang') || window.currentLang || 'es';
+    langSelect.addEventListener('change', (e) => {
+      if (typeof window.changeLanguage === 'function') {
+        window.changeLanguage(e.target.value);
+      }
+    });
+  }
+
+  const currSelect = document.getElementById('sidebar-curr-native-select');
+  if (currSelect) {
+    currSelect.value = localStorage.getItem('geohogar_currency') || window.currentCurrency || 'USD';
+    currSelect.addEventListener('change', (e) => {
+      const newCurr = e.target.value;
+      localStorage.setItem('geohogar_currency', newCurr);
+      window.currentCurrency = newCurr;
+      if (typeof window.applyGlobalState === 'function') {
+        window.applyGlobalState(document);
+      }
+      window.dispatchEvent(new Event('currencyChanged'));
+    });
+  }
 
   // Listen to language change to update dynamic content
   document.addEventListener('geohogar:lang:changed', () => {
@@ -3178,6 +3207,10 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    const palette = window.getThemePalette ? window.getThemePalette() : ['#ff2a5f', '#ff4d79'];
+    const activeAccent = palette[0] || '#ff2a5f';
+    const activeAccentHover = palette[1] || activeAccent;
+
     // Chart 1: Evolución IED (Line Chart)
     const ctxIed = document.getElementById('macro-chart-ied');
     if (ctxIed) {
@@ -3185,8 +3218,8 @@ document.addEventListener('DOMContentLoaded', () => {
       
       const chartCtx = ctxIed.getContext('2d');
       const gradient = chartCtx.createLinearGradient(0, 0, 0, 400);
-      gradient.addColorStop(0, 'rgba(255, 126, 95, 0.4)');
-      gradient.addColorStop(1, 'rgba(255, 126, 95, 0.0)');
+      gradient.addColorStop(0, activeAccent + '66'); // 40% opacity
+      gradient.addColorStop(1, activeAccent + '00'); // 0% opacity
 
       macroIedChartInstance = new window.Chart(ctxIed, {
         type: 'line',
@@ -3195,13 +3228,13 @@ document.addEventListener('DOMContentLoaded', () => {
           datasets: [{
             label: 'Flujo Neto Anual (M USD)',
             data: [500, 320, 450, 680, 807, 931],
-            borderColor: '#ff7e5f',
+            borderColor: activeAccent,
             backgroundColor: gradient,
             borderWidth: 3,
             fill: true,
             tension: 0.4,
             pointBackgroundColor: '#fff',
-            pointBorderColor: '#ff7e5f',
+            pointBorderColor: activeAccent,
             pointBorderWidth: 3,
             pointRadius: 6,
             pointHoverRadius: 8
@@ -3249,14 +3282,14 @@ document.addEventListener('DOMContentLoaded', () => {
             label: 'ROI Bruto Anual (%)',
             data: [8.0, 5.0, 4.5, 4.0, 3.0],
             backgroundColor: [
-              '#84a375',
+              activeAccent,
               'rgba(148, 163, 184, 0.35)',
               'rgba(148, 163, 184, 0.35)',
               'rgba(148, 163, 184, 0.35)',
               'rgba(148, 163, 184, 0.35)'
             ],
             hoverBackgroundColor: [
-              '#79986a',
+              activeAccentHover,
               'rgba(148, 163, 184, 0.5)',
               'rgba(148, 163, 184, 0.5)',
               'rgba(148, 163, 184, 0.5)',

@@ -241,10 +241,6 @@
           <span id="login-btn-text" data-i18n="login_title">Iniciar sesión</span>
           <span id="login-spinner" class="login-spinner" style="display:none"></span>
         </button>
-        <button type="button" class="login-btn-secondary" id="guest-login-btn"
-          style="margin-top: 1rem; width: 100%; border: 1.5px dashed var(--accent); background: rgba(37,99,235,0.05); color: var(--accent); font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 0.8rem; border-radius: 8px; cursor: pointer; transition: all 0.2s ease;">
-          <i class="fas fa-user-shield"></i> <span style="font-weight: 700;">Acceso de Invitado</span>
-        </button>
         <div class="login-divider"><span data-i18n="login_divider">o continuar con</span></div>
         <button type="button" class="login-btn-google" id="google-signin-btn">
           <svg width="20" height="20" viewBox="0 0 24 24">
@@ -390,89 +386,76 @@
             <span style="color: #D4AF37; font-weight: 800;" data-i18n="nav_broker">Broker PRO</span>
           </a></li>
       </ul>
-      <!-- Sidebar Theme Selector -->
-      <div class="sidebar-theme">
-        <span
-          style="font-size: 0.85rem; font-weight: 800; color: var(--text2); font-family: 'Plus Jakarta Sans', sans-serif;"
-          data-i18n="theme_mode">Tema Visual</span>
-        <button id="theme-toggle-btn"
-          style="background: var(--surface2); border: 1px solid var(--border); border-radius: 30px; width: 56px; height: 28px; display: flex; align-items: center; padding: 2px; cursor: pointer; position: relative; transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1); outline: none; border-color: var(--border);"
-          aria-label="Toggle Dark Mode">
-          <div id="theme-toggle-circle"
-            style="width: 22px; height: 22px; border-radius: 50%; background: var(--accent-gradient); display: flex; align-items: center; justify-content: center; transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1); box-shadow: var(--shadow-sm); transform: translateX(0);">
-            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="white" stroke-width="3"
-              stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="5"></circle>
-              <line x1="12" y1="1" x2="12" y2="3"></line>
-              <line x1="12" y1="21" x2="12" y2="23"></line>
-              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-              <line x1="1" y1="12" x2="3" y2="12"></line>
-              <line x1="21" y1="12" x2="23" y2="12"></line>
-              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-            </svg></div>
-        </button>
-      </div>
+      <!-- Sidebar Settings Card -->
+      <div class="sidebar-settings-card">
+        <div class="settings-card-title">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          <span data-i18n="settings_title">Ajustes & Apariencia</span>
+        </div>
 
-      <!-- Sidebar Language Selector -->
-      <div class="sidebar-lang">
-        <div class="lang-selector" id="sidebar-lang-selector" style="position: relative; width: 100%;">
-          <button class="lang-btn" id="sidebar-lang-btn" aria-haspopup="true" aria-expanded="false">
-            <div style="display: flex; align-items: center; gap: 8px;">
-              <svg class="lang-icon" viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="10" />
-                <line x1="2" y1="12" x2="22" y2="12" />
-                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+        <!-- Row 1: Dark Mode Toggle -->
+        <div class="setting-row">
+          <span class="setting-label" data-i18n="theme_dark_mode">Modo Oscuro</span>
+          <button id="theme-toggle-btn" class="theme-toggle-switch" aria-label="Toggle Dark Mode">
+            <div id="theme-toggle-circle" class="theme-toggle-thumb">
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
               </svg>
-              <span class="current-lang-text">ES</span>
             </div>
-            <svg class="chevron-icon" viewBox="0 0 24 24">
-              <polyline points="6 9 12 15 18 9" />
-            </svg>
           </button>
-          <div class="lang-dropdown" id="sidebar-lang-dropdown">
-            <button class="lang-opt" data-lang="es"> Español</button>
-            <button class="lang-opt" data-lang="en"> English</button>
-            <button class="lang-opt" data-lang="de"> Deutsch</button>
-            <button class="lang-opt" data-lang="pt"> Português</button>
+        </div>
+
+        <!-- Row 2: Theme Palette Select -->
+        <div class="setting-row vertical">
+          <span class="setting-sublabel" data-i18n="theme_color_label">Paleta de Color</span>
+          <div class="custom-select-wrapper">
+            <select id="sidebar-palette-select" class="sidebar-select">
+              <option value="coral">🎨 Coral Naranja</option>
+              <option value="sage">🌿 Verde Salvia</option>
+              <option value="cobalt">⚡ Azul Cobalto</option>
+              <option value="gold">👑 Oro Elegante</option>
+              <option value="violet">🔮 Violeta Neón</option>
+            </select>
+            <svg class="select-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
           </div>
         </div>
-      </div>
 
-      <!-- Sidebar Currency Selector -->
-      <div class="sidebar-lang" style="margin-top: 10px;">
-        <div class="curr-selector" id="sidebar-curr-selector" style="position: relative; width: 100%;">
-          <button class="curr-btn lang-btn" id="sidebar-curr-btn" aria-haspopup="true" aria-expanded="false">
-            <div style="display: flex; align-items: center; gap: 8px;">
-              <svg class="lang-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <line x1="12" y1="1" x2="12" y2="23"></line>
-                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-              </svg>
-              <span class="current-curr-text">USD</span>
-            </div>
-            <svg class="chevron-icon" viewBox="0 0 24 24">
-              <polyline points="6 9 12 15 18 9" />
-            </svg>
-          </button>
-          <div class="curr-dropdown lang-dropdown" id="sidebar-curr-dropdown">
-            <button class="curr-opt" data-curr="USD"> USD - Dólar</button>
-            <button class="curr-opt" data-curr="PYG"> PYG - Guaraníes</button>
-            <button class="curr-opt" data-curr="BRL"> BRL - Real</button>
+        <!-- Row 3: Language Select -->
+        <div class="setting-row vertical">
+          <span class="setting-sublabel" data-i18n="settings_lang_label">Idioma</span>
+          <div class="custom-select-wrapper">
+            <select id="sidebar-lang-native-select" class="sidebar-select">
+              <option value="es">🇪🇸 Español (ES)</option>
+              <option value="en">🇺🇸 English (EN)</option>
+              <option value="de">🇩🇪 Deutsch (DE)</option>
+              <option value="pt">🇧🇷 Português (PT)</option>
+            </select>
+            <svg class="select-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
           </div>
         </div>
-      </div>
 
-      <!-- Sidebar Color Scheme Selector -->
-      <div class="sidebar-lang" style="margin-top: 10px;">
-        <div class="color-scheme-picker" id="color-scheme-picker">
-          <span class="color-scheme-title" data-i18n="theme_color_label">Paleta</span>
-          <button class="color-scheme-dot active" data-scheme="coral" style="background: #ff2a5f;" title="Coral Naranja (Default)"></button>
-          <button class="color-scheme-dot" data-scheme="sage" style="background: #84a375;" title="Verde Salvia"></button>
-          <button class="color-scheme-dot" data-scheme="cobalt" style="background: #2563eb;" title="Azul Cobalto"></button>
-          <button class="color-scheme-dot" data-scheme="gold" style="background: #D4AF37;" title="Oro Elegante"></button>
-          <button class="color-scheme-dot" data-scheme="violet" style="background: #8b5cf6;" title="Violeta Neón"></button>
+        <!-- Row 4: Currency Select -->
+        <div class="setting-row vertical">
+          <span class="setting-sublabel" data-i18n="settings_curr_label">Moneda</span>
+          <div class="custom-select-wrapper">
+            <select id="sidebar-curr-native-select" class="sidebar-select">
+              <option value="USD">💵 USD - Dólar (USD)</option>
+              <option value="PYG">🇵🇾 PYG - Guaraní (Gs.)</option>
+              <option value="BRL">🇧🇷 BRL - Real (R$)</option>
+            </select>
+            <svg class="select-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
         </div>
       </div>
 
@@ -1039,30 +1022,6 @@
         try {
           var err = await window.doLogin(email, pass, remember);
           if (err) showError(err);
-        } catch (error) {
-          showError(window.t('auth_unexpected_login_err'));
-        } finally {
-          setLoading('login-btn-text', 'login-spinner', false);
-        }
-      });
-      document.getElementById('guest-login-btn').addEventListener('click', async function (e) {
-        e.preventDefault();
-        if (!waitForFirebase()) return;
-        showError('');
-        setLoading('login-btn-text', 'login-spinner', true);
-        var email = "invitado@geohogar.com";
-        var pass = "invitado123";
-        try {
-          var err = await window.doLogin(email, pass, true);
-          if (err) {
-            // User doesn't exist yet, register dynamically
-            var regErr = await window.doRegister("Invitado Test", email, pass);
-            if (!regErr) {
-              await window.doLogin(email, pass, true);
-            } else {
-              showError(regErr);
-            }
-          }
         } catch (error) {
           showError(window.t('auth_unexpected_login_err'));
         } finally {
