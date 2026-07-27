@@ -1153,7 +1153,11 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (prop.publisherType === 'premium') {
           badgeHtml = ` <span style="background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 0.7rem; margin-left: 6px; font-weight:800; vertical-align: middle;">Premium</span>`;
         }
-        agentNameEl.innerHTML = `${prop.agentName || window.t('modal_verified_owner_name')}${badgeHtml}`;
+        const currentUser = window.firebaseAuth?.currentUser;
+        const currentUserName = (currentUser && prop.agentUid === currentUser.uid)
+          ? (window.currentUserProfile?.name || currentUser.displayName || prop.agentName)
+          : prop.agentName;
+        agentNameEl.innerHTML = `${currentUserName || window.t('modal_verified_owner_name')}${badgeHtml}`;
       }
       if (agentLabelEl) {
          if (prop.publisherType === 'broker') {
@@ -1335,17 +1339,16 @@ document.addEventListener('DOMContentLoaded', () => {
             };
             
             if (window.getOrCreateChat) {
-              window.getOrCreateChat(buyerId, buyerName, ownerId, ownerName)
+              window.getOrCreateChat(buyerId, buyerName, ownerId, ownerName, propertyId, propertyTitle, propertyImg, propertyPrice)
                 .then((chatId) => {
                   modalOverlay.classList.remove('active');
                   setTimeout(() => {
                     modalOverlay.classList.add('hidden');
-                    const navMessages = document.getElementById('nav-messages');
-                    if (navMessages) navMessages.click();
+                    if (window.appRouter) window.appRouter.navigate('messages');
                     window.openRealChat(chatId, ownerName, true);
                     if (window.innerWidth <= 768) {
-                      document.querySelector('.conversations-list').classList.add('hidden-mobile');
-                      document.getElementById('chat-area').classList.add('active-mobile');
+                      document.querySelector('.conversations-list')?.classList.add('hidden-mobile');
+                      document.getElementById('chat-area')?.classList.add('active-mobile');
                     }
                   }, 300);
                 })

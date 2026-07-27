@@ -196,8 +196,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Build property object
     const user = window.firebaseAuth?.currentUser;
-    const fallbackName = user ? (user.phoneNumber || (user.email ? user.email.split('@')[0] : 'Propietario Verificado')) : 'Propietario Verificado';
-    const finalAgentName = user?.displayName || fallbackName;
+    const realUserName = window.currentUserProfile?.name || user?.displayName || (user?.email ? user.email.split('@')[0] : null);
+    const finalAgentName = realUserName || 'Propietario Verificado';
 
     const newProp = {
       id: Date.now(), title, type, op, price, m2, rooms, baths,

@@ -249,23 +249,28 @@
     
     const doc = await chatDocRef.get();
     if (!doc.exists) {
-      // Get current userType (since buyer is the current user creating the chat)
       const buyerType = window.currentUserProfile ? window.currentUserProfile.userType : 'standard';
       
-      // Let's try to get the ownerType from the property if possible, or leave standard
-      const propDoc = await propertiesRef.doc(propertyId.toString()).get();
-      const ownerType = propDoc.exists ? (propDoc.data().publisherType || 'standard') : 'standard';
+      let ownerType = 'standard';
+      if (propertyId) {
+        try {
+          const propDoc = await propertiesRef.doc(propertyId.toString()).get();
+          if (propDoc && propDoc.exists) {
+            ownerType = propDoc.data().publisherType || 'standard';
+          }
+        } catch(e) {}
+      }
 
       const chatData = {
         id: chatId,
         buyerId,
-        buyerName,
+        buyerName: buyerName || 'Comprador',
         buyerType,
         ownerId,
-        ownerName,
+        ownerName: ownerName || 'Propietario',
         ownerType,
-        propertyId,
-        propertyTitle,
+        propertyId: propertyId ? propertyId.toString() : '',
+        propertyTitle: propertyTitle || 'Consulta de Inmueble',
         propertyImg: propertyImg || '',
         propertyPrice: propertyPrice || 0,
         lastMsg: '',
