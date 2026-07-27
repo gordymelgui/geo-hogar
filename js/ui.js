@@ -3789,6 +3789,94 @@ window.startBrokerTour = function() {
       }
       return;
     }
+
+    // 5. Categorías de Inmuebles (.cat-btn) en Explorar / Feed
+    const catBtn = e.target.closest('.cat-btn');
+    if (catBtn) {
+      e.preventDefault();
+      const parent = catBtn.closest('.quick-cats, .explore-categories-row') || document;
+      parent.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+      catBtn.classList.add('active');
+
+      const catVal = catBtn.getAttribute('data-cat') || '';
+      const fType = document.getElementById('f-type');
+      if (fType) {
+        fType.value = catVal;
+      }
+
+      if (typeof window.applyExploreFilters === 'function') {
+        window.applyExploreFilters(true);
+      }
+      return;
+    }
+
+    // 6. Pastillas de País (.country-pill)
+    const countryPill = e.target.closest('.country-pill');
+    if (countryPill) {
+      e.preventDefault();
+      const parent = countryPill.closest('.country-pills-row, .country-selector') || document;
+      parent.querySelectorAll('.country-pill').forEach(p => p.classList.remove('active'));
+      countryPill.classList.add('active');
+
+      if (typeof window.applyExploreFilters === 'function') {
+        window.applyExploreFilters(true);
+      }
+      return;
+    }
+
+    // 7. Filtros de Inversión (explore-roi-btn & explore-market-value-btn)
+    const roiBtn = e.target.closest('#explore-roi-btn, #filter-roi-btn');
+    if (roiBtn) {
+      e.preventDefault();
+      const isPremium = !!(window.currentUserProfile && window.currentUserProfile.isPremium);
+      if (!isPremium) {
+        if (typeof window.showPremiumPaywall === 'function') window.showPremiumPaywall();
+        return;
+      }
+      roiBtn.classList.toggle('active');
+      const expBtn = document.getElementById('explore-roi-btn');
+      const mapBtn = document.getElementById('filter-roi-btn');
+      if (expBtn && mapBtn) {
+        const isActive = roiBtn.classList.contains('active');
+        expBtn.classList.toggle('active', isActive);
+        mapBtn.classList.toggle('active', isActive);
+      }
+      if (typeof window.applyExploreFilters === 'function') window.applyExploreFilters(true);
+      return;
+    }
+
+    const marketBtn = e.target.closest('#explore-market-value-btn, #filter-market-value-btn');
+    if (marketBtn) {
+      e.preventDefault();
+      const isPremium = !!(window.currentUserProfile && window.currentUserProfile.isPremium);
+      if (!isPremium) {
+        if (typeof window.showPremiumPaywall === 'function') window.showPremiumPaywall();
+        return;
+      }
+      marketBtn.classList.toggle('active');
+      const expBtn = document.getElementById('explore-market-value-btn');
+      const mapBtn = document.getElementById('filter-market-value-btn');
+      if (expBtn && mapBtn) {
+        const isActive = marketBtn.classList.contains('active');
+        expBtn.classList.toggle('active', isActive);
+        mapBtn.classList.toggle('active', isActive);
+      }
+      if (typeof window.applyExploreFilters === 'function') window.applyExploreFilters(true);
+      return;
+    }
+
+    // 8. Pastillas de Ambientes (#f-rooms .pill)
+    const roomPill = e.target.closest('#f-rooms .pill');
+    if (roomPill) {
+      e.preventDefault();
+      const parent = roomPill.closest('#f-rooms');
+      if (parent) {
+        parent.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+        roomPill.classList.add('active');
+        if (typeof window.applyExploreFilters === 'function') window.applyExploreFilters(true);
+      }
+      return;
+    }
   });
 
   // ===== LISTENERS DE CICLO DE VIDA PARA SECCIONES =====
