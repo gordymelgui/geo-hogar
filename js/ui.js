@@ -793,7 +793,6 @@ document.addEventListener('DOMContentLoaded', () => {
             ${(prop.lat && prop.lng) ? `<a href="https://www.google.com/maps?q=${prop.lat},${prop.lng}" target="_blank" onclick="event.stopPropagation();" style="color: var(--text2); text-decoration: none;" title="Abrir en Maps"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></a>` : ''}
           </div>
           <div class="prop-clean-badges">
-            ${sourceBadge}
             ${typeBadge}
             ${opBadge}
             ${roiBadge}
@@ -1043,11 +1042,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function openPropertyModal(prop) {
     const isPremium = !!(window.currentUserProfile && window.currentUserProfile.isPremium);
     document.getElementById('modal-gallery').innerHTML = `<img src="${prop.img}" alt="Gallery">`;
-    let titleBadge = '';
-    if (prop.dataSource === 'radar') titleBadge = `<span class="source-badge algo" style="margin-right:8px;">${window.t('source_radar')}</span>`;
-    else if (prop.dataSource === 'official') titleBadge = `<span class="source-badge verified" style="margin-right:8px;">${window.t('source_official')}</span>`;
-    else if (prop.dataSource === 'estimation') titleBadge = `<span class="source-badge est" style="margin-right:8px;">${window.t('source_estimation')}</span>`;
-    document.getElementById('modal-title').innerHTML = `${titleBadge}${prop.title}`;
+    document.getElementById('modal-title').innerText = prop.title;
     document.getElementById('modal-address').innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> ${prop.address}`;
     document.getElementById('modal-price').innerText = window.formatPrice(prop.price);
     
@@ -1683,12 +1678,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const brokerTag = (prop.publisherType === 'broker' && isPremium) ?
         `<span style="background:linear-gradient(135deg, rgba(255,223,112,0.2) 0%, rgba(212,175,55,0.2) 100%);color:#D4AF37;border:1px solid #D4AF37;font-size:0.7rem;font-weight:800;padding:1px 5px;border-radius:4px;margin-right:4px;display:inline-flex;align-items:center;">Broker PRO</span>` : '';
       
-      let sourceBadge = '';
-      if (prop.dataSource === 'radar') sourceBadge = `<span class="source-badge algo" style="font-size:0.55rem; padding:1px 4px; margin-right:4px;">Ext.</span>`;
-      else if (prop.dataSource === 'official') sourceBadge = `<span class="source-badge verified" style="font-size:0.55rem; padding:1px 4px; margin-right:4px;">Verif.</span>`;
-      else if (prop.dataSource === 'estimation') sourceBadge = `<span class="source-badge est" style="font-size:0.55rem; padding:1px 4px; margin-right:4px;">Local</span>`;
-      
-      const tagsRow = (roiTag || underpricedTag || sourceBadge || brokerTag) ? `<div style="display:flex;margin-top:6px;align-items:center;flex-wrap:wrap;gap:4px;">${sourceBadge}${brokerTag}${roiTag}${underpricedTag}</div>` : '';
+      const tagsRow = (roiTag || underpricedTag || brokerTag) ? `<div style="display:flex;margin-top:6px;align-items:center;flex-wrap:wrap;gap:4px;">${brokerTag}${roiTag}${underpricedTag}</div>` : '';
       
       item.innerHTML = `
         <img src="${prop.img}" style="width:80px; height:60px; object-fit:cover; border-radius:8px">
