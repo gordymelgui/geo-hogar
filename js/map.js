@@ -268,21 +268,18 @@ window.filterMapMarkers = function(criteria = {}) {
   }
 
   // Aplicar Filtros de Inversionistas
-  const roiBtn = document.getElementById('filter-roi-btn');
-  const marketBtn = document.getElementById('filter-market-value-btn');
-  const radarBtn = document.getElementById('filter-radar-broker-btn');
-  const roiActive = roiBtn && roiBtn.classList.contains('active');
-  const marketActive = marketBtn && marketBtn.classList.contains('active');
-  const radarActive = radarBtn && radarBtn.classList.contains('active');
+  const roiActive = document.querySelectorAll('#explore-roi-btn.active, #filter-roi-btn.active').length > 0;
+  const marketActive = document.querySelectorAll('#explore-market-value-btn.active, #filter-market-value-btn.active').length > 0;
+  const radarActive = document.querySelectorAll('#explore-broker-radar-btn.active, #filter-radar-broker-btn.active').length > 0;
 
   if (roiActive) {
-    props = props.filter(p => p.roi && p.roi >= 7.0);
+    props = props.filter(p => (parseFloat(p.roi || 0) >= 6.5) || p.isHighYield === true);
   }
   if (marketActive) {
-    props = props.filter(p => p.isUnderpriced === true);
+    props = props.filter(p => p.isUnderpriced === true || p.isOpportunity === true || (p.discount != null && p.discount > 0) || (p.discountPercent != null && p.discountPercent > 0));
   }
   if (radarActive) {
-    props = props.filter(p => p.publisherType === 'broker');
+    props = props.filter(p => p.publisherType === 'broker' || p.isBroker === true);
   }
 
   renderMapMarkers(props, criteria.highlight);

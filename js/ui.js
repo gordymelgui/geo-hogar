@@ -90,10 +90,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const country = activeCountryBtn ? activeCountryBtn.getAttribute('data-country') : '';
     
     // Obtener filtros de inversión
-    const roiActive = document.getElementById('explore-roi-btn')?.classList.contains('active') || 
-                      document.getElementById('filter-roi-btn')?.classList.contains('active');
-    const marketActive = document.getElementById('explore-market-value-btn')?.classList.contains('active') || 
-                          document.getElementById('filter-market-value-btn')?.classList.contains('active');
+    const roiActive = document.querySelectorAll('#explore-roi-btn.active, #filter-roi-btn.active').length > 0;
+    const marketActive = document.querySelectorAll('#explore-market-value-btn.active, #filter-market-value-btn.active').length > 0;
+    const radarBrokerActive = document.querySelectorAll('#explore-broker-radar-btn.active, #filter-radar-broker-btn.active').length > 0;
 
     // Obtener término de búsqueda
     const searchVal = document.getElementById('global-search')?.value || '';
@@ -160,9 +159,19 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!match) return false;
       }
       
-      // 4. Filtrar por Inversión (ROI/Bajo Valor)
-      if (roiActive && (!p.roi || p.roi < 7.0)) return false;
-      if (marketActive && p.isUnderpriced !== true) return false;
+      // 4. Filtrar por Inversión (ROI >6.5%, Bajo Valor / Oportunidad, Radar Broker)
+      if (roiActive) {
+        const pRoi = parseFloat(p.roi || 0);
+        if (pRoi < 6.5 && !p.isHighYield) return false;
+      }
+      if (marketActive) {
+        const isOpp = p.isUnderpriced === true || p.isOpportunity === true || (p.discount != null && p.discount > 0) || (p.discountPercent != null && p.discountPercent > 0);
+        if (!isOpp) return false;
+      }
+      if (radarBrokerActive) {
+        const isBroker = p.publisherType === 'broker' || p.isBroker === true;
+        if (!isBroker) return false;
+      }
 
       // 5. Filtrar por origen de datos
       const feedSource = window.currentFeedSource || 'organic';
