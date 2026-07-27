@@ -1,0 +1,6890 @@
+[
+  {
+    "id": 612015696,
+    "lat": -25.3915913,
+    "lng": -57.5462578,
+    "name": "MEDISUR;Líneas 2, 15-2, 15-3, 18, 26, 38, 47, 54, 88, 233",
+    "type": "health"
+  },
+  {
+    "id": 613365573,
+    "lat": -25.343227,
+    "lng": -57.6234994,
+    "name": "Supermercado Metro",
+    "type": "commerce"
+  },
+  {
+    "id": 616091711,
+    "lat": -25.3226678,
+    "lng": -57.5238695,
+    "name": "Hospital Regional de San Lorenzo",
+    "type": "health"
+  },
+  {
+    "id": 775452071,
+    "lat": -25.3105997,
+    "lng": -57.5528474,
+    "name": "Hiperseis",
+    "type": "commerce"
+  },
+  {
+    "id": 810141712,
+    "lat": -25.3130354,
+    "lng": -57.6306134,
+    "name": "Luisito",
+    "type": "commerce"
+  },
+  {
+    "id": 970956087,
+    "lat": -25.3317321,
+    "lng": -57.510043,
+    "name": "Unnamed",
+    "type": "health"
+  },
+  {
+    "id": 973646148,
+    "lat": -25.3233126,
+    "lng": -57.5560162,
+    "name": "Escuela Pintuatuta",
+    "type": "education"
+  },
+  {
+    "id": 992970975,
+    "lat": -25.345054,
+    "lng": -57.6162262,
+    "name": "Unnamed",
+    "type": "education"
+  },
+  {
+    "id": 1041984498,
+    "lat": -25.2968981,
+    "lng": -57.5646549,
+    "name": "Colegio San Cristóbal",
+    "type": "education"
+  },
+  {
+    "id": 1215349664,
+    "lat": -25.2860167,
+    "lng": -57.6098447,
+    "name": "Colegio San Andrés",
+    "type": "education"
+  },
+  {
+    "id": 1438344673,
+    "lat": -25.2661338,
+    "lng": -57.4909646,
+    "name": "Colegio Santa Teresita",
+    "type": "education"
+  },
+  {
+    "id": 1438362642,
+    "lat": -25.2713541,
+    "lng": -57.490722,
+    "name": "Supermercado Los Jardines",
+    "type": "commerce"
+  },
+  {
+    "id": 1438362643,
+    "lat": -25.2707754,
+    "lng": -57.4914897,
+    "name": "Colegio General Aquino",
+    "type": "education"
+  },
+  {
+    "id": 1849780454,
+    "lat": -25.3510616,
+    "lng": -57.4165,
+    "name": "Hospital del Cancer",
+    "type": "health"
+  },
+  {
+    "id": 1850525015,
+    "lat": -25.3081426,
+    "lng": -57.598284,
+    "name": "Hospital San Lucas",
+    "type": "health"
+  },
+  {
+    "id": 1887739310,
+    "lat": -25.2988647,
+    "lng": -57.544375,
+    "name": "La Bomba",
+    "type": "commerce"
+  },
+  {
+    "id": 1969320558,
+    "lat": -25.2627295,
+    "lng": -57.5438612,
+    "name": "Parque Ñu Guasú",
+    "type": "nature"
+  },
+  {
+    "id": 2289293891,
+    "lat": -25.3156687,
+    "lng": -57.5277207,
+    "name": "Super 6",
+    "type": "commerce"
+  },
+  {
+    "id": 2289502678,
+    "lat": -25.2822621,
+    "lng": -57.5242453,
+    "name": "Colegio Don Jose Pedro Varela",
+    "type": "education"
+  },
+  {
+    "id": 2294700350,
+    "lat": -25.2828844,
+    "lng": -57.6580833,
+    "name": "Colegio Alberto Schweitzer",
+    "type": "education"
+  },
+  {
+    "id": 2364699345,
+    "lat": -25.3439111,
+    "lng": -57.4951112,
+    "name": "Escuela #599 Francisco Caballero Albarez",
+    "type": "education"
+  },
+  {
+    "id": 2364699350,
+    "lat": -25.3436299,
+    "lng": -57.4949342,
+    "name": "Colegio Agustin Fernando de Pinedo",
+    "type": "education"
+  },
+  {
+    "id": 2444433851,
+    "lat": -25.3058012,
+    "lng": -57.5338335,
+    "name": "Stock",
+    "type": "commerce"
+  },
+  {
+    "id": 2444433853,
+    "lat": -25.3063557,
+    "lng": -57.5348269,
+    "name": "FabriOfertas",
+    "type": "commerce"
+  },
+  {
+    "id": 2444448755,
+    "lat": -25.3020257,
+    "lng": -57.5402791,
+    "name": "Hanna",
+    "type": "commerce"
+  },
+  {
+    "id": 2444457875,
+    "lat": -25.2920604,
+    "lng": -57.5517293,
+    "name": "Choice Learning Center",
+    "type": "education"
+  },
+  {
+    "id": 2621133289,
+    "lat": -25.2654019,
+    "lng": -57.506119,
+    "name": "Los Jardines",
+    "type": "commerce"
+  },
+  {
+    "id": 2635372144,
+    "lat": -25.2848391,
+    "lng": -57.6354767,
+    "name": "Colegio Nacional Pdte. Franco",
+    "type": "education"
+  },
+  {
+    "id": 2710686736,
+    "lat": -25.3566791,
+    "lng": -57.5478135,
+    "name": "Materiales de Construcción Javiercito",
+    "type": "commerce"
+  },
+  {
+    "id": 2816210300,
+    "lat": -25.2773539,
+    "lng": -57.5543709,
+    "name": "Plaza Moiety",
+    "type": "commerce"
+  },
+  {
+    "id": 3000556657,
+    "lat": -25.2693758,
+    "lng": -57.4867309,
+    "name": "Supermercado Andrea Lucía",
+    "type": "commerce"
+  },
+  {
+    "id": 3048300727,
+    "lat": -25.3890384,
+    "lng": -57.4699793,
+    "name": "PetroShop",
+    "type": "commerce"
+  },
+  {
+    "id": 3237949061,
+    "lat": -25.325374,
+    "lng": -57.5467059,
+    "name": "Clinica Nikkei",
+    "type": "health"
+  },
+  {
+    "id": 3237955030,
+    "lat": -25.3262809,
+    "lng": -57.5442271,
+    "name": "Colegio Leo Novak",
+    "type": "education"
+  },
+  {
+    "id": 3370866385,
+    "lat": -25.2866854,
+    "lng": -57.5884835,
+    "name": "Supermercado Stock",
+    "type": "commerce"
+  },
+  {
+    "id": 3370866386,
+    "lat": -25.2851751,
+    "lng": -57.5862497,
+    "name": "Casa Rica",
+    "type": "commerce"
+  },
+  {
+    "id": 3371637395,
+    "lat": -25.275207,
+    "lng": -57.5983572,
+    "name": "Stock",
+    "type": "commerce"
+  },
+  {
+    "id": 3443725193,
+    "lat": -25.2922577,
+    "lng": -57.5596323,
+    "name": "Superseis S6",
+    "type": "commerce"
+  },
+  {
+    "id": 3454448705,
+    "lat": -25.3250452,
+    "lng": -57.5297482,
+    "name": "Fundación Visión",
+    "type": "health"
+  },
+  {
+    "id": 3539923887,
+    "lat": -25.3537155,
+    "lng": -57.4426493,
+    "name": "Carlucho",
+    "type": "commerce"
+  },
+  {
+    "id": 3539926905,
+    "lat": -25.3540453,
+    "lng": -57.4423249,
+    "name": "Anahí",
+    "type": "health"
+  },
+  {
+    "id": 3539926906,
+    "lat": -25.3545355,
+    "lng": -57.4419222,
+    "name": "Calendaria",
+    "type": "health"
+  },
+  {
+    "id": 3539973622,
+    "lat": -25.3636064,
+    "lng": -57.4210889,
+    "name": "El Payaso",
+    "type": "commerce"
+  },
+  {
+    "id": 3539980680,
+    "lat": -25.362367,
+    "lng": -57.413994,
+    "name": "Estimado",
+    "type": "commerce"
+  },
+  {
+    "id": 3540009553,
+    "lat": -25.3626445,
+    "lng": -57.4178836,
+    "name": "Unnamed",
+    "type": "commerce"
+  },
+  {
+    "id": 3563629256,
+    "lat": -25.343015,
+    "lng": -57.5793517,
+    "name": "Universidad Nihon Gakko",
+    "type": "education"
+  },
+  {
+    "id": 3693530802,
+    "lat": -25.2849512,
+    "lng": -57.6210767,
+    "name": "Universidad del Norte (Facultad de Ingenieria Sede 1)",
+    "type": "education"
+  },
+  {
+    "id": 3701908630,
+    "lat": -25.2514402,
+    "lng": -57.4988828,
+    "name": "Puesto de Salud",
+    "type": "health"
+  },
+  {
+    "id": 3740693293,
+    "lat": -25.3910695,
+    "lng": -57.45574,
+    "name": "Jorge Alberto Rojas Ramírez",
+    "type": "education"
+  },
+  {
+    "id": 3895222890,
+    "lat": -25.3447109,
+    "lng": -57.5814286,
+    "name": "Despensa Celina",
+    "type": "commerce"
+  },
+  {
+    "id": 3897010659,
+    "lat": -25.339,
+    "lng": -57.4995259,
+    "name": "Virgen de las Mercedes",
+    "type": "education"
+  },
+  {
+    "id": 3928487505,
+    "lat": -25.2250362,
+    "lng": -57.5239312,
+    "name": "Escuela Fe y Alegria",
+    "type": "education"
+  },
+  {
+    "id": 3984356506,
+    "lat": -25.2929259,
+    "lng": -57.602993,
+    "name": "Direccion General de Sanidad (Policia Nacional - Paraguay)",
+    "type": "health"
+  },
+  {
+    "id": 4021831963,
+    "lat": -25.378021,
+    "lng": -57.4829217,
+    "name": "Virgen del Pilar",
+    "type": "education"
+  },
+  {
+    "id": 4051966588,
+    "lat": -25.260901,
+    "lng": -57.5647549,
+    "name": "Clínica Mburucuya",
+    "type": "health"
+  },
+  {
+    "id": 4051971522,
+    "lat": -25.2766746,
+    "lng": -57.5713418,
+    "name": "Clínica 10 de Octubre",
+    "type": "health"
+  },
+  {
+    "id": 4051978791,
+    "lat": -25.2707388,
+    "lng": -57.5602996,
+    "name": "CERENIF",
+    "type": "health"
+  },
+  {
+    "id": 4100268257,
+    "lat": -25.2742619,
+    "lng": -57.5192898,
+    "name": "Ahorramas",
+    "type": "commerce"
+  },
+  {
+    "id": 4218482189,
+    "lat": -25.2891371,
+    "lng": -57.6269569,
+    "name": "IPN",
+    "type": "health"
+  },
+  {
+    "id": 4219792093,
+    "lat": -25.2787408,
+    "lng": -57.4969373,
+    "name": "Colegio Tecnico Privado Principe de Paz",
+    "type": "education"
+  },
+  {
+    "id": 4220491190,
+    "lat": -25.231897,
+    "lng": -57.475429,
+    "name": "Colegio Defensores del Chaco",
+    "type": "education"
+  },
+  {
+    "id": 4233697891,
+    "lat": -25.2753754,
+    "lng": -57.5595998,
+    "name": "SScc",
+    "type": "education"
+  },
+  {
+    "id": 4241668605,
+    "lat": -25.316299,
+    "lng": -57.5248627,
+    "name": "Quinta la esmeralda",
+    "type": "nature"
+  },
+  {
+    "id": 4244137548,
+    "lat": -25.2765329,
+    "lng": -57.5607423,
+    "name": "SSCC",
+    "type": "education"
+  },
+  {
+    "id": 4256148889,
+    "lat": -25.2823035,
+    "lng": -57.5573747,
+    "name": "Colegio Sagrados",
+    "type": "education"
+  },
+  {
+    "id": 4259656189,
+    "lat": -25.3176305,
+    "lng": -57.5637668,
+    "name": "Llar",
+    "type": "education"
+  },
+  {
+    "id": 4273406162,
+    "lat": -25.2829891,
+    "lng": -57.6334946,
+    "name": "Biggies",
+    "type": "commerce"
+  },
+  {
+    "id": 4332586994,
+    "lat": -25.23445,
+    "lng": -57.4755559,
+    "name": "Super \"D\"",
+    "type": "commerce"
+  },
+  {
+    "id": 4343794691,
+    "lat": -25.2839036,
+    "lng": -57.6620143,
+    "name": "Facultad de Filosofía U.N.A",
+    "type": "education"
+  },
+  {
+    "id": 4345725191,
+    "lat": -25.2684043,
+    "lng": -57.5904666,
+    "name": "Colegio SIL",
+    "type": "education"
+  },
+  {
+    "id": 4361827689,
+    "lat": -25.283946,
+    "lng": -57.6201436,
+    "name": "Anglo Paraguayo",
+    "type": "education"
+  },
+  {
+    "id": 4365408072,
+    "lat": -25.16591,
+    "lng": -57.4750214,
+    "name": "san roque",
+    "type": "education"
+  },
+  {
+    "id": 4373074989,
+    "lat": -25.3146772,
+    "lng": -57.6188474,
+    "name": "Academia Musical EnAMORarte",
+    "type": "education"
+  },
+  {
+    "id": 4382097391,
+    "lat": -25.3511138,
+    "lng": -57.4406595,
+    "name": "colegio maria auxiliadora",
+    "type": "education"
+  },
+  {
+    "id": 4398215459,
+    "lat": -25.2565945,
+    "lng": -57.5812621,
+    "name": "Santa Bárbara",
+    "type": "health"
+  },
+  {
+    "id": 4405982287,
+    "lat": -25.2278519,
+    "lng": -57.4800175,
+    "name": "Escuela Espiritu Santo",
+    "type": "education"
+  },
+  {
+    "id": 4426923391,
+    "lat": -25.2785869,
+    "lng": -57.6040121,
+    "name": "Colegio Francés Marcel Pagnol",
+    "type": "education"
+  },
+  {
+    "id": 4447848183,
+    "lat": -25.1857978,
+    "lng": -57.5271506,
+    "name": "Escuela Fe y Alegria",
+    "type": "education"
+  },
+  {
+    "id": 4448662992,
+    "lat": -25.2122746,
+    "lng": -57.5357283,
+    "name": "Colegio E.M.D. Juan M. Frutos",
+    "type": "education"
+  },
+  {
+    "id": 4448662993,
+    "lat": -25.2124694,
+    "lng": -57.534244,
+    "name": "Eugenio A. Garay",
+    "type": "education"
+  },
+  {
+    "id": 4448669290,
+    "lat": -25.2122214,
+    "lng": -57.5365434,
+    "name": "Hospital Materno Infantil M.R.A.",
+    "type": "health"
+  },
+  {
+    "id": 4448677490,
+    "lat": -25.213167,
+    "lng": -57.529441,
+    "name": "Universidad Leonardo Da Vinci ULDV",
+    "type": "education"
+  },
+  {
+    "id": 4449863989,
+    "lat": -25.2126612,
+    "lng": -57.5324655,
+    "name": "Clínica Sta. Rosa",
+    "type": "health"
+  },
+  {
+    "id": 4450545192,
+    "lat": -25.2123348,
+    "lng": -57.5357463,
+    "name": "Col. Nac. Dr. Juan M. Frutos",
+    "type": "education"
+  },
+  {
+    "id": 4450545193,
+    "lat": -25.2121834,
+    "lng": -57.5364197,
+    "name": "Hospital Regional M.R.A.",
+    "type": "health"
+  },
+  {
+    "id": 4450570791,
+    "lat": -25.2126777,
+    "lng": -57.5342307,
+    "name": "Gral. Eugenio A. Garay",
+    "type": "education"
+  },
+  {
+    "id": 4450708202,
+    "lat": -25.2123117,
+    "lng": -57.5352411,
+    "name": "Nac. Juan M. Frutos",
+    "type": "education"
+  },
+  {
+    "id": 4450719408,
+    "lat": -25.2120368,
+    "lng": -57.5365343,
+    "name": "Regional MRA",
+    "type": "health"
+  },
+  {
+    "id": 4452669890,
+    "lat": -25.2368867,
+    "lng": -57.5397683,
+    "name": "Hipermercado Luisito",
+    "type": "commerce"
+  },
+  {
+    "id": 4463497338,
+    "lat": -25.3611483,
+    "lng": -57.4766587,
+    "name": "Escuela Municipal Maria Alodia Viveros de Sosa",
+    "type": "education"
+  },
+  {
+    "id": 4463506389,
+    "lat": -25.3601739,
+    "lng": -57.4805426,
+    "name": "Despensa Familiar San Ramon",
+    "type": "commerce"
+  },
+  {
+    "id": 4472516707,
+    "lat": -25.2865217,
+    "lng": -57.6269895,
+    "name": "Electroneuro",
+    "type": "health"
+  },
+  {
+    "id": 4478165605,
+    "lat": -25.3698364,
+    "lng": -57.6567246,
+    "name": "Ciclo Básico Orientado Secundario Rural Escuela de Frontera 11",
+    "type": "education"
+  },
+  {
+    "id": 4490972589,
+    "lat": -25.3421066,
+    "lng": -57.6306947,
+    "name": "Colegio Presbiteriano San Pablo",
+    "type": "education"
+  },
+  {
+    "id": 4504014093,
+    "lat": -25.2748168,
+    "lng": -57.5117189,
+    "name": "Colegio Privado Gabriela Mistral",
+    "type": "education"
+  },
+  {
+    "id": 4504032690,
+    "lat": -25.2772295,
+    "lng": -57.5080035,
+    "name": "Escuela Adrian Jara",
+    "type": "education"
+  },
+  {
+    "id": 4506574293,
+    "lat": -25.3605335,
+    "lng": -57.6222762,
+    "name": "Almacen Margarita",
+    "type": "commerce"
+  },
+  {
+    "id": 4517588092,
+    "lat": -25.3209832,
+    "lng": -57.5242232,
+    "name": "Super 6",
+    "type": "commerce"
+  },
+  {
+    "id": 4543264792,
+    "lat": -25.2962167,
+    "lng": -57.4916752,
+    "name": "Instituto Politécnico de Telecomunicaciones",
+    "type": "education"
+  },
+  {
+    "id": 4545471790,
+    "lat": -25.262654,
+    "lng": -57.4897044,
+    "name": "Super 6",
+    "type": "commerce"
+  },
+  {
+    "id": 4545916092,
+    "lat": -25.3084539,
+    "lng": -57.5524836,
+    "name": "Supermercado Gran Vía",
+    "type": "commerce"
+  },
+  {
+    "id": 4551743642,
+    "lat": -25.1685775,
+    "lng": -57.4757188,
+    "name": "Fernández",
+    "type": "health"
+  },
+  {
+    "id": 4553340150,
+    "lat": -25.1812819,
+    "lng": -57.4672534,
+    "name": "Stock",
+    "type": "commerce"
+  },
+  {
+    "id": 4554157247,
+    "lat": -25.1692069,
+    "lng": -57.4735785,
+    "name": "Colegio Privado San Marcos.",
+    "type": "education"
+  },
+  {
+    "id": 4555845784,
+    "lat": -25.3688936,
+    "lng": -57.4916536,
+    "name": "Na Nica",
+    "type": "commerce"
+  },
+  {
+    "id": 4556148503,
+    "lat": -25.3172999,
+    "lng": -57.5990276,
+    "name": "Centro Médico",
+    "type": "health"
+  },
+  {
+    "id": 4556282749,
+    "lat": -25.3189694,
+    "lng": -57.591936,
+    "name": "Colegio Mac. Emd.",
+    "type": "education"
+  },
+  {
+    "id": 4557862832,
+    "lat": -25.2870766,
+    "lng": -57.6455667,
+    "name": "Biggie",
+    "type": "commerce"
+  },
+  {
+    "id": 4557921539,
+    "lat": -25.2390794,
+    "lng": -57.5410883,
+    "name": "Kosurf",
+    "type": "commerce"
+  },
+  {
+    "id": 4563753979,
+    "lat": -25.2700954,
+    "lng": -57.5045882,
+    "name": "Sagrada Familia",
+    "type": "education"
+  },
+  {
+    "id": 4571639193,
+    "lat": -25.3084483,
+    "lng": -57.5989427,
+    "name": "Sanatorio San Lucas",
+    "type": "health"
+  },
+  {
+    "id": 4575272662,
+    "lat": -25.3080594,
+    "lng": -57.6117953,
+    "name": "C.R. PARA PERSONAS CIEGAS",
+    "type": "education"
+  },
+  {
+    "id": 4575272663,
+    "lat": -25.3202839,
+    "lng": -57.6036997,
+    "name": "Colegio Privado del Saber",
+    "type": "education"
+  },
+  {
+    "id": 4575272664,
+    "lat": -25.3232264,
+    "lng": -57.6214194,
+    "name": "JARDIN DE INFANTES PEQUEÑINES",
+    "type": "education"
+  },
+  {
+    "id": 4575272665,
+    "lat": -25.3243208,
+    "lng": -57.5991789,
+    "name": "NO.2 JHON F. KENNEDY",
+    "type": "education"
+  },
+  {
+    "id": 4575272666,
+    "lat": -25.3079264,
+    "lng": -57.6112083,
+    "name": "Numero 4 Santa Lucia",
+    "type": "education"
+  },
+  {
+    "id": 4575272667,
+    "lat": -25.32188,
+    "lng": -57.6108214,
+    "name": "1046 Santo Domingo de Guzman",
+    "type": "education"
+  },
+  {
+    "id": 4575272668,
+    "lat": -25.3201719,
+    "lng": -57.5979167,
+    "name": "1050 Virgen de Nazareth",
+    "type": "education"
+  },
+  {
+    "id": 4575272669,
+    "lat": -25.3123411,
+    "lng": -57.6071472,
+    "name": "1051 Verbo Divino",
+    "type": "education"
+  },
+  {
+    "id": 4575272670,
+    "lat": -25.3061196,
+    "lng": -57.6074351,
+    "name": "1053 Nuestra Señora de la Asuncion",
+    "type": "education"
+  },
+  {
+    "id": 4575272671,
+    "lat": -25.3201164,
+    "lng": -57.6093022,
+    "name": "1055 Madre Eugenia Ravasco",
+    "type": "education"
+  },
+  {
+    "id": 4575272672,
+    "lat": -25.3082936,
+    "lng": -57.6031931,
+    "name": "1056 Clotilde Ortiz de Nuñez",
+    "type": "education"
+  },
+  {
+    "id": 4575272673,
+    "lat": -25.3292261,
+    "lng": -57.5977879,
+    "name": "11-225 VICARIA V. DE LAS MERCEDES",
+    "type": "education"
+  },
+  {
+    "id": 4575272674,
+    "lat": -25.3061519,
+    "lng": -57.6101664,
+    "name": "1194 Cervantes",
+    "type": "education"
+  },
+  {
+    "id": 4575272675,
+    "lat": -25.3048467,
+    "lng": -57.6113319,
+    "name": "1197 Adventista de Asuncion",
+    "type": "education"
+  },
+  {
+    "id": 4575272676,
+    "lat": -25.3273906,
+    "lng": -57.5949117,
+    "name": "142 Maria Felicidad Gonzalez",
+    "type": "education"
+  },
+  {
+    "id": 4575272678,
+    "lat": -25.3207631,
+    "lng": -57.6079344,
+    "name": "220 Chaco Paraguayo",
+    "type": "education"
+  },
+  {
+    "id": 4575272679,
+    "lat": -25.3168133,
+    "lng": -57.6175122,
+    "name": "229 Juan Pedro Escalada",
+    "type": "education"
+  },
+  {
+    "id": 4575272680,
+    "lat": -25.3230536,
+    "lng": -57.6216869,
+    "name": "3284 (12740) Sor Eusebia Palomino",
+    "type": "education"
+  },
+  {
+    "id": 4575272681,
+    "lat": -25.3158592,
+    "lng": -57.5992567,
+    "name": "343 Manuel Ortiz Guerrero",
+    "type": "education"
+  },
+  {
+    "id": 4575272682,
+    "lat": -25.3293994,
+    "lng": -57.6049769,
+    "name": "3446 (13360) Santa Ines",
+    "type": "education"
+  },
+  {
+    "id": 4575272683,
+    "lat": -25.3065392,
+    "lng": -57.5994094,
+    "name": "360 TALLER INF. PIERROT Y COLOMBINA",
+    "type": "education"
+  },
+  {
+    "id": 4575272684,
+    "lat": -25.3323336,
+    "lng": -57.6117086,
+    "name": "4596 (13973) Nazareth",
+    "type": "education"
+  },
+  {
+    "id": 4575272685,
+    "lat": -25.3331103,
+    "lng": -57.6029186,
+    "name": "471 Santa Lucia",
+    "type": "education"
+  },
+  {
+    "id": 4575272686,
+    "lat": -25.3178503,
+    "lng": -57.6025947,
+    "name": "4894 (14162) Magis Colegio",
+    "type": "education"
+  },
+  {
+    "id": 4575272687,
+    "lat": -25.3311178,
+    "lng": -57.6109075,
+    "name": "5567 (14950) Centro de Desarrollo Integral",
+    "type": "education"
+  },
+  {
+    "id": 4575272688,
+    "lat": -25.3335953,
+    "lng": -57.5991253,
+    "name": "6389 Adonai",
+    "type": "education"
+  },
+  {
+    "id": 4575273989,
+    "lat": -25.3225525,
+    "lng": -57.6206114,
+    "name": "677 Proceres de Mayo",
+    "type": "education"
+  },
+  {
+    "id": 4575273990,
+    "lat": -25.3330666,
+    "lng": -57.6258187,
+    "name": "7473 Moises",
+    "type": "education"
+  },
+  {
+    "id": 4575273991,
+    "lat": -25.3207053,
+    "lng": -57.5978,
+    "name": "86 Benita Arias",
+    "type": "education"
+  },
+  {
+    "id": 4576176507,
+    "lat": -25.2886084,
+    "lng": -57.6353609,
+    "name": "INABANC",
+    "type": "education"
+  },
+  {
+    "id": 4577366190,
+    "lat": -25.2783218,
+    "lng": -57.6137247,
+    "name": "Colegio Tecnico en Ciencas Geograficas",
+    "type": "education"
+  },
+  {
+    "id": 4577378694,
+    "lat": -25.3934549,
+    "lng": -57.4912187,
+    "name": "Súper Rio",
+    "type": "commerce"
+  },
+  {
+    "id": 4578095846,
+    "lat": -25.3402511,
+    "lng": -57.6271906,
+    "name": "DE LAMBARE",
+    "type": "education"
+  },
+  {
+    "id": 4578095847,
+    "lat": -25.3413489,
+    "lng": -57.6344503,
+    "name": "Santa Teresita",
+    "type": "education"
+  },
+  {
+    "id": 4578095848,
+    "lat": -25.3607361,
+    "lng": -57.6409419,
+    "name": "VIRGEN STELLA MARYS",
+    "type": "education"
+  },
+  {
+    "id": 4578095849,
+    "lat": -25.3424212,
+    "lng": -57.6292824,
+    "name": "11-122 JHON F. KENNEDY",
+    "type": "education"
+  },
+  {
+    "id": 4578095850,
+    "lat": -25.3491689,
+    "lng": -57.6218006,
+    "name": "1133 SAGRADA FAMILIA",
+    "type": "education"
+  },
+  {
+    "id": 4578095853,
+    "lat": -25.3641522,
+    "lng": -57.6192233,
+    "name": "14988 Virgen Maria de Schoestatt",
+    "type": "education"
+  },
+  {
+    "id": 4578095854,
+    "lat": -25.3638106,
+    "lng": -57.6080006,
+    "name": "15268 Ava Mba'e",
+    "type": "education"
+  },
+  {
+    "id": 4578095855,
+    "lat": -25.3366436,
+    "lng": -57.6175731,
+    "name": "15322 PRESBITERIANA RENACER",
+    "type": "education"
+  },
+  {
+    "id": 4578095856,
+    "lat": -25.3441553,
+    "lng": -57.6307483,
+    "name": "20 RCA. DEL ECUADOR",
+    "type": "education"
+  },
+  {
+    "id": 4578095857,
+    "lat": -25.336925,
+    "lng": -57.6383919,
+    "name": "210 Profesor Waldovino R. Lovera (Ex Hungría)",
+    "type": "education"
+  },
+  {
+    "id": 4578095858,
+    "lat": -25.3664553,
+    "lng": -57.6191258,
+    "name": "2566 SEK PARAGUAY",
+    "type": "education"
+  },
+  {
+    "id": 4578095859,
+    "lat": -25.3421035,
+    "lng": -57.6305709,
+    "name": "3055 San Pablo",
+    "type": "education"
+  },
+  {
+    "id": 4578095861,
+    "lat": -25.35069,
+    "lng": -57.6186978,
+    "name": "3389 (12973) San Juan Bautista",
+    "type": "education"
+  },
+  {
+    "id": 4578095862,
+    "lat": -25.3573172,
+    "lng": -57.6210967,
+    "name": "3549 Centro Educativo Sudamericano",
+    "type": "education"
+  },
+  {
+    "id": 4578095863,
+    "lat": -25.3437256,
+    "lng": -57.6382586,
+    "name": "4090 NUEVO MILENIO",
+    "type": "education"
+  },
+  {
+    "id": 4578095864,
+    "lat": -25.3374078,
+    "lng": -57.6290339,
+    "name": "434 JARDIN INFANTIL ALEGRIA Y COLOR",
+    "type": "education"
+  },
+  {
+    "id": 4578095865,
+    "lat": -25.3576748,
+    "lng": -57.6058096,
+    "name": "4593 (13525) SAN CARLOS",
+    "type": "education"
+  },
+  {
+    "id": 4578095866,
+    "lat": -25.3501764,
+    "lng": -57.6206231,
+    "name": "4595 EL SALVADOR",
+    "type": "education"
+  },
+  {
+    "id": 4578095867,
+    "lat": -25.3522692,
+    "lng": -57.6168375,
+    "name": "4867 MA DOLORES SOLA",
+    "type": "education"
+  },
+  {
+    "id": 4578095868,
+    "lat": -25.3639406,
+    "lng": -57.6223033,
+    "name": "520 Centro Educativo Esperanza",
+    "type": "education"
+  },
+  {
+    "id": 4578095869,
+    "lat": -25.3600642,
+    "lng": -57.6076836,
+    "name": "521 Jesus Misericordioso",
+    "type": "education"
+  },
+  {
+    "id": 4578095870,
+    "lat": -25.3343536,
+    "lng": -57.6167067,
+    "name": "551 EVE L.TALAVERA DE RICHER",
+    "type": "education"
+  },
+  {
+    "id": 4578095871,
+    "lat": -25.3527947,
+    "lng": -57.6334067,
+    "name": "5563 (14989) Centro Educativo San Pedro",
+    "type": "education"
+  },
+  {
+    "id": 4578095873,
+    "lat": -25.3602039,
+    "lng": -57.6110436,
+    "name": "5901 METODISTA NUEVO HORIZONTE",
+    "type": "education"
+  },
+  {
+    "id": 4578095876,
+    "lat": -25.3585375,
+    "lng": -57.609972,
+    "name": "6656 BAUTISTA LA HERMOSA",
+    "type": "education"
+  },
+  {
+    "id": 4578095879,
+    "lat": -25.3633814,
+    "lng": -57.6221117,
+    "name": "807 Manuel Gonzalez",
+    "type": "education"
+  },
+  {
+    "id": 4578095880,
+    "lat": -25.3595458,
+    "lng": -57.6321697,
+    "name": "809 Coronel Pablo Rojas",
+    "type": "education"
+  },
+  {
+    "id": 4579506432,
+    "lat": -25.2867631,
+    "lng": -57.6472869,
+    "name": "ANAMIR",
+    "type": "education"
+  },
+  {
+    "id": 4579506435,
+    "lat": -25.2915372,
+    "lng": -57.6386806,
+    "name": "CEBINFA 263 S.ROQUE G.SANTACRUZ",
+    "type": "education"
+  },
+  {
+    "id": 4579506436,
+    "lat": -25.2907286,
+    "lng": -57.6480925,
+    "name": "CENT. DE PELUQ. Y PEIN. Y ANEXOS DEL PY",
+    "type": "education"
+  },
+  {
+    "id": 4579506437,
+    "lat": -25.2858867,
+    "lng": -57.6525961,
+    "name": "CENTRO DE ENSEÑANZA INTEGRAL MBO'EPY",
+    "type": "education"
+  },
+  {
+    "id": 4579506438,
+    "lat": -25.2815833,
+    "lng": -57.6475672,
+    "name": "CENTRO DE ENSEÑANZA PROFESIONAL",
+    "type": "education"
+  },
+  {
+    "id": 4579506439,
+    "lat": -25.2865556,
+    "lng": -57.6449117,
+    "name": "CENTRO FEMENINO DE EDUCACION INTEGRAL",
+    "type": "education"
+  },
+  {
+    "id": 4579506440,
+    "lat": -25.2847703,
+    "lng": -57.6456872,
+    "name": "CENTRO PARAGUAYO DEL SABER",
+    "type": "education"
+  },
+  {
+    "id": 4579506441,
+    "lat": -25.2897153,
+    "lng": -57.6687872,
+    "name": "Escuela de Formacion de Suboficiales teniente Jose Fariña",
+    "type": "education"
+  },
+  {
+    "id": 4579506442,
+    "lat": -25.2887397,
+    "lng": -57.6485986,
+    "name": "DR. JOSE DE ANTEQUERA Y CASTRO",
+    "type": "education"
+  },
+  {
+    "id": 4579506443,
+    "lat": -25.2833368,
+    "lng": -57.6320095,
+    "name": "E.M.D. Asunción Escalada (EX-CNN)",
+    "type": "education"
+  },
+  {
+    "id": 4579506444,
+    "lat": -25.3002724,
+    "lng": -57.6437421,
+    "name": "E.M.D. NACIONES UNIDAS",
+    "type": "education"
+  },
+  {
+    "id": 4579506445,
+    "lat": -25.2845001,
+    "lng": -57.635832,
+    "name": "E.M.D. PRESIDENTE FRANCO",
+    "type": "education"
+  },
+  {
+    "id": 4579506446,
+    "lat": -25.2925978,
+    "lng": -57.6419342,
+    "name": "E.N.C. Nº 1 ALFONSO B. OCAMPOS",
+    "type": "education"
+  },
+  {
+    "id": 4579506447,
+    "lat": -25.2860544,
+    "lng": -57.6452172,
+    "name": "ESCUELA TALLER DE ASUNCION",
+    "type": "education"
+  },
+  {
+    "id": 4579506448,
+    "lat": -25.2954162,
+    "lng": -57.6363257,
+    "name": "FRANCISCO ACUÑA DE FIGUEROA",
+    "type": "education"
+  },
+  {
+    "id": 4579506449,
+    "lat": -25.30977,
+    "lng": -57.6365108,
+    "name": "FRANCISCO ACUÑA DE FIGUEROA",
+    "type": "education"
+  },
+  {
+    "id": 4579506450,
+    "lat": -25.2844603,
+    "lng": -57.6530197,
+    "name": "General Pablo Rojas",
+    "type": "education"
+  },
+  {
+    "id": 4579506451,
+    "lat": -25.2845756,
+    "lng": -57.6447822,
+    "name": "IDIPAR",
+    "type": "education"
+  },
+  {
+    "id": 4579506452,
+    "lat": -25.3026131,
+    "lng": -57.6561725,
+    "name": "M-11 Comando de Comunicación",
+    "type": "education"
+  },
+  {
+    "id": 4579506453,
+    "lat": -25.3005961,
+    "lng": -57.6589133,
+    "name": "M-8 División de Infantería",
+    "type": "education"
+  },
+  {
+    "id": 4579506455,
+    "lat": -25.2865158,
+    "lng": -57.6450606,
+    "name": "SARA EGUZQUIZA DE CHAVES",
+    "type": "education"
+  },
+  {
+    "id": 4579506457,
+    "lat": -25.3088521,
+    "lng": -57.6419618,
+    "name": "Santisimo Redentor",
+    "type": "education"
+  },
+  {
+    "id": 4579506458,
+    "lat": -25.2813413,
+    "lng": -57.6477923,
+    "name": "Colegio Salesiano Santo Domingo Savio",
+    "type": "education"
+  },
+  {
+    "id": 4579506459,
+    "lat": -25.2878631,
+    "lng": -57.6335032,
+    "name": "TALLER PROTEGIDO DE PRODUCCION",
+    "type": "education"
+  },
+  {
+    "id": 4579506460,
+    "lat": -25.2863931,
+    "lng": -57.6335976,
+    "name": "Unisoft System",
+    "type": "education"
+  },
+  {
+    "id": 4579506461,
+    "lat": -25.3173417,
+    "lng": -57.6438428,
+    "name": "1003 CLARA IRMA PIACENTINI DE CACACE",
+    "type": "education"
+  },
+  {
+    "id": 4579506462,
+    "lat": -25.3265517,
+    "lng": -57.6315611,
+    "name": "1004 Doctor Leandro P. Prieto",
+    "type": "education"
+  },
+  {
+    "id": 4579506463,
+    "lat": -25.2846175,
+    "lng": -57.6557281,
+    "name": "1033 San Antonio de Padua",
+    "type": "education"
+  },
+  {
+    "id": 4579506464,
+    "lat": -25.2800401,
+    "lng": -57.6541945,
+    "name": "1034 San Vicente de Paul",
+    "type": "education"
+  },
+  {
+    "id": 4579506465,
+    "lat": -25.2814117,
+    "lng": -57.6475367,
+    "name": "1035 SANTO DOMINGO SAVIO",
+    "type": "education"
+  },
+  {
+    "id": 4579506466,
+    "lat": -25.2942919,
+    "lng": -57.6471327,
+    "name": "1037 INMACULADA CONCEPCION",
+    "type": "education"
+  },
+  {
+    "id": 4579506467,
+    "lat": -25.2965467,
+    "lng": -57.6500838,
+    "name": "1039 EL DIVINO MAESTRO",
+    "type": "education"
+  },
+  {
+    "id": 4579506468,
+    "lat": -25.296165,
+    "lng": -57.635665,
+    "name": "1040 Nuestra Señora del Perpetuo Socorro",
+    "type": "education"
+  },
+  {
+    "id": 4579506469,
+    "lat": -25.3082889,
+    "lng": -57.6406856,
+    "name": "1041 Santisimo Redentor",
+    "type": "education"
+  },
+  {
+    "id": 4579506471,
+    "lat": -25.3149294,
+    "lng": -57.6482014,
+    "name": "1044 Santa Ana",
+    "type": "education"
+  },
+  {
+    "id": 4579506472,
+    "lat": -25.2942594,
+    "lng": -57.6663489,
+    "name": "106 C. I. AMIGUITO",
+    "type": "education"
+  },
+  {
+    "id": 4579506473,
+    "lat": -25.2815428,
+    "lng": -57.6318842,
+    "name": "1068 Santa Luisa de Marillac",
+    "type": "education"
+  },
+  {
+    "id": 4579506475,
+    "lat": -25.2807653,
+    "lng": -57.6467186,
+    "name": "1182 MONSEÑOR LASAGNA",
+    "type": "education"
+  },
+  {
+    "id": 4579506476,
+    "lat": -25.2828782,
+    "lng": -57.6400312,
+    "name": "1184 ESTADO DE ISRAEL",
+    "type": "education"
+  },
+  {
+    "id": 4579506477,
+    "lat": -25.2881529,
+    "lng": -57.637821,
+    "name": "1185 DANTE ALIGHIERI",
+    "type": "education"
+  },
+  {
+    "id": 4579506478,
+    "lat": -25.2868456,
+    "lng": -57.6460656,
+    "name": "1187 CRISTO REY",
+    "type": "education"
+  },
+  {
+    "id": 4579506479,
+    "lat": -25.2855619,
+    "lng": -57.6466023,
+    "name": "1199 INMACULADO CORAZON DE MARIA",
+    "type": "education"
+  },
+  {
+    "id": 4579506480,
+    "lat": -25.3079072,
+    "lng": -57.6474786,
+    "name": "13 Virgen de las Mercedes",
+    "type": "education"
+  },
+  {
+    "id": 4579506481,
+    "lat": -25.3186622,
+    "lng": -57.6347773,
+    "name": "14595 JUAN XXIII (SAN PEDRO Y SAN PABLO)",
+    "type": "education"
+  },
+  {
+    "id": 4579506482,
+    "lat": -25.3352408,
+    "lng": -57.6435997,
+    "name": "147 Cerro Poty",
+    "type": "education"
+  },
+  {
+    "id": 4579506483,
+    "lat": -25.3237739,
+    "lng": -57.6432211,
+    "name": "14812 SAN MIGUEL DE FE Y ALEGRIA",
+    "type": "education"
+  },
+  {
+    "id": 4579506484,
+    "lat": -25.3236817,
+    "lng": -57.6457742,
+    "name": "15068 SAN BLAS DE FE Y ALEGRIA",
+    "type": "education"
+  },
+  {
+    "id": 4579506485,
+    "lat": -25.3220478,
+    "lng": -57.6538033,
+    "name": "15069 Virgen de Lujan Fe y Alegria",
+    "type": "education"
+  },
+  {
+    "id": 4579506486,
+    "lat": -25.2884234,
+    "lng": -57.6431425,
+    "name": "1511 IBEROAMERICANO",
+    "type": "education"
+  },
+  {
+    "id": 4579506487,
+    "lat": -25.28334,
+    "lng": -57.6254772,
+    "name": "15126 MADRE TERESA ZAVALA",
+    "type": "education"
+  },
+  {
+    "id": 4579506488,
+    "lat": -25.3188297,
+    "lng": -57.6442878,
+    "name": "152 OÑONDIVEPA",
+    "type": "education"
+  },
+  {
+    "id": 4579506589,
+    "lat": -25.3196933,
+    "lng": -57.6450475,
+    "name": "1538 San Cayetano Fe y Alegria",
+    "type": "education"
+  },
+  {
+    "id": 4579506590,
+    "lat": -25.2924994,
+    "lng": -57.6620154,
+    "name": "17 REPUBLICA DEL PERU",
+    "type": "education"
+  },
+  {
+    "id": 4579506591,
+    "lat": -25.3173081,
+    "lng": -57.6328147,
+    "name": "1913 1º DE MARZO",
+    "type": "education"
+  },
+  {
+    "id": 4579506592,
+    "lat": -25.3023761,
+    "lng": -57.6546514,
+    "name": "193 Presidente Federico Chavez",
+    "type": "education"
+  },
+  {
+    "id": 4579506593,
+    "lat": -25.2836414,
+    "lng": -57.6450491,
+    "name": "1° ESC. PAN. CONF. COCINA PROF. ROSA O.",
+    "type": "education"
+  },
+  {
+    "id": 4579506594,
+    "lat": -25.2835817,
+    "lng": -57.6365531,
+    "name": "2 CELSA SPERATTI",
+    "type": "education"
+  },
+  {
+    "id": 4579506596,
+    "lat": -25.3149339,
+    "lng": -57.6472181,
+    "name": "227 Santa Ana",
+    "type": "education"
+  },
+  {
+    "id": 4579506597,
+    "lat": -25.3162033,
+    "lng": -57.6418697,
+    "name": "ESCUELA BÁSICA Nº 228 \"DELFIN CHAMORRO\"",
+    "type": "education"
+  },
+  {
+    "id": 4579506598,
+    "lat": -25.2928661,
+    "lng": -57.6425614,
+    "name": "232 PINCELES MAGICOS (MICKEY Y MINNIE)",
+    "type": "education"
+  },
+  {
+    "id": 4579506599,
+    "lat": -25.2866992,
+    "lng": -57.6474355,
+    "name": "282 LOS PEQUEÑITOS DE JESUS (SANTA LUISA",
+    "type": "education"
+  },
+  {
+    "id": 4579506600,
+    "lat": -25.2831063,
+    "lng": -57.6381413,
+    "name": "3 REPUBLICA DEL BRASIL",
+    "type": "education"
+  },
+  {
+    "id": 4579506601,
+    "lat": -25.2887557,
+    "lng": -57.6616355,
+    "name": "314 CRECER JUGANDO",
+    "type": "education"
+  },
+  {
+    "id": 4579506602,
+    "lat": -25.3199608,
+    "lng": -57.6375378,
+    "name": "3337 (13256) CRISTIANA Nº 4",
+    "type": "education"
+  },
+  {
+    "id": 4579506603,
+    "lat": -25.2970572,
+    "lng": -57.6381333,
+    "name": "3530 SOL DE AMERICA",
+    "type": "education"
+  },
+  {
+    "id": 4579506605,
+    "lat": -25.2817678,
+    "lng": -57.6465497,
+    "name": "392 JARDIN DE INFANTES CRAYOLITA",
+    "type": "education"
+  },
+  {
+    "id": 4579506606,
+    "lat": -25.2807497,
+    "lng": -57.6294169,
+    "name": "407 ELISA ALICIA LYNCH",
+    "type": "education"
+  },
+  {
+    "id": 4579506607,
+    "lat": -25.2906978,
+    "lng": -57.6489367,
+    "name": "433 JARDIN INFANTIL Y PRE ESCOLAR CIELI",
+    "type": "education"
+  },
+  {
+    "id": 4579506608,
+    "lat": -25.2797313,
+    "lng": -57.6537782,
+    "name": "442 DELIA FRUTOS DE GONZALEZ",
+    "type": "education"
+  },
+  {
+    "id": 4579506609,
+    "lat": -25.2959992,
+    "lng": -57.6589878,
+    "name": "4844 PRIV. PARROQUIAL PASTORCITOS",
+    "type": "education"
+  },
+  {
+    "id": 4579506610,
+    "lat": -25.290448,
+    "lng": -57.6636374,
+    "name": "4885 (14372) INST. JEAN PIAGET",
+    "type": "education"
+  },
+  {
+    "id": 4579506611,
+    "lat": -25.2920681,
+    "lng": -57.6453981,
+    "name": "4886 (14835) SANTA MARIA DEL MONTE CARME",
+    "type": "education"
+  },
+  {
+    "id": 4579506612,
+    "lat": -25.3271583,
+    "lng": -57.6290506,
+    "name": "4899 (13986) SAN DIEGO & SAINT CATHERINE",
+    "type": "education"
+  },
+  {
+    "id": 4579506613,
+    "lat": -25.3024225,
+    "lng": -57.6357475,
+    "name": "4901 (14307) San Juan Bosco",
+    "type": "education"
+  },
+  {
+    "id": 4579506614,
+    "lat": -25.3176525,
+    "lng": -57.6511964,
+    "name": "4902 (13673) Santa Rosa de Lima",
+    "type": "education"
+  },
+  {
+    "id": 4579506615,
+    "lat": -25.2849156,
+    "lng": -57.6389823,
+    "name": "496 J.M.I. MINISTERIO DE HACIENDA",
+    "type": "education"
+  },
+  {
+    "id": 4579506616,
+    "lat": -25.2904857,
+    "lng": -57.6523882,
+    "name": "497 JARDIN DE INFANTES TRAPITO Y SALAPIN",
+    "type": "education"
+  },
+  {
+    "id": 4579506617,
+    "lat": -25.2834486,
+    "lng": -57.63394,
+    "name": "499 T.I.C.E.I. TICEL",
+    "type": "education"
+  },
+  {
+    "id": 4579506618,
+    "lat": -25.2921034,
+    "lng": -57.6417744,
+    "name": "5 GRAL. JOSE EDUVIGIS DIAZ",
+    "type": "education"
+  },
+  {
+    "id": 4579506619,
+    "lat": -25.2871504,
+    "lng": -57.6553979,
+    "name": "583 DULCE DESPERTAR",
+    "type": "education"
+  },
+  {
+    "id": 4579506620,
+    "lat": -25.2778126,
+    "lng": -57.6443227,
+    "name": "6 DR. JOSE GASPAR RODRIGUEZ DE FRANCIA",
+    "type": "education"
+  },
+  {
+    "id": 4579506621,
+    "lat": -25.2905138,
+    "lng": -57.6596609,
+    "name": "60 CIRILO DUARTE",
+    "type": "education"
+  },
+  {
+    "id": 4579506622,
+    "lat": -25.3091914,
+    "lng": -57.6447787,
+    "name": "6651 Privada Cristiana Americana",
+    "type": "education"
+  },
+  {
+    "id": 4579506623,
+    "lat": -25.3198253,
+    "lng": -57.6312681,
+    "name": "6892 KO'EJU (614 MITA ATY)",
+    "type": "education"
+  },
+  {
+    "id": 4579506624,
+    "lat": -25.2904274,
+    "lng": -57.6459302,
+    "name": "6916 JARDIN GOTITAS DE LUZ",
+    "type": "education"
+  },
+  {
+    "id": 4579506625,
+    "lat": -25.2939426,
+    "lng": -57.6615457,
+    "name": "7071 JARDIN INFANTIL KUNUMI",
+    "type": "education"
+  },
+  {
+    "id": 4579506626,
+    "lat": -25.2889411,
+    "lng": -57.6480036,
+    "name": "7195 JARDIN INFANTIL MI SOLCITO",
+    "type": "education"
+  },
+  {
+    "id": 4579506627,
+    "lat": -25.289704,
+    "lng": -57.633761,
+    "name": "7455 Jardín de infantes El Trencito",
+    "type": "education"
+  },
+  {
+    "id": 4579506628,
+    "lat": -25.2881555,
+    "lng": -57.6582143,
+    "name": "7477 JARDIN DE INFANTES MUNDO INFANTIL",
+    "type": "education"
+  },
+  {
+    "id": 4579506629,
+    "lat": -25.2853927,
+    "lng": -57.6414607,
+    "name": "7971 (EX 170) JARDIN DE INFANTES KUNU'U RAITY",
+    "type": "education"
+  },
+  {
+    "id": 4579506630,
+    "lat": -25.2848294,
+    "lng": -57.6445353,
+    "name": "8 PINOCHO",
+    "type": "education"
+  },
+  {
+    "id": 4579506631,
+    "lat": -25.2868997,
+    "lng": -57.6460558,
+    "name": "84 ANGEL DE LA GUARDA",
+    "type": "education"
+  },
+  {
+    "id": 4579589134,
+    "lat": -25.2733845,
+    "lng": -57.5164109,
+    "name": "Centro de Eduacion Especial Ko'e Pyahu",
+    "type": "education"
+  },
+  {
+    "id": 4579589135,
+    "lat": -25.2395931,
+    "lng": -57.5035647,
+    "name": "Dr. Juan Javaloyes y Gonzalez",
+    "type": "education"
+  },
+  {
+    "id": 4579589139,
+    "lat": -25.2643449,
+    "lng": -57.5138218,
+    "name": "Julio Correa (Adrian Jara)",
+    "type": "education"
+  },
+  {
+    "id": 4579589141,
+    "lat": -25.263555,
+    "lng": -57.4936854,
+    "name": "Colegio Dr. Manuel Dominguez",
+    "type": "education"
+  },
+  {
+    "id": 4579589142,
+    "lat": -25.2699113,
+    "lng": -57.4784842,
+    "name": "San Carlos",
+    "type": "education"
+  },
+  {
+    "id": 4579589143,
+    "lat": -25.2675711,
+    "lng": -57.5031636,
+    "name": "11-396 Virgen del Rosario",
+    "type": "education"
+  },
+  {
+    "id": 4579589144,
+    "lat": -25.2698082,
+    "lng": -57.4819241,
+    "name": "110 Bernardino Caballero A.",
+    "type": "education"
+  },
+  {
+    "id": 4579589147,
+    "lat": -25.2528433,
+    "lng": -57.5107192,
+    "name": "2373 San Jose",
+    "type": "education"
+  },
+  {
+    "id": 4579589148,
+    "lat": -25.2318197,
+    "lng": -57.4756639,
+    "name": "2375- Mora Cue",
+    "type": "education"
+  },
+  {
+    "id": 4579589150,
+    "lat": -25.2707185,
+    "lng": -57.4993695,
+    "name": "2820 C.I.C.L.A",
+    "type": "education"
+  },
+  {
+    "id": 4579589152,
+    "lat": -25.2701397,
+    "lng": -57.5046442,
+    "name": "3780 (13101) Sagrada Familia",
+    "type": "education"
+  },
+  {
+    "id": 4579589153,
+    "lat": -25.2783275,
+    "lng": -57.4975269,
+    "name": "3781 (13242) Principe de Paz",
+    "type": "education"
+  },
+  {
+    "id": 4579589154,
+    "lat": -25.2677425,
+    "lng": -57.5031942,
+    "name": "3783 (13795) Dionisio Valiente",
+    "type": "education"
+  },
+  {
+    "id": 4579589155,
+    "lat": -25.2362611,
+    "lng": -57.4818072,
+    "name": "3788 (13766) Sub-Of.Insp.Eduardo Luis Ir",
+    "type": "education"
+  },
+  {
+    "id": 4579589156,
+    "lat": -25.2739072,
+    "lng": -57.5042382,
+    "name": "4846 Centro Educativo Santa Rita",
+    "type": "education"
+  },
+  {
+    "id": 4579589157,
+    "lat": -25.2700747,
+    "lng": -57.4918222,
+    "name": "UPAP Luque",
+    "type": "education"
+  },
+  {
+    "id": 4579589158,
+    "lat": -25.2694489,
+    "lng": -57.4953058,
+    "name": "7002 Los Alamos",
+    "type": "education"
+  },
+  {
+    "id": 4579589159,
+    "lat": -25.2654331,
+    "lng": -57.4862819,
+    "name": "7412 Sagrados Corazones",
+    "type": "education"
+  },
+  {
+    "id": 4579589160,
+    "lat": -25.2709047,
+    "lng": -57.5027603,
+    "name": "859 Heroes de la Patria",
+    "type": "education"
+  },
+  {
+    "id": 4580168736,
+    "lat": -25.2840239,
+    "lng": -57.6196703,
+    "name": "Instituto Anglo Americano",
+    "type": "education"
+  },
+  {
+    "id": 4580168737,
+    "lat": -25.2866119,
+    "lng": -57.6290497,
+    "name": "C. C. GRAL. BERNARDINO CABALLERO",
+    "type": "education"
+  },
+  {
+    "id": 4580168739,
+    "lat": -25.2896285,
+    "lng": -57.62586,
+    "name": "CAROLINA",
+    "type": "education"
+  },
+  {
+    "id": 4580168740,
+    "lat": -25.2883669,
+    "lng": -57.6240925,
+    "name": "CENTRO AMERICANO DE LA INFORMATICA",
+    "type": "education"
+  },
+  {
+    "id": 4580168741,
+    "lat": -25.2864188,
+    "lng": -57.6275697,
+    "name": "CENTRO DE CAPACITACION Y CULTURA",
+    "type": "education"
+  },
+  {
+    "id": 4580168742,
+    "lat": -25.2864005,
+    "lng": -57.6284259,
+    "name": "CENTRO DE LA INFORMATICA DEL PARAGUAY",
+    "type": "education"
+  },
+  {
+    "id": 4580168743,
+    "lat": -25.2911493,
+    "lng": -57.6201682,
+    "name": "Colegio Privado SAN NICOLAS",
+    "type": "education"
+  },
+  {
+    "id": 4580168745,
+    "lat": -25.2854983,
+    "lng": -57.6233825,
+    "name": "E.M.D. JUAN RAMON DAHLQUIST",
+    "type": "education"
+  },
+  {
+    "id": 4580168746,
+    "lat": -25.2828508,
+    "lng": -57.6187112,
+    "name": "E.M.D. VICE PRESIDENTE SANCHEZ",
+    "type": "education"
+  },
+  {
+    "id": 4580168748,
+    "lat": -25.2897111,
+    "lng": -57.6244072,
+    "name": "REPUBLICA ARGENTINA",
+    "type": "education"
+  },
+  {
+    "id": 4580168751,
+    "lat": -25.2880248,
+    "lng": -57.6231903,
+    "name": "VIRGEN DE LA PAZ",
+    "type": "education"
+  },
+  {
+    "id": 4580168752,
+    "lat": -25.2844911,
+    "lng": -57.6287608,
+    "name": "1032 SAN ROQUE HOGAR DE CANILLITAS",
+    "type": "education"
+  },
+  {
+    "id": 4580168753,
+    "lat": -25.2857405,
+    "lng": -57.6197949,
+    "name": "San Miguel de Garicoits",
+    "type": "education"
+  },
+  {
+    "id": 4580168756,
+    "lat": -25.2815575,
+    "lng": -57.6155853,
+    "name": "1070 ANGLICANA SAN ANDRES",
+    "type": "education"
+  },
+  {
+    "id": 4580168757,
+    "lat": -25.2868244,
+    "lng": -57.6193764,
+    "name": "1164 SAN JOSE",
+    "type": "education"
+  },
+  {
+    "id": 4580168758,
+    "lat": -25.2902625,
+    "lng": -57.6156889,
+    "name": "1166 PRIVADA INTERNACIONAL",
+    "type": "education"
+  },
+  {
+    "id": 4580168761,
+    "lat": -25.2843089,
+    "lng": -57.6274351,
+    "name": "14746 (244) Santa Matia Goretti",
+    "type": "education"
+  },
+  {
+    "id": 4580168762,
+    "lat": -25.2789694,
+    "lng": -57.6168636,
+    "name": "1510 SAN FELIPE",
+    "type": "education"
+  },
+  {
+    "id": 4580168764,
+    "lat": -25.2760692,
+    "lng": -57.6107606,
+    "name": "18 REPUBLICA DE CUBA",
+    "type": "education"
+  },
+  {
+    "id": 4580168766,
+    "lat": -25.2817625,
+    "lng": -57.6097464,
+    "name": "2705 LOS OLIVOS",
+    "type": "education"
+  },
+  {
+    "id": 4580168769,
+    "lat": -25.2924256,
+    "lng": -57.6167131,
+    "name": "584 LOS TRES PASTORCITOS",
+    "type": "education"
+  },
+  {
+    "id": 4580168770,
+    "lat": -25.2843122,
+    "lng": -57.6154703,
+    "name": "6319 EFAES",
+    "type": "education"
+  },
+  {
+    "id": 4580168771,
+    "lat": -25.2899811,
+    "lng": -57.6224717,
+    "name": "6682 (EX 612) CENTRO EDUC. SAN MIGUEL AR",
+    "type": "education"
+  },
+  {
+    "id": 4580168772,
+    "lat": -25.2875083,
+    "lng": -57.6282943,
+    "name": "7280 JARDIN DE INFANTES TROMPITAS",
+    "type": "education"
+  },
+  {
+    "id": 4580180680,
+    "lat": -25.2753108,
+    "lng": -57.5051578,
+    "name": "Centro de Capacitacion Tecnica",
+    "type": "education"
+  },
+  {
+    "id": 4580180681,
+    "lat": -25.2755078,
+    "lng": -57.5292675,
+    "name": "Comandos de Institutos Aeronauticos de Enseñanza",
+    "type": "education"
+  },
+  {
+    "id": 4580180682,
+    "lat": -25.2409003,
+    "lng": -57.5438633,
+    "name": "Colegio Nacional Coronel Vicente Mongelos",
+    "type": "education"
+  },
+  {
+    "id": 4580180684,
+    "lat": -25.2740362,
+    "lng": -57.544851,
+    "name": "11-251 Club De S/O De Las F.F.A.A",
+    "type": "education"
+  },
+  {
+    "id": 4580180687,
+    "lat": -25.2566861,
+    "lng": -57.5544486,
+    "name": "227 Republica de Venezuela",
+    "type": "education"
+  },
+  {
+    "id": 4580180989,
+    "lat": -25.2582369,
+    "lng": -57.4887061,
+    "name": "2890 Virgen de las Mercedes",
+    "type": "education"
+  },
+  {
+    "id": 4580180990,
+    "lat": -25.2574361,
+    "lng": -57.4959619,
+    "name": "2924 Nestor Romero V.",
+    "type": "education"
+  },
+  {
+    "id": 4580180991,
+    "lat": -25.2597519,
+    "lng": -57.5556839,
+    "name": "3692 (13095) St.Anne's School",
+    "type": "education"
+  },
+  {
+    "id": 4580180992,
+    "lat": -25.2813128,
+    "lng": -57.5591292,
+    "name": "Escuela Básica N° 394 Taller Creativo Kinderland",
+    "type": "education"
+  },
+  {
+    "id": 4580180993,
+    "lat": -25.2672169,
+    "lng": -57.5517456,
+    "name": "4272 (13572) Centro Educativo Cristiano",
+    "type": "education"
+  },
+  {
+    "id": 4580180994,
+    "lat": -25.2542883,
+    "lng": -57.5081036,
+    "name": "4553 Baden Powell School",
+    "type": "education"
+  },
+  {
+    "id": 4580180995,
+    "lat": -25.2437542,
+    "lng": -57.5472706,
+    "name": "4751 Privada Maria Serrana",
+    "type": "education"
+  },
+  {
+    "id": 4580180996,
+    "lat": -25.2694066,
+    "lng": -57.5567208,
+    "name": "664 Primer Presidente Constante del Paraguay",
+    "type": "education"
+  },
+  {
+    "id": 4580180998,
+    "lat": -25.2429861,
+    "lng": -57.4743072,
+    "name": "7138 San Marcos",
+    "type": "education"
+  },
+  {
+    "id": 4580180999,
+    "lat": -25.2520047,
+    "lng": -57.4890386,
+    "name": "7470 Centro Educativo Casa de Paz",
+    "type": "education"
+  },
+  {
+    "id": 4580181000,
+    "lat": -25.2452142,
+    "lng": -57.5528872,
+    "name": "7827 (15005) Virgen de Fatima",
+    "type": "education"
+  },
+  {
+    "id": 4581054329,
+    "lat": -25.2627611,
+    "lng": -57.5717061,
+    "name": "Colegio Lumen",
+    "type": "education"
+  },
+  {
+    "id": 4581292789,
+    "lat": -25.2694017,
+    "lng": -57.5567208,
+    "name": "664 Primer Presidente Constante del Paraguay",
+    "type": "education"
+  },
+  {
+    "id": 4585239541,
+    "lat": -25.2896045,
+    "lng": -57.6258208,
+    "name": "Carolina",
+    "type": "education"
+  },
+  {
+    "id": 4585239542,
+    "lat": -25.2833303,
+    "lng": -57.6320225,
+    "name": "E.M.D. Asuncion Escalada",
+    "type": "education"
+  },
+  {
+    "id": 4585239543,
+    "lat": -25.2854244,
+    "lng": -57.6224787,
+    "name": "No.6 Fonoaudiologia Paraguay-Uruguay",
+    "type": "education"
+  },
+  {
+    "id": 4585239544,
+    "lat": -25.2803956,
+    "lng": -57.6039689,
+    "name": "Unnamed",
+    "type": "education"
+  },
+  {
+    "id": 4585239545,
+    "lat": -25.2868411,
+    "lng": -57.6193303,
+    "name": "1164 San Jose",
+    "type": "education"
+  },
+  {
+    "id": 4585239546,
+    "lat": -25.2876466,
+    "lng": -57.6220296,
+    "name": "1176 Santa Teresa de Jesus",
+    "type": "education"
+  },
+  {
+    "id": 4585239547,
+    "lat": -25.2802347,
+    "lng": -57.6124054,
+    "name": "223 Marien Garten;223 MARIEN GARTEN",
+    "type": "education"
+  },
+  {
+    "id": 4585239549,
+    "lat": -25.2810614,
+    "lng": -57.6067731,
+    "name": "6635 Espacio Comunitario de Aprendizaje",
+    "type": "education"
+  },
+  {
+    "id": 4585239550,
+    "lat": -25.2757569,
+    "lng": -57.6009961,
+    "name": "6837 Jardin de Infantes Nubeluz",
+    "type": "education"
+  },
+  {
+    "id": 4585429161,
+    "lat": -25.2856611,
+    "lng": -57.5130617,
+    "name": "Centro de Educación Especial Ko'e Pyahu",
+    "type": "education"
+  },
+  {
+    "id": 4585429169,
+    "lat": -25.2572981,
+    "lng": -57.4913239,
+    "name": "26 General Jose Elizardo Aquino",
+    "type": "education"
+  },
+  {
+    "id": 4585429170,
+    "lat": -25.2636736,
+    "lng": -57.5140183,
+    "name": "269 Julio Correa",
+    "type": "education"
+  },
+  {
+    "id": 4585429173,
+    "lat": -25.2580106,
+    "lng": -57.4806019,
+    "name": "2917 Teodoro S.Mongelos",
+    "type": "education"
+  },
+  {
+    "id": 4585429176,
+    "lat": -25.2954878,
+    "lng": -57.4914581,
+    "name": "3539 San Jose",
+    "type": "education"
+  },
+  {
+    "id": 4585429178,
+    "lat": -25.2752172,
+    "lng": -57.4767267,
+    "name": "4840 Madre Rosa Staeugenia",
+    "type": "education"
+  },
+  {
+    "id": 4585429180,
+    "lat": -25.2701278,
+    "lng": -57.4867078,
+    "name": "534 Circuito Infantil Tia Chiroca",
+    "type": "education"
+  },
+  {
+    "id": 4585429181,
+    "lat": -25.2792597,
+    "lng": -57.499918,
+    "name": "5573 (14720) San Miguel",
+    "type": "education"
+  },
+  {
+    "id": 4585429182,
+    "lat": -25.2809264,
+    "lng": -57.4899789,
+    "name": "5574 (15144) S.O.S. C. E. Hermann Gmeine",
+    "type": "education"
+  },
+  {
+    "id": 4585429183,
+    "lat": -25.2503358,
+    "lng": -57.5019308,
+    "name": "5615 Pan American Internat.",
+    "type": "education"
+  },
+  {
+    "id": 4585429184,
+    "lat": -25.2617703,
+    "lng": -57.4879756,
+    "name": "5619 (14198) Medalla Milagrosa",
+    "type": "education"
+  },
+  {
+    "id": 4585429185,
+    "lat": -25.2759661,
+    "lng": -57.5094356,
+    "name": "601 Jardin y Preescolar Fantasia",
+    "type": "education"
+  },
+  {
+    "id": 4585429186,
+    "lat": -25.287305,
+    "lng": -57.4998381,
+    "name": "6095 Presbiteriana del Paraguay",
+    "type": "education"
+  },
+  {
+    "id": 4585429187,
+    "lat": -25.2838853,
+    "lng": -57.5040671,
+    "name": "6110 Familia Nazareno",
+    "type": "education"
+  },
+  {
+    "id": 4585429188,
+    "lat": -25.2600377,
+    "lng": -57.4890907,
+    "name": "6164 Comunidad Educativaa Integral Bella Vista",
+    "type": "education"
+  },
+  {
+    "id": 4585429890,
+    "lat": -25.2945467,
+    "lng": -57.5106256,
+    "name": "6520 Arandura Rekavo",
+    "type": "education"
+  },
+  {
+    "id": 4585429891,
+    "lat": -25.2758186,
+    "lng": -57.4997117,
+    "name": "672 Don Carlos A. Lopez",
+    "type": "education"
+  },
+  {
+    "id": 4585429894,
+    "lat": -25.2900635,
+    "lng": -57.5047181,
+    "name": "7704 (15083) Santo Domingo de Guzman",
+    "type": "education"
+  },
+  {
+    "id": 4585452437,
+    "lat": -25.3613364,
+    "lng": -57.5834394,
+    "name": "ARANDURA",
+    "type": "education"
+  },
+  {
+    "id": 4585452438,
+    "lat": -25.3589803,
+    "lng": -57.5763219,
+    "name": "CENTRO DE REHABILITACION ROSA ESTELA - S",
+    "type": "education"
+  },
+  {
+    "id": 4585452439,
+    "lat": -25.3727381,
+    "lng": -57.5843192,
+    "name": "Doris",
+    "type": "education"
+  },
+  {
+    "id": 4585452440,
+    "lat": -25.3479908,
+    "lng": -57.5762003,
+    "name": "MARTHA CELIA",
+    "type": "education"
+  },
+  {
+    "id": 4585452441,
+    "lat": -25.3526767,
+    "lng": -57.5694944,
+    "name": "Nosotras",
+    "type": "education"
+  },
+  {
+    "id": 4585452442,
+    "lat": -25.3584186,
+    "lng": -57.5767964,
+    "name": "ROSA AGUSTINA FARIÑA",
+    "type": "education"
+  },
+  {
+    "id": 4585452443,
+    "lat": -25.3607361,
+    "lng": -57.6409419,
+    "name": "Virgen Stella Marys",
+    "type": "education"
+  },
+  {
+    "id": 4585452444,
+    "lat": -25.3540722,
+    "lng": -57.5866544,
+    "name": "1028 DR. MOISES S. BERTONI",
+    "type": "education"
+  },
+  {
+    "id": 4585452445,
+    "lat": -25.3600236,
+    "lng": -57.5977944,
+    "name": "1029 PROF. MARIA DEL C. DE ACHUCARRO",
+    "type": "education"
+  },
+  {
+    "id": 4585452447,
+    "lat": -25.3541833,
+    "lng": -57.5767961,
+    "name": "11-310 KUARAHY RESE",
+    "type": "education"
+  },
+  {
+    "id": 4585452448,
+    "lat": -25.3491689,
+    "lng": -57.6218006,
+    "name": "1133 Sagrada Familia",
+    "type": "education"
+  },
+  {
+    "id": 4585452449,
+    "lat": -25.3539228,
+    "lng": -57.5946042,
+    "name": "1307 SANTA ROSA",
+    "type": "education"
+  },
+  {
+    "id": 4585452450,
+    "lat": -25.3641522,
+    "lng": -57.6192233,
+    "name": "14988 Virgen Maria del Schoestatt",
+    "type": "education"
+  },
+  {
+    "id": 4585452452,
+    "lat": -25.3525786,
+    "lng": -57.5920236,
+    "name": "15287 MARANGATU",
+    "type": "education"
+  },
+  {
+    "id": 4585452453,
+    "lat": -25.3533319,
+    "lng": -57.5728367,
+    "name": "15316 CENTRO EDUCATIVO CRECER",
+    "type": "education"
+  },
+  {
+    "id": 4585452454,
+    "lat": -25.3602117,
+    "lng": -57.5869522,
+    "name": "1702 AMERICA",
+    "type": "education"
+  },
+  {
+    "id": 4585452455,
+    "lat": -25.3441553,
+    "lng": -57.6307483,
+    "name": "Escuela 20 República del Ecuador",
+    "type": "education"
+  },
+  {
+    "id": 4585452456,
+    "lat": -25.3449733,
+    "lng": -57.5991514,
+    "name": "2063 SAN MIGUEL ARCANGEL",
+    "type": "education"
+  },
+  {
+    "id": 4585452461,
+    "lat": -25.3737636,
+    "lng": -57.5761833,
+    "name": "3410 SAGRADO CORAZON DE JESUS",
+    "type": "education"
+  },
+  {
+    "id": 4585452462,
+    "lat": -25.3677922,
+    "lng": -57.5744356,
+    "name": "3537 MUNICIPAL SAN JOSE",
+    "type": "education"
+  },
+  {
+    "id": 4585452464,
+    "lat": -25.3582569,
+    "lng": -57.5765869,
+    "name": "3649 (13876) SAN IGNACIO DE LOYOLA",
+    "type": "education"
+  },
+  {
+    "id": 4585452465,
+    "lat": -25.3491969,
+    "lng": -57.5679478,
+    "name": "3651 SAGRADO CORAZON DE JESUS",
+    "type": "education"
+  },
+  {
+    "id": 4585452466,
+    "lat": -25.3559014,
+    "lng": -57.5921689,
+    "name": "3653 (14248) VIRGEN DEL ROSARIO",
+    "type": "education"
+  },
+  {
+    "id": 4585452467,
+    "lat": -25.3469466,
+    "lng": -57.5890238,
+    "name": "3656 (13086 )SAN MIGUEL",
+    "type": "education"
+  },
+  {
+    "id": 4585452469,
+    "lat": -25.3690433,
+    "lng": -57.5936742,
+    "name": "4213 (14688) SANTA LIBRADA",
+    "type": "education"
+  },
+  {
+    "id": 4585452470,
+    "lat": -25.3434458,
+    "lng": -57.5791997,
+    "name": "4412 (13999) NIHON GAKKO",
+    "type": "education"
+  },
+  {
+    "id": 4585452471,
+    "lat": -25.3726231,
+    "lng": -57.5814461,
+    "name": "4594 (13022) DIVINO NIÑO JESUS",
+    "type": "education"
+  },
+  {
+    "id": 4585452472,
+    "lat": -25.3501764,
+    "lng": -57.6206231,
+    "name": "4595 El Salvador",
+    "type": "education"
+  },
+  {
+    "id": 4585452473,
+    "lat": -25.3431125,
+    "lng": -57.6021881,
+    "name": "4597 (14096) Nuestra Señora de Betharram",
+    "type": "education"
+  },
+  {
+    "id": 4585452474,
+    "lat": -25.3719722,
+    "lng": -57.5816317,
+    "name": "4621 PROCERES DE MAYO",
+    "type": "education"
+  },
+  {
+    "id": 4585452475,
+    "lat": -25.3469214,
+    "lng": -57.5725978,
+    "name": "4824 (14588) C.E. YASY",
+    "type": "education"
+  },
+  {
+    "id": 4585452476,
+    "lat": -25.3522692,
+    "lng": -57.6168375,
+    "name": "4867 Maria Dolores Sola",
+    "type": "education"
+  },
+  {
+    "id": 4585452479,
+    "lat": -25.3685114,
+    "lng": -57.5844678,
+    "name": "5547 (14249) SAN FRANCISCO DE ASIS",
+    "type": "education"
+  },
+  {
+    "id": 4585452480,
+    "lat": -25.3481839,
+    "lng": -57.5730114,
+    "name": "5552 (14990) CAMPUS SCHOOL",
+    "type": "education"
+  },
+  {
+    "id": 4585452481,
+    "lat": -25.3527947,
+    "lng": -57.6334067,
+    "name": "5563 (14989) CENTRO EDUCATIVO SAN PEDRO",
+    "type": "education"
+  },
+  {
+    "id": 4585452482,
+    "lat": -25.3449308,
+    "lng": -57.5895817,
+    "name": "5564 (15223) 8 DE DICIEMBRE",
+    "type": "education"
+  },
+  {
+    "id": 4585452483,
+    "lat": -25.3427964,
+    "lng": -57.5835692,
+    "name": "575 DR. JUAN JOSE SOLER",
+    "type": "education"
+  },
+  {
+    "id": 4585452484,
+    "lat": -25.3432483,
+    "lng": -57.6167122,
+    "name": "5893 Centro Educativo Arandu",
+    "type": "education"
+  },
+  {
+    "id": 4585452485,
+    "lat": -25.3567631,
+    "lng": -57.5979175,
+    "name": "5895 MI AMIGO JESUS",
+    "type": "education"
+  },
+  {
+    "id": 4585452487,
+    "lat": -25.3563889,
+    "lng": -57.5762303,
+    "name": "6027 CEN. CREATIVO ENMANUEL DE TRES BOCA",
+    "type": "education"
+  },
+  {
+    "id": 4585452488,
+    "lat": -25.3448744,
+    "lng": -57.6165414,
+    "name": "612 Cerro Cora",
+    "type": "education"
+  },
+  {
+    "id": 4585453490,
+    "lat": -25.3504611,
+    "lng": -57.5841425,
+    "name": "6435 (14819) SAGRADA FAMILIA",
+    "type": "education"
+  },
+  {
+    "id": 4585453491,
+    "lat": -25.3443122,
+    "lng": -57.5723769,
+    "name": "6653 CRISTIANA JARDIN DE DIO",
+    "type": "education"
+  },
+  {
+    "id": 4585453492,
+    "lat": -25.3585101,
+    "lng": -57.6099692,
+    "name": "6656 Bautista La Hermosa",
+    "type": "education"
+  },
+  {
+    "id": 4585453493,
+    "lat": -25.3688558,
+    "lng": -57.6020919,
+    "name": "679 ANDRES A. DELMAS",
+    "type": "education"
+  },
+  {
+    "id": 4585453494,
+    "lat": -25.3663075,
+    "lng": -57.5754425,
+    "name": "6919 MONTREAL",
+    "type": "education"
+  },
+  {
+    "id": 4585453495,
+    "lat": -25.3451769,
+    "lng": -57.5934981,
+    "name": "7036 LA ARBOLEDA",
+    "type": "education"
+  },
+  {
+    "id": 4585453496,
+    "lat": -25.3726286,
+    "lng": -57.5891592,
+    "name": "7165 GUARDERIA LA HORMIGUITA",
+    "type": "education"
+  },
+  {
+    "id": 4585453497,
+    "lat": -25.3480364,
+    "lng": -57.5852539,
+    "name": "7231 ATENAS",
+    "type": "education"
+  },
+  {
+    "id": 4585453498,
+    "lat": -25.3613811,
+    "lng": -57.5835392,
+    "name": "7334 JESUS MARIA",
+    "type": "education"
+  },
+  {
+    "id": 4585453499,
+    "lat": -25.3539094,
+    "lng": -57.6001297,
+    "name": "7340 SAN CARLOS",
+    "type": "education"
+  },
+  {
+    "id": 4585453500,
+    "lat": -25.3464203,
+    "lng": -57.60532,
+    "name": "7819 (14472) OSCAR DANIEL SANTA CRUZ CANTERO",
+    "type": "education"
+  },
+  {
+    "id": 4585453501,
+    "lat": -25.3576817,
+    "lng": -57.605827,
+    "name": "804 REPUBLICA DEL SALVADOR",
+    "type": "education"
+  },
+  {
+    "id": 4585453502,
+    "lat": -25.373345,
+    "lng": -57.61272,
+    "name": "804 REPUBLICA DEL SALVADOR",
+    "type": "education"
+  },
+  {
+    "id": 4585453503,
+    "lat": -25.3557158,
+    "lng": -57.6218142,
+    "name": "Escuela Nº 13444 Virgen del Rosario",
+    "type": "education"
+  },
+  {
+    "id": 4585453504,
+    "lat": -25.3564456,
+    "lng": -57.6222453,
+    "name": "Escuela Nº 806 Inspector Mayor Eusebio Florentín",
+    "type": "education"
+  },
+  {
+    "id": 4585453506,
+    "lat": -25.3522081,
+    "lng": -57.5965933,
+    "name": "808 DR. BERNARDO OCAMPOS",
+    "type": "education"
+  },
+  {
+    "id": 4585453508,
+    "lat": -25.3549769,
+    "lng": -57.5701017,
+    "name": "959 Profesora Mercedes Ibarra",
+    "type": "education"
+  },
+  {
+    "id": 4585472634,
+    "lat": -25.1997384,
+    "lng": -57.5187694,
+    "name": "355 Zenon Franco",
+    "type": "education"
+  },
+  {
+    "id": 4585472635,
+    "lat": -25.1918897,
+    "lng": -57.5354561,
+    "name": "403 Quintina Paredes Silva",
+    "type": "education"
+  },
+  {
+    "id": 4585472636,
+    "lat": -25.1843311,
+    "lng": -57.5329519,
+    "name": "4711 Aposento Alto - San Rafael",
+    "type": "education"
+  },
+  {
+    "id": 4585472639,
+    "lat": -25.1776314,
+    "lng": -57.4936339,
+    "name": "5569 (15247) San Marcos",
+    "type": "education"
+  },
+  {
+    "id": 4585472640,
+    "lat": -25.1861806,
+    "lng": -57.5198668,
+    "name": "6258 (14368) Maria Auxiliadora",
+    "type": "education"
+  },
+  {
+    "id": 4585940309,
+    "lat": -25.2041006,
+    "lng": -57.5042325,
+    "name": "2378 Felix Ruiz",
+    "type": "education"
+  },
+  {
+    "id": 4585940310,
+    "lat": -25.2228558,
+    "lng": -57.5227653,
+    "name": "2657 (12682)",
+    "type": "education"
+  },
+  {
+    "id": 4585940311,
+    "lat": -25.2393378,
+    "lng": -57.552245,
+    "name": "3620 (13468) San Pedro",
+    "type": "education"
+  },
+  {
+    "id": 4585940312,
+    "lat": -25.2124961,
+    "lng": -57.5232369,
+    "name": "4726 (14393) Nuestra Señora del Carmen",
+    "type": "education"
+  },
+  {
+    "id": 4585940313,
+    "lat": -25.2250708,
+    "lng": -57.5246014,
+    "name": "4731 (14008) Despertar",
+    "type": "education"
+  },
+  {
+    "id": 4585940314,
+    "lat": -25.2266036,
+    "lng": -57.5278642,
+    "name": "4736 Renacer",
+    "type": "education"
+  },
+  {
+    "id": 4585940315,
+    "lat": -25.2094161,
+    "lng": -57.5157194,
+    "name": "6566 (15369) 12 De Junio",
+    "type": "education"
+  },
+  {
+    "id": 4585940317,
+    "lat": -25.2351431,
+    "lng": -57.5082325,
+    "name": "858 Prof. Juan Javaloyes y Gonzalez",
+    "type": "education"
+  },
+  {
+    "id": 4586856081,
+    "lat": -25.3694038,
+    "lng": -57.5656379,
+    "name": "MIGUEL ANGEL RODRIGUEZ",
+    "type": "education"
+  },
+  {
+    "id": 4586856085,
+    "lat": -25.3645273,
+    "lng": -57.5605353,
+    "name": "4186 (14403)VIRGEN DEL CARMEN MUN. Nº10",
+    "type": "education"
+  },
+  {
+    "id": 4586856086,
+    "lat": -25.3549386,
+    "lng": -57.5613061,
+    "name": "457 C.P.A.N. VIRGEN DE CAACUPE",
+    "type": "education"
+  },
+  {
+    "id": 4586856087,
+    "lat": -25.3899275,
+    "lng": -57.5739636,
+    "name": "4743 VIRGEN DEL CARMEN-VILLA CLAUDIA",
+    "type": "education"
+  },
+  {
+    "id": 4586856088,
+    "lat": -25.3681303,
+    "lng": -57.5617644,
+    "name": "5587 (13994) INMACULADA CONCEPCION",
+    "type": "education"
+  },
+  {
+    "id": 4586856090,
+    "lat": -25.3553014,
+    "lng": -57.5608606,
+    "name": "6143 MADRE TERESA DE CALCUTA",
+    "type": "education"
+  },
+  {
+    "id": 4587005439,
+    "lat": -25.1924211,
+    "lng": -57.5257617,
+    "name": "2490 Maka Angel Kanaiti",
+    "type": "education"
+  },
+  {
+    "id": 4587005441,
+    "lat": -25.1859203,
+    "lng": -57.5279767,
+    "name": "4730 (13911) Hogar de Jesus",
+    "type": "education"
+  },
+  {
+    "id": 4587005443,
+    "lat": -25.2001969,
+    "lng": -57.5332194,
+    "name": "5635 (15078) Divino Maestro",
+    "type": "education"
+  },
+  {
+    "id": 4587005445,
+    "lat": -25.1967564,
+    "lng": -57.5406186,
+    "name": "6564 (14069) Maria Auxiliadora",
+    "type": "education"
+  },
+  {
+    "id": 4587005446,
+    "lat": -25.2031606,
+    "lng": -57.5226711,
+    "name": "6567 (15244) Centro Pedagogico Mariano R.",
+    "type": "education"
+  },
+  {
+    "id": 4587005447,
+    "lat": -25.2083872,
+    "lng": -57.5392589,
+    "name": "7010 Sudamericana",
+    "type": "education"
+  },
+  {
+    "id": 4587005448,
+    "lat": -25.1952011,
+    "lng": -57.5261903,
+    "name": "7090 Cabo 1º Galeano",
+    "type": "education"
+  },
+  {
+    "id": 4587042200,
+    "lat": -25.3933686,
+    "lng": -57.5852536,
+    "name": "Doctor Carlos A. Balmelli",
+    "type": "education"
+  },
+  {
+    "id": 4587042202,
+    "lat": -25.3956645,
+    "lng": -57.5457544,
+    "name": "E.M.A. CERRO CORA",
+    "type": "education"
+  },
+  {
+    "id": 4587042204,
+    "lat": -25.37864,
+    "lng": -57.5898247,
+    "name": "EMILIO JOHANNSEN",
+    "type": "education"
+  },
+  {
+    "id": 4587042207,
+    "lat": -25.3741356,
+    "lng": -57.5734119,
+    "name": "11-369 SAGRADO CORAZON DE JESUS",
+    "type": "education"
+  },
+  {
+    "id": 4587042208,
+    "lat": -25.3923025,
+    "lng": -57.5669464,
+    "name": "15239 SAN MIGUEL",
+    "type": "education"
+  },
+  {
+    "id": 4587042209,
+    "lat": -25.3774606,
+    "lng": -57.5957033,
+    "name": "15454 CRISTO REDENTOR",
+    "type": "education"
+  },
+  {
+    "id": 4587042210,
+    "lat": -25.3757428,
+    "lng": -57.58495,
+    "name": "196 REINO DE SUECIA",
+    "type": "education"
+  },
+  {
+    "id": 4587042211,
+    "lat": -25.3764508,
+    "lng": -57.6019508,
+    "name": "1988 MARIA AUXILIADORA",
+    "type": "education"
+  },
+  {
+    "id": 4587042213,
+    "lat": -25.3948692,
+    "lng": -57.5473339,
+    "name": "25 CARLOS ANTONIO LOPEZ",
+    "type": "education"
+  },
+  {
+    "id": 4587042217,
+    "lat": -25.3966992,
+    "lng": -57.5482367,
+    "name": "3413 SAN MARTIN DE PORRES",
+    "type": "education"
+  },
+  {
+    "id": 4587042218,
+    "lat": -25.3925208,
+    "lng": -57.5546797,
+    "name": "3415 COLEGIO TECNICO CANAAN",
+    "type": "education"
+  },
+  {
+    "id": 4587042220,
+    "lat": -25.3964258,
+    "lng": -57.5584656,
+    "name": "3444 29 DE SETIEMBRE",
+    "type": "education"
+  },
+  {
+    "id": 4587042221,
+    "lat": -25.3926323,
+    "lng": -57.5454866,
+    "name": "3451 (13094) NIÑO JESUS",
+    "type": "education"
+  },
+  {
+    "id": 4587042224,
+    "lat": -25.3809586,
+    "lng": -57.6059492,
+    "name": "3568 PERPETUO SOCORRO",
+    "type": "education"
+  },
+  {
+    "id": 4587042226,
+    "lat": -25.3779906,
+    "lng": -57.5851497,
+    "name": "3655 (13773) COL. PRESBITERIANO CERRITOS",
+    "type": "education"
+  },
+  {
+    "id": 4587042227,
+    "lat": -25.3836236,
+    "lng": -57.5741625,
+    "name": "Escuela Basica N° 3839 Municipal Marangatu",
+    "type": "education"
+  },
+  {
+    "id": 4587042233,
+    "lat": -25.3752878,
+    "lng": -57.6036647,
+    "name": "5548 (13877) SAN JOSE",
+    "type": "education"
+  },
+  {
+    "id": 4587042234,
+    "lat": -25.3741089,
+    "lng": -57.5710264,
+    "name": "5549 (14781) MBOCAYATY",
+    "type": "education"
+  },
+  {
+    "id": 4587042235,
+    "lat": -25.3919625,
+    "lng": -57.5823439,
+    "name": "5550 (14820) SANTA TERESA DE JESUS",
+    "type": "education"
+  },
+  {
+    "id": 4587042236,
+    "lat": -25.3824778,
+    "lng": -57.5943961,
+    "name": "5553 (15143) DIEGO R. MEDINA PAREDES",
+    "type": "education"
+  },
+  {
+    "id": 4587042243,
+    "lat": -25.3933769,
+    "lng": -57.5527947,
+    "name": "5593 (14391) C.E.I. SANTA ROSA",
+    "type": "education"
+  },
+  {
+    "id": 4587042253,
+    "lat": -25.3890478,
+    "lng": -57.5632828,
+    "name": "6649 MARIA AUXILIADORA",
+    "type": "education"
+  },
+  {
+    "id": 4587042254,
+    "lat": -25.3989719,
+    "lng": -57.5514086,
+    "name": "6831(491 J.I.PASITOS DEL SABER) M. ÑEMBY",
+    "type": "education"
+  },
+  {
+    "id": 4587042255,
+    "lat": -25.3827567,
+    "lng": -57.6034931,
+    "name": "6846 (15184) JULIO COSME GUTIERREZ",
+    "type": "education"
+  },
+  {
+    "id": 4587042260,
+    "lat": -25.3663148,
+    "lng": -57.5754667,
+    "name": "6919 Montereal",
+    "type": "education"
+  },
+  {
+    "id": 4587042261,
+    "lat": -25.3993439,
+    "lng": -57.5461014,
+    "name": "7014 DORA GIMEMEZ",
+    "type": "education"
+  },
+  {
+    "id": 4587042263,
+    "lat": -25.3819461,
+    "lng": -57.5805464,
+    "name": "7316 VIRGEN DE LA CANDELARIA",
+    "type": "education"
+  },
+  {
+    "id": 4587050606,
+    "lat": -25.2123367,
+    "lng": -57.5349597,
+    "name": "240 Gral. Eugenio A. Garay",
+    "type": "education"
+  },
+  {
+    "id": 4587050607,
+    "lat": -25.1889686,
+    "lng": -57.4952081,
+    "name": "2895",
+    "type": "education"
+  },
+  {
+    "id": 4587050608,
+    "lat": -25.2071908,
+    "lng": -57.5493503,
+    "name": "2928 Madre Teresa de Calcuta",
+    "type": "education"
+  },
+  {
+    "id": 4587050611,
+    "lat": -25.1983542,
+    "lng": -57.5505811,
+    "name": "4733 (13104) San Miguel Garicoits",
+    "type": "education"
+  },
+  {
+    "id": 4587050612,
+    "lat": -25.1898469,
+    "lng": -57.4808106,
+    "name": "4787 (13370) Beato Enrique de Osso",
+    "type": "education"
+  },
+  {
+    "id": 4587050613,
+    "lat": -25.1879563,
+    "lng": -57.4873568,
+    "name": "6103 San Rafael",
+    "type": "education"
+  },
+  {
+    "id": 4587714962,
+    "lat": -25.3693975,
+    "lng": -57.5656667,
+    "name": "Escuela Grad. Nª 2960 MIGUEL ANGEL RODRIGUEZ",
+    "type": "education"
+  },
+  {
+    "id": 4587715166,
+    "lat": -25.286273,
+    "lng": -57.6304231,
+    "name": "City Market",
+    "type": "commerce"
+  },
+  {
+    "id": 4588920993,
+    "lat": -25.3989709,
+    "lng": -57.5513625,
+    "name": "6831 (491 J.I.PASITOS DEL SABER) M. ÑEMBY",
+    "type": "education"
+  },
+  {
+    "id": 4588920995,
+    "lat": -25.3993376,
+    "lng": -57.5461337,
+    "name": "7014 Dora Gimenez",
+    "type": "education"
+  },
+  {
+    "id": 4589152854,
+    "lat": -25.2844428,
+    "lng": -57.4371414,
+    "name": "C.E.D.M. Virgen de la Merced",
+    "type": "education"
+  },
+  {
+    "id": 4589152856,
+    "lat": -25.2871454,
+    "lng": -57.4384923,
+    "name": "Juan de la Cruz Gaona",
+    "type": "education"
+  },
+  {
+    "id": 4589152858,
+    "lat": -25.2927181,
+    "lng": -57.4480978,
+    "name": "M-71 Direccion de Servicio Agrope",
+    "type": "education"
+  },
+  {
+    "id": 4589152862,
+    "lat": -25.3331514,
+    "lng": -57.4192417,
+    "name": "Sagrado Corazon de Jesus",
+    "type": "education"
+  },
+  {
+    "id": 4589152864,
+    "lat": -25.2713603,
+    "lng": -57.4110142,
+    "name": "1330 Defensores del Chaco",
+    "type": "education"
+  },
+  {
+    "id": 4589152870,
+    "lat": -25.3084442,
+    "lng": -57.4347439,
+    "name": "2128 Francisco Medina A.",
+    "type": "education"
+  },
+  {
+    "id": 4589152871,
+    "lat": -25.2921592,
+    "lng": -57.4507578,
+    "name": "2372",
+    "type": "education"
+  },
+  {
+    "id": 4589152872,
+    "lat": -25.3411822,
+    "lng": -57.4307967,
+    "name": "2857 Club de Leones de Capiata",
+    "type": "education"
+  },
+  {
+    "id": 4589152873,
+    "lat": -25.3034169,
+    "lng": -57.4018636,
+    "name": "2956 San Miguel Arcangel",
+    "type": "education"
+  },
+  {
+    "id": 4589152874,
+    "lat": -25.2893889,
+    "lng": -57.4162006,
+    "name": "3278 (13247) Virgen de Caacupe",
+    "type": "education"
+  },
+  {
+    "id": 4589152876,
+    "lat": -25.3086603,
+    "lng": -57.4129283,
+    "name": "3528 (13625) Niño Salvador del Mundo Fe",
+    "type": "education"
+  },
+  {
+    "id": 4589152878,
+    "lat": -25.2933278,
+    "lng": -57.4059528,
+    "name": "3724 (13839 ) San Antonio de Padua",
+    "type": "education"
+  },
+  {
+    "id": 4589152879,
+    "lat": -25.3327817,
+    "lng": -57.4061636,
+    "name": "3725 (14031) San Jose Obrero",
+    "type": "education"
+  },
+  {
+    "id": 4589152880,
+    "lat": -25.3029031,
+    "lng": -57.4015342,
+    "name": "3882 (14126) San Miguel Arcangel",
+    "type": "education"
+  },
+  {
+    "id": 4589152882,
+    "lat": -25.2915619,
+    "lng": -57.4109433,
+    "name": "3885 (14531) Maria Auxiliadora",
+    "type": "education"
+  },
+  {
+    "id": 4589152883,
+    "lat": -25.2894881,
+    "lng": -57.4162903,
+    "name": "4646 Caacupemi-Solidaridad",
+    "type": "education"
+  },
+  {
+    "id": 4589152884,
+    "lat": -25.3122311,
+    "lng": -57.4115892,
+    "name": "4762 Priv.Camino a Sion-Caacupemi",
+    "type": "education"
+  },
+  {
+    "id": 4589152886,
+    "lat": -25.2907911,
+    "lng": -57.4492133,
+    "name": "5575 (15086 )",
+    "type": "education"
+  },
+  {
+    "id": 4589152888,
+    "lat": -25.3051642,
+    "lng": -57.4068564,
+    "name": "5627 (14822) Amanecer",
+    "type": "education"
+  },
+  {
+    "id": 4589153390,
+    "lat": -25.3093528,
+    "lng": -57.4041981,
+    "name": "6100 Japonesa",
+    "type": "education"
+  },
+  {
+    "id": 4589153392,
+    "lat": -25.2995769,
+    "lng": -57.4123908,
+    "name": "6414 Santa Maria",
+    "type": "education"
+  },
+  {
+    "id": 4589153394,
+    "lat": -25.3330033,
+    "lng": -57.4205031,
+    "name": "671 Prof. Dr. Cantalicio Franco T.",
+    "type": "education"
+  },
+  {
+    "id": 4589153396,
+    "lat": -25.2774994,
+    "lng": -57.4050658,
+    "name": "678 Cnel. Paulino Alen",
+    "type": "education"
+  },
+  {
+    "id": 4589153397,
+    "lat": -25.3450314,
+    "lng": -57.4392175,
+    "name": "6867 Municipal San Wenceslao",
+    "type": "education"
+  },
+  {
+    "id": 4589153399,
+    "lat": -25.3116808,
+    "lng": -57.4081003,
+    "name": "7474 Bautista Luz de Esperanza",
+    "type": "education"
+  },
+  {
+    "id": 4589153400,
+    "lat": -25.2932917,
+    "lng": -57.4058831,
+    "name": "7595 San Antonio de Padua",
+    "type": "education"
+  },
+  {
+    "id": 4589153403,
+    "lat": -25.2767264,
+    "lng": -57.4535217,
+    "name": "860 Maestro Antonio M. Silva",
+    "type": "education"
+  },
+  {
+    "id": 4589179061,
+    "lat": -25.3175083,
+    "lng": -57.5442633,
+    "name": "Doctor Fernando de la Mora",
+    "type": "education"
+  },
+  {
+    "id": 4589179062,
+    "lat": -25.3293508,
+    "lng": -57.5672589,
+    "name": "General Bernandino Caballero",
+    "type": "education"
+  },
+  {
+    "id": 4589179063,
+    "lat": -25.3195125,
+    "lng": -57.5540786,
+    "name": "KOLPING",
+    "type": "education"
+  },
+  {
+    "id": 4589179064,
+    "lat": -25.3196475,
+    "lng": -57.5684258,
+    "name": "1054 Villa San Francisco",
+    "type": "education"
+  },
+  {
+    "id": 4589179066,
+    "lat": -25.3256272,
+    "lng": -57.5697744,
+    "name": "1278 APOSTOLICO SAN JOSE",
+    "type": "education"
+  },
+  {
+    "id": 4589179067,
+    "lat": -25.3310706,
+    "lng": -57.5519253,
+    "name": "133 R.I 3 CORRALES",
+    "type": "education"
+  },
+  {
+    "id": 4589179068,
+    "lat": -25.3252397,
+    "lng": -57.5414364,
+    "name": "144 COMANDANTE LEO NOWAK",
+    "type": "education"
+  },
+  {
+    "id": 4589179069,
+    "lat": -25.3170486,
+    "lng": -57.5632175,
+    "name": "145 J. DE INFANTES Y PE MARIA KAROL",
+    "type": "education"
+  },
+  {
+    "id": 4589179070,
+    "lat": -25.3271528,
+    "lng": -57.5704878,
+    "name": "14610 UNIVERSO III",
+    "type": "education"
+  },
+  {
+    "id": 4589179071,
+    "lat": -25.3173264,
+    "lng": -57.5372086,
+    "name": "1462 PEDRO IGNACIO MORINIGO",
+    "type": "education"
+  },
+  {
+    "id": 4589179072,
+    "lat": -25.3403219,
+    "lng": -57.54837,
+    "name": "1823 San Vicente Ferrer",
+    "type": "education"
+  },
+  {
+    "id": 4589179073,
+    "lat": -25.3252339,
+    "lng": -57.5414323,
+    "name": "2387 DANTE ALIGHIERI",
+    "type": "education"
+  },
+  {
+    "id": 4589179074,
+    "lat": -25.324035,
+    "lng": -57.5593253,
+    "name": "24 Republica Dominicana",
+    "type": "education"
+  },
+  {
+    "id": 4589179075,
+    "lat": -25.3284408,
+    "lng": -57.55242,
+    "name": "2824 SANTA CATALINA DE SIENA",
+    "type": "education"
+  },
+  {
+    "id": 4589179076,
+    "lat": -25.3293389,
+    "lng": -57.5391594,
+    "name": "3281 JEAN PIAGET",
+    "type": "education"
+  },
+  {
+    "id": 4589179077,
+    "lat": -25.3237747,
+    "lng": -57.5589367,
+    "name": "3339 San Roque Gonzalez de Santa Cruz",
+    "type": "education"
+  },
+  {
+    "id": 4589179078,
+    "lat": -25.3353958,
+    "lng": -57.5591689,
+    "name": "3425 (13631) Maria Auxiliadora",
+    "type": "education"
+  },
+  {
+    "id": 4589179079,
+    "lat": -25.3233717,
+    "lng": -57.5556361,
+    "name": "353 PITIANTUTA",
+    "type": "education"
+  },
+  {
+    "id": 4589179081,
+    "lat": -25.3241486,
+    "lng": -57.5458828,
+    "name": "3648 (14322) Nuestra Señora del Rosario",
+    "type": "education"
+  },
+  {
+    "id": 4589179083,
+    "lat": -25.3327678,
+    "lng": -57.5496078,
+    "name": "3973 (13828) SANTA TERESITA",
+    "type": "education"
+  },
+  {
+    "id": 4589179084,
+    "lat": -25.3392167,
+    "lng": -57.5565531,
+    "name": "4112 (14121) CRISTIANA SILOH",
+    "type": "education"
+  },
+  {
+    "id": 4589179085,
+    "lat": -25.332796,
+    "lng": -57.561277,
+    "name": "4409 (14324) Sagrada Familia",
+    "type": "education"
+  },
+  {
+    "id": 4589179086,
+    "lat": -25.3175175,
+    "lng": -57.5442336,
+    "name": "4410 (14106) Doctor Fernando de la Mora",
+    "type": "education"
+  },
+  {
+    "id": 4589179087,
+    "lat": -25.3222428,
+    "lng": -57.5651692,
+    "name": "449 JUAN ALBERTO SAMANIEGO",
+    "type": "education"
+  },
+  {
+    "id": 4589179088,
+    "lat": -25.3307128,
+    "lng": -57.5534439,
+    "name": "4652 Santisima Virgen Maria",
+    "type": "education"
+  },
+  {
+    "id": 4589181189,
+    "lat": -25.3184606,
+    "lng": -57.5623897,
+    "name": "4800 (14358) SANTA ELENA",
+    "type": "education"
+  },
+  {
+    "id": 4589181190,
+    "lat": -25.3423122,
+    "lng": -57.5617744,
+    "name": "4823 (14476) San Miguel Arcangel",
+    "type": "education"
+  },
+  {
+    "id": 4589181191,
+    "lat": -25.3378908,
+    "lng": -57.5439869,
+    "name": "515 Defensores del chaco",
+    "type": "education"
+  },
+  {
+    "id": 4589181192,
+    "lat": -25.3401106,
+    "lng": -57.5589322,
+    "name": "Escuela Básica Nº 576 Gregoria Molinas de Saldívar",
+    "type": "education"
+  },
+  {
+    "id": 4589181193,
+    "lat": -25.3352947,
+    "lng": -57.5620003,
+    "name": "6446 (15234) PEDRO MOLINIERS",
+    "type": "education"
+  },
+  {
+    "id": 4589181194,
+    "lat": -25.3143839,
+    "lng": -57.5466636,
+    "name": "662 Maria Auxiliadora",
+    "type": "education"
+  },
+  {
+    "id": 4589181195,
+    "lat": -25.3336608,
+    "lng": -57.5618536,
+    "name": "665 FORTIN NANAWA",
+    "type": "education"
+  },
+  {
+    "id": 4589181196,
+    "lat": -25.3345867,
+    "lng": -57.5437436,
+    "name": "6816 Centro Educativo San Antonio",
+    "type": "education"
+  },
+  {
+    "id": 4589181197,
+    "lat": -25.3280894,
+    "lng": -57.5522397,
+    "name": "7008 Amanecer",
+    "type": "education"
+  },
+  {
+    "id": 4589181199,
+    "lat": -25.3366033,
+    "lng": -57.56931,
+    "name": "7383 LA HELVECIA",
+    "type": "education"
+  },
+  {
+    "id": 4589181200,
+    "lat": -25.3186775,
+    "lng": -57.56709,
+    "name": "7818 (14807) EL SALVADOR",
+    "type": "education"
+  },
+  {
+    "id": 4589181201,
+    "lat": -25.3168269,
+    "lng": -57.5428694,
+    "name": "7828 (168) Flos Carmeli",
+    "type": "education"
+  },
+  {
+    "id": 4589181202,
+    "lat": -25.3331731,
+    "lng": -57.5739636,
+    "name": "824 REVERENDO PADRE LUCIANO CESTAC",
+    "type": "education"
+  },
+  {
+    "id": 4589189368,
+    "lat": -25.3382056,
+    "lng": -57.5315663,
+    "name": "264 CLOTILDE E. PAREDES",
+    "type": "education"
+  },
+  {
+    "id": 4589189370,
+    "lat": -25.3486089,
+    "lng": -57.5418386,
+    "name": "4181 (12795) SAN ANTONIO DE PADUA",
+    "type": "education"
+  },
+  {
+    "id": 4589189371,
+    "lat": -25.3368413,
+    "lng": -57.5332799,
+    "name": "4188 (14091) NEW AMERICAN SCHOOL",
+    "type": "education"
+  },
+  {
+    "id": 4589189372,
+    "lat": -25.3503086,
+    "lng": -57.5486336,
+    "name": "4825 (14253) NIÑO JESUS",
+    "type": "education"
+  },
+  {
+    "id": 4589189374,
+    "lat": -25.3466842,
+    "lng": -57.5519267,
+    "name": "6034 CENTRO EDUCATIVO SINAI",
+    "type": "education"
+  },
+  {
+    "id": 4589189376,
+    "lat": -25.3297231,
+    "lng": -57.5327919,
+    "name": "6869 WITHOUT FRONTIERS INTERCONTINENTAL",
+    "type": "education"
+  },
+  {
+    "id": 4589189377,
+    "lat": -25.3495956,
+    "lng": -57.5509758,
+    "name": "6975 Colegio Cristiano Sudamericano",
+    "type": "education"
+  },
+  {
+    "id": 4589189378,
+    "lat": -25.3488054,
+    "lng": -57.5517775,
+    "name": "7500 SANTA TERESITA DEL NIÑO JESUS",
+    "type": "education"
+  },
+  {
+    "id": 4589715363,
+    "lat": -25.3428219,
+    "lng": -57.5058892,
+    "name": "Anamir 4",
+    "type": "education"
+  },
+  {
+    "id": 4589715364,
+    "lat": -25.3513311,
+    "lng": -57.4945158,
+    "name": "Capitan Agustin Fernando de Pinedo",
+    "type": "education"
+  },
+  {
+    "id": 4589715365,
+    "lat": -25.3483958,
+    "lng": -57.5052167,
+    "name": "E.M.D. San Lorenzo",
+    "type": "education"
+  },
+  {
+    "id": 4589715366,
+    "lat": -25.3483461,
+    "lng": -57.4683769,
+    "name": "Logros",
+    "type": "education"
+  },
+  {
+    "id": 4589715367,
+    "lat": -25.3352811,
+    "lng": -57.4926917,
+    "name": "Maria Concepcion Leyes de Chavez",
+    "type": "education"
+  },
+  {
+    "id": 4589715368,
+    "lat": -25.3470994,
+    "lng": -57.5093156,
+    "name": "Patricia",
+    "type": "education"
+  },
+  {
+    "id": 4589715370,
+    "lat": -25.3613942,
+    "lng": -57.4854328,
+    "name": "14816 Ntra. Sra. del Carmen",
+    "type": "education"
+  },
+  {
+    "id": 4589715372,
+    "lat": -25.3469137,
+    "lng": -57.5059964,
+    "name": "15324 Presbiteriano Paraguay y Brasil",
+    "type": "education"
+  },
+  {
+    "id": 4589715373,
+    "lat": -25.3555567,
+    "lng": -57.4810464,
+    "name": "1943 Carlos Antonio Rachit",
+    "type": "education"
+  },
+  {
+    "id": 4589715374,
+    "lat": -25.3356794,
+    "lng": -57.4702461,
+    "name": "1944 Puerta del Sol",
+    "type": "education"
+  },
+  {
+    "id": 4589715375,
+    "lat": -25.3569333,
+    "lng": -57.4908117,
+    "name": "251 Jose D. Gonzalez",
+    "type": "education"
+  },
+  {
+    "id": 4589715376,
+    "lat": -25.3433208,
+    "lng": -57.4611631,
+    "name": "337 Niño Jesus de Praga",
+    "type": "education"
+  },
+  {
+    "id": 4589715377,
+    "lat": -25.3391217,
+    "lng": -57.5104647,
+    "name": "3734 San Pedro",
+    "type": "education"
+  },
+  {
+    "id": 4589715378,
+    "lat": -25.3397748,
+    "lng": -57.5068007,
+    "name": "3977 Fiendship's Shool",
+    "type": "education"
+  },
+  {
+    "id": 4589715379,
+    "lat": -25.3484619,
+    "lng": -57.4972528,
+    "name": "4169 (14019) San Miguel",
+    "type": "education"
+  },
+  {
+    "id": 4589715380,
+    "lat": -25.3457339,
+    "lng": -57.48861,
+    "name": "4173 (14405) Virgen de Fatima Munic. No.1",
+    "type": "education"
+  },
+  {
+    "id": 4589715381,
+    "lat": -25.3390508,
+    "lng": -57.4994842,
+    "name": "4175 (12880) Virgen de las Mercedes",
+    "type": "education"
+  },
+  {
+    "id": 4589715382,
+    "lat": -25.3386417,
+    "lng": -57.4895453,
+    "name": "4179 (13988) Centro Educativo Sinai",
+    "type": "education"
+  },
+  {
+    "id": 4589715383,
+    "lat": -25.3308067,
+    "lng": -57.4747483,
+    "name": "4201 (14404) Luis Alberto del Parana",
+    "type": "education"
+  },
+  {
+    "id": 4589715384,
+    "lat": -25.340265,
+    "lng": -57.5036228,
+    "name": "4202 (13009) Asamblea de Dios",
+    "type": "education"
+  },
+  {
+    "id": 4589715385,
+    "lat": -25.33738,
+    "lng": -57.4805472,
+    "name": "4209 (14000) Maria Irene Alonso",
+    "type": "education"
+  },
+  {
+    "id": 4589715386,
+    "lat": -25.3499555,
+    "lng": -57.5019509,
+    "name": "5555 (15033) C.E. San Sebastian",
+    "type": "education"
+  },
+  {
+    "id": 4589715388,
+    "lat": -25.3367853,
+    "lng": -57.5097792,
+    "name": "5614 (14815) England College",
+    "type": "education"
+  },
+  {
+    "id": 4589716389,
+    "lat": -25.3301083,
+    "lng": -57.4948867,
+    "name": "5630 (14406) Municipal Nº13",
+    "type": "education"
+  },
+  {
+    "id": 4589716390,
+    "lat": -25.3443939,
+    "lng": -57.4950739,
+    "name": "599 FRANCISCO CABALLERO A.",
+    "type": "education"
+  },
+  {
+    "id": 4589716391,
+    "lat": -25.3389564,
+    "lng": -57.4980428,
+    "name": "600 San Jose",
+    "type": "education"
+  },
+  {
+    "id": 4589716392,
+    "lat": -25.3608656,
+    "lng": -57.5068172,
+    "name": "601 Rita Surroca de Benitez",
+    "type": "education"
+  },
+  {
+    "id": 4589716393,
+    "lat": -25.3434697,
+    "lng": -57.4740028,
+    "name": "6221 C.Educativo Integral Santa Rosa",
+    "type": "education"
+  },
+  {
+    "id": 4589716394,
+    "lat": -25.36146,
+    "lng": -57.5112842,
+    "name": "6422 (15159) Nueva Era",
+    "type": "education"
+  },
+  {
+    "id": 4589716395,
+    "lat": -25.3500542,
+    "lng": -57.5121079,
+    "name": "6857 San Nicolas",
+    "type": "education"
+  },
+  {
+    "id": 4589716396,
+    "lat": -25.3476953,
+    "lng": -57.4713858,
+    "name": "6958 San Luis y Santa Teresa",
+    "type": "education"
+  },
+  {
+    "id": 4589716397,
+    "lat": -25.3373928,
+    "lng": -57.4958006,
+    "name": "7408(15443) Pytyvo",
+    "type": "education"
+  },
+  {
+    "id": 4589730430,
+    "lat": -25.3417581,
+    "lng": -57.510625,
+    "name": "(1126) Leonarda S. de Paez",
+    "type": "education"
+  },
+  {
+    "id": 4589730431,
+    "lat": -25.3475986,
+    "lng": -57.5059589,
+    "name": "(118) Coronel Luis Caminos",
+    "type": "education"
+  },
+  {
+    "id": 4589730432,
+    "lat": -25.3395027,
+    "lng": -57.5123487,
+    "name": "(1231) Sagrada Familia",
+    "type": "education"
+  },
+  {
+    "id": 4589730433,
+    "lat": -25.3429933,
+    "lng": -57.5157005,
+    "name": "(125) Antonio Provolo",
+    "type": "education"
+  },
+  {
+    "id": 4589730434,
+    "lat": -25.3397489,
+    "lng": -57.5066119,
+    "name": "(146) Pimpollitos",
+    "type": "education"
+  },
+  {
+    "id": 4589730437,
+    "lat": -25.3420883,
+    "lng": -57.5117492,
+    "name": "(7055) Instituto del Saber",
+    "type": "education"
+  },
+  {
+    "id": 4589730439,
+    "lat": -25.345109,
+    "lng": -57.5180371,
+    "name": "C.R.E. TOMASA FERREIRA DE MEZA",
+    "type": "education"
+  },
+  {
+    "id": 4589730440,
+    "lat": -25.3398422,
+    "lng": -57.5117203,
+    "name": "España",
+    "type": "education"
+  },
+  {
+    "id": 4589730441,
+    "lat": -25.3471542,
+    "lng": -57.5091767,
+    "name": "La Inmaculada",
+    "type": "education"
+  },
+  {
+    "id": 4589730442,
+    "lat": -25.3493703,
+    "lng": -57.51336,
+    "name": "Nuestra Señora de Fatima",
+    "type": "education"
+  },
+  {
+    "id": 4589730444,
+    "lat": -25.3484011,
+    "lng": -57.5052768,
+    "name": "San Lorenzo",
+    "type": "education"
+  },
+  {
+    "id": 4589730445,
+    "lat": -25.3398036,
+    "lng": -57.5117494,
+    "name": "23 España",
+    "type": "education"
+  },
+  {
+    "id": 4589730446,
+    "lat": -25.3411245,
+    "lng": -57.5038009,
+    "name": "295 Chispitas de Alegria",
+    "type": "education"
+  },
+  {
+    "id": 4589730448,
+    "lat": -25.3535506,
+    "lng": -57.5135267,
+    "name": "4168 (13564) Juan Bosco",
+    "type": "education"
+  },
+  {
+    "id": 4589730449,
+    "lat": -25.3422767,
+    "lng": -57.5094942,
+    "name": "Escuela Municipal Nº 1",
+    "type": "education"
+  },
+  {
+    "id": 4589730450,
+    "lat": -25.3475719,
+    "lng": -57.5091638,
+    "name": "4176 (12881) Maria Auxiliadora",
+    "type": "education"
+  },
+  {
+    "id": 4589730452,
+    "lat": -25.3523489,
+    "lng": -57.5059389,
+    "name": "5554 (14814) HEAVEN'S KINGDOM CHRISTIAN",
+    "type": "education"
+  },
+  {
+    "id": 4589730453,
+    "lat": -25.3499783,
+    "lng": -57.5019936,
+    "name": "5555 (15033) Centro Educativo San Sebastian",
+    "type": "education"
+  },
+  {
+    "id": 4589730455,
+    "lat": -25.3500073,
+    "lng": -57.5120264,
+    "name": "6857 SAN NICOLAS EX",
+    "type": "education"
+  },
+  {
+    "id": 4589730456,
+    "lat": -25.3460955,
+    "lng": -57.5199319,
+    "name": "7041 (303) Las Mercedes",
+    "type": "education"
+  },
+  {
+    "id": 4590857754,
+    "lat": -25.1898731,
+    "lng": -57.4810886,
+    "name": "(11-203) San Jorge",
+    "type": "education"
+  },
+  {
+    "id": 4590857755,
+    "lat": -25.1480294,
+    "lng": -57.4960944,
+    "name": "(1876) Capitan Romualdo Nuñez",
+    "type": "education"
+  },
+  {
+    "id": 4590857756,
+    "lat": -25.1641558,
+    "lng": -57.4756474,
+    "name": "(22) San Jose",
+    "type": "education"
+  },
+  {
+    "id": 4590857757,
+    "lat": -25.1961503,
+    "lng": -57.4461656,
+    "name": "(2381) Inmaculada Concepcion",
+    "type": "education"
+  },
+  {
+    "id": 4590857758,
+    "lat": -25.17225,
+    "lng": -57.4851772,
+    "name": "(2695) Ñandejara",
+    "type": "education"
+  },
+  {
+    "id": 4590857759,
+    "lat": -25.1794544,
+    "lng": -57.477465,
+    "name": "Sagrada Familia",
+    "type": "education"
+  },
+  {
+    "id": 4590857760,
+    "lat": -25.1879469,
+    "lng": -57.4873833,
+    "name": "(6103) San Rafael",
+    "type": "education"
+  },
+  {
+    "id": 4590857761,
+    "lat": -25.1501097,
+    "lng": -57.4869847,
+    "name": "(6439) Virgen de Caacupe",
+    "type": "education"
+  },
+  {
+    "id": 4590857762,
+    "lat": -25.1694617,
+    "lng": -57.4810366,
+    "name": "(7263) Maria Auxiliadora",
+    "type": "education"
+  },
+  {
+    "id": 4590857763,
+    "lat": -25.1664394,
+    "lng": -57.4756003,
+    "name": "(7416) Las Almenas",
+    "type": "education"
+  },
+  {
+    "id": 4590857764,
+    "lat": -25.1728094,
+    "lng": -57.4797117,
+    "name": "(7826) San Patricio",
+    "type": "education"
+  },
+  {
+    "id": 4590857765,
+    "lat": -25.1537222,
+    "lng": -57.4729494,
+    "name": "(7866) Romano",
+    "type": "education"
+  },
+  {
+    "id": 4590857766,
+    "lat": -25.1376825,
+    "lng": -57.484495,
+    "name": "Abraham Lyncoln",
+    "type": "education"
+  },
+  {
+    "id": 4590857768,
+    "lat": -25.1659894,
+    "lng": -57.4747036,
+    "name": "Calix",
+    "type": "education"
+  },
+  {
+    "id": 4590857769,
+    "lat": -25.2087792,
+    "lng": -57.4795547,
+    "name": "Juan de Salazar",
+    "type": "education"
+  },
+  {
+    "id": 4590857770,
+    "lat": -25.1678161,
+    "lng": -57.4767547,
+    "name": "M-54 BATALLON FERROVIARIO",
+    "type": "education"
+  },
+  {
+    "id": 4590857771,
+    "lat": -25.1684417,
+    "lng": -57.4759536,
+    "name": "Net Word - Ex Helen",
+    "type": "education"
+  },
+  {
+    "id": 4590857772,
+    "lat": -25.1437069,
+    "lng": -57.4730597,
+    "name": "Rincon del Peñon",
+    "type": "education"
+  },
+  {
+    "id": 4590857773,
+    "lat": -25.1517675,
+    "lng": -57.4570075,
+    "name": "San Isidro",
+    "type": "education"
+  },
+  {
+    "id": 4590857774,
+    "lat": -25.1644431,
+    "lng": -57.4753525,
+    "name": "San Jose",
+    "type": "education"
+  },
+  {
+    "id": 4590857775,
+    "lat": -25.16391,
+    "lng": -57.4726117,
+    "name": "San Luis",
+    "type": "education"
+  },
+  {
+    "id": 4590857776,
+    "lat": -25.2033572,
+    "lng": -57.4607833,
+    "name": "Santa Teresita",
+    "type": "education"
+  },
+  {
+    "id": 4590857777,
+    "lat": -25.1859139,
+    "lng": -57.459211,
+    "name": "2379 SAGRADO CORAZON DE JESUS",
+    "type": "education"
+  },
+  {
+    "id": 4590857778,
+    "lat": -25.1837692,
+    "lng": -57.4609181,
+    "name": "3015 PADRE MARIO CLEVA",
+    "type": "education"
+  },
+  {
+    "id": 4590857779,
+    "lat": -25.1706958,
+    "lng": -57.4798325,
+    "name": "3435 (13998) La Asuncion de Maria",
+    "type": "education"
+  },
+  {
+    "id": 4590857780,
+    "lat": -25.1710017,
+    "lng": -57.4802106,
+    "name": "3435 (13998) La Asuncion de Maria",
+    "type": "education"
+  },
+  {
+    "id": 4590857781,
+    "lat": -25.1801597,
+    "lng": -57.4714836,
+    "name": "3681 (13771) Montaña Alta",
+    "type": "education"
+  },
+  {
+    "id": 4590857782,
+    "lat": -25.1411817,
+    "lng": -57.4725717,
+    "name": "457 Profesora Magna de Martinez",
+    "type": "education"
+  },
+  {
+    "id": 4590857783,
+    "lat": -25.1699222,
+    "lng": -57.4647756,
+    "name": "4633 (15097) Sakura",
+    "type": "education"
+  },
+  {
+    "id": 4590857784,
+    "lat": -25.1637619,
+    "lng": -57.4564667,
+    "name": "4717 (13453) Maria Auxiliadora",
+    "type": "education"
+  },
+  {
+    "id": 4590857785,
+    "lat": -25.16803,
+    "lng": -57.4859644,
+    "name": "4718 (13571) Santa Lucia",
+    "type": "education"
+  },
+  {
+    "id": 4590857786,
+    "lat": -25.1528259,
+    "lng": -57.4672863,
+    "name": "4719 (13502) San Salvador",
+    "type": "education"
+  },
+  {
+    "id": 4590857787,
+    "lat": -25.1753594,
+    "lng": -57.4786894,
+    "name": "4727 (14366) Niño Jesus",
+    "type": "education"
+  },
+  {
+    "id": 4590857788,
+    "lat": -25.1660064,
+    "lng": -57.4750311,
+    "name": "4728 (14437) San Roque Gonzalez de Santa Cruz",
+    "type": "education"
+  },
+  {
+    "id": 4590858189,
+    "lat": -25.1713592,
+    "lng": -57.4730275,
+    "name": "4729 (14782) Don Crispin Morales Torres",
+    "type": "education"
+  },
+  {
+    "id": 4590858190,
+    "lat": -25.1697128,
+    "lng": -57.4795011,
+    "name": "4732 (14389 ) Privada San Marcos",
+    "type": "education"
+  },
+  {
+    "id": 4590858191,
+    "lat": -25.1694003,
+    "lng": -57.4811472,
+    "name": "Santisima Virgen Maria Auxiliadora",
+    "type": "education"
+  },
+  {
+    "id": 4590858192,
+    "lat": -25.1901325,
+    "lng": -57.4591256,
+    "name": "4783 (14719) San Vicente de Paul",
+    "type": "education"
+  },
+  {
+    "id": 4590858195,
+    "lat": -25.1377275,
+    "lng": -57.4846042,
+    "name": "5571 (15410) Nuestra Señora de la Asuncion",
+    "type": "education"
+  },
+  {
+    "id": 4590858196,
+    "lat": -25.1827551,
+    "lng": -57.4831634,
+    "name": "5632 (15273) El portal - Limpio",
+    "type": "education"
+  },
+  {
+    "id": 4590858197,
+    "lat": -25.1331928,
+    "lng": -57.47665,
+    "name": "5633 (15248) Santa Rosa",
+    "type": "education"
+  },
+  {
+    "id": 4590858198,
+    "lat": -25.1812389,
+    "lng": -57.4556683,
+    "name": "5890 ASCENCION GONZALEZ DE ACOSTA",
+    "type": "education"
+  },
+  {
+    "id": 4590858199,
+    "lat": -25.1294653,
+    "lng": -57.4787089,
+    "name": "6064 Arami Mburucuya",
+    "type": "education"
+  },
+  {
+    "id": 4590858200,
+    "lat": -25.1463924,
+    "lng": -57.4729669,
+    "name": "6065 Maria Montessori",
+    "type": "education"
+  },
+  {
+    "id": 4590858201,
+    "lat": -25.1678989,
+    "lng": -57.4706425,
+    "name": "6066 Santa Teresa de Jesus",
+    "type": "education"
+  },
+  {
+    "id": 4590858202,
+    "lat": -25.1659253,
+    "lng": -57.4750408,
+    "name": "6107 San Roque Gonzalez de Santa Cruz",
+    "type": "education"
+  },
+  {
+    "id": 4590858203,
+    "lat": -25.1754437,
+    "lng": -57.4597793,
+    "name": "6162 Sagrada Familia",
+    "type": "education"
+  },
+  {
+    "id": 4590858204,
+    "lat": -25.1992908,
+    "lng": -57.4645,
+    "name": "648 Profesor Simeon Riveros",
+    "type": "education"
+  },
+  {
+    "id": 4590858205,
+    "lat": -25.1899372,
+    "lng": -57.4637697,
+    "name": "6547 Centro Educativo Santa Rita de Cassia",
+    "type": "education"
+  },
+  {
+    "id": 4590858206,
+    "lat": -25.1473961,
+    "lng": -57.4659008,
+    "name": "6558 (15270) Niño Jesus",
+    "type": "education"
+  },
+  {
+    "id": 4590858207,
+    "lat": -25.2029814,
+    "lng": -57.4567419,
+    "name": "6560 (15409) Niño Jesus",
+    "type": "education"
+  },
+  {
+    "id": 4590858208,
+    "lat": -25.1726841,
+    "lng": -57.461031,
+    "name": "6561 (15370) San Isidro Labrador",
+    "type": "education"
+  },
+  {
+    "id": 4591195245,
+    "lat": -25.280535,
+    "lng": -57.6376413,
+    "name": "Unicentro",
+    "type": "commerce"
+  },
+  {
+    "id": 4592856495,
+    "lat": -25.2866781,
+    "lng": -57.6354619,
+    "name": "Facultad de Derecho UTIC",
+    "type": "education"
+  },
+  {
+    "id": 4602204645,
+    "lat": -25.3421635,
+    "lng": -57.6072734,
+    "name": "Supermercado Areté Lambaré",
+    "type": "commerce"
+  },
+  {
+    "id": 4603791391,
+    "lat": -25.2652403,
+    "lng": -57.5054653,
+    "name": "Los jardines",
+    "type": "commerce"
+  },
+  {
+    "id": 4616623369,
+    "lat": -25.3459257,
+    "lng": -57.5128315,
+    "name": "Clinica Trebastoni",
+    "type": "health"
+  },
+  {
+    "id": 4616623379,
+    "lat": -25.3459987,
+    "lng": -57.5134072,
+    "name": "Clinica de La Familia",
+    "type": "health"
+  },
+  {
+    "id": 4617343071,
+    "lat": -25.3268674,
+    "lng": -57.5300764,
+    "name": "Cordio Vida",
+    "type": "health"
+  },
+  {
+    "id": 4618553464,
+    "lat": -25.3503547,
+    "lng": -57.5122307,
+    "name": "Panda Med",
+    "type": "health"
+  },
+  {
+    "id": 4652027589,
+    "lat": -25.3502369,
+    "lng": -57.4475722,
+    "name": "Supermercado Real",
+    "type": "commerce"
+  },
+  {
+    "id": 4713706102,
+    "lat": -25.2855352,
+    "lng": -57.5578902,
+    "name": "MEDICAL HAIR PY",
+    "type": "health"
+  },
+  {
+    "id": 4714941391,
+    "lat": -25.2856964,
+    "lng": -57.5577967,
+    "name": "MEDICAL HAIR Py",
+    "type": "health"
+  },
+  {
+    "id": 4725163091,
+    "lat": -25.2940354,
+    "lng": -57.5751322,
+    "name": "Colegio Santa Elena",
+    "type": "education"
+  },
+  {
+    "id": 4758151221,
+    "lat": -25.2791651,
+    "lng": -57.611008,
+    "name": "Pro Vida Asuncion",
+    "type": "education"
+  },
+  {
+    "id": 4804419824,
+    "lat": -25.2146338,
+    "lng": -57.5330268,
+    "name": "Maxi Economía",
+    "type": "commerce"
+  },
+  {
+    "id": 4860763702,
+    "lat": -25.2806074,
+    "lng": -57.5929768,
+    "name": "Centro Nacional de Control de Adicciones",
+    "type": "health"
+  },
+  {
+    "id": 4860784914,
+    "lat": -25.3823851,
+    "lng": -57.4831445,
+    "name": "Divino Niño",
+    "type": "education"
+  },
+  {
+    "id": 4879287624,
+    "lat": -25.2839976,
+    "lng": -57.5809363,
+    "name": "Paseo la Peregrina",
+    "type": "commerce"
+  },
+  {
+    "id": 4881667124,
+    "lat": -25.3078278,
+    "lng": -57.6258624,
+    "name": "Colegio Musical Gracias",
+    "type": "education"
+  },
+  {
+    "id": 4883817321,
+    "lat": -25.2584188,
+    "lng": -57.5822529,
+    "name": "FUNDAR",
+    "type": "health"
+  },
+  {
+    "id": 4909730277,
+    "lat": -25.2635693,
+    "lng": -57.4941711,
+    "name": "Colegio Doctor Manuel Dominguez",
+    "type": "education"
+  },
+  {
+    "id": 4911497375,
+    "lat": -25.2975651,
+    "lng": -57.5644234,
+    "name": "Parque Vy'ara",
+    "type": "nature"
+  },
+  {
+    "id": 4915406330,
+    "lat": -25.3487181,
+    "lng": -57.4775838,
+    "name": "Escuela Piedra Viva Capiatá",
+    "type": "education"
+  },
+  {
+    "id": 4951248995,
+    "lat": -25.2721419,
+    "lng": -57.5804628,
+    "name": "IPS",
+    "type": "health"
+  },
+  {
+    "id": 4951259871,
+    "lat": -25.2633953,
+    "lng": -57.5637339,
+    "name": "Unnamed",
+    "type": "education"
+  },
+  {
+    "id": 5000018127,
+    "lat": -25.2988394,
+    "lng": -57.6176907,
+    "name": "San Luis Ganella",
+    "type": "education"
+  },
+  {
+    "id": 5000258723,
+    "lat": -25.2963695,
+    "lng": -57.620307,
+    "name": "Policlinico Municipal",
+    "type": "health"
+  },
+  {
+    "id": 5000268222,
+    "lat": -25.2989702,
+    "lng": -57.6141189,
+    "name": "Centro de salud número 9. \"General Bernardino Canallero\" Materno Infantil",
+    "type": "health"
+  },
+  {
+    "id": 5015277820,
+    "lat": -25.3004082,
+    "lng": -57.4084286,
+    "name": "René",
+    "type": "commerce"
+  },
+  {
+    "id": 5015288423,
+    "lat": -25.2976813,
+    "lng": -57.4175736,
+    "name": "Cacique Aregua",
+    "type": "commerce"
+  },
+  {
+    "id": 5015288440,
+    "lat": -25.2976558,
+    "lng": -57.4162392,
+    "name": "Escuela Basica",
+    "type": "education"
+  },
+  {
+    "id": 5020201962,
+    "lat": -25.2748138,
+    "lng": -57.5938934,
+    "name": "Universidad de la Integración de las Américas",
+    "type": "education"
+  },
+  {
+    "id": 5054405121,
+    "lat": -25.1479247,
+    "lng": -57.4728087,
+    "name": "Stock Express",
+    "type": "commerce"
+  },
+  {
+    "id": 5106528623,
+    "lat": -25.3684692,
+    "lng": -57.6020549,
+    "name": "Rosas y Rosas II",
+    "type": "commerce"
+  },
+  {
+    "id": 5118128824,
+    "lat": -25.2278552,
+    "lng": -57.4179609,
+    "name": "Escuela 2374 Fabian Caceres",
+    "type": "education"
+  },
+  {
+    "id": 5118129124,
+    "lat": -25.2290481,
+    "lng": -57.4166235,
+    "name": "Centro de salud Tarumandy",
+    "type": "health"
+  },
+  {
+    "id": 5136652822,
+    "lat": -25.2828635,
+    "lng": -57.6620871,
+    "name": "Facultad de Filosofía - Pabellón Nuevo",
+    "type": "education"
+  },
+  {
+    "id": 5153927008,
+    "lat": -25.3332221,
+    "lng": -57.5167266,
+    "name": "Auditorio de Facultad de Arquitectura (FADA) UNA",
+    "type": "education"
+  },
+  {
+    "id": 5316741823,
+    "lat": -25.2841133,
+    "lng": -57.6306341,
+    "name": "Escuela de gastronomía",
+    "type": "education"
+  },
+  {
+    "id": 5319183440,
+    "lat": -25.319886,
+    "lng": -57.6267727,
+    "name": "Multi Essence",
+    "type": "commerce"
+  },
+  {
+    "id": 5334103921,
+    "lat": -25.3031879,
+    "lng": -57.627282,
+    "name": "Escuela Virgen de los Dolores",
+    "type": "education"
+  },
+  {
+    "id": 5354365796,
+    "lat": -25.3613228,
+    "lng": -57.5374591,
+    "name": "Escuela Municipal N° 5 \"San Francisco de Asís\"",
+    "type": "education"
+  },
+  {
+    "id": 5359414908,
+    "lat": -25.3378482,
+    "lng": -57.5398605,
+    "name": "Parque Atilio",
+    "type": "nature"
+  },
+  {
+    "id": 5359414913,
+    "lat": -25.3376948,
+    "lng": -57.5394668,
+    "name": "Mini Market Azzurro",
+    "type": "commerce"
+  },
+  {
+    "id": 5382080166,
+    "lat": -25.3363311,
+    "lng": -57.5221367,
+    "name": "Monumento a los Científicos",
+    "type": "nature"
+  },
+  {
+    "id": 5487117874,
+    "lat": -25.1932662,
+    "lng": -57.5480895,
+    "name": "Despensa Familiar",
+    "type": "commerce"
+  },
+  {
+    "id": 5528042158,
+    "lat": -25.2977574,
+    "lng": -57.5896796,
+    "name": "Clinica Ser",
+    "type": "health"
+  },
+  {
+    "id": 5556919061,
+    "lat": -25.3890397,
+    "lng": -57.5250042,
+    "name": "Hipermercado Luisito",
+    "type": "commerce"
+  },
+  {
+    "id": 5557610394,
+    "lat": -25.1056795,
+    "lng": -57.4869302,
+    "name": "Escuela Obreros Unidos",
+    "type": "education"
+  },
+  {
+    "id": 5602994621,
+    "lat": -25.3198577,
+    "lng": -57.5776634,
+    "name": "Hospital Materno Infantil San Pablo",
+    "type": "health"
+  },
+  {
+    "id": 5623136880,
+    "lat": -25.3045216,
+    "lng": -57.5912609,
+    "name": "Colegio Japonés Paraguayo",
+    "type": "education"
+  },
+  {
+    "id": 5630878113,
+    "lat": -25.29897,
+    "lng": -57.6226356,
+    "name": "Shopping Center",
+    "type": "commerce"
+  },
+  {
+    "id": 5632437121,
+    "lat": -25.331275,
+    "lng": -57.5718955,
+    "name": "Autoservice Jorgito",
+    "type": "commerce"
+  },
+  {
+    "id": 5636097721,
+    "lat": -25.2810109,
+    "lng": -57.6432686,
+    "name": "Biggie",
+    "type": "commerce"
+  },
+  {
+    "id": 5638017947,
+    "lat": -25.3426467,
+    "lng": -57.6136056,
+    "name": "Unicentro",
+    "type": "commerce"
+  },
+  {
+    "id": 5640659821,
+    "lat": -25.2859418,
+    "lng": -57.6467293,
+    "name": "English Institute",
+    "type": "education"
+  },
+  {
+    "id": 5640835321,
+    "lat": -25.2876686,
+    "lng": -57.6482266,
+    "name": "Team force Brazilian Jiu Jitsu",
+    "type": "education"
+  },
+  {
+    "id": 5702970024,
+    "lat": -25.3044449,
+    "lng": -57.6244656,
+    "name": "SuperMercado 4",
+    "type": "commerce"
+  },
+  {
+    "id": 5737415921,
+    "lat": -25.298997,
+    "lng": -57.6437677,
+    "name": "SACHERO",
+    "type": "health"
+  },
+  {
+    "id": 5768714818,
+    "lat": -25.2888243,
+    "lng": -57.6073605,
+    "name": "Dr. Sandro Strubing",
+    "type": "health"
+  },
+  {
+    "id": 5788459969,
+    "lat": -25.3026127,
+    "lng": -57.6127273,
+    "name": "Despensa Familiar",
+    "type": "commerce"
+  },
+  {
+    "id": 5790244053,
+    "lat": -25.2833945,
+    "lng": -57.6124721,
+    "name": "Fundación Sánchez Di Martino",
+    "type": "health"
+  },
+  {
+    "id": 5791141803,
+    "lat": -25.3209204,
+    "lng": -57.5567419,
+    "name": "Colegio Medalla Milagrosa",
+    "type": "education"
+  },
+  {
+    "id": 5792550367,
+    "lat": -25.1874691,
+    "lng": -57.5242545,
+    "name": "Citimarket RCA de Colombia",
+    "type": "commerce"
+  },
+  {
+    "id": 5792550385,
+    "lat": -25.1873951,
+    "lng": -57.527052,
+    "name": "Marangatu Autoservice",
+    "type": "commerce"
+  },
+  {
+    "id": 5793564354,
+    "lat": -25.1616791,
+    "lng": -57.4752149,
+    "name": "Hospital indígena",
+    "type": "health"
+  },
+  {
+    "id": 5794110807,
+    "lat": -25.1909436,
+    "lng": -57.5316708,
+    "name": "Marangatu Autoservice",
+    "type": "commerce"
+  },
+  {
+    "id": 5796817580,
+    "lat": -25.2801444,
+    "lng": -57.6510753,
+    "name": "Centro Nacional de Quemaduras y Cirugías Reconstructivas",
+    "type": "health"
+  },
+  {
+    "id": 5799195556,
+    "lat": -25.2825827,
+    "lng": -57.6044806,
+    "name": "Clínica Guggiari",
+    "type": "health"
+  },
+  {
+    "id": 5839471499,
+    "lat": -25.3021422,
+    "lng": -57.6176989,
+    "name": "Unnamed",
+    "type": "education"
+  },
+  {
+    "id": 5839471500,
+    "lat": -25.3025306,
+    "lng": -57.617839,
+    "name": "Unnamed",
+    "type": "education"
+  },
+  {
+    "id": 5839471501,
+    "lat": -25.3021131,
+    "lng": -57.6179506,
+    "name": "Unnamed",
+    "type": "education"
+  },
+  {
+    "id": 5839471502,
+    "lat": -25.3021519,
+    "lng": -57.6178487,
+    "name": "Unnamed",
+    "type": "education"
+  },
+  {
+    "id": 5839471503,
+    "lat": -25.3022207,
+    "lng": -57.6180685,
+    "name": "Unnamed",
+    "type": "education"
+  },
+  {
+    "id": 5839471504,
+    "lat": -25.3019968,
+    "lng": -57.618023,
+    "name": "Unnamed",
+    "type": "education"
+  },
+  {
+    "id": 5839471505,
+    "lat": -25.3019835,
+    "lng": -57.6180981,
+    "name": "Unnamed",
+    "type": "education"
+  },
+  {
+    "id": 5903890497,
+    "lat": -25.3912923,
+    "lng": -57.4578252,
+    "name": "USF Loma Barrero",
+    "type": "health"
+  },
+  {
+    "id": 5910496347,
+    "lat": -25.2125175,
+    "lng": -57.5231192,
+    "name": "Nuestra Señora del Carmen",
+    "type": "education"
+  },
+  {
+    "id": 5916553585,
+    "lat": -25.2007574,
+    "lng": -57.5438463,
+    "name": "Escuela Nacional Espiritu Santo",
+    "type": "education"
+  },
+  {
+    "id": 5937564160,
+    "lat": -25.2812727,
+    "lng": -57.6478,
+    "name": "Escuela Parroquial Santo Domingo Sabio",
+    "type": "education"
+  },
+  {
+    "id": 5940188308,
+    "lat": -25.2807298,
+    "lng": -57.6472827,
+    "name": "Colegio Monseñor Lasagna",
+    "type": "education"
+  },
+  {
+    "id": 5955505985,
+    "lat": -25.2787456,
+    "lng": -57.4998375,
+    "name": "Sanatario Nuestra señora de la Paz",
+    "type": "health"
+  },
+  {
+    "id": 5966999785,
+    "lat": -25.2941447,
+    "lng": -57.6238326,
+    "name": "Sanatorio San Marcos",
+    "type": "health"
+  },
+  {
+    "id": 5991863204,
+    "lat": -25.2991206,
+    "lng": -57.6218438,
+    "name": "Galería San Miguel",
+    "type": "commerce"
+  },
+  {
+    "id": 6024711486,
+    "lat": -25.2818764,
+    "lng": -57.6438688,
+    "name": "Centro de Salud No.3",
+    "type": "health"
+  },
+  {
+    "id": 6028409185,
+    "lat": -25.2875857,
+    "lng": -57.6387739,
+    "name": "Stock Supermercado",
+    "type": "commerce"
+  },
+  {
+    "id": 6055103030,
+    "lat": -25.2716981,
+    "lng": -57.4756074,
+    "name": "Los Jardines Express Suc. Primavera",
+    "type": "commerce"
+  },
+  {
+    "id": 6055343593,
+    "lat": -25.2768787,
+    "lng": -57.4691107,
+    "name": "Plaza San Roque Gonzalez De Santa Cruz",
+    "type": "nature"
+  },
+  {
+    "id": 6057642595,
+    "lat": -25.3010954,
+    "lng": -57.5962842,
+    "name": "Teniente de Aviacion Milciades A. Piñeiro",
+    "type": "education"
+  },
+  {
+    "id": 6094346138,
+    "lat": -25.2919508,
+    "lng": -57.6227765,
+    "name": "Centro de Diagnósticos Salud Protegida",
+    "type": "health"
+  },
+  {
+    "id": 6111681786,
+    "lat": -25.1595541,
+    "lng": -57.4746075,
+    "name": "Supermercado stock",
+    "type": "commerce"
+  },
+  {
+    "id": 6150068886,
+    "lat": -25.2414863,
+    "lng": -57.5443003,
+    "name": "hospital de loma pyta",
+    "type": "health"
+  },
+  {
+    "id": 6164720353,
+    "lat": -25.2433103,
+    "lng": -57.5006583,
+    "name": "Autoservice La Familia",
+    "type": "commerce"
+  },
+  {
+    "id": 6248245265,
+    "lat": -25.2806982,
+    "lng": -57.6120577,
+    "name": "Clinica de diagnosticos de Liga Paraguaya de lucha contra el Cancer",
+    "type": "health"
+  },
+  {
+    "id": 6271432185,
+    "lat": -25.2675829,
+    "lng": -57.4808762,
+    "name": "Centro de diagnòstico ecografico",
+    "type": "health"
+  },
+  {
+    "id": 6299203985,
+    "lat": -25.3203512,
+    "lng": -57.6102427,
+    "name": "MAS Estudios",
+    "type": "education"
+  },
+  {
+    "id": 6344833074,
+    "lat": -25.3685757,
+    "lng": -57.5826726,
+    "name": "AGUA BES PLANTA INDUSTRIAL",
+    "type": "commerce"
+  },
+  {
+    "id": 6358919830,
+    "lat": -25.376881,
+    "lng": -57.60402,
+    "name": "Unidad de Salud Familiar Ñande Tava",
+    "type": "health"
+  },
+  {
+    "id": 6358919831,
+    "lat": -25.39479,
+    "lng": -57.586319,
+    "name": "Unidad de Salud Familiar Remanso",
+    "type": "health"
+  },
+  {
+    "id": 6358919832,
+    "lat": -25.3743355,
+    "lng": -57.5687715,
+    "name": "Unidad de Salud Familiar Mbocayaty",
+    "type": "health"
+  },
+  {
+    "id": 6358919833,
+    "lat": -25.3469581,
+    "lng": -57.585263,
+    "name": "Unidad de Salud Familiar Veintinueve de Septiembre Dos",
+    "type": "health"
+  },
+  {
+    "id": 6358919835,
+    "lat": -25.3739455,
+    "lng": -57.5012348,
+    "name": "Unidad de Salud Familiar María Auxiliadora",
+    "type": "health"
+  },
+  {
+    "id": 6358919836,
+    "lat": -25.3147533,
+    "lng": -57.4981322,
+    "name": "Unidad de Salud Familiar Tesaira",
+    "type": "health"
+  },
+  {
+    "id": 6358919837,
+    "lat": -25.3831778,
+    "lng": -57.5042403,
+    "name": "Unidad de Salud Familiar Mitai",
+    "type": "health"
+  },
+  {
+    "id": 6358919838,
+    "lat": -25.3561111,
+    "lng": -57.5245556,
+    "name": "Unidad de Salud Familiar Marquetalia",
+    "type": "health"
+  },
+  {
+    "id": 6358919839,
+    "lat": -25.357367,
+    "lng": -57.564518,
+    "name": "Unidad de Salud Familiar Quince de Enero",
+    "type": "health"
+  },
+  {
+    "id": 6358919840,
+    "lat": -25.3634444,
+    "lng": -57.4950833,
+    "name": "Unidad de Salud Familiar Tayazuape",
+    "type": "health"
+  },
+  {
+    "id": 6358919841,
+    "lat": -25.370076,
+    "lng": -57.521531,
+    "name": "Unidad de Salud Familiar Miraflores",
+    "type": "health"
+  },
+  {
+    "id": 6358919842,
+    "lat": -25.3089744,
+    "lng": -57.5146156,
+    "name": "Unidad de Salud Familiar Veinticuadro de Junio",
+    "type": "health"
+  },
+  {
+    "id": 6358919843,
+    "lat": -25.3605833,
+    "lng": -57.5322778,
+    "name": "Unidad de Salud Familiar Tesai Rekavo",
+    "type": "health"
+  },
+  {
+    "id": 6358919845,
+    "lat": -25.375715,
+    "lng": -57.542093,
+    "name": "Unidad de Salud Familiar Paí Ñu",
+    "type": "health"
+  },
+  {
+    "id": 6358919846,
+    "lat": -25.394508,
+    "lng": -57.559104,
+    "name": "Unidad de Salud Familiar Mbocayaty Ñemby",
+    "type": "health"
+  },
+  {
+    "id": 6358919847,
+    "lat": -25.369216,
+    "lng": -57.536689,
+    "name": "Unidad de Salud Familiar Guabaibity",
+    "type": "health"
+  },
+  {
+    "id": 6358919849,
+    "lat": -25.1825109,
+    "lng": -57.5336996,
+    "name": "Unidad de Salud Familiar Seis de Mayo",
+    "type": "health"
+  },
+  {
+    "id": 6358919850,
+    "lat": -25.2176944,
+    "lng": -57.5189167,
+    "name": "Unidad de Salud Familiar Villa Alegre",
+    "type": "health"
+  },
+  {
+    "id": 6358919851,
+    "lat": -25.2308889,
+    "lng": -57.5240556,
+    "name": "Unidad de Salud Familiar Asentamiento La Amistad",
+    "type": "health"
+  },
+  {
+    "id": 6358919852,
+    "lat": -25.2206934,
+    "lng": -57.5565258,
+    "name": "Unidad de Salud Familiar Guadalupe",
+    "type": "health"
+  },
+  {
+    "id": 6358919853,
+    "lat": -25.2961098,
+    "lng": -57.4536011,
+    "name": "Unidad de Salud Familiar Costa Sosa",
+    "type": "health"
+  },
+  {
+    "id": 6358919854,
+    "lat": -25.2428346,
+    "lng": -57.4669148,
+    "name": "Unidad de Salud Familiar María Blanca",
+    "type": "health"
+  },
+  {
+    "id": 6358919855,
+    "lat": -25.3137694,
+    "lng": -57.49735,
+    "name": "Unidad de Salud Familiar La Amistad",
+    "type": "health"
+  },
+  {
+    "id": 6358919856,
+    "lat": -25.298562,
+    "lng": -57.524843,
+    "name": "Unidad de Salud Familiar Primero de Mayo",
+    "type": "health"
+  },
+  {
+    "id": 6358919857,
+    "lat": -25.305157,
+    "lng": -57.498815,
+    "name": "Unidad de Salud Familiar Isla Bogado",
+    "type": "health"
+  },
+  {
+    "id": 6358919858,
+    "lat": -25.238097,
+    "lng": -57.455556,
+    "name": "Unidad de Salud Familiar Santa María",
+    "type": "health"
+  },
+  {
+    "id": 6358919859,
+    "lat": -25.294429,
+    "lng": -57.53068,
+    "name": "Unidad de Salud Familiar Barrio Molino",
+    "type": "health"
+  },
+  {
+    "id": 6358919860,
+    "lat": -25.2514167,
+    "lng": -57.4990556,
+    "name": "Unidad de Salud Familiar Loma Merlo",
+    "type": "health"
+  },
+  {
+    "id": 6358919861,
+    "lat": -25.28112,
+    "lng": -57.466071,
+    "name": "Unidad de Salud Familiar Ycua Dure",
+    "type": "health"
+  },
+  {
+    "id": 6358919862,
+    "lat": -25.301336,
+    "lng": -57.511282,
+    "name": "Unidad de Salud Familiar La Unión",
+    "type": "health"
+  },
+  {
+    "id": 6358919863,
+    "lat": -25.2289722,
+    "lng": -57.4169167,
+    "name": "Unidad de Salud Familiar Tarumandy",
+    "type": "health"
+  },
+  {
+    "id": 6358919864,
+    "lat": -25.2469679,
+    "lng": -57.4341937,
+    "name": "Unidad de Salud Familiar Ita Angua",
+    "type": "health"
+  },
+  {
+    "id": 6358919865,
+    "lat": -25.1918611,
+    "lng": -57.4410833,
+    "name": "Unidad de Salud Familiar Don Bosco",
+    "type": "health"
+  },
+  {
+    "id": 6358919866,
+    "lat": -25.2100059,
+    "lng": -57.4694552,
+    "name": "Unidad de Salud Familiar Benigno Ferreira",
+    "type": "health"
+  },
+  {
+    "id": 6358919867,
+    "lat": -25.1116667,
+    "lng": -57.4896944,
+    "name": "Unidad de Salud Familiar Piquete Cue",
+    "type": "health"
+  },
+  {
+    "id": 6358919868,
+    "lat": -25.1501944,
+    "lng": -57.4594722,
+    "name": "Unidad de Salud Familiar Villa Madrid",
+    "type": "health"
+  },
+  {
+    "id": 6358919869,
+    "lat": -25.1820657,
+    "lng": -57.4502369,
+    "name": "Unidad de Salud Familiar San Gerónimo",
+    "type": "health"
+  },
+  {
+    "id": 6358919870,
+    "lat": -25.1409167,
+    "lng": -57.4677778,
+    "name": "Unidad de Salud Familiar Santo Domingo Rincón",
+    "type": "health"
+  },
+  {
+    "id": 6358919871,
+    "lat": -25.1258611,
+    "lng": -57.4727778,
+    "name": "Unidad de Salud Familiar Quince de Agosto",
+    "type": "health"
+  },
+  {
+    "id": 6358919872,
+    "lat": -25.3772778,
+    "lng": -57.6138889,
+    "name": "Unidad de Salud Familiar Capiipery",
+    "type": "health"
+  },
+  {
+    "id": 6358919873,
+    "lat": -25.3534004,
+    "lng": -57.5943647,
+    "name": "Unidad de Salud Familiar Santa Rosa",
+    "type": "health"
+  },
+  {
+    "id": 6358919874,
+    "lat": -25.3193333,
+    "lng": -57.6098056,
+    "name": "Unidad de Salud Familiar Santo Domingo",
+    "type": "health"
+  },
+  {
+    "id": 6358920585,
+    "lat": -25.342297,
+    "lng": -57.570223,
+    "name": "Unidad de Salud Familiar Madre Mazzarello",
+    "type": "health"
+  },
+  {
+    "id": 6358920586,
+    "lat": -25.30715,
+    "lng": -57.536024,
+    "name": "Unidad de Salud Familiar Villa Ofelia",
+    "type": "health"
+  },
+  {
+    "id": 6358920587,
+    "lat": -25.342686,
+    "lng": -57.562183,
+    "name": "Unidad de Salud Familiar Villa Apua",
+    "type": "health"
+  },
+  {
+    "id": 6358920588,
+    "lat": -25.3479778,
+    "lng": -57.563525,
+    "name": "Unidad de Salud Familiar San José Obrero",
+    "type": "health"
+  },
+  {
+    "id": 6358920589,
+    "lat": -25.354513,
+    "lng": -57.56114,
+    "name": "Unidad de Salud Familiar Policlínica Sur",
+    "type": "health"
+  },
+  {
+    "id": 6358920590,
+    "lat": -25.3524138,
+    "lng": -57.5533308,
+    "name": "Unidad de Salud Familiar Ita Kaaguy Sur",
+    "type": "health"
+  },
+  {
+    "id": 6358920591,
+    "lat": -25.3727778,
+    "lng": -57.4727778,
+    "name": "Unidad de Salud Familiar Los Manantiales",
+    "type": "health"
+  },
+  {
+    "id": 6358920593,
+    "lat": -25.3223611,
+    "lng": -57.4565278,
+    "name": "Unidad de Salud Familiar San Miguel",
+    "type": "health"
+  },
+  {
+    "id": 6358920594,
+    "lat": -25.378229,
+    "lng": -57.480726,
+    "name": "Unidad de Salud Familiar Virgen del Pilar",
+    "type": "health"
+  },
+  {
+    "id": 6358920595,
+    "lat": -25.3621667,
+    "lng": -57.4501111,
+    "name": "Unidad de Salud Familiar Divino Niño Jesús Quinta Compañía",
+    "type": "health"
+  },
+  {
+    "id": 6358920596,
+    "lat": -25.354419,
+    "lng": -57.467826,
+    "name": "Unidad de Salud Familiar Villa Constitución",
+    "type": "health"
+  },
+  {
+    "id": 6358920597,
+    "lat": -25.3930583,
+    "lng": -57.4775833,
+    "name": "Unidad de Salud Familiar Posta Ybycua",
+    "type": "health"
+  },
+  {
+    "id": 6358920599,
+    "lat": -25.382336,
+    "lng": -57.436889,
+    "name": "Unidad de Salud Familiar Rojas Cañada",
+    "type": "health"
+  },
+  {
+    "id": 6358920600,
+    "lat": -25.3913547,
+    "lng": -57.4577193,
+    "name": "Unidad de Salud Familiar Loma Barrero",
+    "type": "health"
+  },
+  {
+    "id": 6358920602,
+    "lat": -25.333429,
+    "lng": -57.434012,
+    "name": "Unidad de Salud Familiar Costa Salinas",
+    "type": "health"
+  },
+  {
+    "id": 6358920603,
+    "lat": -25.3388056,
+    "lng": -57.4699167,
+    "name": "Unidad de Salud Familiar Compañía Cuarta Señorita Silvia",
+    "type": "health"
+  },
+  {
+    "id": 6358920604,
+    "lat": -25.3641944,
+    "lng": -57.4085556,
+    "name": "Unidad de Salud Familiar Quince de Mayo",
+    "type": "health"
+  },
+  {
+    "id": 6358920605,
+    "lat": -25.3591667,
+    "lng": -57.4756111,
+    "name": "Unidad de Salud Familiar Cerrito",
+    "type": "health"
+  },
+  {
+    "id": 6358920606,
+    "lat": -25.393808,
+    "lng": -57.408159,
+    "name": "Unidad de Salud Familiar Aldana Cañada",
+    "type": "health"
+  },
+  {
+    "id": 6358920608,
+    "lat": -25.3064522,
+    "lng": -57.412968,
+    "name": "Unidad de Salud Familiar Villa Salvador",
+    "type": "health"
+  },
+  {
+    "id": 6358920609,
+    "lat": -25.2887882,
+    "lng": -57.4412038,
+    "name": "Unidad de Salud Familiar Valle Pucú",
+    "type": "health"
+  },
+  {
+    "id": 6358920611,
+    "lat": -25.2928422,
+    "lng": -57.4111086,
+    "name": "Unidad de Salud Familiar Caacupemí",
+    "type": "health"
+  },
+  {
+    "id": 6358920613,
+    "lat": -25.302762,
+    "lng": -57.441351,
+    "name": "Unidad de Salud Familiar Yukyty",
+    "type": "health"
+  },
+  {
+    "id": 6358920614,
+    "lat": -25.344608,
+    "lng": -57.402062,
+    "name": "Unidad de Salud Familiar Pindolo",
+    "type": "health"
+  },
+  {
+    "id": 6358920615,
+    "lat": -25.335028,
+    "lng": -57.422576,
+    "name": "Unidad de Salud Familiar Costa Fleitas",
+    "type": "health"
+  },
+  {
+    "id": 6358920616,
+    "lat": -25.303884,
+    "lng": -57.4052544,
+    "name": "Unidad de Salud Familiar Amanecer",
+    "type": "health"
+  },
+  {
+    "id": 6534473085,
+    "lat": -25.3526606,
+    "lng": -57.5939448,
+    "name": "Plaza Noel Martinez",
+    "type": "nature"
+  },
+  {
+    "id": 6540796047,
+    "lat": -25.3925756,
+    "lng": -57.5452644,
+    "name": "Colegio Técnico De Las Américas",
+    "type": "education"
+  },
+  {
+    "id": 6708283623,
+    "lat": -25.2561767,
+    "lng": -57.582776,
+    "name": "Stock",
+    "type": "commerce"
+  },
+  {
+    "id": 6731992785,
+    "lat": -25.2473017,
+    "lng": -57.5510794,
+    "name": "La Fresquera",
+    "type": "commerce"
+  },
+  {
+    "id": 6760309586,
+    "lat": -25.324402,
+    "lng": -57.5557665,
+    "name": "S.N Vida Bella",
+    "type": "health"
+  },
+  {
+    "id": 6791405985,
+    "lat": -25.308829,
+    "lng": -57.554018,
+    "name": "La Costa Linch",
+    "type": "health"
+  },
+  {
+    "id": 6804262698,
+    "lat": -25.2692341,
+    "lng": -57.5950471,
+    "name": "Instituto de la Visión",
+    "type": "health"
+  },
+  {
+    "id": 6852514485,
+    "lat": -25.2848968,
+    "lng": -57.6387473,
+    "name": "La Obra",
+    "type": "education"
+  },
+  {
+    "id": 7049584798,
+    "lat": -25.2834673,
+    "lng": -57.623701,
+    "name": "City Market",
+    "type": "commerce"
+  },
+  {
+    "id": 7049584799,
+    "lat": -25.2834225,
+    "lng": -57.6238177,
+    "name": "Colegio Nacional de EMD JUAN RAMÓN DAHLQUIST",
+    "type": "education"
+  },
+  {
+    "id": 7049584800,
+    "lat": -25.2834174,
+    "lng": -57.6239504,
+    "name": "Escuela JUAN RAMÓN DAHLQUIST",
+    "type": "education"
+  },
+  {
+    "id": 7072026250,
+    "lat": -25.3211006,
+    "lng": -57.5833924,
+    "name": "Centro Educativo Campo Verde",
+    "type": "education"
+  },
+  {
+    "id": 7179775985,
+    "lat": -25.3213189,
+    "lng": -57.5940843,
+    "name": "STOCK",
+    "type": "commerce"
+  },
+  {
+    "id": 7332260155,
+    "lat": -25.2898927,
+    "lng": -57.6600308,
+    "name": "Coopertativa Chortitzer Salon Sajonia",
+    "type": "commerce"
+  },
+  {
+    "id": 7335622885,
+    "lat": -25.2851205,
+    "lng": -57.547327,
+    "name": "casa arpa",
+    "type": "education"
+  },
+  {
+    "id": 7380607762,
+    "lat": -25.3343536,
+    "lng": -57.6135522,
+    "name": "Supermercado El Pueblo",
+    "type": "commerce"
+  },
+  {
+    "id": 7542281968,
+    "lat": -25.1858019,
+    "lng": -57.4893628,
+    "name": "Plaza Exporin",
+    "type": "nature"
+  },
+  {
+    "id": 7617925092,
+    "lat": -25.3297603,
+    "lng": -57.5318013,
+    "name": "Consultorio Ecografico",
+    "type": "health"
+  },
+  {
+    "id": 7618785180,
+    "lat": -25.3684422,
+    "lng": -57.4245747,
+    "name": "Supermercado Los Jardines",
+    "type": "commerce"
+  },
+  {
+    "id": 7635898485,
+    "lat": -25.267827,
+    "lng": -57.4968215,
+    "name": "CORPUS Laboratory",
+    "type": "health"
+  },
+  {
+    "id": 7636222172,
+    "lat": -25.2800582,
+    "lng": -57.6233302,
+    "name": "Autoservice Thiago",
+    "type": "commerce"
+  },
+  {
+    "id": 7704788385,
+    "lat": -25.360538,
+    "lng": -57.6421634,
+    "name": "Stella Marys",
+    "type": "education"
+  },
+  {
+    "id": 7844803755,
+    "lat": -25.2660821,
+    "lng": -57.4843848,
+    "name": "Hipermercado Luisito",
+    "type": "commerce"
+  },
+  {
+    "id": 7862906705,
+    "lat": -25.3202158,
+    "lng": -57.5933629,
+    "name": "Hospital San Martin",
+    "type": "health"
+  },
+  {
+    "id": 7862906706,
+    "lat": -25.3208789,
+    "lng": -57.5922565,
+    "name": "Emmanuel",
+    "type": "education"
+  },
+  {
+    "id": 8089596817,
+    "lat": -25.2739586,
+    "lng": -57.4880053,
+    "name": "Unnamed",
+    "type": "nature"
+  },
+  {
+    "id": 8090961717,
+    "lat": -25.2770981,
+    "lng": -57.6413483,
+    "name": "El Puerto",
+    "type": "commerce"
+  },
+  {
+    "id": 8504465181,
+    "lat": -25.1787927,
+    "lng": -57.4770043,
+    "name": "Centro Educativo Hno. Claudio Lozano",
+    "type": "education"
+  },
+  {
+    "id": 8504465190,
+    "lat": -25.158918,
+    "lng": -57.4561171,
+    "name": "Escuela San Ramón",
+    "type": "education"
+  },
+  {
+    "id": 8568228000,
+    "lat": -25.2541857,
+    "lng": -57.5806832,
+    "name": "City Market",
+    "type": "commerce"
+  },
+  {
+    "id": 8568289470,
+    "lat": -25.258195,
+    "lng": -57.5815528,
+    "name": "Unnamed",
+    "type": "education"
+  },
+  {
+    "id": 8568291153,
+    "lat": -25.253693,
+    "lng": -57.5813584,
+    "name": "Unnamed",
+    "type": "commerce"
+  },
+  {
+    "id": 8568291158,
+    "lat": -25.2550809,
+    "lng": -57.582734,
+    "name": "INTN",
+    "type": "education"
+  },
+  {
+    "id": 8568291178,
+    "lat": -25.2519275,
+    "lng": -57.5810822,
+    "name": "Unnamed",
+    "type": "commerce"
+  },
+  {
+    "id": 8568291184,
+    "lat": -25.2513491,
+    "lng": -57.5797412,
+    "name": "Unnamed",
+    "type": "commerce"
+  },
+  {
+    "id": 8568304488,
+    "lat": -25.255144,
+    "lng": -57.5771617,
+    "name": "Unnamed",
+    "type": "health"
+  },
+  {
+    "id": 8569219417,
+    "lat": -25.2642797,
+    "lng": -57.484099,
+    "name": "vivero de flores",
+    "type": "nature"
+  },
+  {
+    "id": 8569596857,
+    "lat": -25.2656939,
+    "lng": -57.5750466,
+    "name": "Despensa de Barrio",
+    "type": "commerce"
+  },
+  {
+    "id": 8569616287,
+    "lat": -25.2652049,
+    "lng": -57.5814978,
+    "name": "Colegio Técnico Javier",
+    "type": "education"
+  },
+  {
+    "id": 8569658058,
+    "lat": -25.266924,
+    "lng": -57.5825943,
+    "name": "Toto's Minimarket",
+    "type": "commerce"
+  },
+  {
+    "id": 8569703222,
+    "lat": -25.2640311,
+    "lng": -57.5852147,
+    "name": "Colegio Nacional Prof. Emilio Ferreira",
+    "type": "education"
+  },
+  {
+    "id": 8569703232,
+    "lat": -25.2693831,
+    "lng": -57.5849602,
+    "name": "INAT - Instituto Nacional de Ablación y Transplante",
+    "type": "health"
+  },
+  {
+    "id": 8569716066,
+    "lat": -25.2582602,
+    "lng": -57.5857453,
+    "name": "CLINICA PERIFERICA NANAWA",
+    "type": "health"
+  },
+  {
+    "id": 8569716067,
+    "lat": -25.258307,
+    "lng": -57.5842927,
+    "name": "CENTRO DE MEDICINA FISICA Y REHABILITACION IPS",
+    "type": "health"
+  },
+  {
+    "id": 8569872902,
+    "lat": -25.280649,
+    "lng": -57.6119946,
+    "name": "liga contra el cancer",
+    "type": "health"
+  },
+  {
+    "id": 8573368826,
+    "lat": -25.2999198,
+    "lng": -57.6085754,
+    "name": "Prof. Dr. Victor Canata",
+    "type": "health"
+  },
+  {
+    "id": 8573368827,
+    "lat": -25.297739,
+    "lng": -57.6090621,
+    "name": "Clínica CETRO S.A",
+    "type": "health"
+  },
+  {
+    "id": 8576474019,
+    "lat": -25.3374794,
+    "lng": -57.630211,
+    "name": "Ecoparque Felicidad",
+    "type": "nature"
+  },
+  {
+    "id": 8576475802,
+    "lat": -25.3293545,
+    "lng": -57.6235873,
+    "name": "Plaza El Triangulo",
+    "type": "nature"
+  },
+  {
+    "id": 8576490917,
+    "lat": -25.3368933,
+    "lng": -57.6233772,
+    "name": "Plaza Barrio Mcal. López",
+    "type": "nature"
+  },
+  {
+    "id": 8577007468,
+    "lat": -25.3464614,
+    "lng": -57.6226322,
+    "name": "Plaza",
+    "type": "nature"
+  },
+  {
+    "id": 8577033136,
+    "lat": -25.2662305,
+    "lng": -57.5971073,
+    "name": "Ciclovía",
+    "type": "nature"
+  },
+  {
+    "id": 8579444890,
+    "lat": -25.2939219,
+    "lng": -57.6050364,
+    "name": "Parque Claro",
+    "type": "nature"
+  },
+  {
+    "id": 8579460068,
+    "lat": -25.3001784,
+    "lng": -57.6035584,
+    "name": "Parque Seminario",
+    "type": "nature"
+  },
+  {
+    "id": 8579486300,
+    "lat": -25.2973627,
+    "lng": -57.6123965,
+    "name": "Plazoleta Divina Providencia",
+    "type": "nature"
+  },
+  {
+    "id": 8579524763,
+    "lat": -25.3521113,
+    "lng": -57.6385005,
+    "name": "Plaza San Roque González de Santa Cruz",
+    "type": "nature"
+  },
+  {
+    "id": 8579528145,
+    "lat": -25.3582666,
+    "lng": -57.6323042,
+    "name": "Plaza San Miguel",
+    "type": "nature"
+  },
+  {
+    "id": 8579528146,
+    "lat": -25.3630736,
+    "lng": -57.6344049,
+    "name": "Plaza San Miguel",
+    "type": "nature"
+  },
+  {
+    "id": 8579600907,
+    "lat": -25.3682519,
+    "lng": -57.620943,
+    "name": "Plaza Fortín Yrendague",
+    "type": "nature"
+  },
+  {
+    "id": 8579625939,
+    "lat": -25.3652808,
+    "lng": -57.6203081,
+    "name": "Plaza 29 de Setiembre",
+    "type": "nature"
+  },
+  {
+    "id": 8579633739,
+    "lat": -25.3672405,
+    "lng": -57.6281619,
+    "name": "Plaza Ava Mbachi",
+    "type": "nature"
+  },
+  {
+    "id": 8579671176,
+    "lat": -25.3599133,
+    "lng": -57.6159426,
+    "name": "Plaza Juan del Castillo",
+    "type": "nature"
+  },
+  {
+    "id": 8579671177,
+    "lat": -25.3572951,
+    "lng": -57.6126183,
+    "name": "Plaza Curupa'y del Lambaré",
+    "type": "nature"
+  },
+  {
+    "id": 8579671178,
+    "lat": -25.3563764,
+    "lng": -57.6191261,
+    "name": "Plaza Santa Rosa",
+    "type": "nature"
+  },
+  {
+    "id": 8580505671,
+    "lat": -25.3495417,
+    "lng": -57.6226,
+    "name": "Plaza Cooperativa Lambaré",
+    "type": "nature"
+  },
+  {
+    "id": 8580533848,
+    "lat": -25.3426831,
+    "lng": -57.6174123,
+    "name": "Plaza Acosta Ñu",
+    "type": "nature"
+  },
+  {
+    "id": 8580533849,
+    "lat": -25.3401712,
+    "lng": -57.6140218,
+    "name": "Plaza Cardinal",
+    "type": "nature"
+  },
+  {
+    "id": 8580533850,
+    "lat": -25.3386502,
+    "lng": -57.6194323,
+    "name": "Plaza Avambare",
+    "type": "nature"
+  },
+  {
+    "id": 8584297098,
+    "lat": -25.3101756,
+    "lng": -57.599335,
+    "name": "Plaza Mburicao",
+    "type": "nature"
+  },
+  {
+    "id": 8587357724,
+    "lat": -25.2775494,
+    "lng": -57.5995191,
+    "name": "Universidad Central del Paraguay",
+    "type": "education"
+  },
+  {
+    "id": 8587965833,
+    "lat": -25.302454,
+    "lng": -57.6104028,
+    "name": "Colegio Nuestra Señora del Carmen",
+    "type": "education"
+  },
+  {
+    "id": 8588084062,
+    "lat": -25.2896188,
+    "lng": -57.6054265,
+    "name": "Escuela Judicial del Paraguay",
+    "type": "education"
+  },
+  {
+    "id": 8684730763,
+    "lat": -25.2890559,
+    "lng": -57.6273333,
+    "name": "Biggie Express - Azara",
+    "type": "commerce"
+  },
+  {
+    "id": 8737823447,
+    "lat": -25.274684,
+    "lng": -57.4804317,
+    "name": "Super S.F",
+    "type": "commerce"
+  },
+  {
+    "id": 8737894459,
+    "lat": -25.272786,
+    "lng": -57.4839834,
+    "name": "Automovil Supply",
+    "type": "commerce"
+  },
+  {
+    "id": 8737905246,
+    "lat": -25.2698187,
+    "lng": -57.4828313,
+    "name": "Consultorio Medicode de Niños",
+    "type": "health"
+  },
+  {
+    "id": 9018442736,
+    "lat": -25.3315912,
+    "lng": -57.5754442,
+    "name": "Biggie Express",
+    "type": "commerce"
+  },
+  {
+    "id": 9263683622,
+    "lat": -25.3452608,
+    "lng": -57.587336,
+    "name": "Dylo",
+    "type": "commerce"
+  },
+  {
+    "id": 9263686780,
+    "lat": -25.345019,
+    "lng": -57.5864583,
+    "name": "El rincón",
+    "type": "commerce"
+  },
+  {
+    "id": 9264482247,
+    "lat": -25.3453661,
+    "lng": -57.5800403,
+    "name": "Hiper Pueblo",
+    "type": "commerce"
+  },
+  {
+    "id": 9361124442,
+    "lat": -25.3580508,
+    "lng": -57.5952748,
+    "name": "Biggie",
+    "type": "commerce"
+  },
+  {
+    "id": 9362014344,
+    "lat": -25.373428,
+    "lng": -57.57864,
+    "name": "Farmatotal",
+    "type": "commerce"
+  },
+  {
+    "id": 9381999820,
+    "lat": -25.292353,
+    "lng": -57.6211227,
+    "name": "Stock Express",
+    "type": "commerce"
+  },
+  {
+    "id": 9447771462,
+    "lat": -25.3682788,
+    "lng": -57.4354634,
+    "name": "FARMACIA ESENCIAL FARMA",
+    "type": "commerce"
+  },
+  {
+    "id": 9450921050,
+    "lat": -25.3981504,
+    "lng": -57.4590667,
+    "name": "QUINTA LA CARANTOÑA",
+    "type": "nature"
+  },
+  {
+    "id": 9582708682,
+    "lat": -25.3173607,
+    "lng": -57.6325578,
+    "name": "Escuela de Gobierno Norberto Bobbio",
+    "type": "education"
+  },
+  {
+    "id": 9719530617,
+    "lat": -25.1764457,
+    "lng": -57.4830604,
+    "name": "Supermercado el Pueblo",
+    "type": "commerce"
+  },
+  {
+    "id": 9846431627,
+    "lat": -25.2415801,
+    "lng": -57.5437235,
+    "name": "Centro Médico Maitei",
+    "type": "health"
+  },
+  {
+    "id": 9902381173,
+    "lat": -25.2951813,
+    "lng": -57.5712275,
+    "name": "Plaza San Cristobal",
+    "type": "nature"
+  },
+  {
+    "id": 9902381174,
+    "lat": -25.292037,
+    "lng": -57.5619849,
+    "name": "Hospital Universitario Ntra. Sra. de la Asunción",
+    "type": "health"
+  },
+  {
+    "id": 9913537337,
+    "lat": -25.3687339,
+    "lng": -57.5666033,
+    "name": "Hector y Maria",
+    "type": "commerce"
+  },
+  {
+    "id": 9943551192,
+    "lat": -25.3134505,
+    "lng": -57.540864,
+    "name": "SENADIS",
+    "type": "health"
+  },
+  {
+    "id": 9955446852,
+    "lat": -25.3517432,
+    "lng": -57.5958551,
+    "name": "Stock Express",
+    "type": "commerce"
+  },
+  {
+    "id": 9973811976,
+    "lat": -25.3048,
+    "lng": -57.6199799,
+    "name": "Primera Escuela Paraguaya de Sordos",
+    "type": "education"
+  },
+  {
+    "id": 9983470718,
+    "lat": -25.2583206,
+    "lng": -57.580974,
+    "name": "Sanatorio santa Barbara",
+    "type": "health"
+  },
+  {
+    "id": 10240625613,
+    "lat": -25.1927737,
+    "lng": -57.5026316,
+    "name": "Fortis Mayorisa",
+    "type": "commerce"
+  },
+  {
+    "id": 10679073829,
+    "lat": -25.387464,
+    "lng": -57.5159692,
+    "name": "Escuela Básica N° 6472 \"Santa Teresita del Niño Jesús\"",
+    "type": "education"
+  },
+  {
+    "id": 10830026200,
+    "lat": -25.2955301,
+    "lng": -57.6278776,
+    "name": "Unnamed",
+    "type": "nature"
+  },
+  {
+    "id": 10973942921,
+    "lat": -25.3373074,
+    "lng": -57.5821366,
+    "name": "Colegio Cristiano Nataniel",
+    "type": "education"
+  },
+  {
+    "id": 11048087034,
+    "lat": -25.2528406,
+    "lng": -57.512222,
+    "name": "Alas Paraguayas Flight Training",
+    "type": "education"
+  },
+  {
+    "id": 11053699056,
+    "lat": -25.2855275,
+    "lng": -57.5500889,
+    "name": "Ycua Yvumi",
+    "type": "nature"
+  },
+  {
+    "id": 11053699057,
+    "lat": -25.2921208,
+    "lng": -57.550693,
+    "name": "Santa Teresa",
+    "type": "nature"
+  },
+  {
+    "id": 11053700840,
+    "lat": -25.2847558,
+    "lng": -57.5501132,
+    "name": "Colegio Bolivia",
+    "type": "education"
+  },
+  {
+    "id": 11053777582,
+    "lat": -25.3147877,
+    "lng": -57.5225074,
+    "name": "Biggie Express Laguna Grande",
+    "type": "commerce"
+  },
+  {
+    "id": 11053822254,
+    "lat": -25.307384,
+    "lng": -57.5332046,
+    "name": "Biggie Express Fernando",
+    "type": "commerce"
+  },
+  {
+    "id": 11053822687,
+    "lat": -25.3256364,
+    "lng": -57.5089988,
+    "name": "Biggie Express Brumado",
+    "type": "commerce"
+  },
+  {
+    "id": 11056874933,
+    "lat": -25.2640404,
+    "lng": -57.5574915,
+    "name": "Superseis Primer Presidente",
+    "type": "commerce"
+  },
+  {
+    "id": 11065567745,
+    "lat": -25.255366,
+    "lng": -57.5135916,
+    "name": "Plaza Madero",
+    "type": "commerce"
+  },
+  {
+    "id": 11079403232,
+    "lat": -25.3339541,
+    "lng": -57.5774611,
+    "name": "Casa Grutter",
+    "type": "commerce"
+  },
+  {
+    "id": 11261016223,
+    "lat": -25.3520918,
+    "lng": -57.4481737,
+    "name": "Centro Medico Tava Capiata",
+    "type": "health"
+  },
+  {
+    "id": 11287333978,
+    "lat": -25.2872308,
+    "lng": -57.6067978,
+    "name": "Unnamed",
+    "type": "nature"
+  },
+  {
+    "id": 11304976217,
+    "lat": -25.3693229,
+    "lng": -57.4114916,
+    "name": "Colegio Nacional Campo Verde",
+    "type": "education"
+  },
+  {
+    "id": 11463053569,
+    "lat": -25.2787401,
+    "lng": -57.5924844,
+    "name": "Centro Nacional de Prevención y Tratamiento de Adicciones (CENPTRA)",
+    "type": "health"
+  },
+  {
+    "id": 11503787651,
+    "lat": -25.3937028,
+    "lng": -57.4907701,
+    "name": "tanque de agua convi",
+    "type": "nature"
+  },
+  {
+    "id": 11503864473,
+    "lat": -25.3994219,
+    "lng": -57.4853798,
+    "name": "Plaza 16 de agosto",
+    "type": "nature"
+  },
+  {
+    "id": 11504480735,
+    "lat": -25.3873547,
+    "lng": -57.4894949,
+    "name": "Plaza Tucumán",
+    "type": "nature"
+  },
+  {
+    "id": 11504513687,
+    "lat": -25.3934696,
+    "lng": -57.5020873,
+    "name": "Cancha de fútbol Rayadito",
+    "type": "nature"
+  },
+  {
+    "id": 11520428505,
+    "lat": -25.3960509,
+    "lng": -57.497525,
+    "name": "Plaza Divino Niño jusus",
+    "type": "nature"
+  },
+  {
+    "id": 11741963502,
+    "lat": -25.2317273,
+    "lng": -57.5388093,
+    "name": "Box",
+    "type": "commerce"
+  },
+  {
+    "id": 11976385757,
+    "lat": -25.3517723,
+    "lng": -57.5720828,
+    "name": "Clínica Sanar",
+    "type": "health"
+  },
+  {
+    "id": 12071843991,
+    "lat": -25.3358253,
+    "lng": -57.5190171,
+    "name": "Placita de la FACEN",
+    "type": "nature"
+  },
+  {
+    "id": 12147077880,
+    "lat": -25.3945331,
+    "lng": -57.4883524,
+    "name": "Plaza Las palmas",
+    "type": "nature"
+  },
+  {
+    "id": 12164501601,
+    "lat": -25.3063018,
+    "lng": -57.6392836,
+    "name": "Biggie Express",
+    "type": "commerce"
+  },
+  {
+    "id": 12227799672,
+    "lat": -25.2950417,
+    "lng": -57.4903406,
+    "name": "Instituto Paraguayo de Telecomunicaciones",
+    "type": "education"
+  },
+  {
+    "id": 12509941317,
+    "lat": -25.3052714,
+    "lng": -57.6412603,
+    "name": "Despensa Monserrat",
+    "type": "commerce"
+  },
+  {
+    "id": 12679611201,
+    "lat": -25.3257754,
+    "lng": -57.5476805,
+    "name": "Euro School",
+    "type": "education"
+  },
+  {
+    "id": 12690031494,
+    "lat": -25.285739,
+    "lng": -57.5635792,
+    "name": "Superseis",
+    "type": "commerce"
+  },
+  {
+    "id": 12783765561,
+    "lat": -25.2533237,
+    "lng": -57.5768349,
+    "name": "Unnamed",
+    "type": "commerce"
+  },
+  {
+    "id": 12790584001,
+    "lat": -25.2547122,
+    "lng": -57.5810406,
+    "name": "Unnamed",
+    "type": "commerce"
+  },
+  {
+    "id": 12884655667,
+    "lat": -25.268798,
+    "lng": -57.578812,
+    "name": "Biggie Express",
+    "type": "commerce"
+  },
+  {
+    "id": 12993536416,
+    "lat": -25.3585182,
+    "lng": -57.4371618,
+    "name": "BIggie",
+    "type": "commerce"
+  },
+  {
+    "id": 12993626260,
+    "lat": -25.3502968,
+    "lng": -57.4519624,
+    "name": "El Ahorrazo",
+    "type": "commerce"
+  },
+  {
+    "id": 12993626268,
+    "lat": -25.3651324,
+    "lng": -57.4340771,
+    "name": "Biggie",
+    "type": "commerce"
+  },
+  {
+    "id": 13017581520,
+    "lat": -25.1824761,
+    "lng": -57.4498124,
+    "name": "Quinta Ña Chela",
+    "type": "nature"
+  },
+  {
+    "id": 13207748373,
+    "lat": -25.2792654,
+    "lng": -57.5575762,
+    "name": "Biggie Express",
+    "type": "commerce"
+  },
+  {
+    "id": 13278759581,
+    "lat": -25.268355,
+    "lng": -57.5569714,
+    "name": "Escuela Primer Presidente",
+    "type": "education"
+  },
+  {
+    "id": 13318325047,
+    "lat": -25.286606,
+    "lng": -57.5764031,
+    "name": "Paseo Via Allegra",
+    "type": "commerce"
+  },
+  {
+    "id": 13468846686,
+    "lat": -25.3274659,
+    "lng": -57.482859,
+    "name": "Plaza 12 de Junio Ñu Porâ",
+    "type": "nature"
+  },
+  {
+    "id": 13664212071,
+    "lat": -25.3026142,
+    "lng": -57.5639907,
+    "name": "Hiperseis",
+    "type": "commerce"
+  },
+  {
+    "id": 13668740723,
+    "lat": -25.2959177,
+    "lng": -57.5922652,
+    "name": "Supermercado Chaco",
+    "type": "commerce"
+  },
+  {
+    "id": 13669035694,
+    "lat": -25.2745167,
+    "lng": -57.5670991,
+    "name": "City Market",
+    "type": "commerce"
+  },
+  {
+    "id": 13669812670,
+    "lat": -25.2675027,
+    "lng": -57.5964345,
+    "name": "Casa Rica",
+    "type": "commerce"
+  },
+  {
+    "id": 13671389465,
+    "lat": -25.2838482,
+    "lng": -57.564387,
+    "name": "Paseo La Galería",
+    "type": "commerce"
+  },
+  {
+    "id": 13671500538,
+    "lat": -25.2828204,
+    "lng": -57.5667332,
+    "name": "Shopping del Sol",
+    "type": "commerce"
+  },
+  {
+    "id": 13671988447,
+    "lat": -25.282718,
+    "lng": -57.5676436,
+    "name": "Unnamed",
+    "type": "commerce"
+  },
+  {
+    "id": 13671988448,
+    "lat": -25.2821664,
+    "lng": -57.567638,
+    "name": "Delimarket",
+    "type": "commerce"
+  },
+  {
+    "id": 13672082938,
+    "lat": -25.272278,
+    "lng": -57.5715535,
+    "name": "Casa Rica - Molas Lopez",
+    "type": "commerce"
+  },
+  {
+    "id": 13672435543,
+    "lat": -25.2786992,
+    "lng": -57.5565764,
+    "name": "Centro de Salud No. 12 Doctor Valerio Fernandez",
+    "type": "health"
+  },
+  {
+    "id": 13684893151,
+    "lat": -25.2893094,
+    "lng": -57.5901642,
+    "name": "Superseis",
+    "type": "commerce"
+  },
+  {
+    "id": 13684945337,
+    "lat": -25.2877873,
+    "lng": -57.5987608,
+    "name": "Beef Shop",
+    "type": "commerce"
+  },
+  {
+    "id": 13685429095,
+    "lat": -25.28591,
+    "lng": -57.6208474,
+    "name": "Superseis",
+    "type": "commerce"
+  },
+  {
+    "id": 13686376571,
+    "lat": -25.2859065,
+    "lng": -57.595016,
+    "name": "Clinica Vanguardia",
+    "type": "health"
+  },
+  {
+    "id": 13691855966,
+    "lat": -25.2870311,
+    "lng": -57.5717899,
+    "name": "Biggie Express San Martin y Austria",
+    "type": "commerce"
+  },
+  {
+    "id": 13691855969,
+    "lat": -25.2876335,
+    "lng": -57.5721254,
+    "name": "Superseis S6",
+    "type": "commerce"
+  },
+  {
+    "id": 13691940392,
+    "lat": -25.2887893,
+    "lng": -57.6027616,
+    "name": "Le Galion",
+    "type": "commerce"
+  },
+  {
+    "id": 13695227821,
+    "lat": -25.2852349,
+    "lng": -57.6250063,
+    "name": "Reyva",
+    "type": "health"
+  },
+  {
+    "id": 13703088216,
+    "lat": -25.290588,
+    "lng": -57.6175599,
+    "name": "Promed",
+    "type": "health"
+  },
+  {
+    "id": 13715998240,
+    "lat": -25.2541803,
+    "lng": -57.5806834,
+    "name": "City Market",
+    "type": "commerce"
+  },
+  {
+    "id": 13716717750,
+    "lat": -25.261043,
+    "lng": -57.5907063,
+    "name": "Ofertissima",
+    "type": "commerce"
+  },
+  {
+    "id": 13717034175,
+    "lat": -25.2629351,
+    "lng": -57.5898672,
+    "name": "Machetazo",
+    "type": "commerce"
+  },
+  {
+    "id": 13717137814,
+    "lat": -25.2631121,
+    "lng": -57.5949326,
+    "name": "Supermercado Ofertisima",
+    "type": "commerce"
+  },
+  {
+    "id": 13718828314,
+    "lat": -25.2742071,
+    "lng": -57.607819,
+    "name": "Biggie",
+    "type": "commerce"
+  },
+  {
+    "id": 13724835963,
+    "lat": -25.2660771,
+    "lng": -57.5827693,
+    "name": "Biggie Express",
+    "type": "commerce"
+  },
+  {
+    "id": 13724858496,
+    "lat": -25.2675949,
+    "lng": -57.5833859,
+    "name": "Stock Express",
+    "type": "commerce"
+  },
+  {
+    "id": 13730346500,
+    "lat": -25.2703127,
+    "lng": -57.5632223,
+    "name": "Superseis Mburucuya",
+    "type": "commerce"
+  },
+  {
+    "id": 13732239279,
+    "lat": -25.2695951,
+    "lng": -57.5986898,
+    "name": "Super Stock",
+    "type": "commerce"
+  },
+  {
+    "id": 13732239298,
+    "lat": -25.2704813,
+    "lng": -57.598278,
+    "name": "Stock Brasilia 2",
+    "type": "commerce"
+  },
+  {
+    "id": 13732543264,
+    "lat": -25.272614,
+    "lng": -57.5986495,
+    "name": "Unnamed",
+    "type": "health"
+  },
+  {
+    "id": 13743258705,
+    "lat": -25.2931334,
+    "lng": -57.6030096,
+    "name": "Hospital Central de Policía Rigoberto Caballero",
+    "type": "health"
+  },
+  {
+    "id": 13743531936,
+    "lat": -25.2909259,
+    "lng": -57.5748744,
+    "name": "Plaza Hogar",
+    "type": "commerce"
+  },
+  {
+    "id": 13798697238,
+    "lat": -25.3388974,
+    "lng": -57.4979419,
+    "name": "Escuela Basica N° 600 San Jose , Area 9",
+    "type": "education"
+  },
+  {
+    "id": 13801814501,
+    "lat": -25.3239508,
+    "lng": -57.6274641,
+    "name": "REAL",
+    "type": "commerce"
+  }
+]

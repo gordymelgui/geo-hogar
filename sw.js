@@ -1,4 +1,4 @@
-const CACHE_NAME = 'geohogar-cache-v40';
+const CACHE_NAME = 'geohogar-cache-v70';
 const ASSETS = [
   '/',
   '/index.html',
@@ -6,7 +6,7 @@ const ASSETS = [
   '/js/i18n.js',
   '/js/app.js',
   '/js/ui.js',
-  '/js/data.js',
+  '/js/data_v2.js',
   '/js/map.js',
   '/js/firebase-auth.js',
   '/js/firebase-db.js',

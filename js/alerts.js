@@ -95,7 +95,7 @@ function openZoneAlertModal() {
         <div class="price-alert-info">
           <div class="price-alert-icon"></div>
           <h3 data-i18n="price_alerts_title">Alertas de Precio</h3>
-          <p data-i18n="price_alerts_desc">Guardá propiedades con ♥ y te avisamos automáticamente cuando bajen de precio o haya nuevas ofertas.</p>
+          <p data-i18n="price_alerts_desc">Guardá propiedades y te avisamos automáticamente cuando bajen de precio o haya nuevas ofertas.</p>
         </div>
         <div id="price-alerts-list"></div>
       </div>
@@ -218,7 +218,7 @@ function renderPriceAlertsList() {
   const favs = Array.from(window.appData?.favorites || []);
   const favProps = (window.appData?.properties || []).filter(p => favs.includes(p.id));
   if (favProps.length === 0) {
-    list.innerHTML = `<div class="zone-empty"><div style="font-size:2rem;margin-bottom:0.5rem">❤</div><p style="font-weight:600">${window.t('empty_price_alerts_desc')}</p></div>`;
+    list.innerHTML = `<div class="zone-empty"><p style="font-weight:600">${window.t('empty_price_alerts_desc')}</p></div>`;
     return;
   }
   list.innerHTML = `<div style="padding:0 0 1rem;font-size:0.85rem;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:0.5px">${window.t('monitoring_prices')}</div>`;

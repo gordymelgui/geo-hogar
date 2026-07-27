@@ -1,3 +1,49 @@
+// Notificaciones Web API + Sonido
+window.triggerAppNotification = (title, body) => {
+  // Reproducir sonido
+  try {
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = audioCtx.createOscillator();
+    const gainNode = audioCtx.createGain();
+    
+    oscillator.type = 'sine';
+    oscillator.frequency.setValueAtTime(880, audioCtx.currentTime); // A5
+    oscillator.frequency.exponentialRampToValueAtTime(1760, audioCtx.currentTime + 0.1); // A6
+    
+    gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+    gainNode.gain.linearRampToValueAtTime(0.5, audioCtx.currentTime + 0.05);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+    
+    oscillator.start();
+    oscillator.stop(audioCtx.currentTime + 0.5);
+  } catch(e) { console.log('Audio error:', e); }
+
+  if (!('Notification' in window)) return;
+  
+  if (Notification.permission === 'granted') {
+    new Notification(title, { body: body, icon: 'https://img.icons8.com/fluency/512/home.png' });
+  } else if (Notification.permission !== 'denied') {
+    Notification.requestPermission().then(permission => {
+      if (permission === 'granted') {
+        new Notification(title, { body: body, icon: 'https://img.icons8.com/fluency/512/home.png' });
+      }
+    });
+  }
+};
+
+window.fixMojibake = function(text) {
+  if (!text || typeof text !== 'string') return text;
+  const fixes = {'â€“': '–', 'Âº': 'º', 'Ã¡': 'á', 'Ã©': 'é', 'Ã³': 'ó', 'Ãº': 'ú', 'Ã±': 'ñ', 'Ã\xad': 'í', 'Ã­': 'í', 'Â²': '²', 'Â¡': '¡', 'Â¿': '¿', 'Ã\x81': 'Á', 'Ã\x89': 'É', 'Ã\x8d': 'Í', 'Ã\x93': 'Ó', 'Ã\x9a': 'Ú', 'Ã\x91': 'Ñ'};
+  let fixed = text;
+  for (const [bad, good] of Object.entries(fixes)) {
+    fixed = fixed.split(bad).join(good);
+  }
+  return fixed;
+};
+
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize Global App State safely since data.js is removed
   if (!window.appData) {
@@ -25,20 +71,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (window.applyExploreFilters) {
-      window.applyExploreFilters();
+      window.applyExploreFilters(true);
     }
     filterPanel.classList.add('hidden');
-    const count = window._currentMapProperties ? window._currentMapProperties.length : 0;
+    const count = window._currentFilteredProperties ? window._currentFilteredProperties.length : 0;
     showToast(window.t('toast_props_found', { count: count }));
   });
 
-  document.getElementById('filter-clear')?.addEventListener('click', () => {
-    document.getElementById('f-type').value = '';
-    document.getElementById('f-op').value = '';
-    document.getElementById('f-city').value = '';
-    document.getElementById('f-pmin').value = '';
-    document.getElementById('f-pmax').value = '';
-    document.getElementById('f-mmin').value = '';
+  window.clearAllFilters = () => {
+    const fType = document.getElementById('f-type'); if (fType) fType.value = '';
+    const fCity = document.getElementById('f-city'); if (fCity) fCity.value = '';
+    const fPmin = document.getElementById('f-pmin'); if (fPmin) fPmin.value = '';
+    const fPmax = document.getElementById('f-pmax'); if (fPmax) fPmax.value = '';
+    const fMmin = document.getElementById('f-mmin'); if (fMmin) fMmin.value = '';
+    
     document.querySelectorAll('#f-rooms .pill').forEach(p => p.classList.remove('active'));
     document.querySelector('#f-rooms .pill[data-val=""]')?.classList.add('active');
     
@@ -50,17 +96,28 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
     document.querySelector('.cat-btn[data-cat=""]')?.classList.add('active');
     
+    // Reset investor/smart filters
+    document.querySelectorAll('.investor-pill').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.smart-pill').forEach(p => p.classList.remove('active'));
+    
     // Reset global search input
     const searchInput = document.getElementById('global-search');
     if (searchInput) searchInput.value = '';
 
     if (window.applyExploreFilters) {
       window.applyExploreFilters();
-    } else {
-      renderFiltered(window.appData.properties);
-      const countEl = document.getElementById('results-count');
-      if (countEl) countEl.innerText = window.t('results_count', { count: window.appData.properties.length });
     }
+  };
+
+  document.getElementById('global-clear-filters-btn')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    window.clearAllFilters();
+  });
+
+  document.getElementById('filter-clear')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.clearAllFilters();
   });
 
   // Publish Form

@@ -12,6 +12,9 @@ permissions:
 jobs:
   scrape-and-calculate:
     runs-on: ubuntu-latest
+    env:
+      FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -28,17 +31,34 @@ jobs:
 
       - name: Create Service Account Key file
         run: |
-          echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > backend/service-account.json
+          echo "${{ env.FIREBASE_SERVICE_ACCOUNT }}" > backend/service-account.json
 
       - name: Run Scraper
         run: |
           cd backend
           npm run scrape
 
-      - name: Calculate Metrics & Upload to Firestore
+      - name: Calculate Metrics, Geo-Enrich & AI Tags
+        env:
+          GEMINI_API_KEY: ${{ env.GEMINI_API_KEY }}
         run: |
           cd backend
           npm run calculate
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Python dependencies
+        run: |
+          cd backend
+          pip install -r requirements.txt
+
+      - name: Run AVM Machine Learning Model
+        run: |
+          cd backend
+          python avm_model.py
 
       - name: Run Macro Scraper
         run: |

@@ -3,7 +3,7 @@
  * Usa datos reales de Firestore + Gemini API para calcular valor de mercado
  */
 
-const GEMINI_KEY = 'AIzaSyATmOQwr49aupctjN56M99Ru2-HlTBjir8';
+const GEMINI_KEY = (window.CONFIG?.GEMINI_API_KEY_2 || 'AIzaSyATmOQwr49aupctjN56M99Ru2-HlTBjir8').trim();
 
 // ===== UI PRINCIPAL DE TASACIÓN =====
 function renderValuationTab() {
@@ -17,14 +17,14 @@ function renderValuationTab() {
           <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><line x1="8" y1="16" x2="8" y2="16.01"/><line x1="16" y1="16" x2="16" y2="16.01"/></svg>
         </div>
         <div>
-          <h3 style="font-weight:800;font-size:1.3rem;margin-bottom:2px;">Tasación por IA</h3>
-          <p style="color:var(--text2);font-size:0.9rem;">Precio estimado con datos reales del mercado de Paraguay</p>
+          <h3 style="font-weight:800;font-size:1.3rem;margin-bottom:2px;" data-i18n="valuation_title">Tasación por IA</h3>
+          <p style="color:var(--text2);font-size:0.9rem;" data-i18n="valuation_subtitle">Precio estimado con datos reales del mercado de Paraguay</p>
         </div>
       </div>
 
       <div class="valuation-grid-2">
         <div>
-          <label class="val-field-label">TIPO DE PROPIEDAD</label>
+          <label class="val-field-label" data-i18n="val_field_type">TIPO DE PROPIEDAD</label>
           <select id="val-type" class="val-select val-input" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'">
             <option value="Casa">Casa</option>
             <option value="Departamento" selected>Departamento</option>
@@ -35,28 +35,28 @@ function renderValuationTab() {
           </select>
         </div>
         <div>
-          <label class="val-field-label">OPERACIÓN</label>
+          <label class="val-field-label" data-i18n="val_field_op">OPERACIÓN</label>
           <select id="val-op" class="val-select val-input" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'">
             <option value="Venta">Venta</option>
           </select>
         </div>
 
       <div style="margin-bottom:1rem;">
-        <label class="val-field-label">DIRECCIÓN / ZONA</label>
+        <label class="val-field-label" data-i18n="val_field_address">DIRECCIÓN / ZONA</label>
         <input id="val-address" type="text" placeholder="Ej: Villa Morra, Asunción" class="val-input" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'" />
       </div>
 
       <div class="valuation-grid-3">
         <div>
-          <label class="val-field-label text-truncate">M² TOTALES</label>
+          <label class="val-field-label text-truncate" data-i18n="val_field_m2">M² TOTALES</label>
           <input id="val-m2" type="number" placeholder="120" min="20" max="5000" class="val-input" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'" />
         </div>
         <div>
-          <label class="val-field-label text-truncate">DORMITORIOS</label>
+          <label class="val-field-label text-truncate" data-i18n="val_field_rooms">DORMITORIOS</label>
           <input id="val-rooms" type="number" placeholder="3" min="0" max="20" class="val-input" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'" />
         </div>
         <div>
-          <label class="val-field-label text-truncate">BAÑOS</label>
+          <label class="val-field-label text-truncate" data-i18n="val_field_baths">BAÑOS</label>
           <input id="val-baths" type="number" placeholder="2" min="0" max="15" class="val-input" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'" />
         </div>
       </div>
@@ -72,6 +72,7 @@ function renderValuationTab() {
   `;
 
   loadValuationHistory();
+  if (typeof window.applyGlobalState === 'function') window.applyGlobalState(container);
   if (typeof window.triggerStagger === 'function') {
     window.triggerStagger(container);
   } else {
@@ -199,7 +200,7 @@ function calculateMarketStats(comparables, m2, op) {
 }
 
 async function callGeminiValuation(type, op, address, m2, rooms, baths, marketStats) {
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_KEY}`;
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${GEMINI_KEY}`;
 
   const priceInfo = marketStats.isFallback
     ? `No se encontraron comparables exactos. El precio estimado basado en promedios generales del mercado paraguayo es de ${window.formatPrice(marketStats.estimatedPrice)}.`

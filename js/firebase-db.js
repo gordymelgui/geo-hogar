@@ -154,7 +154,7 @@
     // Load scraped properties first if not already loaded
     const loadScrapedPromise = window._localScrapedProperties 
       ? Promise.resolve(window._localScrapedProperties)
-      : fetch('data/propiedades.json')
+      : fetch('data/propiedades.json?v=28.9.19')
           .then(r => r.json())
           .then(data => {
             window._localScrapedProperties = data || [];
@@ -237,8 +237,14 @@
   const chatsRef = db.collection('chats');
 
   // Get or Create Chat document
-  window.getOrCreateChat = async function(buyerId, buyerName, ownerId, ownerName, propertyId, propertyTitle) {
-    const chatId = `chat_${propertyId}_${buyerId}`;
+  window.getOrCreateChat = async function(buyerId, buyerName, ownerId, ownerName, propertyId, propertyTitle, propertyImg, propertyPrice) {
+    if (!buyerId || buyerId === 'undefined' || buyerId === 'null' ||
+        !ownerId || ownerId === 'undefined' || ownerId === 'null') {
+      throw new Error(`IDs inválidos detectados. No se puede crear el chat. Buyer: ${buyerId}, Owner: ${ownerId}`);
+    }
+
+    const sortedIds = [buyerId, ownerId].sort();
+    const chatId = `chat_${sortedIds[0]}_${sortedIds[1]}`;
     const chatDocRef = chatsRef.doc(chatId);
     
     const doc = await chatDocRef.get();
@@ -260,6 +266,8 @@
         ownerType,
         propertyId,
         propertyTitle,
+        propertyImg: propertyImg || '',
+        propertyPrice: propertyPrice || 0,
         lastMsg: '',
         lastMsgTime: Date.now(),
         unreadBuyer: false,
@@ -281,7 +289,12 @@
       .onSnapshot((snapshot) => {
         const chats = [];
         snapshot.forEach(doc => {
-          chats.push(doc.data());
+          const data = doc.data();
+          if (data && data.buyerId && data.ownerId && data.buyerId !== 'undefined' && data.ownerId !== 'undefined') {
+            chats.push(data);
+          } else {
+            console.warn(`Filtrando chat inválido/corrupto: ${doc.id}`);
+          }
         });
         // Sort client-side by last message time
         chats.sort((a, b) => b.lastMsgTime - a.lastMsgTime);
@@ -310,7 +323,11 @@
   };
 
   // Send message
-  window.sendChatMessage = async function(chatId, senderId, text) {
+  window.sendChatMessage = async function(chatId, senderId, text, context = null) {
+    if (!senderId || senderId === 'undefined' || senderId === 'null') {
+      throw new Error(`SenderId inválido: ${senderId}. Imposible enviar mensaje.`);
+    }
+    
     try {
       const msgId = Date.now().toString();
       const msgData = {
@@ -319,6 +336,10 @@
         text,
         timestamp: Date.now()
       };
+      
+      if (context) {
+        msgData.context = context;
+      }
       
       const chatDocRef = chatsRef.doc(chatId);
       const chatSnap = await chatDocRef.get();

@@ -8,8 +8,10 @@
     "calculate": "node calculate-metrics.js"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "axios": "^1.6.7",
     "cheerio": "^1.0.0-rc.12",
-    "firebase-admin": "^12.0.0"
+    "dotenv": "^17.4.2",
+    "firebase-admin": "^12.7.0"
   }
 }

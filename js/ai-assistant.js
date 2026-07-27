@@ -237,45 +237,58 @@ class GeoHogarAI {
 
         // Obtener criterios de filtrado
         const criteria = {};
-
+        
         // Precio
-        const priceMax = norm.match(/(?:menos de|bajo de|menor a|por debajo de|hasta|maximo|máximo)\s*(?:usd\s*)?(\d[\d.,]*)/i);
-        const priceMin = norm.match(/(?:mas de|mayor a|minimo|mínimo|desde|sobre)\s*(?:usd\s*)?(\d[\d.,]*)/i);
+        const priceMax = norm.match(/(?:menos de|bajo de|menor a|por debajo de|hasta|maximo|mǭximo)\s*(?:usd\s*)?(\d[\d.,]*)/i);
+        const priceMin = norm.match(/(?:mas de|mayor a|minimo|mnimo|desde|sobre)\s*(?:usd\s*)?(\d[\d.,]*)/i);
         if (priceMax) criteria.maxPrice = parseInt(priceMax[1].replace(/\D/g,''));
         if (priceMin) criteria.minPrice = parseInt(priceMin[1].replace(/\D/g,''));
 
-        // Tipo
-        if (norm.includes('casa'))          criteria.type = 'Casa';
-        else if (norm.includes('departamento') || norm.includes('depto') || norm.includes('dpto') || norm.includes('apartamento')) criteria.type = 'Departamento';
-        else if (norm.includes('duplex'))   criteria.type = 'Dúplex';
+        // Tipo (Synonyms Expansion)
+        if (norm.match(/\b(casa|chalet|mansion|residencia|quinta|rancho|villa)\b/))          criteria.type = 'Casa';
+        else if (norm.match(/\b(departamento|depto|dpto|apartamento|piso|monoambiente|estudio|loft)\b/)) criteria.type = 'Departamento';
+        else if (norm.includes('duplex'))   criteria.type = 'Dǧplex';
         else if (norm.includes('penthouse') || norm.includes('atico')) criteria.type = 'Penthouse';
         else if (norm.includes('ph'))       criteria.type = 'PH';
-        else if (norm.includes('terreno'))  criteria.type = 'Terreno';
-        else if (norm.includes('oficina'))  criteria.type = 'Oficina';
-        else if (norm.includes('local'))    criteria.type = 'Local';
-        else if (norm.includes('galpon') || norm.includes('deposito') || norm.includes('tinglado')) criteria.type = 'Galpón';
-        else if (norm.includes('estancia') || norm.includes('chacra') || norm.includes('quinta') || norm.includes('campo')) criteria.type = 'Estancia';
+        else if (norm.match(/\b(terreno|lote|parcela|hectarea)\b/))  criteria.type = 'Terreno';
+        else if (norm.match(/\b(oficina|consultorio|corporativo|co-working)\b/))  criteria.type = 'Oficina';
+        else if (norm.match(/\b(local|comercial|tienda|negocio)\b/))    criteria.type = 'Local';
+        else if (norm.match(/\b(galpon|deposito|tinglado)\b/)) criteria.type = 'Galpn';
+        else if (norm.match(/\b(estancia|chacra|quinta|campo)\b/)) criteria.type = 'Estancia';
 
-        // Operación
-        if (norm.includes('alquiler') || norm.includes('alquilar') || norm.includes('arrendar')) criteria.op = 'Alquiler';
-        else if (norm.includes('venta') || norm.includes('comprar') || norm.includes('compra')) criteria.op = 'Venta';
+        // Operación (Solo Ventas)
+        criteria.op = 'Venta';
 
-        // Ambientes / Cuartos
+        // Heurística de precio e inversión (contexto de "barato" / "oportunidad")
+        if (!criteria.maxPrice && norm.match(/\b(barato|econmico|economico|accesible|ganga|oportunidad|descuento)\b/)) {
+            criteria.maxPrice = 120000;
+        }
+        if (!criteria.minPrice && norm.match(/\b(lujo|exclusivo|alta gama|caro|premium)\b/)) {
+            criteria.minPrice = 250000;
+        }
+
+        // Ambientes / Cuartos (Explícito e Implícito)
         const roomsMatch = norm.match(/(\d+)\s*(?:ambientes?|habitaciones?|cuartos?|dormitorios?)/);
-        if (roomsMatch) criteria.rooms = parseInt(roomsMatch[1]);
+        if (roomsMatch) {
+            criteria.rooms = parseInt(roomsMatch[1]);
+        } else {
+            // Heurística de tamaño
+            if (norm.match(/\b(grande|espacioso|amplio|enorme|familia numerosa|muchas habitaciones)\b/)) criteria.rooms = 3;
+            else if (norm.match(/\b(pequeo|chico|compacto|soltero|una persona|mi solo)\b/)) criteria.rooms = 1;
+        }
 
         // m2
-        const m2Max = norm.match(/(?:hasta|menos de|maximo|máximo)\s*(\d+)\s*m/);
-        const m2Min = norm.match(/(?:minimo|mínimo|mas de|desde)\s*(\d+)\s*m/);
+        const m2Max = norm.match(/(?:hasta|menos de|maximo|mǭximo)\s*(\d+)\s*m/);
+        const m2Min = norm.match(/(?:minimo|mnimo|mas de|desde)\s*(\d+)\s*m/);
         if (m2Max) criteria.maxM2 = parseInt(m2Max[1]);
         if (m2Min) criteria.minM2 = parseInt(m2Min[1]);
 
-        // Puntos de Interés (POI)
-        if (norm.includes('hospital') || norm.includes('clinica') || norm.includes('clínica') || norm.includes('medico') || norm.includes('médico')) criteria.poiType = 'hospital';
-        else if (norm.includes('escuela') || norm.includes('colegio') || norm.includes('escuel')) criteria.poiType = 'escuela';
-        else if (norm.includes('universidad') || norm.includes('facultad')) criteria.poiType = 'universidad';
-        else if (norm.includes('supermercado') || norm.includes('comercio') || norm.includes('tienda')) criteria.poiType = 'supermercado';
-        else if (norm.includes('parque') || norm.includes('verde') || norm.includes('plaza')) criteria.poiType = 'parque';
+        // Puntos de Interés (POI) y Entorno
+        if (norm.match(/\b(hospital|clinica|clnica|medico|mǸdico|sanatorio)\b/)) criteria.poiType = 'hospital';
+        else if (norm.match(/\b(escuela|colegio|facultad|instituto)\b/)) criteria.poiType = 'escuela';
+        else if (norm.match(/\b(universidad|facultad)\b/)) criteria.poiType = 'universidad';
+        else if (norm.match(/\b(supermercado|comercio|tienda|despensa|mercado)\b/)) criteria.poiType = 'supermercado';
+        else if (norm.match(/\b(parque|verde|plaza|aire libre|naturaleza)\b/)) criteria.poiType = 'parque';
 
         // Ubicación / Ciudad / País
         for (const loc of locations) {
@@ -329,7 +342,53 @@ class GeoHogarAI {
                 }
             });
 
-            // 3. Sincronizar buscador global (por ejemplo con la ciudad/barrio o término extra)
+            // 3. Sincronizar inputs de filtros avanzados en la UI
+            if (criteria.maxPrice) {
+                const el = document.getElementById('f-pmax');
+                if (el) el.value = criteria.maxPrice;
+            } else {
+                const el = document.getElementById('f-pmax');
+                if (el) el.value = '';
+            }
+
+            if (criteria.minPrice) {
+                const el = document.getElementById('f-pmin');
+                if (el) el.value = criteria.minPrice;
+            } else {
+                const el = document.getElementById('f-pmin');
+                if (el) el.value = '';
+            }
+
+            if (criteria.type) {
+                const el = document.getElementById('f-type');
+                if (el) el.value = criteria.type;
+            } else {
+                const el = document.getElementById('f-type');
+                if (el) el.value = '';
+            }
+
+            if (criteria.rooms) {
+                const rPills = document.querySelectorAll('#f-rooms .pill');
+                rPills.forEach(p => p.classList.remove('active'));
+                const targetPill = document.querySelector(`#f-rooms .pill[data-val="${criteria.rooms}"]`) || document.querySelector(`#f-rooms .pill[data-val="4+"]`);
+                if (targetPill) targetPill.classList.add('active');
+            } else {
+                const rPills = document.querySelectorAll('#f-rooms .pill');
+                rPills.forEach(p => p.classList.remove('active'));
+                document.querySelector('#f-rooms .pill[data-val=""]')?.classList.add('active');
+            }
+
+            // Sincronizar Filtros Inteligentes (ROI, Valor)
+            if (norm.match(/\b(inversion|inversin|rentable|roi|negocio|retorno)\b/)) {
+                document.getElementById('explore-roi-btn')?.classList.add('active');
+                document.getElementById('filter-roi-btn')?.classList.add('active');
+            }
+            if (norm.match(/\b(oportunidad|ganga|descuento|rebajado)\b/)) {
+                document.getElementById('explore-market-value-btn')?.classList.add('active');
+                document.getElementById('filter-market-value-btn')?.classList.add('active');
+            }
+
+            // 4. Sincronizar buscador global (por ejemplo con la ciudad/barrio o término extra)
             const searchInput = document.getElementById('global-search');
             if (searchInput) {
                 let query = '';
@@ -338,7 +397,7 @@ class GeoHogarAI {
                     query = criteria.location;
                 } else {
                     // Limpiar stop words y ver si queda algún término descriptivo
-                    let cleanQuery = norm.replace(/\b(busc\w*|encontr\w*|mu[eé]strame|muetrame|quiero ver|mostrar|ense[ñn]a|las|los|la|el|un|una|unos|unas|en|de|por favor|gracias|ya|ahora|quiero|ver|mapa|aqu[ií]|all[ií]|casas|casa|propiedades|propiedad|inmuebles|paraguay|departamento|depto|dpto|apartamento|terreno|duplex|penthouse|galpon|estancia|chacra|quinta|campo|tinglado|deposito|oficina|local)\b/ig, ' ').trim().replace(/\s+/g,' ');
+                    let cleanQuery = norm.replace(/\b(busc\w*|encontr\w*|mu[eǸ]strame|muetrame|quiero ver|mostrar|ense[n]a|las|los|la|el|un|una|unos|unas|en|de|por favor|gracias|ya|ahora|quiero|ver|mapa|aqu[i]|all[i]|casas|casa|propiedades|propiedad|inmuebles|paraguay|departamento|depto|dpto|apartamento|terreno|duplex|penthouse|galpon|estancia|chacra|quinta|campo|tinglado|deposito|oficina|local)\b/ig, ' ').trim().replace(/\s+/g,' ');
                     if (cleanQuery.length >= 2) {
                         query = cleanQuery;
                     }
@@ -346,7 +405,7 @@ class GeoHogarAI {
                 searchInput.value = query;
             }
 
-            // 4. Aplicar los filtros unificados
+            // 5. Aplicar los filtros unificados
             if (window.applyExploreFilters) {
                 window.applyExploreFilters();
             }

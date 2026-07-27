@@ -19,26 +19,53 @@ window.currentCurrency = localStorage.getItem('geohogar_currency') || 'USD';
 
 // Función para cambiar de moneda
 window.changeCurrency = function(curr) {
+  const oldCurr = window.currentCurrency || 'USD';
   window.currentCurrency = curr;
   localStorage.setItem('geohogar_currency', curr);
   
-  // Actualizar todos los selectores visuales de moneda en la UI
-  document.querySelectorAll('.current-curr-text').forEach(el => {
-    el.textContent = curr;
-  });
+  const oldRate = window.exchangeRates[oldCurr] || 1;
+  const newRate = window.exchangeRates[curr] || 1;
+  
+  const pminInput = document.getElementById('f-pmin');
+  if (pminInput && pminInput.value) {
+    const pminUsd = parseFloat(pminInput.value) / oldRate;
+    pminInput.value = Math.round(pminUsd * newRate);
+  }
+  
+  const pmaxInput = document.getElementById('f-pmax');
+  if (pmaxInput && pmaxInput.value) {
+    const pmaxUsd = parseFloat(pmaxInput.value) / oldRate;
+    pmaxInput.value = Math.round(pmaxUsd * newRate);
+  }
 
-  // Re-renderizar las propiedades en la vista Explorar
-  if (window.applyExploreFilters) {
+  if (typeof window.applyGlobalState === 'function') {
+    window.applyGlobalState(document);
+  }
+
+  const props = window.appData?.properties;
+
+  if (typeof window.applyExploreFilters === 'function') {
     window.applyExploreFilters();
   }
-  
-  // Re-renderizar los marcadores en el mapa
-  if (window.renderMapMarkers && window.appData && window.appData.properties) {
-    window.renderMapMarkers(window.appData.properties);
+
+  if (typeof window.renderMapMarkers === 'function' && props) {
+    window.renderMapMarkers(props);
   }
-  
-  // Disparar evento para otras lógicas (como gráficos)
+
+  if (typeof window.updateAnalytics === 'function' && props) {
+    window.updateAnalytics(props);
+  }
+
+  if (typeof window.updateNeighborhoodRanking === 'function' && props) {
+    window.updateNeighborhoodRanking(props, window._rankViewMode || 'neighborhood');
+  }
+
+  if (typeof window.renderValuationTab === 'function') {
+    window.renderValuationTab();
+  }
+
   window.dispatchEvent(new Event('currencyChanged'));
+  document.dispatchEvent(new CustomEvent('geohogar:currency:changed', { detail: { currency: curr } }));
 };
 
 // Formateador global de precios

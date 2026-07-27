@@ -1,5 +1,7 @@
 const fs = require('fs');
 const path = require('path');
+const { calculatePlusvaliaScore } = require('./enrich-location');
+const { enrichPropertiesWithAI } = require('./ai-analyzer');
 
 // Tarifas de alquiler estimadas por m2 al mes en dólares (USD) según la ubicación (para calcular el ROI de ventas)
 const RENT_RATES = {
@@ -372,6 +374,11 @@ async function calculateAllMetrics() {
       p.isUnderpriced = false;
       p.discount = 0;
     }
+    
+    // Add Plusvalia Score (Data Enrichment)
+    const plusvalia = calculatePlusvaliaScore(p.lat, p.lng);
+    p.plusvaliaScore = plusvalia.score;
+    p.poiDetails = plusvalia.details;
   });
 
   // Ordenar de forma que los de mejor ROI o mejor Descuento salgan primeros
@@ -382,13 +389,17 @@ async function calculateAllMetrics() {
     return b.discount - a.discount;
   });
 
-  // 5. Escribir archivo procesado
-  const allPropertiesCombined = [...organicProperties, ...validProperties];
+  // 5. Enriquecimiento con IA (Gemini)
+  console.log('\\n--- ENRIQUECIMIENTO CON INTELIGENCIA ARTIFICIAL ---');
+  let allPropertiesCombined = [...organicProperties, ...validProperties];
+  allPropertiesCombined = await enrichPropertiesWithAI(allPropertiesCombined);
+
+  // 6. Escribir archivo procesado
   const processedDataPath = path.join(__dirname, 'propiedades-procesadas.json');
   const frontendDataJsonPath = path.resolve(__dirname, '../data/propiedades.json');
   fs.writeFileSync(processedDataPath, JSON.stringify(allPropertiesCombined, null, 2), 'utf-8');
   fs.writeFileSync(frontendDataJsonPath, JSON.stringify(allPropertiesCombined, null, 2), 'utf-8');
-  console.log(`\nCálculos de métricas avanzados guardados en: ${processedDataPath} y ${frontendDataJsonPath}`);
+  console.log(`\\nCálculos de métricas avanzados y tags de IA guardados en: ${processedDataPath} y ${frontendDataJsonPath}`);
 
   // 6. Actualizar el fallback de frontend js/data.js
   updateFrontendData(allPropertiesCombined);

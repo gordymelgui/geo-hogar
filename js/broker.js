@@ -243,7 +243,11 @@ window.initBrokerLeads = async function() {
     if (_leadsUnsubscribe) _leadsUnsubscribe();
     _leadsUnsubscribe = leadsRef.limit(50).onSnapshot(snapshot => {
       window._cachedBrokerLeads = [];
-      snapshot.forEach(doc => window._cachedBrokerLeads.push(doc.data()));
+      snapshot.forEach(doc => {
+        const leadData = doc.data();
+        leadData.id = doc.id; // Asignar el ID real (que es el userId)
+        window._cachedBrokerLeads.push(leadData);
+      });
       // Ordenar localmente por timestamp descendente
       window._cachedBrokerLeads.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
       refreshLeadsView();
@@ -276,7 +280,9 @@ function refreshLeadsView() {
 
   listEl.innerHTML = '';
 
-  const allLeads = window._cachedBrokerLeads || [];
+  const currentUser = window.firebaseAuth?.currentUser;
+  const allLeads = (window._cachedBrokerLeads || []).filter(l => !currentUser || l.id !== currentUser.uid);
+  
   let leads = allLeads;
   if (_showOnlyOwners) leads = leads.filter(l => l.isOwner);
 
@@ -299,6 +305,9 @@ function refreshLeadsView() {
   leads.forEach((lead, i) => renderLeadCard(listEl, lead, i));
   triggerStagger(listEl);
   updateMatchStats();
+  if (typeof window.applyGlobalState === 'function') {
+    window.applyGlobalState(listEl);
+  }
 }
 
 function updateKPIStrip(allLeads) {
@@ -328,53 +337,129 @@ function renderLeadCard(container, lead, index) {
   const card = document.createElement('div');
   card.className = `glass-card tilt-card lead-card stagger-in${lead.isOwner ? ' owner-card' : ''}`;
 
+  const t = window.t || (k => k);
+  const isOwner = !!lead.isOwner;
+  const formattedPrice = window.formatPrice ? window.formatPrice(lead.budget) : `US$ ${(lead.budget || 0).toLocaleString()}`;
+  const translatedType = window.translatePropType ? window.translatePropType(lead.type) : lead.type;
+
   card.innerHTML = `
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.2rem;">
-      <div class="lead-avatar" style="background:${lead.isOwner ? 'rgba(245,158,11,0.1)' : 'rgba(99,102,241,0.1)'}; border-color:${lead.isOwner ? 'rgba(245,158,11,0.2)' : 'rgba(99,102,241,0.2)'}">
-        ${lead.isOwner 
+      <div class="lead-avatar" style="background:${isOwner ? 'rgba(245,158,11,0.1)' : 'rgba(99,102,241,0.1)'}; border-color:${isOwner ? 'rgba(245,158,11,0.2)' : 'rgba(99,102,241,0.2)'}">
+        ${isOwner 
           ? '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>'
           : '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>'}
       </div>
       <div style="flex:1;min-width:0;">
         <div class="lead-name">
           ${lead.name}
-          ${isNew ? '<span class="lead-tag-new">NUEVO</span>' : ''}
-          ${lead.isOwner ? '<span class="owner-tag">DUEÑO DIRECTO</span>' : ''}
+          ${isNew ? `<span class="lead-tag-new" data-i18n="tag_new">${t('tag_new')}</span>` : ''}
+          ${isOwner ? `<span class="owner-tag" data-i18n="tag_owner_direct">${t('tag_owner_direct')}</span>` : ''}
         </div>
         <div style="color:var(--text2);font-size:.88rem;margin-top:4px;">
-          ${lead.isOwner 
-            ? `Publica: <strong style="color:var(--text);">${lead.type}</strong> en <strong style="color:var(--text);">${lead.zone}</strong>`
-            : `Busca: <strong style="color:var(--text);">${lead.type}</strong> en <strong style="color:var(--text);">${lead.zone}</strong>`}
+          ${isOwner 
+            ? `${t('lead_publishes')}: <strong style="color:var(--text);">${translatedType}</strong> ${t('in_location')} <strong style="color:var(--text);">${lead.zone}</strong>`
+            : `${t('lead_searches')}: <strong style="color:var(--text);">${translatedType}</strong> ${t('in_location')} <strong style="color:var(--text);">${lead.zone}</strong>`}
         </div>
       </div>
       <span class="${score.class}">${score.label}</span>
     </div>
     <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:1.2rem;">
       <div>
-        <div style="font-size:.78rem;color:var(--text2);margin-bottom:3px;">${lead.isOwner ? 'Precio pedido' : 'Presupuesto máx.'}</div>
-        <div class="lead-budget">US$ ${(lead.budget || 0).toLocaleString()}</div>
+        <div style="font-size:.78rem;color:var(--text2);margin-bottom:3px;">${isOwner ? t('lead_asked_price') : t('lead_max_budget')}</div>
+        <div class="lead-budget">${formattedPrice}</div>
       </div>
-      <div style="font-size:.8rem;color:var(--text2);">${isNew ? '<span style="color:var(--accent);font-weight:700;">● Activo ahora</span>' : getTimeAgoSimple(lead.timestamp)}</div>
+      <div style="font-size:.8rem;color:var(--text2);">${isNew ? `<span style="color:var(--accent);font-weight:700;">● ${t('active_now')}</span>` : getTimeAgoSimple(lead.timestamp)}</div>
     </div>
-    ${lead.isOwner ? `
+    ${isOwner ? `
       <div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:12px;padding:.8rem 1rem;font-size:.85rem;color:var(--text2);margin-bottom:1rem;display:flex;align-items:flex-start;gap:8px;">
         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        <div><strong style="color:#f59e0b;">Estrategia:</strong> Contactar al dueño y ofrecerle intermediación. Si lleva más de 30 días publicado, es posible captar en exclusividad.</div>
+        <div><strong style="color:#f59e0b;">${t('strategy_title')}:</strong> ${t('strategy_desc')}</div>
       </div>` : ''}
     <button class="btn-primary magnetic-btn" onclick="contactLead('${lead.id}', '${lead.name?.replace(/'/g,"''")}', ${!!lead.isOwner})" style="width:100%;border-radius:12px;padding:12px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;">
       <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="white" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-      ${lead.isOwner ? 'Ofrecer Intermediación' : 'Contactar Lead'}
+      ${isOwner ? t('btn_offer_brokerage') : t('btn_contact_lead')}
     </button>
   `;
   container.appendChild(card);
 }
 
-window.contactLead = function(leadId, name, isOwner) {
-  const msg = isOwner
-    ? `Hola, vi que tenés una propiedad publicada. Soy corredor inmobiliario y me gustaría hablar sobre la posibilidad de ayudarte a venderla en mejores condiciones.`
-    : `Hola ${name}, vi que estás buscando propiedades. Como broker inmobiliario tengo opciones que pueden interesarte.`;
-  navigator.clipboard?.writeText(msg);
-  if (window.showToast) window.showToast('Mensaje copiado para WhatsApp', 'success');
+window.contactLead = async function(leadId, name, isOwner) {
+  try {
+    const currentUser = window.firebaseAuth?.currentUser;
+    if (!currentUser) {
+      if (window.showToast) window.showToast('Debes iniciar sesión primero', 'warn');
+      return;
+    }
+    
+    const brokerId = currentUser.uid;
+    const brokerName = currentUser.displayName || currentUser.email.split('@')[0];
+    
+    let buyerId, buyerName, ownerId, ownerName;
+    if (isOwner) {
+      buyerId = brokerId;
+      buyerName = brokerName;
+      ownerId = leadId;
+      ownerName = name || 'Dueño';
+    } else {
+      buyerId = leadId;
+      buyerName = name || 'Comprador';
+      ownerId = brokerId;
+      ownerName = brokerName;
+    }
+    
+    const propId = 'asesoria_' + leadId;
+    const propTitle = isOwner ? 'Asesoría / Intermediación' : 'Propuestas de Inmuebles';
+    
+    if (window.getOrCreateChat) {
+      const chatId = await window.getOrCreateChat(buyerId, buyerName, ownerId, ownerName);
+      
+      // Decoupled DOM interactions
+      const navMessages = document.getElementById('nav-messages');
+      if (navMessages) {
+        navMessages.click();
+      } else {
+        // Fallback: manually activate view-messages if navMessages is missing
+        const views = document.querySelectorAll('.view');
+        views.forEach(v => {
+          if (v.id === 'view-messages') v.classList.add('active');
+          else v.classList.remove('active');
+        });
+      }
+      
+      if (window.openRealChat) {
+        // Add a small delay to ensure DOM is ready after tab switch
+        setTimeout(() => {
+          try {
+            window.openRealChat(chatId, isOwner ? ownerName : buyerName, true);
+            if (window.innerWidth <= 768) {
+              const convList = document.querySelector('.conversations-list');
+              const chatArea = document.getElementById('chat-area');
+              if (convList) convList.classList.add('hidden-mobile');
+              if (chatArea) chatArea.classList.add('active-mobile');
+            }
+            
+            // Pre-fill input with welcome message
+            setTimeout(() => {
+              const chatInput = document.getElementById('chat-input') || document.querySelector('#chat-area input');
+              if (chatInput) {
+                  chatInput.value = isOwner 
+                      ? `Hola ${ownerName}, vi que tenés una propiedad publicada. Soy corredor inmobiliario y me gustaría hablar sobre la posibilidad de ayudarte a venderla en mejores condiciones.`
+                      : `Hola ${buyerName}, vi que estás buscando propiedades. Como broker inmobiliario tengo opciones que pueden interesarte.`;
+              }
+            }, 600);
+          } catch (e) {
+            console.error('Error al abrir el chat real:', e);
+            if(window.showToast) window.showToast('No se pudo renderizar la ventana de chat.', 'error');
+          }
+        }, 100);
+      }
+    } else {
+       console.error("getOrCreateChat function not found");
+    }
+  } catch (err) {
+    console.error('Error creating/opening chat:', err);
+    if(window.showToast) window.showToast('Error al iniciar el chat', 'error');
+  }
 };
 
 // ===== MATCHMAKING: barra de buscadores compatibles =====
@@ -447,10 +532,22 @@ window.exportLeadsCSV = function() {
     ];
   });
   const csv = [header, ...rows].map(r => r.map(v => `"${v}"`).join(',')).join('\n');
-  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a'); a.href = url; a.download = `leads_broker_${Date.now()}.csv`; a.click();
-  URL.revokeObjectURL(url);
+  try {
+    const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); 
+    a.href = url; 
+    a.download = `leads_broker_${Date.now()}.csv`; 
+    a.style.visibility = 'hidden';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 100);
+  } catch (e) {
+    console.error('Error exportando CSV en broker.js:', e);
+    if (window.showToast) window.showToast('No se pudo exportar. Revisa las extensiones de tu navegador.', 'error');
+    return;
+  }
   if (window.showToast) window.showToast(`${leads.length} leads exportados`, 'success');
 };
 

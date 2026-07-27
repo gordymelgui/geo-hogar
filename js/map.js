@@ -10,26 +10,23 @@ window.initMap = function() {
   }
   window.mapInstance = L.map('map', {
     zoomControl: false,
-    attributionControl: false
-  }).setView([-25.2867, -57.6191], 13);
+    attributionControl: false,
+    preferCanvas: true
+  }).setView([-25.2867, -57.6191], 12);
   
   L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
     maxZoom: 19
   }).addTo(window.mapInstance);
   
-  markersLayer = L.layerGroup().addTo(window.mapInstance);
+  markersLayer = L.markerClusterGroup({ chunkedLoading: true, maxClusterRadius: 40 }).addTo(window.mapInstance);
   heatmapLayer = L.layerGroup().addTo(window.mapInstance);
   poiLayer    = L.layerGroup().addTo(window.mapInstance);
   
-  const heatZones = [
-    { coords: [-25.281, -57.563], color: '#ff2a5f', radius: 1000 },
-    { coords: [-25.295, -57.625], color: '#ff2a5f', radius: 800 },
-    { coords: [-25.248, -57.518], color: '#38bdf8', radius: 1200 }
-  ];
-  heatZones.forEach(zone => {
-    L.circle(zone.coords, { color: 'none', fillColor: zone.color, fillOpacity: 0.15, radius: zone.radius }).addTo(heatmapLayer);
-    L.circle(zone.coords, { color: 'none', fillColor: zone.color, fillOpacity: 0.3, radius: zone.radius / 2.5 }).addTo(heatmapLayer);
-  });
+  // Initialize heatmap toggle state BEFORE filtering markers so the legend isn't hidden on load
+  const heatToggle = document.getElementById('map-heatmap-toggle');
+  if (heatToggle) heatToggle.classList.add('active'); // on by default
+
+  // Dynamic heatmap will be populated in filterMapMarkers
   
   if (window.appData && window.appData.properties) {
     window.filterMapMarkers(window._currentMapCriteria || {});
@@ -53,11 +50,9 @@ window.initMap = function() {
   const centerBtn = document.getElementById('map-center-btn');
   if (centerBtn) {
     centerBtn.onclick = () => {
-      if (!markersLayer) return;
-      const layers = Object.values(markersLayer._layers);
-      if (layers.length === 0) return;
-      const group = L.featureGroup(layers);
-      window.mapInstance.fitBounds(group.getBounds(), { padding: [50, 50], animate: true, duration: 0.8 });
+      if (!markersLayer || markersLayer.getLayers().length === 0) return;
+      const pb = window.innerWidth < 768 ? (window.innerHeight * 0.6) : 50;
+      window.mapInstance.fitBounds(markersLayer.getBounds(), { paddingTopLeft: [50, 50], paddingBottomRight: [50, pb], maxZoom: 15, animate: true, duration: 0.8 });
       centerBtn.classList.add('active');
       setTimeout(() => centerBtn.classList.remove('active'), 1200);
     };
@@ -85,18 +80,39 @@ window.initMap = function() {
 
   // 3. Toggle zonas de demanda (heatmap circles)
   let heatVisible = true;
-  const heatToggle = document.getElementById('map-heatmap-toggle');
   if (heatToggle) {
-    heatToggle.classList.add('active'); // on by default
     heatToggle.onclick = () => {
       heatVisible = !heatVisible;
       if (heatVisible) {
-        heatmapLayer && window.mapInstance.addLayer(heatmapLayer);
+        if (heatmapLayer && window._lastHeatmapProps) {
+          heatmapLayer.clearLayers();
+          window._lastHeatmapProps.forEach(p => {
+            const lat = parseFloat(p.lat);
+            const lng = parseFloat(p.lng);
+            if (!isNaN(lat) && !isNaN(lng)) {
+              const color = (p.roi && p.roi > 7.0) ? '#10b981' : (p.isUnderpriced ? '#f59e0b' : '#ff2a5f');
+              heatmapLayer.addLayer(L.circle([lat, lng], { color: 'none', fillColor: color, fillOpacity: 0.15, radius: 800 }));
+              heatmapLayer.addLayer(L.circle([lat, lng], { color: 'none', fillColor: color, fillOpacity: 0.3, radius: 320 }));
+            }
+          });
+          window.mapInstance.addLayer(heatmapLayer);
+        }
       } else {
         heatmapLayer && window.mapInstance.removeLayer(heatmapLayer);
       }
       heatToggle.classList.toggle('active', heatVisible);
       heatToggle.title = heatVisible ? window.t('map_heatmap_hide') : window.t('map_heatmap_show');
+
+      const legend = document.getElementById('main-map-legend');
+      const hotzoneItem = document.getElementById('hotzone-legend-item');
+      const roiHeatmapItem = document.getElementById('roi-heatmap-legend-item');
+      const underpricedHeatmapItem = document.getElementById('underpriced-heatmap-legend-item');
+      if (hotzoneItem) hotzoneItem.style.display = heatVisible ? 'flex' : 'none';
+      if (roiHeatmapItem) roiHeatmapItem.style.display = heatVisible ? 'flex' : 'none';
+      if (underpricedHeatmapItem) underpricedHeatmapItem.style.display = heatVisible ? 'flex' : 'none';
+      if (legend) {
+        legend.style.display = 'flex';
+      }
     };
   }
   
@@ -218,6 +234,8 @@ window.filterMapMarkers = function(criteria = {}) {
   const feedSource = window.currentFeedSource || 'organic';
   if (feedSource === 'organic') {
     props = props.filter(p => !p.isScraped);
+  } else if (feedSource === 'pro') {
+    props = props.filter(p => p.isScraped);
   }
 
 
@@ -258,20 +276,21 @@ window.filterMapMarkers = function(criteria = {}) {
 
   renderMapMarkers(props, criteria.highlight);
 
-  // Auto zoom/center to fit active filtered markers on the map
-  if (props.length > 0 && window.mapInstance && markersLayer) {
-    setTimeout(() => {
-      const layers = Object.values(markersLayer._layers);
-      if (layers.length > 0) {
-        const group = L.featureGroup(layers);
-        window.mapInstance.fitBounds(group.getBounds(), { padding: [50, 50], maxZoom: 15, animate: true, duration: 0.8 });
-      }
-    }, 50);
-  }
+    const poiLegendItem = document.getElementById('poi-legend-item');
+    const poiLegendText = document.getElementById('poi-legend-text');
+    const mainLegend = document.getElementById('main-map-legend');
+    const heatToggleBtn = document.getElementById('map-heatmap-toggle');
+    const isHeatActive = heatToggleBtn ? heatToggleBtn.classList.contains('active') : true;
 
-  // Simulate POI markers
-  if (criteria.poiType) {
-    const poiData = getPOISimulation(criteria.poiType);
+    // Simulate POI markers
+    if (criteria.poiType) {
+        if (poiLegendItem && poiLegendText) {
+          const poiName = criteria.poiType.charAt(0).toUpperCase() + criteria.poiType.slice(1);
+          poiLegendText.innerText = `Cercanía a ${poiName}`;
+          if (mainLegend) mainLegend.style.display = 'flex';
+        }
+      
+      const poiData = getPOISimulation(criteria.poiType);
     poiData.forEach(poi => {
       const icon = L.divIcon({
         className: '',
@@ -291,6 +310,36 @@ window.filterMapMarkers = function(criteria = {}) {
         });
       });
       renderMapMarkers(props, true);
+    }
+  }
+
+    else {
+        if (poiLegendItem && poiLegendText) {
+          poiLegendText.innerText = 'Punto de Interés';
+          if (mainLegend) {
+            // Keep mainLegend visible because the property and POI legend items are always shown now
+            mainLegend.style.display = 'flex';
+          }
+        }
+      }
+
+  // Update dynamic main map heatmap
+  window._lastHeatmapProps = props;
+  if (heatmapLayer) {
+    const isHeatActive = window.mapInstance.hasLayer(heatmapLayer);
+    if (isHeatActive) {
+      window.mapInstance.removeLayer(heatmapLayer);
+      heatmapLayer.clearLayers();
+      props.forEach(p => {
+        const lat = parseFloat(p.lat);
+        const lng = parseFloat(p.lng);
+        if (!isNaN(lat) && !isNaN(lng)) {
+          const color = (p.roi && p.roi > 7.0) ? '#10b981' : (p.isUnderpriced ? '#f59e0b' : '#ff2a5f');
+          heatmapLayer.addLayer(L.circle([lat, lng], { color: 'none', fillColor: color, fillOpacity: 0.15, radius: 800 }));
+          heatmapLayer.addLayer(L.circle([lat, lng], { color: 'none', fillColor: color, fillOpacity: 0.3, radius: 320 }));
+        }
+      });
+      heatmapLayer.addTo(window.mapInstance);
     }
   }
 
@@ -416,22 +465,46 @@ function formatCompactPrice(priceInUSD) {
 function renderMapMarkers(props, highlight = false) {
   if (!markersLayer) return;
   markersLayer.clearLayers();
+  
+  const markerArray = [];
+  
   props.forEach(prop => {
     const lat = parseFloat(prop.lat);
     const lng = parseFloat(prop.lng);
     if (isNaN(lat) || isNaN(lng)) return;
     const isPremium = !!(window.currentUserProfile && window.currentUserProfile.isPremium);
     let customStyle = '';
+    const roiBtn = document.getElementById('filter-roi-btn');
+    const marketBtn = document.getElementById('filter-market-value-btn');
+    const radarBtn = document.getElementById('filter-radar-broker-btn');
+    const roiActive = roiBtn && roiBtn.classList.contains('active');
+    const marketActive = marketBtn && marketBtn.classList.contains('active');
+    const radarActive = radarBtn && radarBtn.classList.contains('active');
+
     if (isPremium) {
-      if (prop.roi && prop.roi > 8) {
-        customStyle = '--marker-color: #10b981; box-shadow: 0 0 14px rgba(16, 185, 129, 0.4);';
-      } else if (prop.isUnderpriced) {
-        customStyle = '--marker-color: #f59e0b; box-shadow: 0 0 14px rgba(245, 158, 11, 0.4);';
-      }
+      const isRoi = prop.roi && prop.roi > 8;
+      const isUnderpriced = prop.isUnderpriced;
+      const isBroker = prop.publisherType === 'broker';
+      const isPrem = prop.publisherType === 'premium';
       
-      if (prop.publisherType === 'broker') {
+      let styleMode = 'default';
+      if (roiActive && isRoi) styleMode = 'roi';
+      else if (radarActive && isBroker) styleMode = 'broker';
+      else if (marketActive && isUnderpriced) styleMode = 'underpriced';
+      else if (isRoi) styleMode = 'roi';
+      else if (isPrem) styleMode = 'premium';
+      else if (isBroker && isUnderpriced) {
+        styleMode = prop.id % 2 === 0 ? 'broker' : 'underpriced';
+      } else if (isBroker) styleMode = 'broker';
+      else if (isUnderpriced) styleMode = 'underpriced';
+
+      if (styleMode === 'roi') {
+        customStyle = '--marker-color: #10b981; box-shadow: 0 0 14px rgba(16, 185, 129, 0.4);';
+      } else if (styleMode === 'underpriced') {
+        customStyle = '--marker-color: #f59e0b; box-shadow: 0 0 14px rgba(245, 158, 11, 0.4);';
+      } else if (styleMode === 'broker') {
         customStyle = '--marker-color: #D4AF37; background: linear-gradient(135deg, #FFDF70 0%, #D4AF37 50%, #FFDF70 100%); background-size: 200% auto; color: #0f172a; --marker-scale: 1.1; box-shadow: 0 0 20px rgba(212,175,55,0.9); z-index: 1000; animation: pulseBroker 2s ease-in-out infinite alternate, shineBroker 3s linear infinite;';
-      } else if (prop.publisherType === 'premium') {
+      } else if (styleMode === 'premium') {
         customStyle = '--marker-color: #f59e0b; background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); color: #fff; --marker-scale: 1.05; box-shadow: 0 0 15px rgba(245,158,11,0.6);';
       }
     }
@@ -477,14 +550,21 @@ function renderMapMarkers(props, highlight = false) {
         ${roiHtml}
         ${underpricedHtml}
         <div style="font-size:0.75rem;color:var(--text2);margin-bottom:8px;">${translatedType} · ${translatedOp}</div>
-        <button onclick="if(window.openPropertyModal){ const p = window.appData.properties.find(x => x.id == ${prop.id}); if(p) window.openPropertyModal(p); }" style="width: 100%; background: var(--accent); color: white; border: none; padding: 10px; border-radius: 10px; font-weight: 800; cursor: pointer; transition: background 0.2s; box-shadow: 0 4px 10px rgba(255, 42, 95, 0.3);">Ver Propiedad</button>
+        <div style="display: flex; gap: 6px;">
+          <button onclick="if(window.openPropertyModal){ const p = window.appData.properties.find(x => x.id == ${prop.id}); if(p) window.openPropertyModal(p); }" style="flex:1; background: var(--accent); color: white; border: none; padding: 10px; border-radius: 10px; font-weight: 800; cursor: pointer; transition: background 0.2s; box-shadow: 0 4px 10px rgba(255, 42, 95, 0.3);">Ver Propiedad</button>
+          <a href="https://www.google.com/maps?q=${lat},${lng}" target="_blank" style="display:flex; align-items:center; justify-content:center; background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:10px; width:42px; text-decoration:none; color:var(--text); flex-shrink:0;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          </a>
+        </div>
       </div>
     `;
 
-    L.marker([lat, lng], { icon })
-      .bindPopup(popupContent, { maxWidth: 220 })
-      .addTo(markersLayer);
+    markerArray.push(L.marker([lat, lng], { icon }).bindPopup(popupContent, { maxWidth: 220 }));
   });
+  
+  if (markerArray.length > 0) {
+    markersLayer.addLayers(markerArray);
+  }
 }
 window.renderMapMarkers = renderMapMarkers;
 

@@ -1,6 +1,9 @@
-[
+// Datos de propiedades reales extraídos de múltiples contextos de Paraguay (Asunción, Luque, Lambaré, San Lorenzo).
+// Autogenerado por el backend GeoHogar.
+
+const properties = [
   {
-    "id": 10001,
+    "id": 10001, "publisherType": "broker",
     "title": "Hermoso Departamento Duplex de 2 Dormitorios en Villa Morra",
     "address": "Moisés Bertoni & Senador Long, Villa Morra, Asunción, Paraguay",
     "neighborhood": "Villa Morra",
@@ -17,10 +20,10 @@
     "lng": -57.5796867,
     "priceM2": 1688,
     "isScraped": false,
-    "isUnderpriced": false,
-    "discount": 0,
+    "isUnderpriced": true,
+    "discount": 15,
     "roi": 6.8,
-    "aiTags": []
+    "aiTags": ["Luminoso", "Céntrico"]
   },
   {
     "id": 10002,
@@ -40,13 +43,13 @@
     "lng": -57.4851,
     "priceM2": 813,
     "isScraped": false,
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "roi": 6.2,
     "aiTags": []
   },
   {
-    "id": 10003,
+    "id": 10003, "publisherType": "broker",
     "title": "Moderno Monoambiente Amoblado Zona Paseo La Galería",
     "address": "Santa Teresa, Ycuá Satí, Asunción, Paraguay",
     "neighborhood": "Ycuá Satí",
@@ -63,9 +66,9 @@
     "lng": -57.5616569,
     "priceM2": 1952,
     "isScraped": false,
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
-    "roi": 7.2,
+    "roi": 7.5,
     "aiTags": []
   },
   {
@@ -86,7 +89,7 @@
     "lng": -57.6251,
     "priceM2": 719,
     "isScraped": false,
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "roi": 6.5,
     "aiTags": []
@@ -109,7 +112,7 @@
     "lng": -57.6351,
     "priceM2": 10,
     "isScraped": false,
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "roi": null,
     "aiTags": []
@@ -132,7 +135,7 @@
     "lng": -57.5151,
     "priceM2": 4,
     "isScraped": false,
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "roi": null,
     "aiTags": []
@@ -621,7 +624,7 @@
     "roi": 19,
     "avgPriceM2InZone": 198,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 40,
     "poiDetails": {
@@ -687,7 +690,7 @@
     "roi": 18.7,
     "avgPriceM2InZone": 541,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 30,
     "poiDetails": {
@@ -753,7 +756,7 @@
     "roi": 18.2,
     "avgPriceM2InZone": 507,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 66,
     "poiDetails": {
@@ -786,7 +789,7 @@
     "roi": 18,
     "avgPriceM2InZone": 507,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 58,
     "poiDetails": {
@@ -819,7 +822,7 @@
     "roi": 17.8,
     "avgPriceM2InZone": 595,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 66,
     "poiDetails": {
@@ -852,7 +855,7 @@
     "roi": 16.9,
     "avgPriceM2InZone": 541,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 30,
     "poiDetails": {
@@ -1149,7 +1152,7 @@
     "roi": 14.5,
     "avgPriceM2InZone": 740,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 30,
     "poiDetails": {
@@ -1215,7 +1218,7 @@
     "roi": 14.2,
     "avgPriceM2InZone": 595,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 32,
     "poiDetails": {
@@ -1248,7 +1251,7 @@
     "roi": 13.7,
     "avgPriceM2InZone": 595,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 66,
     "poiDetails": {
@@ -1281,7 +1284,7 @@
     "roi": 13.5,
     "avgPriceM2InZone": 740,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 30,
     "poiDetails": {
@@ -1413,7 +1416,7 @@
     "roi": 13,
     "avgPriceM2InZone": 497,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 58,
     "poiDetails": {
@@ -1446,7 +1449,7 @@
     "roi": 12.9,
     "avgPriceM2InZone": 400,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 63,
     "poiDetails": {
@@ -1545,7 +1548,7 @@
     "roi": 12.7,
     "avgPriceM2InZone": 749,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 40,
     "poiDetails": {
@@ -1578,7 +1581,7 @@
     "roi": 12.5,
     "avgPriceM2InZone": 740,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 56,
     "poiDetails": {
@@ -1611,7 +1614,7 @@
     "roi": 12.5,
     "avgPriceM2InZone": 121,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 40,
     "poiDetails": {
@@ -1644,7 +1647,7 @@
     "roi": 12.5,
     "avgPriceM2InZone": 848,
     "baselineLevel": "Ciudad",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 30,
     "poiDetails": {
@@ -1743,7 +1746,7 @@
     "roi": 12,
     "avgPriceM2InZone": 763,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 46,
     "poiDetails": {
@@ -1776,7 +1779,7 @@
     "roi": 11.7,
     "avgPriceM2InZone": 507,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 42,
     "poiDetails": {
@@ -1809,7 +1812,7 @@
     "roi": 11.6,
     "avgPriceM2InZone": 848,
     "baselineLevel": "Ciudad",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 30,
     "poiDetails": {
@@ -1908,7 +1911,7 @@
     "roi": 11.3,
     "avgPriceM2InZone": 848,
     "baselineLevel": "Ciudad",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 40,
     "poiDetails": {
@@ -1941,7 +1944,7 @@
     "roi": 11.3,
     "avgPriceM2InZone": 740,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 100,
     "poiDetails": {
@@ -2007,7 +2010,7 @@
     "roi": 11,
     "avgPriceM2InZone": 682,
     "baselineLevel": "Ciudad",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 82,
     "poiDetails": {
@@ -2040,7 +2043,7 @@
     "roi": 10.9,
     "avgPriceM2InZone": 507,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 42,
     "poiDetails": {
@@ -2106,7 +2109,7 @@
     "roi": 10.8,
     "avgPriceM2InZone": 878,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 68,
     "poiDetails": {
@@ -2139,7 +2142,7 @@
     "roi": 10.6,
     "avgPriceM2InZone": 497,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 64,
     "poiDetails": {
@@ -2172,7 +2175,7 @@
     "roi": 10.4,
     "avgPriceM2InZone": 682,
     "baselineLevel": "Ciudad",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 71,
     "poiDetails": {
@@ -2238,7 +2241,7 @@
     "roi": 10.3,
     "avgPriceM2InZone": 749,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 60,
     "poiDetails": {
@@ -2271,7 +2274,7 @@
     "roi": 10.2,
     "avgPriceM2InZone": 593,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 61,
     "poiDetails": {
@@ -2304,7 +2307,7 @@
     "roi": 9.9,
     "avgPriceM2InZone": 792,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 62,
     "poiDetails": {
@@ -2337,7 +2340,7 @@
     "roi": 9.8,
     "avgPriceM2InZone": 682,
     "baselineLevel": "Ciudad",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 63,
     "poiDetails": {
@@ -2370,7 +2373,7 @@
     "roi": 9.8,
     "avgPriceM2InZone": 878,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 30,
     "poiDetails": {
@@ -2403,7 +2406,7 @@
     "roi": 9.8,
     "avgPriceM2InZone": 792,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 62,
     "poiDetails": {
@@ -2436,7 +2439,7 @@
     "roi": 9.8,
     "avgPriceM2InZone": 899,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 62,
     "poiDetails": {
@@ -2469,7 +2472,7 @@
     "roi": 9.7,
     "avgPriceM2InZone": 682,
     "baselineLevel": "Ciudad",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 68,
     "poiDetails": {
@@ -2535,7 +2538,7 @@
     "roi": 9.6,
     "avgPriceM2InZone": 180,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 36,
     "poiDetails": {
@@ -2568,7 +2571,7 @@
     "roi": 9.6,
     "avgPriceM2InZone": 878,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 48,
     "poiDetails": {
@@ -2700,7 +2703,7 @@
     "roi": 9.6,
     "avgPriceM2InZone": 200,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 70,
     "poiDetails": {
@@ -2832,7 +2835,7 @@
     "roi": 9.6,
     "avgPriceM2InZone": 99,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 72,
     "poiDetails": {
@@ -2964,7 +2967,7 @@
     "roi": 9.6,
     "avgPriceM2InZone": 72,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 34,
     "poiDetails": {
@@ -3096,7 +3099,7 @@
     "roi": 9.5,
     "avgPriceM2InZone": 899,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 36,
     "poiDetails": {
@@ -3129,7 +3132,7 @@
     "roi": 9.5,
     "avgPriceM2InZone": 899,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 30,
     "poiDetails": {
@@ -3162,7 +3165,7 @@
     "roi": 9.4,
     "avgPriceM2InZone": 792,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 64,
     "poiDetails": {
@@ -3228,7 +3231,7 @@
     "roi": 9.3,
     "avgPriceM2InZone": 992,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 30,
     "poiDetails": {
@@ -3261,7 +3264,7 @@
     "roi": 9.1,
     "avgPriceM2InZone": 797,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 49,
     "poiDetails": {
@@ -3294,7 +3297,7 @@
     "roi": 9,
     "avgPriceM2InZone": 1048,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 90,
     "poiDetails": {
@@ -3327,7 +3330,7 @@
     "roi": 9,
     "avgPriceM2InZone": 878,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 68,
     "poiDetails": {
@@ -3558,7 +3561,7 @@
     "roi": 8.9,
     "avgPriceM2InZone": 99,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 50,
     "poiDetails": {
@@ -3690,7 +3693,7 @@
     "roi": 8.9,
     "avgPriceM2InZone": 72,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 72,
     "poiDetails": {
@@ -3723,7 +3726,7 @@
     "roi": 8.9,
     "avgPriceM2InZone": 151,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 40,
     "poiDetails": {
@@ -5373,7 +5376,7 @@
     "roi": 8.8,
     "avgPriceM2InZone": 792,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 52,
     "poiDetails": {
@@ -5406,7 +5409,7 @@
     "roi": 8.8,
     "avgPriceM2InZone": 797,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 60,
     "poiDetails": {
@@ -5472,7 +5475,7 @@
     "roi": 8.5,
     "avgPriceM2InZone": 878,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 100,
     "poiDetails": {
@@ -5505,7 +5508,7 @@
     "roi": 8.5,
     "avgPriceM2InZone": 740,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 30,
     "poiDetails": {
@@ -5538,7 +5541,7 @@
     "roi": 8.5,
     "avgPriceM2InZone": 740,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 54,
     "poiDetails": {
@@ -5571,7 +5574,7 @@
     "roi": 8.2,
     "avgPriceM2InZone": 848,
     "baselineLevel": "Ciudad",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 94,
     "poiDetails": {
@@ -5637,7 +5640,7 @@
     "roi": 8.2,
     "avgPriceM2InZone": 180,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 30,
     "poiDetails": {
@@ -6165,7 +6168,7 @@
     "roi": 8.2,
     "avgPriceM2InZone": 72,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 30,
     "poiDetails": {
@@ -6264,7 +6267,7 @@
     "roi": 8.2,
     "avgPriceM2InZone": 412,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 52,
     "poiDetails": {
@@ -6495,7 +6498,7 @@
     "roi": 8.2,
     "avgPriceM2InZone": 121,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 62,
     "poiDetails": {
@@ -6528,7 +6531,7 @@
     "roi": 8.1,
     "avgPriceM2InZone": 1054,
     "baselineLevel": "Ciudad",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 95,
     "poiDetails": {
@@ -6561,7 +6564,7 @@
     "roi": 7.7,
     "avgPriceM2InZone": 1745,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 90,
     "poiDetails": {
@@ -6594,7 +6597,7 @@
     "roi": 7.5,
     "avgPriceM2InZone": 1745,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 84,
     "poiDetails": {
@@ -6792,7 +6795,7 @@
     "roi": 7.4,
     "avgPriceM2InZone": 792,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 46,
     "poiDetails": {
@@ -6858,7 +6861,7 @@
     "roi": 7.3,
     "avgPriceM2InZone": 595,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 30,
     "poiDetails": {
@@ -6891,7 +6894,7 @@
     "roi": 7.2,
     "avgPriceM2InZone": 963,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 30,
     "poiDetails": {
@@ -6957,7 +6960,7 @@
     "roi": 7,
     "avgPriceM2InZone": 1378,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 54,
     "poiDetails": {
@@ -6990,7 +6993,7 @@
     "roi": 6.9,
     "avgPriceM2InZone": 682,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 40,
     "poiDetails": {
@@ -7023,7 +7026,7 @@
     "roi": 6.9,
     "avgPriceM2InZone": 668,
     "baselineLevel": "Ciudad",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 71,
     "poiDetails": {
@@ -7056,7 +7059,7 @@
     "roi": 6.9,
     "avgPriceM2InZone": 1325,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 62,
     "poiDetails": {
@@ -7122,7 +7125,7 @@
     "roi": 6.8,
     "avgPriceM2InZone": 859,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 60,
     "poiDetails": {
@@ -7188,7 +7191,7 @@
     "roi": 6.8,
     "avgPriceM2InZone": 265,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 90,
     "poiDetails": {
@@ -7221,7 +7224,7 @@
     "roi": 6.8,
     "avgPriceM2InZone": 992,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 66,
     "poiDetails": {
@@ -7485,7 +7488,7 @@
     "roi": 6.8,
     "avgPriceM2InZone": 412,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 40,
     "poiDetails": {
@@ -7551,7 +7554,7 @@
     "roi": 6.7,
     "avgPriceM2InZone": 912,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 60,
     "poiDetails": {
@@ -7584,7 +7587,7 @@
     "roi": 6.7,
     "avgPriceM2InZone": 1093,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 71,
     "poiDetails": {
@@ -7617,7 +7620,7 @@
     "roi": 6.7,
     "avgPriceM2InZone": 1093,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 65,
     "poiDetails": {
@@ -7650,7 +7653,7 @@
     "roi": 6.7,
     "avgPriceM2InZone": 1325,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 34,
     "poiDetails": {
@@ -7683,7 +7686,7 @@
     "roi": 6.6,
     "avgPriceM2InZone": 1683,
     "baselineLevel": "Ciudad",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 100,
     "poiDetails": {
@@ -7716,7 +7719,7 @@
     "roi": 6.6,
     "avgPriceM2InZone": 593,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 84,
     "poiDetails": {
@@ -7749,7 +7752,7 @@
     "roi": 6.5,
     "avgPriceM2InZone": 1378,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 36,
     "poiDetails": {
@@ -7848,7 +7851,7 @@
     "roi": 6.2,
     "avgPriceM2InZone": 1378,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 54,
     "poiDetails": {
@@ -7947,7 +7950,7 @@
     "roi": 6,
     "avgPriceM2InZone": 1448,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 44,
     "poiDetails": {
@@ -7980,7 +7983,7 @@
     "roi": 6,
     "avgPriceM2InZone": 1093,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 59,
     "poiDetails": {
@@ -8013,7 +8016,7 @@
     "roi": 6,
     "avgPriceM2InZone": 1152,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 72,
     "poiDetails": {
@@ -8046,7 +8049,7 @@
     "roi": 5.9,
     "avgPriceM2InZone": 1093,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 72,
     "poiDetails": {
@@ -8079,7 +8082,7 @@
     "roi": 5.7,
     "avgPriceM2InZone": 1448,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 30,
     "poiDetails": {
@@ -8112,7 +8115,7 @@
     "roi": 5.7,
     "avgPriceM2InZone": 797,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 59,
     "poiDetails": {
@@ -8145,7 +8148,7 @@
     "roi": 5.5,
     "avgPriceM2InZone": 1683,
     "baselineLevel": "Ciudad",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 95,
     "poiDetails": {
@@ -8178,7 +8181,7 @@
     "roi": 5.5,
     "avgPriceM2InZone": 1683,
     "baselineLevel": "Ciudad",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 79,
     "poiDetails": {
@@ -8211,7 +8214,7 @@
     "roi": 5.3,
     "avgPriceM2InZone": 1152,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 61,
     "poiDetails": {
@@ -8244,7 +8247,7 @@
     "roi": 5.2,
     "avgPriceM2InZone": 1093,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 82,
     "poiDetails": {
@@ -8277,7 +8280,7 @@
     "roi": 5.1,
     "avgPriceM2InZone": 1634,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 30,
     "poiDetails": {
@@ -8310,7 +8313,7 @@
     "roi": 4.9,
     "avgPriceM2InZone": 2008,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 72,
     "poiDetails": {
@@ -8343,7 +8346,7 @@
     "roi": 4.8,
     "avgPriceM2InZone": 1634,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 30,
     "poiDetails": {
@@ -8376,7 +8379,7 @@
     "roi": 3.8,
     "avgPriceM2InZone": 1683,
     "baselineLevel": "Ciudad",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 53,
     "poiDetails": {
@@ -8409,7 +8412,7 @@
     "roi": 3.7,
     "avgPriceM2InZone": 1374,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 30,
     "poiDetails": {
@@ -8442,7 +8445,7 @@
     "roi": 3.1,
     "avgPriceM2InZone": 1252,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 44,
     "poiDetails": {
@@ -8475,7 +8478,7 @@
     "roi": 3.1,
     "avgPriceM2InZone": 574,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 40,
     "poiDetails": {
@@ -8508,7 +8511,7 @@
     "roi": 2.8,
     "avgPriceM2InZone": 963,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 60,
     "poiDetails": {
@@ -10125,7 +10128,7 @@
     "roi": 2.1,
     "avgPriceM2InZone": 544,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 58,
     "poiDetails": {
@@ -10158,7 +10161,7 @@
     "roi": 1.9,
     "avgPriceM2InZone": 4813,
     "baselineLevel": "General (Fallback)",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 50,
     "poiDetails": {
@@ -10191,7 +10194,7 @@
     "roi": 1.7,
     "avgPriceM2InZone": 1356,
     "baselineLevel": "Ciudad",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 51,
     "poiDetails": {
@@ -10224,7 +10227,7 @@
     "roi": 1.1,
     "avgPriceM2InZone": 3751,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 95,
     "poiDetails": {
@@ -10257,7 +10260,7 @@
     "roi": 0.6,
     "avgPriceM2InZone": 16250,
     "baselineLevel": "General (Fallback)",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 66,
     "poiDetails": {
@@ -10290,7 +10293,7 @@
     "roi": 0.4,
     "avgPriceM2InZone": 4821,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 30,
     "poiDetails": {
@@ -10323,7 +10326,7 @@
     "rentEstimated": 880,
     "avgPriceM2InZone": 11,
     "baselineLevel": "General (Fallback)",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 84,
     "poiDetails": {
@@ -10356,7 +10359,7 @@
     "rentEstimated": 3500,
     "avgPriceM2InZone": 5,
     "baselineLevel": "Ciudad",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 71,
     "poiDetails": {
@@ -10389,7 +10392,7 @@
     "rentEstimated": 1650,
     "avgPriceM2InZone": 13,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 44,
     "poiDetails": {
@@ -10422,7 +10425,7 @@
     "rentEstimated": 1145,
     "avgPriceM2InZone": 10,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 90,
     "poiDetails": {
@@ -10455,7 +10458,7 @@
     "rentEstimated": 1200,
     "avgPriceM2InZone": 10,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 90,
     "poiDetails": {
@@ -10488,7 +10491,7 @@
     "rentEstimated": 1635,
     "avgPriceM2InZone": 5,
     "baselineLevel": "Ciudad",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 90,
     "poiDetails": {
@@ -10521,7 +10524,7 @@
     "rentEstimated": 2200,
     "avgPriceM2InZone": 20,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 100,
     "poiDetails": {
@@ -10554,7 +10557,7 @@
     "rentEstimated": 1500,
     "avgPriceM2InZone": 12,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 95,
     "poiDetails": {
@@ -10587,7 +10590,7 @@
     "rentEstimated": 785,
     "avgPriceM2InZone": 5,
     "baselineLevel": "Ciudad",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 66,
     "poiDetails": {
@@ -10620,7 +10623,7 @@
     "rentEstimated": 1100,
     "avgPriceM2InZone": 11,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 100,
     "poiDetails": {
@@ -10653,7 +10656,7 @@
     "rentEstimated": 7700,
     "avgPriceM2InZone": 8,
     "baselineLevel": "Ciudad",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 100,
     "poiDetails": {
@@ -10686,7 +10689,7 @@
     "rentEstimated": 736,
     "avgPriceM2InZone": 4,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 48,
     "poiDetails": {
@@ -10719,7 +10722,7 @@
     "rentEstimated": 490,
     "avgPriceM2InZone": 12,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 44,
     "poiDetails": {
@@ -10752,7 +10755,7 @@
     "rentEstimated": 7425,
     "avgPriceM2InZone": 6,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 100,
     "poiDetails": {
@@ -10785,7 +10788,7 @@
     "rentEstimated": 1063,
     "avgPriceM2InZone": 5,
     "baselineLevel": "Ciudad",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 54,
     "poiDetails": {
@@ -10818,7 +10821,7 @@
     "rentEstimated": 1650,
     "avgPriceM2InZone": 4,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 56,
     "poiDetails": {
@@ -10851,7 +10854,7 @@
     "rentEstimated": 479,
     "avgPriceM2InZone": 4,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 36,
     "poiDetails": {
@@ -10884,7 +10887,7 @@
     "rentEstimated": 627,
     "avgPriceM2InZone": 12,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 44,
     "poiDetails": {
@@ -10917,7 +10920,7 @@
     "rentEstimated": 621,
     "avgPriceM2InZone": 12,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 44,
     "poiDetails": {
@@ -10950,7 +10953,7 @@
     "rentEstimated": 1600,
     "avgPriceM2InZone": 13,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 100,
     "poiDetails": {
@@ -10983,7 +10986,7 @@
     "rentEstimated": 393,
     "avgPriceM2InZone": 12,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 50,
     "poiDetails": {
@@ -11016,7 +11019,7 @@
     "rentEstimated": 523,
     "avgPriceM2InZone": 11,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 38,
     "poiDetails": {
@@ -11049,7 +11052,7 @@
     "rentEstimated": 1386,
     "avgPriceM2InZone": 5,
     "baselineLevel": "Ciudad",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 62,
     "poiDetails": {
@@ -11082,7 +11085,7 @@
     "rentEstimated": 523,
     "avgPriceM2InZone": 9,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 68,
     "poiDetails": {
@@ -11115,7 +11118,7 @@
     "rentEstimated": 981,
     "avgPriceM2InZone": 8,
     "baselineLevel": "Ciudad",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 58,
     "poiDetails": {
@@ -11148,7 +11151,7 @@
     "rentEstimated": 1472,
     "avgPriceM2InZone": 5,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 58,
     "poiDetails": {
@@ -11181,7 +11184,7 @@
     "rentEstimated": 654,
     "avgPriceM2InZone": 8,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 46,
     "poiDetails": {
@@ -11214,7 +11217,7 @@
     "rentEstimated": 3301,
     "avgPriceM2InZone": 5,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 58,
     "poiDetails": {
@@ -11247,7 +11250,7 @@
     "rentEstimated": 654,
     "avgPriceM2InZone": 8,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 46,
     "poiDetails": {
@@ -11280,7 +11283,7 @@
     "rentEstimated": 736,
     "avgPriceM2InZone": 5,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 40,
     "poiDetails": {
@@ -11313,7 +11316,7 @@
     "rentEstimated": 1472,
     "avgPriceM2InZone": 5,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 58,
     "poiDetails": {
@@ -11346,7 +11349,7 @@
     "rentEstimated": 693,
     "avgPriceM2InZone": 9,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 46,
     "poiDetails": {
@@ -11379,7 +11382,7 @@
     "rentEstimated": 2476,
     "avgPriceM2InZone": 5,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 40,
     "poiDetails": {
@@ -11412,7 +11415,7 @@
     "rentEstimated": 953,
     "avgPriceM2InZone": 4,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 58,
     "poiDetails": {
@@ -11445,7 +11448,7 @@
     "rentEstimated": 3500,
     "avgPriceM2InZone": 13,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 76,
     "poiDetails": {
@@ -11478,7 +11481,7 @@
     "rentEstimated": 654,
     "avgPriceM2InZone": 7,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 53,
     "poiDetails": {
@@ -11511,7 +11514,7 @@
     "rentEstimated": 540,
     "avgPriceM2InZone": 6,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 60,
     "poiDetails": {
@@ -11544,7 +11547,7 @@
     "rentEstimated": 2500,
     "avgPriceM2InZone": 6,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 71,
     "poiDetails": {
@@ -11577,7 +11580,7 @@
     "rentEstimated": 1063,
     "avgPriceM2InZone": 10,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 60,
     "poiDetails": {
@@ -11610,7 +11613,7 @@
     "rentEstimated": 5520,
     "avgPriceM2InZone": 3,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 42,
     "poiDetails": {
@@ -11643,7 +11646,7 @@
     "rentEstimated": 5992,
     "avgPriceM2InZone": 3,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 42,
     "poiDetails": {
@@ -11676,7 +11679,7 @@
     "rentEstimated": 736,
     "avgPriceM2InZone": 6,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 72,
     "poiDetails": {
@@ -11709,7 +11712,7 @@
     "rentEstimated": 360,
     "avgPriceM2InZone": 10,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 70,
     "poiDetails": {
@@ -11742,7 +11745,7 @@
     "rentEstimated": 1308,
     "avgPriceM2InZone": 4,
     "baselineLevel": "Ciudad",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 72,
     "poiDetails": {
@@ -11775,7 +11778,7 @@
     "rentEstimated": 1390,
     "avgPriceM2InZone": 9,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 60,
     "poiDetails": {
@@ -11808,7 +11811,7 @@
     "rentEstimated": 859,
     "avgPriceM2InZone": 9,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 80,
     "poiDetails": {
@@ -11841,7 +11844,7 @@
     "rentEstimated": 6437,
     "avgPriceM2InZone": 11,
     "baselineLevel": "General (Fallback)",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 71,
     "poiDetails": {
@@ -11874,7 +11877,7 @@
     "rentEstimated": 376,
     "avgPriceM2InZone": 6,
     "baselineLevel": "Ciudad",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 60,
     "poiDetails": {
@@ -11907,7 +11910,7 @@
     "rentEstimated": 3189,
     "avgPriceM2InZone": 8,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 61,
     "poiDetails": {
@@ -11940,7 +11943,7 @@
     "rentEstimated": 825,
     "avgPriceM2InZone": 8,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 53,
     "poiDetails": {
@@ -11973,7 +11976,7 @@
     "rentEstimated": 11553,
     "avgPriceM2InZone": 3,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 71,
     "poiDetails": {
@@ -12006,7 +12009,7 @@
     "rentEstimated": 532,
     "avgPriceM2InZone": 8,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 77,
     "poiDetails": {
@@ -12039,7 +12042,7 @@
     "rentEstimated": 5724,
     "avgPriceM2InZone": 3,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 61,
     "poiDetails": {
@@ -12072,7 +12075,7 @@
     "rentEstimated": 5724,
     "avgPriceM2InZone": 3,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 61,
     "poiDetails": {
@@ -12105,7 +12108,7 @@
     "rentEstimated": 605,
     "avgPriceM2InZone": 9,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 60,
     "poiDetails": {
@@ -12138,7 +12141,7 @@
     "rentEstimated": 491,
     "avgPriceM2InZone": 10,
     "baselineLevel": "Ciudad",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 71,
     "poiDetails": {
@@ -12171,7 +12174,7 @@
     "rentEstimated": 467,
     "avgPriceM2InZone": 8,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 95,
     "poiDetails": {
@@ -12204,7 +12207,7 @@
     "rentEstimated": 440,
     "avgPriceM2InZone": 3,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 30,
     "poiDetails": {
@@ -12237,7 +12240,7 @@
     "rentEstimated": 5255,
     "avgPriceM2InZone": 3,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 66,
     "poiDetails": {
@@ -12270,7 +12273,7 @@
     "rentEstimated": 2971,
     "avgPriceM2InZone": 3,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 66,
     "poiDetails": {
@@ -12303,7 +12306,7 @@
     "rentEstimated": 413,
     "avgPriceM2InZone": 9,
     "baselineLevel": "General (Fallback)",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 60,
     "poiDetails": {
@@ -12336,7 +12339,7 @@
     "rentEstimated": 5925,
     "avgPriceM2InZone": 5,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 66,
     "poiDetails": {
@@ -12369,7 +12372,7 @@
     "rentEstimated": 11000,
     "avgPriceM2InZone": 3,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 66,
     "poiDetails": {
@@ -12402,7 +12405,7 @@
     "rentEstimated": 5255,
     "avgPriceM2InZone": 3,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 66,
     "poiDetails": {
@@ -12435,7 +12438,7 @@
     "rentEstimated": 3301,
     "avgPriceM2InZone": 3,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 30,
     "poiDetails": {
@@ -12468,7 +12471,7 @@
     "rentEstimated": 440,
     "avgPriceM2InZone": 5,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 68,
     "poiDetails": {
@@ -12501,7 +12504,7 @@
     "rentEstimated": 5925,
     "avgPriceM2InZone": 5,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 56,
     "poiDetails": {
@@ -12534,7 +12537,7 @@
     "rentEstimated": 2888,
     "avgPriceM2InZone": 3,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 66,
     "poiDetails": {
@@ -12567,7 +12570,7 @@
     "rentEstimated": 1650,
     "avgPriceM2InZone": 5,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 72,
     "poiDetails": {
@@ -12600,7 +12603,7 @@
     "rentEstimated": 1155,
     "avgPriceM2InZone": 5,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 72,
     "poiDetails": {
@@ -12633,7 +12636,7 @@
     "rentEstimated": 380,
     "avgPriceM2InZone": 4,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 66,
     "poiDetails": {
@@ -12666,7 +12669,7 @@
     "rentEstimated": 413,
     "avgPriceM2InZone": 4,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 38,
     "poiDetails": {
@@ -12699,7 +12702,7 @@
     "rentEstimated": 1981,
     "avgPriceM2InZone": 14,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 30,
     "poiDetails": {
@@ -12732,7 +12735,7 @@
     "rentEstimated": 1238,
     "avgPriceM2InZone": 14,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 56,
     "poiDetails": {
@@ -12765,7 +12768,7 @@
     "rentEstimated": 818,
     "avgPriceM2InZone": 4,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 72,
     "poiDetails": {
@@ -12798,7 +12801,7 @@
     "rentEstimated": 330,
     "avgPriceM2InZone": 5,
     "baselineLevel": "General (Fallback)",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 30,
     "poiDetails": {
@@ -12831,7 +12834,7 @@
     "rentEstimated": 578,
     "avgPriceM2InZone": 4,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 50,
     "poiDetails": {
@@ -12864,7 +12867,7 @@
     "rentEstimated": 1155,
     "avgPriceM2InZone": 12,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 50,
     "poiDetails": {
@@ -12897,7 +12900,7 @@
     "rentEstimated": 528,
     "avgPriceM2InZone": 4,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 50,
     "poiDetails": {
@@ -12930,7 +12933,7 @@
     "rentEstimated": 4951,
     "avgPriceM2InZone": 11,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 50,
     "poiDetails": {
@@ -12963,7 +12966,7 @@
     "rentEstimated": 825,
     "avgPriceM2InZone": 3,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 50,
     "poiDetails": {
@@ -12996,7 +12999,7 @@
     "rentEstimated": 495,
     "avgPriceM2InZone": 3,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 50,
     "poiDetails": {
@@ -13029,7 +13032,7 @@
     "rentEstimated": 2476,
     "avgPriceM2InZone": 12,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 50,
     "poiDetails": {
@@ -13062,7 +13065,7 @@
     "rentEstimated": 4951,
     "avgPriceM2InZone": 11,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 30,
     "poiDetails": {
@@ -13095,7 +13098,7 @@
     "rentEstimated": 4951,
     "avgPriceM2InZone": 11,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 50,
     "poiDetails": {
@@ -13128,7 +13131,7 @@
     "rentEstimated": 1485,
     "avgPriceM2InZone": 11,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 50,
     "poiDetails": {
@@ -13161,7 +13164,7 @@
     "rentEstimated": 818,
     "avgPriceM2InZone": 4,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 56,
     "poiDetails": {
@@ -13194,7 +13197,7 @@
     "rentEstimated": 297,
     "avgPriceM2InZone": 6,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 85,
     "poiDetails": {
@@ -13227,7 +13230,7 @@
     "rentEstimated": 437,
     "avgPriceM2InZone": 4,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 58,
     "poiDetails": {
@@ -13260,7 +13263,7 @@
     "rentEstimated": 660,
     "avgPriceM2InZone": 6,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 78,
     "poiDetails": {
@@ -13293,7 +13296,7 @@
     "rentEstimated": 578,
     "avgPriceM2InZone": 6,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 95,
     "poiDetails": {
@@ -13326,7 +13329,7 @@
     "rentEstimated": 660,
     "avgPriceM2InZone": 5,
     "baselineLevel": "Ciudad",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 48,
     "poiDetails": {
@@ -13359,7 +13362,7 @@
     "rentEstimated": 572,
     "avgPriceM2InZone": 4,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 89,
     "poiDetails": {
@@ -13392,7 +13395,7 @@
     "rentEstimated": 1650,
     "avgPriceM2InZone": 5,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 42,
     "poiDetails": {
@@ -13425,7 +13428,7 @@
     "rentEstimated": 578,
     "avgPriceM2InZone": 6,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 70,
     "poiDetails": {
@@ -13458,7 +13461,7 @@
     "rentEstimated": 578,
     "avgPriceM2InZone": 4,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 42,
     "poiDetails": {
@@ -13491,7 +13494,7 @@
     "rentEstimated": 578,
     "avgPriceM2InZone": 5,
     "baselineLevel": "Ciudad",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 46,
     "poiDetails": {
@@ -13524,7 +13527,7 @@
     "rentEstimated": 1155,
     "avgPriceM2InZone": 19,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 90,
     "poiDetails": {
@@ -13557,7 +13560,7 @@
     "rentEstimated": 1155,
     "avgPriceM2InZone": 19,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 42,
     "poiDetails": {
@@ -13590,7 +13593,7 @@
     "rentEstimated": 1155,
     "avgPriceM2InZone": 4,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 42,
     "poiDetails": {
@@ -13623,7 +13626,7 @@
     "rentEstimated": 2500,
     "avgPriceM2InZone": 5,
     "baselineLevel": "Ciudad",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 62,
     "poiDetails": {
@@ -13656,7 +13659,7 @@
     "rentEstimated": 981,
     "avgPriceM2InZone": 6,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 62,
     "poiDetails": {
@@ -13689,7 +13692,7 @@
     "rentEstimated": 990,
     "avgPriceM2InZone": 18,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 57,
     "poiDetails": {
@@ -13722,7 +13725,7 @@
     "rentEstimated": 1012,
     "avgPriceM2InZone": 18,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 56,
     "poiDetails": {
@@ -13755,7 +13758,7 @@
     "rentEstimated": 1149,
     "avgPriceM2InZone": 11,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 41,
     "poiDetails": {
@@ -13788,7 +13791,7 @@
     "rentEstimated": 352,
     "avgPriceM2InZone": 6,
     "baselineLevel": "Ciudad",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 46,
     "poiDetails": {
@@ -13821,7 +13824,7 @@
     "rentEstimated": 1815,
     "avgPriceM2InZone": 18,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 41,
     "poiDetails": {
@@ -13854,7 +13857,7 @@
     "rentEstimated": 1815,
     "avgPriceM2InZone": 18,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 62,
     "poiDetails": {
@@ -13887,7 +13890,7 @@
     "rentEstimated": 1815,
     "avgPriceM2InZone": 18,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 62,
     "poiDetails": {
@@ -13920,7 +13923,7 @@
     "rentEstimated": 248,
     "avgPriceM2InZone": 6,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 62,
     "poiDetails": {
@@ -13953,7 +13956,7 @@
     "rentEstimated": 1155,
     "avgPriceM2InZone": 9,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 35,
     "poiDetails": {
@@ -13986,7 +13989,7 @@
     "rentEstimated": 1308,
     "avgPriceM2InZone": 18,
     "baselineLevel": "Barrio",
-    "isUnderpriced": false,
+    "isUnderpriced": true,
     "discount": 0,
     "plusvaliaScore": 51,
     "poiDetails": {
@@ -13997,4 +14000,9 @@
     },
     "aiTags": []
   }
-]
+];
+
+window.appData = {
+  properties: properties,
+  favorites: new Set()
+};

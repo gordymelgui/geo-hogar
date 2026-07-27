@@ -3,3 +3,10 @@ node_modules/
 .firebase/
 js/config.local.js
 backend/service-account.json
+
+backend/.env
+scratch/
+firebase-debug.log
+diff*.txt
+
+

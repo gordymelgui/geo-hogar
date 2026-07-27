@@ -1,5 +1,63 @@
 const translations = {
   es: {
+    leads_pool_title: "Bolsa de Compradores Activos",
+    leads_pool_subtitle: "Compradores y dueños directos buscando propiedades ahora",
+    filter_all_leads: "Todos",
+    filter_owner_direct: "Dueño Directo",
+    indicator_live: "En vivo",
+    tag_new: "NUEVO",
+    tag_owner_direct: "DUEÑO DIRECTO",
+    lead_publishes: "Publica",
+    lead_searches: "Busca",
+    in_location: "en",
+    lead_asked_price: "Precio pedido",
+    lead_max_budget: "Presupuesto máx.",
+    active_now: "Activo ahora",
+    score_hot: "Caliente",
+    score_warm: "Tibio",
+    score_cold: "Frío",
+    time_ago_mins: "Hace unos minutos",
+    time_ago_hours: "Hace {count}h",
+    time_ago_days: "Hace {count}d",
+    btn_contact_lead: "Contactar Lead",
+    btn_offer_brokerage: "Ofrecer Intermediación",
+    strategy_title: "Estrategia",
+    strategy_desc: "Contactar al dueño y ofrecerle intermediación. Si lleva más de 30 días publicado, es posible captar en exclusividad.",
+    paywall_pro_title: "Acceso Exclusivo PRO",
+    paywall_pro_desc: "Las herramientas de captación de leads, embudos marca blanca y radar predictivo son exclusivas para Brokers Premium.",
+    get_pro_access: "Obtener Acceso Premium",
+    export_csv_btn: "Exportar CSV",
+    kpi_active_leads: "Leads activos",
+    kpi_hot_leads: "Leads calientes",
+    kpi_owner_leads: "Dueños directos",
+    kpi_matches: "Matches con tus props",
+    tab_live_leads: "Leads en vivo",
+    tab_crm_agenda: "CRM & Agenda",
+    tab_notif_center: "Centro",
+    tab_my_alerts: "Mis Alertas",
+    tab_ai_valuation: "Tasación IA",
+    source_global: "Vista Global",
+    source_verified: "Red Verificada",
+    source_external: "Datos Externos",
+    source_local: "Datos Locales",
+    macro_intel_title: "Inteligencia Macro (Paraguay)",
+    rank_barrios: "Barrios",
+    rank_cities: "Ciudades",
+    crm_status_scheduled: "Visita Agendada",
+    crm_status_closed: "Cerrado",
+    crm_status_initial: "Contacto Inicial",
+    valuation_title: "Tasación por IA",
+    valuation_subtitle: "Precio estimado con datos reales del mercado de Paraguay",
+    val_field_type: "TIPO DE PROPIEDAD",
+    val_field_op: "OPERACIÓN",
+    val_field_address: "DIRECCIÓN / ZONA",
+    val_field_m2: "M² TOTALES",
+    val_field_rooms: "DORMITORIOS",
+    val_field_baths: "BAÑOS",
+    val_calc_btn: "Calcular Tasación con IA",
+    theme_mode: "Tema Visual",
+    user_status_connected: "Conectado",
+    nav_tour: "Iniciar Tutorial",
     glossary_roi_title: "ROI (Retorno de Inversión)",
     glossary_roi_desc: "Mide la rentabilidad anual bruta estimada del alquiler en relación al precio de compra de la propiedad. Fórmula: (Alquiler Mensual × 12) / Precio de Compra. Un ROI mayor al 7.0% anual se considera un rendimiento alto y óptimo para inversiones inmobiliarias en Paraguay.",
     glossary_low_value_title: "Bajo Valor de Mercado (Oportunidad)",
@@ -138,7 +196,7 @@ const translations = {
     clear: "Limpiar",
     apply: "Aplicar",
     results_count: "{count} resultados",
-    map_search_placeholder: "Buscar propiedades en el mapa...",
+    map_search_placeholder: "Buscar en el mapa...",
     props_in_view: "Propiedades en vista",
     map_community: " Comunidad",
     map_radar: " Radar PRO",
@@ -528,6 +586,64 @@ const translations = {
 
   },
   en: {
+    leads_pool_title: "Active Buyers Pool",
+    leads_pool_subtitle: "Buyers and direct owners looking for properties right now",
+    filter_all_leads: "All",
+    filter_owner_direct: "Direct Owner",
+    indicator_live: "Live",
+    tag_new: "NEW",
+    tag_owner_direct: "DIRECT OWNER",
+    lead_publishes: "Publishes",
+    lead_searches: "Searches",
+    in_location: "in",
+    lead_asked_price: "Asking price",
+    lead_max_budget: "Max budget",
+    active_now: "Active now",
+    score_hot: "Hot",
+    score_warm: "Warm",
+    score_cold: "Cold",
+    time_ago_mins: "A few minutes ago",
+    time_ago_hours: "{count}h ago",
+    time_ago_days: "{count}d ago",
+    btn_contact_lead: "Contact Lead",
+    btn_offer_brokerage: "Offer Brokerage",
+    strategy_title: "Strategy",
+    strategy_desc: "Contact owner to offer brokerage services. If listed for 30+ days, exclusive representation is likely.",
+    paywall_pro_title: "Exclusive PRO Access",
+    paywall_pro_desc: "Lead capture tools, white-label funnels, and predictive radar are exclusive to Premium Brokers.",
+    get_pro_access: "Get Premium Access",
+    export_csv_btn: "Export CSV",
+    kpi_active_leads: "Active Leads",
+    kpi_hot_leads: "Hot Leads",
+    kpi_owner_leads: "Direct Owners",
+    kpi_matches: "Property Matches",
+    tab_live_leads: "Live Leads",
+    tab_crm_agenda: "CRM & Agenda",
+    tab_notif_center: "Center",
+    tab_my_alerts: "My Alerts",
+    tab_ai_valuation: "AI Valuation",
+    source_global: "Global View",
+    source_verified: "Verified Network",
+    source_external: "External Data",
+    source_local: "Local Data",
+    macro_intel_title: "Macro Intelligence (Paraguay)",
+    rank_barrios: "Neighborhoods",
+    rank_cities: "Cities",
+    crm_status_scheduled: "Scheduled Visit",
+    crm_status_closed: "Closed",
+    crm_status_initial: "Initial Contact",
+    valuation_title: "AI Property Valuation",
+    valuation_subtitle: "Estimated price using real market data from Paraguay",
+    val_field_type: "PROPERTY TYPE",
+    val_field_op: "OPERATION",
+    val_field_address: "ADDRESS / ZONE",
+    val_field_m2: "TOTAL M²",
+    val_field_rooms: "BEDROOMS",
+    val_field_baths: "BATHROOMS",
+    val_calc_btn: "Calculate AI Valuation",
+    theme_mode: "Visual Theme",
+    user_status_connected: "Connected",
+    nav_tour: "Start Tutorial",
     glossary_roi_title: "ROI (Return on Investment)",
     glossary_roi_desc: "Measures the estimated annual gross rental yield relative to the property's purchase price. Formula: (Monthly Rent × 12) / Purchase Price. An ROI over 7.0% per year is considered high and optimal for real estate investments in Paraguay.",
     glossary_low_value_title: "Below Market Value (Opportunity)",
@@ -1052,10 +1168,84 @@ const translations = {
     glossary_tag_op_title: "Operation Type Tag",
     glossary_tag_op_desc: "Visually differentiates between properties for Sale (soft red) and Rent (soft blue) for quick identification in the feed or map.",
     glossary_tag_verified_title: "Identity Verification Seal",
+    glossary_tag_verified_desc: "Blue verification badge next to the publisher's name. Guarantees that GeoFind has validated the legal identity of the advertiser as a Verified Broker or Investor."
+,
+    glossary_section_tags_title: "Meaning of Badges and Tags",
+    glossary_tag_roi_title: "High Yield Tag (Green)",
+    glossary_tag_roi_desc: "This green tag on property cards highlights that the property has an estimated annual return on investment (ROI) above 7.0%. Ideal for cash-flow buyers.",
+    glossary_tag_discount_title: "Underpriced Tag (Orange)",
+    glossary_tag_discount_desc: "Indicates the percentage discount of the property compared to the average price per sqm in the neighborhood. A value of -15% means it is listed 15% cheaper.",
+    glossary_tag_gf_title: "GF Badge (Broker PRO)",
+    glossary_tag_gf_desc: "Identifies properties published by real estate agents subscribed to Broker PRO. Guarantees professional brokerage, pre-verified documents, and quick replies.",
+    glossary_tag_premium_title: "Premium Investor Badge",
+    glossary_tag_premium_desc: "Distinguishes listings published by users with Premium Investor membership. These properties often feature detailed market reports.",
+    glossary_tag_type_title: "Property Type Tag",
+    glossary_tag_type_desc: "Gray tag showing the structural category of the property (House, Apartment, Duplex, Land, Warehouse, Office, etc.).",
+    glossary_tag_op_title: "Operation Type Tag",
+    glossary_tag_op_desc: "Visually differentiates between properties for Sale (soft red) and Rent (soft blue) for quick identification in the feed or map.",
+    glossary_tag_verified_title: "Identity Verification Seal",
     glossary_tag_verified_desc: "Blue verification badge next to the publisher's name. Guarantees that GeoHogar has validated the legal identity of the advertiser as a Verified Broker or Investor."
 
   },
   de: {
+    leads_pool_title: "Aktiver Käufer-Pool",
+    leads_pool_subtitle: "Käufer und direkte Eigentümer suchen jetzt nach Immobilien",
+    filter_all_leads: "Alle",
+    filter_owner_direct: "Direkter Eigentümer",
+    indicator_live: "Live",
+    tag_new: "NEU",
+    tag_owner_direct: "DIREKTER EIGENTÜMER",
+    lead_publishes: "Veröffentlicht",
+    lead_searches: "Sucht",
+    in_location: "in",
+    lead_asked_price: "Forderungspreis",
+    lead_max_budget: "Max. Budget",
+    active_now: "Jetzt aktiv",
+    score_hot: "Heiß",
+    score_warm: "Warm",
+    score_cold: "Kalt",
+    time_ago_mins: "Vor wenigen Minuten",
+    time_ago_hours: "Vor {count} Std.",
+    time_ago_days: "Vor {count} Tagen",
+    btn_contact_lead: "Lead kontaktieren",
+    btn_offer_brokerage: "Vermittlung anbieten",
+    strategy_title: "Strategie",
+    strategy_desc: "Eigentümer kontaktieren und Maklerdienste anbieten. Bei mehr als 30 Tagen Inserat ist Exklusivität möglich.",
+    paywall_pro_title: "Exklusiver PRO-Zugang",
+    paywall_pro_desc: "Lead-Erfassungstools, White-Label-Funnels und prädiktives Radar sind Premium-Brokern vorbehalten.",
+    get_pro_access: "Premium-Zugang erhalten",
+    export_csv_btn: "CSV exportieren",
+    kpi_active_leads: "Aktive Leads",
+    kpi_hot_leads: "Heiße Leads",
+    kpi_owner_leads: "Direkte Eigentümer",
+    kpi_matches: "Immobilien-Matches",
+    tab_live_leads: "Live-Leads",
+    tab_crm_agenda: "CRM & Agenda",
+    tab_notif_center: "Zentrale",
+    tab_my_alerts: "Meine Benachrichtigungen",
+    tab_ai_valuation: "KI-Bewertung",
+    source_global: "Globale Ansicht",
+    source_verified: "Verifiziertes Netzwerk",
+    source_external: "Externe Daten",
+    source_local: "Lokale Daten",
+    macro_intel_title: "Makro-Intelligenz (Paraguay)",
+    rank_barrios: "Stadtteile",
+    rank_cities: "Städte",
+    crm_status_scheduled: "Terminierter Besuch",
+    crm_status_closed: "Abgeschlossen",
+    crm_status_initial: "Erstkontakt",
+    valuation_title: "KI-Immobilienbewertung",
+    valuation_subtitle: "Geschätzter Preis mit realen Marktdaten aus Paraguay",
+    val_field_type: "IMMOBILIENART",
+    val_field_op: "OPERATION",
+    val_field_address: "ADRESSE / ZONE",
+    val_field_m2: "GESAMT M²",
+    val_field_rooms: "SCHLAFZIMMER",
+    val_field_baths: "BADEZIMMER",
+    val_calc_btn: "KI-Bewertung berechnen",
+    theme_mode: "Visuelles Thema",
+    user_status_connected: "Verbunden",
+    nav_tour: "Tutorial starten",
     glossary_roi_title: "ROI (Return on Investment)",
     glossary_roi_desc: "Misst die geschätzte jährliche Bruttomietrendite im Verhältnis zum Kaufpreis der Immobilie. Formel: (Monatsmiete × 12) / Kaufpreis. Ein ROI von über 7,0 % pro Jahr gilt als hoch und optimal für Immobilieninvestitionen in Paraguay.",
     glossary_low_value_title: "Unter Marktwert (Gelegenheit)",
@@ -1580,10 +1770,84 @@ const translations = {
     glossary_tag_op_title: "Betriebsart-Tag",
     glossary_tag_op_desc: "Unterscheidet visuell zwischen Verkauf (zartrot) und Vermietung (zartblau) zur schnellen Identifizierung.",
     glossary_tag_verified_title: "Identitätsprüfsiegel",
+    glossary_tag_verified_desc: "Blaues Verifizierungsabzeichen neben dem Namen des Veröffentlichers. Garantiert, dass GeoFind die Identität als verifizierter Makler oder Investor bestätigt hat."
+,
+    glossary_section_tags_title: "Bedeutung von Badges und Tags",
+    glossary_tag_roi_title: "Hohe Rendite-Tag (Grün)",
+    glossary_tag_roi_desc: "Dieser grüne Tag auf Immobilienkarten hebt hervor, dass die Immobilie eine geschätzte jährliche Rentabilität (ROI) über 7,0 % aufweist.",
+    glossary_tag_discount_title: "Günstiger Preis-Tag (Orange)",
+    glossary_tag_discount_desc: "Zeigt den prozentualen Rabatt der Immobilie im Vergleich zum durchschnittlichen Quadratmeterpreis in der Gegend an. Ein Wert von -15 % bedeutet 15 % günstiger.",
+    glossary_tag_gf_title: "GF-Abzeichen (Broker PRO)",
+    glossary_tag_gf_desc: "Identifiziert Immobilien, die von bei Broker PRO registrierten Immobilienmaklern veröffentlicht wurden, und garantiert eine professionelle Vermittlung.",
+    glossary_tag_premium_title: "Premium-Investor-Abzeichen",
+    glossary_tag_premium_desc: "Unterscheidet Inserate von Premium-Investoren, die oft detaillierte Marktanalysen enthalten.",
+    glossary_tag_type_title: "Immobilienart-Tag",
+    glossary_tag_type_desc: "Grauer Tag, der die Kategorie der Immobilie anzeigt (Haus, Wohnung, Duplex, Grundstück, Büro usw.).",
+    glossary_tag_op_title: "Betriebsart-Tag",
+    glossary_tag_op_desc: "Unterscheidet visuell zwischen Verkauf (zartrot) und Vermietung (zartblau) zur schnellen Identifizierung.",
+    glossary_tag_verified_title: "Identitätsprüfsiegel",
     glossary_tag_verified_desc: "Blaues Verifizierungsabzeichen neben dem Namen des Veröffentlichers. Garantiert, dass GeoHogar die Identität als verifizierter Makler oder Investor bestätigt hat."
 
   },
   pt: {
+    leads_pool_title: "Bolsa de Compradores Ativos",
+    leads_pool_subtitle: "Compradores e proprietários diretos buscando imóveis agora",
+    filter_all_leads: "Todos",
+    filter_owner_direct: "Proprietário Direto",
+    indicator_live: "Ao vivo",
+    tag_new: "NOVO",
+    tag_owner_direct: "PROPRIETÁRIO DIRETO",
+    lead_publishes: "Publica",
+    lead_searches: "Busca",
+    in_location: "em",
+    lead_asked_price: "Preço pedido",
+    lead_max_budget: "Orçamento máx.",
+    active_now: "Ativo agora",
+    score_hot: "Quente",
+    score_warm: "Morno",
+    score_cold: "Frio",
+    time_ago_mins: "Há alguns minutos",
+    time_ago_hours: "Há {count}h",
+    time_ago_days: "Há {count}d",
+    btn_contact_lead: "Contatar Lead",
+    btn_offer_brokerage: "Oferecer Intermediação",
+    strategy_title: "Estratégia",
+    strategy_desc: "Contatar o proprietário e oferecer intermediação. Se publicado há mais de 30 dias, é possível captar em exclusividade.",
+    paywall_pro_title: "Acesso Exclusivo PRO",
+    paywall_pro_desc: "Ferramentas de captação de leads, funis marca branca e radar preditivo são exclusivos para Brokers Premium.",
+    get_pro_access: "Obter Acesso Premium",
+    export_csv_btn: "Exportar CSV",
+    kpi_active_leads: "Leads ativos",
+    kpi_hot_leads: "Leads quentes",
+    kpi_owner_leads: "Proprietários diretos",
+    kpi_matches: "Combinações com seus imóveis",
+    tab_live_leads: "Leads ao vivo",
+    tab_crm_agenda: "CRM & Agenda",
+    tab_notif_center: "Centro",
+    tab_my_alerts: "Meus Alertas",
+    tab_ai_valuation: "Avaliação IA",
+    source_global: "Visão Global",
+    source_verified: "Rede Verificada",
+    source_external: "Dados Externos",
+    source_local: "Dados Locais",
+    macro_intel_title: "Inteligência Macro (Paraguai)",
+    rank_barrios: "Bairros",
+    rank_cities: "Cidades",
+    crm_status_scheduled: "Visita Agendada",
+    crm_status_closed: "Fechado",
+    crm_status_initial: "Contato Inicial",
+    valuation_title: "Avaliação Imobiliária IA",
+    valuation_subtitle: "Preço estimado com dados reais do mercado do Paraguai",
+    val_field_type: "TIPO DE PROPRIEDADE",
+    val_field_op: "OPERAÇÃO",
+    val_field_address: "ENDEREÇO / ZONA",
+    val_field_m2: "M² TOTAIS",
+    val_field_rooms: "DORMITÓRIOS",
+    val_field_baths: "BANHEIROS",
+    val_calc_btn: "Calcular Avaliação com IA",
+    theme_mode: "Tema Visual",
+    user_status_connected: "Conectado",
+    nav_tour: "Iniciar Tutorial",
     glossary_roi_title: "ROI (Retorno sobre Investimento)",
     glossary_roi_desc: "Mede o rendimento bruto anual estimado de aluguel em relação ao preço de compra do imóvel. Fórmula: (Aluguel Mensal × 12) / Preço de Compra. Um ROI superior a 7,0% ao ano é considerado alto e ideal para investimentos imobiliários no Paraguai.",
     glossary_low_value_title: "Abaixo do Valor de Mercado (Oportunidade)",
@@ -2106,6 +2370,22 @@ const translations = {
     glossary_tag_op_title: "Etiqueta de Tipo de Operação",
     glossary_tag_op_desc: "Diferencia visualmente entre imóveis para Venda (vermelho suave) e Aluguel (azul suave).",
     glossary_tag_verified_title: "Selo de Verificação de Identidade",
+    glossary_tag_verified_desc: "Selo azul de verificação que garante que o GeoFind validou a identidade do anunciante como Corretor ou Investidor Verificado."
+,
+    glossary_section_tags_title: "Significado de Etiquetas e Distintivos",
+    glossary_tag_roi_title: "Etiqueta de Alta Rentabilidade (Verde)",
+    glossary_tag_roi_desc: "Esta etiqueta verde nos cartões de propriedades destaca que o imóvel tem um retorno anual estimado (ROI) superior a 7,0%.",
+    glossary_tag_discount_title: "Etiqueta de Baixo Preço (Laranja)",
+    glossary_tag_discount_desc: "Indica a porcentagem de desconto do imóvel em relação à média por m² no mesmo bairro. Um valor de -15% significa que está 15% mais barato.",
+    glossary_tag_gf_title: "Insignia GF (Broker PRO)",
+    glossary_tag_gf_desc: "Identifica propriedades publicadas por corretores de imóveis assinantes do Broker PRO, garantindo atendimento profissional.",
+    glossary_tag_premium_title: "Insignia Investidor Premium",
+    glossary_tag_premium_desc: "Distingue anúncios publicados por usuários com assinatura Investidor Premium, geralmente com relatórios de mercado.",
+    glossary_tag_type_title: "Etiqueta de Tipo de Imóvel",
+    glossary_tag_type_desc: "Etiqueta cinza que indica o tipo de construção do imóvel (Casa, Apartamento, Duplex, Terreno, Escritório, etc.).",
+    glossary_tag_op_title: "Etiqueta de Tipo de Operação",
+    glossary_tag_op_desc: "Diferencia visualmente entre imóveis para Venda (vermelho suave) e Aluguel (azul suave).",
+    glossary_tag_verified_title: "Selo de Verificação de Identidade",
     glossary_tag_verified_desc: "Selo azul de verificação que garante que o GeoHogar validou a identidade do anunciante como Corretor ou Investidor Verificado."
 
   },
@@ -2151,11 +2431,17 @@ window.translatePropType = function(type) {
   return translated !== key ? translated : type;
 };
 
-window.changeLanguage = function(lang) {
-  localStorage.setItem('geohogar_lang', lang);
-  
-  // Update HTML elements decorated with data-i18n
-  document.querySelectorAll('[data-i18n]').forEach(el => {
+window.applyGlobalState = function(container = document) {
+  const root = container || document;
+  const lang = localStorage.getItem('geohogar_lang') || window.currentLang || 'es';
+  const curr = localStorage.getItem('geohogar_currency') || window.currentCurrency || 'USD';
+
+  window.currentLang = lang;
+  window.currentCurrency = curr;
+
+  // 1. Traducir elementos [data-i18n]
+  const i18nElements = root.querySelectorAll ? root.querySelectorAll('[data-i18n]') : document.querySelectorAll('[data-i18n]');
+  i18nElements.forEach(el => {
     const key = el.getAttribute('data-i18n');
     let translation = window.t(key);
     if (translation && translation !== key) {
@@ -2169,8 +2455,9 @@ window.changeLanguage = function(lang) {
     }
   });
 
-  // Update element titles decorated with data-i18n-title
-  document.querySelectorAll('[data-i18n-title]').forEach(el => {
+  // 2. Traducir atributos de título [data-i18n-title]
+  const i18nTitleElements = root.querySelectorAll ? root.querySelectorAll('[data-i18n-title]') : document.querySelectorAll('[data-i18n-title]');
+  i18nTitleElements.forEach(el => {
     const key = el.getAttribute('data-i18n-title');
     let translation = window.t(key);
     if (translation && translation !== key) {
@@ -2178,22 +2465,74 @@ window.changeLanguage = function(lang) {
     }
   });
 
-  // Sync current language display in buttons
-  document.querySelectorAll('.current-lang-text').forEach(el => {
-    el.textContent = lang.toUpperCase();
+  // 3. Formatear precios fijos con [data-price-usd]
+  const priceElements = root.querySelectorAll ? root.querySelectorAll('[data-price-usd]') : document.querySelectorAll('[data-price-usd]');
+  priceElements.forEach(el => {
+    const usd = parseFloat(el.getAttribute('data-price-usd'));
+    if (!isNaN(usd) && typeof window.formatPrice === 'function') {
+      el.textContent = window.formatPrice(usd);
+    }
   });
+
+  // 4. Formatear precio/m2 fijos con [data-price-m2-usd]
+  const priceM2Elements = root.querySelectorAll ? root.querySelectorAll('[data-price-m2-usd]') : document.querySelectorAll('[data-price-m2-usd]');
+  priceM2Elements.forEach(el => {
+    const usdM2 = parseFloat(el.getAttribute('data-price-m2-usd'));
+    if (!isNaN(usdM2) && typeof window.formatPriceM2 === 'function') {
+      el.textContent = window.formatPriceM2(usdM2);
+    }
+  });
+
+  // 5. Actualizar indicadores de estado activo en botones de idioma y moneda
+  root.querySelectorAll('.current-lang-text').forEach(el => el.textContent = lang.toUpperCase());
+  root.querySelectorAll('.current-curr-text').forEach(el => el.textContent = curr);
+};
+
+window.changeLanguage = function(lang) {
+  localStorage.setItem('geohogar_lang', lang);
+  window.currentLang = lang;
+
+  if (typeof window.applyGlobalState === 'function') {
+    window.applyGlobalState(document);
+  }
+
+  const props = window.appData?.properties;
   
-  // Re-render properties list with active language if they are rendered dynamically
-  if (window.applyExploreFilters) {
+  if (typeof window.applyExploreFilters === 'function') {
     window.applyExploreFilters();
   }
   
-  // Re-render analytics charts with new language labels
-  if (window.updateAnalytics && window.appData && window.appData.properties) {
-    window.updateAnalytics(window.appData.properties);
+  if (typeof window.updateAnalytics === 'function' && props) {
+    window.updateAnalytics(props);
   }
-  
-  // Dispatch dynamic event so other scripts know the language changed
+
+  if (typeof window.updateNeighborhoodRanking === 'function' && props) {
+    window.updateNeighborhoodRanking(props, window._rankViewMode || 'neighborhood');
+  }
+
+  if (typeof window.renderMapMarkers === 'function' && props) {
+    window.renderMapMarkers(props);
+  }
+
+  if (typeof window.renderCRM === 'function') {
+    window.renderCRM();
+  }
+
+  if (typeof window.renderValuationTab === 'function') {
+    window.renderValuationTab();
+  }
+
+  if (window._brokerAlertsModule) {
+    const activeTab = document.querySelector('.broker-tab-btn.active');
+    const targetId = activeTab ? activeTab.getAttribute('data-target') : null;
+    if (targetId === 'broker-notifs' && window._brokerAlertsModule.renderNotifs) {
+      window._brokerAlertsModule.renderNotifs();
+    }
+    if (targetId === 'broker-alert-config' && window._brokerAlertsModule.renderAlerts) {
+      window._brokerAlertsModule.renderAlerts();
+    }
+  }
+
   document.dispatchEvent(new CustomEvent('geohogar:lang:changed', { detail: { lang } }));
 };
 
@@ -2354,4 +2693,30 @@ document.addEventListener('geohogar:lang:changed', function() {
   if (window.updateNotificationsUI && Array.isArray(window._latestNotifications)) {
     window.updateNotificationsUI(window._latestNotifications);
   }
+});
+
+
+// Delegación Global para Selectores de Idioma y Moneda
+document.addEventListener('DOMContentLoaded', () => {
+  document.body.addEventListener('click', (e) => {
+    const langOpt = e.target.closest('.lang-opt');
+    if (langOpt) {
+      const lang = langOpt.getAttribute('data-lang');
+      if (lang && typeof window.changeLanguage === 'function') {
+        window.changeLanguage(lang);
+        document.querySelectorAll('.lang-dropdown').forEach(d => d.classList.remove('show'));
+      }
+      return;
+    }
+
+    const currOpt = e.target.closest('.curr-opt');
+    if (currOpt) {
+      const curr = currOpt.getAttribute('data-curr');
+      if (curr && typeof window.changeCurrency === 'function') {
+        window.changeCurrency(curr);
+        document.querySelectorAll('.curr-dropdown').forEach(d => d.classList.remove('show'));
+      }
+      return;
+    }
+  });
 });

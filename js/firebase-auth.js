@@ -21,21 +21,17 @@
         console.warn("localStorage.setItem failed, using fallback:", e);
         this._fallback[key] = value;
       }
+    },
+    removeItem(key) {
+      try {
+        localStorage.removeItem(key);
+      } catch (e) {
+        console.warn("localStorage.removeItem failed, using fallback:", e);
+        delete this._fallback[key];
+      }
     }
   };
   window.safeStorage = safeStorage;
-
-  // Initialize local profile if standard premium flag is set
-  const localPremium = safeStorage.getItem('geohogar_local_premium') === 'true';
-  if (localPremium && !window.currentUserProfile) {
-    window.currentUserProfile = {
-      uid: 'local_test_user',
-      name: 'Usuario Test Local',
-      email: 'test@geohogar.com',
-      isPremium: true,
-      favorites: []
-    };
-  }
 
   let auth = null;
 
@@ -92,31 +88,30 @@
         let profile = null;
         if (doc.exists) {
           profile = doc.data();
-          // Backward compatibility
           if (!profile.userType) {
             profile.userType = profile.isPremium ? 'premium' : 'standard';
           }
         } else {
-          // Si no existe el documento, lo creamos con datos por defecto
           profile = {
             uid: user.uid,
             name: user.displayName || user.email.split('@')[0],
             email: user.email,
             isPremium: false,
-            userType: 'standard', // 'standard', 'premium', 'broker'
+            userType: 'standard',
             favorites: []
           };
           userRef.set(profile);
         }
-        
-        // Respect local test premium status if set
-        const localPremium = safeStorage.getItem('geohogar_local_premium') === 'true';
-        if (localPremium) {
-          if (profile.userType === 'standard') profile.userType = 'premium';
-        }
 
-        // isPremium is a derived state from userType for backward compatibility
-        profile.isPremium = (profile.userType === 'premium' || profile.userType === 'broker');
+        // DEMO MODE: Force free account on every new session, unless explicitly activated in this session
+        const demoStatus = sessionStorage.getItem('demo_premium_status');
+        if (demoStatus === 'premium') {
+          profile.userType = 'broker';
+          profile.isPremium = true;
+        } else {
+          profile.userType = 'standard';
+          profile.isPremium = false;
+        }
 
         window.currentUserProfile = profile;
         // Update UI
