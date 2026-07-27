@@ -249,8 +249,8 @@ function displayValuationResult(type, op, address, m2, rooms, baths, stats, aiAn
 
   resultDiv.style.display = 'block';
   resultDiv.innerHTML = `
-    <div class="glass-card stagger-in" style="padding:1.8rem;border-top:4px solid var(--accent);">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem;">
+    <div class="glass-card stagger-in" style="padding:1.2rem;border-top:4px solid var(--accent);width:100%;box-sizing:border-box;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.2rem;flex-wrap:wrap;gap:0.8rem;">
         <div style="max-width:100%;min-width:0;">
           <div style="font-size:0.75rem;font-weight:800;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Tasación Estimada</div>
           <div class="val-price-hero" style="font-size:clamp(1.5rem, 6.5vw, 2.5rem);font-weight:900;font-family:'Plus Jakarta Sans','Outfit',sans-serif;color:var(--accent);line-height:1.15;letter-spacing:-0.02em;word-break:break-word;overflow-wrap:anywhere;">
@@ -268,7 +268,7 @@ function displayValuationResult(type, op, address, m2, rooms, baths, stats, aiAn
         </div>
       </div>
 
-      <div class="valuation-grid-3" style="margin-bottom:1.5rem;display:grid;grid-template-columns:repeat(auto-fit, minmax(100px, 1fr));gap:0.6rem;">
+      <div class="valuation-grid-3" style="margin-bottom:1.2rem;gap:0.6rem;">
         <div style="background:var(--surface2);border-radius:12px;padding:0.8rem 0.5rem;text-align:center;border:1px solid var(--border);">
           <div style="font-size:0.68rem;font-weight:700;color:var(--text2);margin-bottom:4px;text-transform:uppercase;">PRECIO/M²</div>
           <div style="font-size:0.95rem;font-weight:800;color:var(--text);font-family:'Outfit',sans-serif;word-break:break-word;">${window.formatPriceM2(stats.avgPriceM2)}</div>
@@ -283,7 +283,7 @@ function displayValuationResult(type, op, address, m2, rooms, baths, stats, aiAn
         </div>
       </div>
       
-      <div style="border-top:1px solid var(--border);margin:1.2rem 0;"></div>
+      <div style="border-top:1px solid var(--border);margin:1rem 0;"></div>
       
       <div style="display:flex;align-items:flex-start;gap:10px;background:rgba(16, 185, 129, 0.08);padding:12px;border-radius:12px;border:1px solid rgba(16, 185, 129, 0.2);">
         <div style="background:#10b981;color:white;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11px;flex-shrink:0;">✓</div>
@@ -292,25 +292,25 @@ function displayValuationResult(type, op, address, m2, rooms, baths, stats, aiAn
         </div>
       </div>
 
-      <div class="valuation-grid-2" style="margin-top:1.2rem;display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;">
-        <div style="background:var(--surface2);border-radius:12px;padding:0.8rem;text-align:center;">
-          <div style="font-size:0.7rem;font-weight:700;color:var(--text2);margin-bottom:2px;">SUPERFICIE</div>
-          <div style="font-weight:900;font-size:1.15rem;color:var(--text);">${m2} m²</div>
+      <div class="valuation-grid-2" style="margin-top:1rem;gap:0.8rem;">
+        <div style="background:var(--surface2);border-radius:12px;padding:0.9rem;text-align:center;">
+          <div style="font-size:0.7rem;font-weight:700;color:var(--text2);margin-bottom:3px;text-transform:uppercase;">SUPERFICIE</div>
+          <div style="font-weight:900;font-size:1.15rem;color:var(--text);white-space:nowrap;">${m2} m²</div>
         </div>
-        <div style="background:var(--surface2);border-radius:12px;padding:0.8rem;text-align:center;">
-          <div style="font-size:0.7rem;font-weight:700;color:var(--text2);margin-bottom:2px;">DORM. / BAÑOS</div>
-          <div style="font-weight:900;font-size:1.1rem;color:var(--text);">${rooms} d. / ${baths} b.</div>
+        <div style="background:var(--surface2);border-radius:12px;padding:0.9rem;text-align:center;">
+          <div style="font-size:0.7rem;font-weight:700;color:var(--text2);margin-bottom:3px;text-transform:uppercase;">DORM. / BAÑOS</div>
+          <div style="font-weight:900;font-size:1.05rem;color:var(--text);white-space:nowrap;">${rooms} Dorm. · ${baths} Baños</div>
         </div>
       </div>
 
-      <div style="background:rgba(255,42,95,0.05);border:1px solid rgba(255,42,95,0.12);border-radius:14px;padding:1.2rem;margin:1.2rem 0;">
-        <div style="display:flex;gap:10px;align-items:flex-start;">
-          <div style="width:32px;height:32px;border-radius:10px;background:rgba(255,42,95,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/></svg>
+      <div style="background:rgba(255,42,95,0.05);border:1px solid rgba(255,42,95,0.12);border-radius:14px;padding:1.2rem;margin:1.2rem 0;width:100%;box-sizing:border-box;">
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <div style="width:36px;height:36px;border-radius:10px;background:rgba(255,42,95,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/></svg>
           </div>
-          <div>
-            <div style="font-weight:800;font-size:0.8rem;color:var(--accent);margin-bottom:4px;text-transform:uppercase;">ANÁLISIS INTELIGENTE DE IA</div>
-            <p style="color:var(--text);line-height:1.6;font-size:0.9rem;margin:0;">${aiAnalysis}</p>
+          <div style="flex:1;min-width:0;">
+            <div style="font-weight:800;font-size:0.8rem;color:var(--accent);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;">ANÁLISIS INTELIGENTE DE IA</div>
+            <p style="color:var(--text);line-height:1.55;font-size:0.9rem;margin:0;word-break:break-word;overflow-wrap:break-word;">${aiAnalysis}</p>
           </div>
         </div>
       </div>

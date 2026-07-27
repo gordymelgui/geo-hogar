@@ -5105,9 +5105,12 @@ body.dark-theme .chat-input-row input:focus { background: var(--surface); }
 /* valuation grid utility classes */
 .valuation-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
 .valuation-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-@media (max-width: 480px) {
-  .valuation-grid-3 { grid-template-columns: 1fr; }
-  .valuation-grid-2 { grid-template-columns: 1fr; }
+@media (max-width: 600px) {
+  .valuation-grid-3 { grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 8px; }
+  .valuation-grid-2 { grid-template-columns: 1fr; gap: 8px; }
+  #modal-features { grid-template-columns: 1fr 1fr !important; gap: 8px !important; }
+  .spec-chip { padding: 10px 12px !important; min-width: 0 !important; width: 100% !important; box-sizing: border-box !important; }
+  .spec-val { white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; }
 }
 
 
