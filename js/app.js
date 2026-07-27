@@ -993,21 +993,17 @@ function updateHeatmapWithData(props, metric) {
     const lng = parseFloat(p.lng);
     if (isNaN(lat) || isNaN(lng) || !lat || !lng) return;
 
-    // Use uniform spatial grid (~1.2km) for demand metric to eliminate city vs barrio granularity skew
-    const key = (metric === 'demand')
-      ? `${lat.toFixed(2)},${lng.toFixed(2)}`
-      : getPropZone(p);
-
+    // Group cleanly by Neighborhood / Zone name (1 circle per zone, no overlapping grid clutter)
     const zoneName = getPropZone(p);
 
-    if (!zones[key]) {
-      zones[key] = { name: zoneName, lats: [], lngs: [], rois: [], prices: [], count: 0 };
+    if (!zones[zoneName]) {
+      zones[zoneName] = { name: zoneName, lats: [], lngs: [], rois: [], prices: [], count: 0 };
     }
-    zones[key].lats.push(lat);
-    zones[key].lngs.push(lng);
-    zones[key].rois.push(p.roi || 0);
-    zones[key].prices.push(p.priceM2 || 0);
-    zones[key].count++;
+    zones[zoneName].lats.push(lat);
+    zones[zoneName].lngs.push(lng);
+    zones[zoneName].rois.push(p.roi || 0);
+    zones[zoneName].prices.push(p.priceM2 || 0);
+    zones[zoneName].count++;
   });
 
   if (!Object.keys(zones).length) return;
@@ -1020,7 +1016,7 @@ function updateHeatmapWithData(props, metric) {
   const maxVal = Math.max(...values, 1);
   const minVal = Math.min(...values, 0);
 
-  Object.entries(zones).forEach(([key, data]) => {
+  Object.entries(zones).forEach(([zoneName, data]) => {
     const centerLat = data.lats.reduce((a, b) => a + b, 0) / data.lats.length;
     const centerLng = data.lngs.reduce((a, b) => a + b, 0) / data.lngs.length;
     let val, color, opacity;
@@ -1030,25 +1026,35 @@ function updateHeatmapWithData(props, metric) {
       val = roiArr.length ? roiArr.reduce((a, b) => a + b, 0) / roiArr.length : 0;
       const norm = (val - minVal) / Math.max(maxVal - minVal, 0.01);
       color = norm > 0.65 ? '#10b981' : norm > 0.35 ? '#f59e0b' : '#ef4444';
-      opacity = 0.35 + norm * 0.3;
+      opacity = 0.4 + norm * 0.3;
     } else if (metric === 'price') {
       const prArr = data.prices.filter(p => p > 0);
       val = prArr.length ? prArr.reduce((a, b) => a + b, 0) / prArr.length : 0;
       const norm = (val - minVal) / Math.max(maxVal - minVal, 0.01);
       color = norm > 0.65 ? '#6366f1' : norm > 0.35 ? '#38bdf8' : '#10b981';
-      opacity = 0.35 + norm * 0.3;
+      opacity = 0.4 + norm * 0.3;
     } else {
       val = data.count;
-      const norm = (val - minVal) / Math.max(maxVal - minVal, 0.01);
+      // Weighted demand calculation for Asunción prime barrios to account for barrio-level granularity
+      const isAsuncionBarrio = ['villa morra', 'ycua sati', 'ykua sati', 'las mercedes', 'mburucuya', 'recoleta', 'herrera', 'trinidad', 'los laureles', 'las lomas', 'manora', 'centro', 'barrio jara'].some(b => zoneName.toLowerCase().includes(b));
+      const effectiveCount = isAsuncionBarrio ? data.count * 2.2 : data.count;
+      const norm = Math.min(1.0, effectiveCount / 12);
+      
       color = norm > 0.65 ? '#ff2a5f' : norm > 0.35 ? '#f97316' : '#38bdf8';
       opacity = 0.35 + norm * 0.35;
     }
 
+    // Dynamic compact radius (350m - 750m) to eliminate overlapping circles
     const maxCount = Math.max(...Object.values(zones).map(z => z.count), 1);
-    const radius = 600 + (data.count / maxCount) * 1200;
+    const radius = 350 + (data.count / maxCount) * 400;
 
     const circle = L.circle([centerLat, centerLng], {
-      color: 'none', fillColor: color, fillOpacity: opacity, radius
+      color: color,
+      weight: 1.5,
+      opacity: 0.7,
+      fillColor: color,
+      fillOpacity: opacity,
+      radius: radius
     }).addTo(window.heatmapInstance);
 
     let tooltipText = '';
