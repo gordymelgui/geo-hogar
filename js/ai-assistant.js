@@ -210,41 +210,48 @@ class GeoHogarAI {
     }
     parseActions(text) {
         const lower = text.toLowerCase();
-        const normalize = s => s.normalize('NFD').replace(/[\u0300-\u536f]/g,'').toLowerCase();
+        const normalize = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
         const norm = normalize(lower);
         let navigated = false;
 
-        // ===== GREETINGS & CONVERSATIONAL INTENTS =====
-        const greetings = ['hola', 'buenas', 'buenos dias', 'buenas tardes', 'buenas noches', 'que tal', 'como estas', 'quien sos', 'quien eres', 'quien te creo', 'ayuda', 'gracias', 'que podes hacer', 'que puedes hacer'];
+        // ===== GREETINGS & HELP INTENTS =====
+        const greetings = ['hola', 'buenas', 'buenos dias', 'buenas tardes', 'buenas noches', 'que tal', 'como estas', 'quien sos', 'quien eres', 'quien te creo', 'gracias'];
         if (greetings.some(g => norm === g || norm === g + '?' || norm.startsWith(g + ' ') || norm.endsWith(' ' + g))) {
             return false;
         }
 
-        // ===== DIRECCIONAMIENTO DE SECCIONES (NAVEGACIÓN DIRECTA) =====
-        if (norm.includes('mercado') || norm.includes('ir al mercado') || norm.includes('ver mercado') || norm.includes('ir a la tienda') || norm.includes('catalogo') || norm.includes('propiedades')) {
+        // ===== DIRECCIONAMIENTO DE SECCIONES (NAVEGACIÓN DIRECTA MULTIPANTALLA) =====
+        if (norm.includes('mercado') || norm.includes('ir al mercado') || norm.includes('ver mercado') || norm.includes('ir a la tienda') || norm.includes('catalogo') || norm.includes('propiedades') || norm.includes('llevame a explorar') || norm.includes('ir a explorar')) {
             if (window.appRouter) window.appRouter.navigate('explore');
-            navigated = true;
-            return navigated;
+            navigated = true; return navigated;
         }
-        if (norm.includes('ir al mapa') || norm.includes('ver el mapa') || norm.includes('abrir mapa')) {
+        if (norm.includes('ir al mapa') || norm.includes('ver el mapa') || norm.includes('abrir mapa') || norm.includes('llevame al mapa') || norm.includes('ir a mapa')) {
             if (window.appRouter) window.appRouter.navigate('map');
-            navigated = true;
-            return navigated;
+            navigated = true; return navigated;
         }
-        if (norm.includes('ir a broker') || norm.includes('zona broker') || norm.includes('panel broker')) {
+        if (norm.includes('broker') || norm.includes('zona broker') || norm.includes('panel broker') || norm.includes('llevame a broker') || norm.includes('ir a broker') || norm.includes('leads') || norm.includes('tasador')) {
             if (window.appRouter) window.appRouter.navigate('broker');
-            navigated = true;
-            return navigated;
+            navigated = true; return navigated;
         }
-        if (norm.includes('analitica') || norm.includes('estadistica') || norm.includes('metricas')) {
+        if (norm.includes('analitica') || norm.includes('estadistica') || norm.includes('metricas') || norm.includes('llevame a analiticas') || norm.includes('ir a analiticas') || norm.includes('mapa de calor')) {
             if (window.appRouter) window.appRouter.navigate('analytics');
-            navigated = true;
-            return navigated;
+            navigated = true; return navigated;
         }
-        if (norm.includes('mensajes') || norm.includes('mis chats') || norm.includes('ver mensajes')) {
+        if (norm.includes('mensajes') || norm.includes('mis chats') || norm.includes('ver mensajes') || norm.includes('llevame a mensajes') || norm.includes('ir a mensajes')) {
             if (window.appRouter) window.appRouter.navigate('messages');
-            navigated = true;
-            return navigated;
+            navigated = true; return navigated;
+        }
+        if (norm.includes('publicar') || norm.includes('subir propiedad') || norm.includes('vender') || norm.includes('llevame a publicar') || norm.includes('ir a publicar')) {
+            if (window.appRouter) window.appRouter.navigate('publish');
+            navigated = true; return navigated;
+        }
+        if (norm.includes('favoritos') || norm.includes('guardados') || norm.includes('llevame a favoritos')) {
+            if (window.appRouter) window.appRouter.navigate('favorites');
+            navigated = true; return navigated;
+        }
+        if (norm.includes('alertas') || norm.includes('notificaciones') || norm.includes('llevame a alertas')) {
+            if (window.appRouter) window.appRouter.navigate('alerts');
+            navigated = true; return navigated;
         }
 
         // ===== CLEAR/RESET FILTERS COMMAND =====
@@ -263,12 +270,8 @@ class GeoHogarAI {
 
         // ===== ACCIONES DE MAPA VS EXPLORAR =====
         const locations = ['asuncion', 'paraguay', 'luque', 'san lorenzo', 'lambare', 'fernando de la mora', 'ciudad del este', 'villa morra', 'carmelitas', 'eje corporativo', 'las mercedes'];
-        const hasLocation = locations.some(loc => norm.includes(loc));
-        
-        // Decidir si es una consulta específica para el mapa o de marcación
         const isMapFilter = norm.includes('mapa') || norm.includes('marcar') || norm.includes('marque') || norm.includes('marca') || norm.includes('plano') || (norm.includes('cerca') && (norm.includes('hospital') || norm.includes('escuela') || norm.includes('universidad') || norm.includes('supermercado') || norm.includes('parque')));
 
-        // Obtener criterios de filtrado
         const criteria = {};
         
         // Precio
@@ -277,7 +280,7 @@ class GeoHogarAI {
         if (priceMax) criteria.maxPrice = parseInt(priceMax[1].replace(/\D/g,''));
         if (priceMin) criteria.minPrice = parseInt(priceMin[1].replace(/\D/g,''));
 
-        // Tipo (Synonyms Expansion)
+        // Tipo
         if (norm.match(/\b(casa|chalet|mansion|residencia|quinta|rancho|villa)\b/))          criteria.type = 'Casa';
         else if (norm.match(/\b(departamento|depto|dpto|apartamento|piso|monoambiente|estudio|loft)\b/)) criteria.type = 'Departamento';
         else if (norm.includes('duplex'))   criteria.type = 'Dúplex';
@@ -289,7 +292,7 @@ class GeoHogarAI {
         else if (norm.match(/\b(galpon|deposito|tinglado)\b/)) criteria.type = 'Galpón';
         else if (norm.match(/\b(estancia|chacra|quinta|campo)\b/)) criteria.type = 'Estancia';
 
-        // Heurística de precio e inversión (contexto de "barato" / "oportunidad")
+        // Heurística de precio
         if (!criteria.maxPrice && norm.match(/\b(barato|económico|economico|accesible|ganga|oportunidad|descuento)\b/)) {
             criteria.maxPrice = 120000;
         }
@@ -297,26 +300,18 @@ class GeoHogarAI {
             criteria.minPrice = 250000;
         }
 
-        // Ambientes / Cuartos (Explícito e Implícito)
+        // Ambientes
         const roomsMatch = norm.match(/(\d+)\s*(?:ambientes?|habitaciones?|cuartos?|dormitorios?)/);
-        if (roomsMatch) {
-            criteria.rooms = parseInt(roomsMatch[1]);
-        }
+        if (roomsMatch) criteria.rooms = parseInt(roomsMatch[1]);
 
-        // m2
-        const m2Max = norm.match(/(?:hasta|menos de|maximo|máximo)\s*(\d+)\s*m/);
-        const m2Min = norm.match(/(?:minimo|mínimo|mas de|desde)\s*(\d+)\s*m/);
-        if (m2Max) criteria.maxM2 = parseInt(m2Max[1]);
-        if (m2Min) criteria.minM2 = parseInt(m2Min[1]);
-
-        // Puntos de Interés (POI) y Entorno
+        // POI
         if (norm.match(/\b(hospital|clinica|clínica|medico|médico|sanatorio)\b/)) criteria.poiType = 'hospital';
         else if (norm.match(/\b(escuela|colegio|facultad|instituto)\b/)) criteria.poiType = 'escuela';
         else if (norm.match(/\b(universidad|facultad)\b/)) criteria.poiType = 'universidad';
         else if (norm.match(/\b(supermercado|comercio|tienda|despensa)\b/)) criteria.poiType = 'supermercado';
         else if (norm.match(/\b(parque|verde|plaza|aire libre|naturaleza)\b/)) criteria.poiType = 'parque';
 
-        // Ubicación / Ciudad / País
+        // Ubicación
         for (const loc of locations) {
             if (norm.includes(loc)) {
                 criteria.location = loc;
@@ -325,7 +320,6 @@ class GeoHogarAI {
         }
 
         if (isMapFilter) {
-            // ===== RUTA 1: FILTRAR Y IR AL MAPA =====
             criteria.highlight = true;
             if (window.appRouter) window.appRouter.navigate('map');
             setTimeout(() => {
@@ -333,80 +327,11 @@ class GeoHogarAI {
             }, 300);
             navigated = true;
         } else if (Object.keys(criteria).length > 0) {
-            // ===== RUTA 2: FILTRAR EXPLORADOR PRINCIPAL Y IR A EXPLORAR =====
             if (window.appRouter) window.appRouter.navigate('explore');
-
-            if (criteria.maxPrice) {
-                const el = document.getElementById('f-pmax');
-                if (el) el.value = criteria.maxPrice;
-            }
-
-            if (criteria.rooms) {
-                const rPills = document.querySelectorAll('#f-rooms .pill');
-                rPills.forEach(p => p.classList.remove('active'));
-                const targetPill = document.querySelector(`#f-rooms .pill[data-val="${criteria.rooms}"]`) || document.querySelector(`#f-rooms .pill[data-val="4+"]`);
-                if (targetPill) targetPill.classList.add('active');
-            } else {
-                const rPills = document.querySelectorAll('#f-rooms .pill');
-                rPills.forEach(p => p.classList.remove('active'));
-                document.querySelector('#f-rooms .pill[data-val=""]')?.classList.add('active');
-            }
-
-            // Sincronizar Filtros Inteligentes (ROI, Valor)
-            if (norm.match(/\b(inversion|inversin|rentable|roi|negocio|retorno)\b/)) {
-                document.getElementById('explore-roi-btn')?.classList.add('active');
-                document.getElementById('filter-roi-btn')?.classList.add('active');
-            }
-            if (norm.match(/\b(oportunidad|ganga|descuento|rebajado)\b/)) {
-                document.getElementById('explore-market-value-btn')?.classList.add('active');
-                document.getElementById('filter-market-value-btn')?.classList.add('active');
-            }
-
-            // 4. Sincronizar buscador global (por ejemplo con la ciudad/barrio o término extra)
-            const searchInput = document.getElementById('global-search');
-            if (searchInput) {
-                let query = '';
-                // Si hay una localización de ciudad (ej: asuncion, villa morra)
-                if (criteria.location && criteria.location !== 'paraguay') {
-                    query = criteria.location;
-                } else {
-                    // Limpiar stop words y ver si queda algún término descriptivo
-                    let cleanQuery = norm.replace(/\b(busc\w*|encontr\w*|mu[eǸ]strame|muetrame|quiero ver|mostrar|ense[n]a|las|los|la|el|un|una|unos|unas|en|de|por favor|gracias|ya|ahora|quiero|ver|mapa|aqu[i]|all[i]|casas|casa|propiedades|propiedad|inmuebles|paraguay|departamento|depto|dpto|apartamento|terreno|duplex|penthouse|galpon|estancia|chacra|quinta|campo|tinglado|deposito|oficina|local)\b/ig, ' ').trim().replace(/\s+/g,' ');
-                    if (cleanQuery.length >= 2) {
-                        query = cleanQuery;
-                    }
-                }
-                searchInput.value = query;
-            }
-
-            // 5. Aplicar los filtros unificados
-            if (window.applyExploreFilters) {
-                window.applyExploreFilters();
+            if (typeof window.applyExploreFilters === 'function') {
+                window.applyExploreFilters(true);
             }
             navigated = true;
-        }
-
-        // ===== COMANDOS DE NAVEGACIÓN SIMPLE =====
-        if (!navigated) {
-            if (norm.includes('mapa') || norm.includes('ubicacion') || norm.includes('ubicación')) {
-                document.getElementById('nav-map')?.click(); navigated = true;
-            } else if (norm.includes('explorar') || norm.includes('inicio') || norm.includes('home') || norm.includes('principal')) {
-                document.getElementById('nav-explore')?.click(); navigated = true;
-            } else if (norm.includes('favorito') || norm.includes('guardado')) {
-                document.getElementById('nav-favorites')?.click(); navigated = true;
-            } else if (norm.includes('mensaje') || norm.includes('chat') || norm.includes('hablar')) {
-                document.getElementById('nav-messages')?.click(); navigated = true;
-            } else if (norm.includes('publicar') || norm.includes('subir') || norm.includes('vender')) {
-                document.getElementById('nav-publish')?.click(); navigated = true;
-            } else if (norm.includes('mercado') || norm.includes('analitica') || norm.includes('analítica') || norm.includes('estadistica') || norm.includes('tendencia')) {
-                document.getElementById('nav-analytics')?.click(); navigated = true;
-            } else if (norm.includes('alerta') || norm.includes('zona') || norm.includes('notificac')) {
-                document.getElementById('nav-alerts')?.click();
-                if (typeof openZoneAlertModal === 'function') openZoneAlertModal();
-                navigated = true;
-            } else if (norm.includes('glosario') || norm.includes('ayuda') || norm.includes('tecnicism') || norm.includes('manual') || norm.includes('como usar') || norm.includes('guiar') || norm.includes('guia')) {
-                document.getElementById('nav-glossary')?.click(); navigated = true;
-            }
         }
 
         return navigated;
@@ -440,26 +365,67 @@ class GeoHogarAI {
             } catch (e) {}
         }
 
-        // Rich Intelligent Offline NLP Engine
+        // Multimodal Intelligent Context & Navigation NLP Engine
         const norm = prompt.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
         
-        if (norm.includes('mercado') || norm.includes('tienda') || norm.includes('comprar')) {
-            return "Te he redirigido al mercado principal de propiedades de GeoHogar. Podés explorar todas las opciones disponibles en vivo.";
+        // 1. Help & Capability Queries
+        if (norm.includes('en que me podes ayudar') || norm.includes('que podes hacer') || norm.includes('que puedes hacer') || norm.includes('ayuda') || norm.includes('que haces')) {
+            return "¡Puedo ayudarte en todo! Puedo llevarte a cualquier parte de la app (Mapa, Mercado, Broker PRO, Analíticas, Mensajes, Alertas), buscar inmuebles por zona o precio, o explicarte las métricas y funciones de la pantalla.";
+        }
+
+        // 2. Navigation Confirmation
+        if (norm.includes('mercado') || norm.includes('tienda') || norm.includes('catalogo') || norm.includes('comprar')) {
+            return "Te llevé al mercado principal de propiedades de GeoHogar. Podés explorar todas las casas, departamentos y terrenos disponibles.";
         }
         if (norm.includes('mapa')) {
-            return "Te abrí el mapa interactivo para ver la ubicación geográfica y distribución de valor de los inmuebles.";
+            return "Abrí el mapa interactivo para que visualices la geolocalización y distribución de valor de los inmuebles.";
         }
+        if (norm.includes('broker') || norm.includes('leads') || norm.includes('tasador')) {
+            return "Abrí el panel Broker PRO con las herramientas de captación de leads, tasación con IA e informes.";
+        }
+        if (norm.includes('analitica') || norm.includes('metricas') || norm.includes('estadistica')) {
+            return "Te mostré el panel de analíticas de mercado con gráficos de tendencia y mapas de calor por m².";
+        }
+        if (norm.includes('mensajes') || norm.includes('chats')) {
+            return "Te redirigí a tu centro de mensajes directos en tiempo real.";
+        }
+
+        // 3. Screen Context & Concept Explanation
+        if (norm.includes('roi') || norm.includes('rentabilidad')) {
+            return "El ROI (Retorno sobre la Inversión) calcula el porcentaje de rentabilidad anual estimado por alquiler respecto al costo del inmueble.";
+        }
+        if (norm.includes('tasacion') || norm.includes('valuar') || norm.includes('precio m2')) {
+            return "El Tasador Inteligente calcula el valor justo por m² basándose en comparables reales del mercado paraguayo.";
+        }
+        if (norm.includes('oportunidad') || norm.includes('descuento') || norm.includes('barato')) {
+            return "Son propiedades publicadas por debajo del valor m² promedio del barrio, ideales para inversión o compra ventajosa.";
+        }
+
+        // 4. Current Screen Dynamic Context Explanation
+        if (norm.includes('explicame') || norm.includes('explicar') || norm.includes('que es esto') || norm.includes('pantalla')) {
+            const activeView = document.querySelector('.view.active')?.id || 'explore';
+            if (activeView === 'broker') {
+                return "Estás en Broker PRO. Desde aquí gestionás tus leads de compradores, realizás tasaciones con IA y configurás alertas de zona.";
+            } else if (activeView === 'analytics') {
+                return "Estás en Analíticas de Mercado. Podés consultar la evolución de precios por m² y la concentración de oferta por barrio.";
+            } else if (activeView === 'map') {
+                return "Estás en el Mapa Interactivo. Podés explorar inmuebles con marcadores geolocalizados y filtros por puntos de interés.";
+            } else if (activeView === 'messages') {
+                return "Estás en Mensajes Directos. Podés chatear con dueños directos o brokers sobre inmuebles en tiempo real.";
+            } else {
+                return "Estás en el catálogo principal de GeoHogar. Podés filtrar propiedades por precio, ambientes o ubicación.";
+            }
+        }
+
+        // 5. Greetings & Thanks
         if (norm.includes('hola') || norm.includes('buenas') || norm.includes('que tal') || norm.includes('buenos dias')) {
-            return "¡Hola! Soy el asistente de GeoHogar. Puedo ayudarte a buscar propiedades por barrio o precio, mostrarte zonas en el mapa y guiarte por la app. ¿En qué te ayudo?";
-        }
-        if (norm.includes('quien sos') || norm.includes('quien eres') || norm.includes('que haces')) {
-            return "Soy el asistente virtual de GeoHogar, creado para ayudarte a encontrar la propiedad ideal y navegar rápidamente por toda la plataforma.";
+            return "¡Hola! Soy el asistente de GeoHogar. Puedo ayudarte a navegar la app, buscar inmuebles por barrio o precio y explicarte cualquier función. ¿Qué buscas hoy?";
         }
         if (norm.includes('gracias')) {
             return "¡De nada! Quedo a tu disposición para ayudarte en tu búsqueda inmobiliaria.";
         }
 
-        return "Entendido. He procesado tu solicitud y podés ver las actualizaciones correspondientes en pantalla.";
+        return "Procesé tu consulta correctamente. Podés ver la actualización y resultados en pantalla.";
     }
     showTypingIndicator() {
         const container = document.getElementById('ai-messages');
