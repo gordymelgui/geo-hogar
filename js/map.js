@@ -4,11 +4,22 @@ let heatmapLayer = null;
 let poiLayer = null;
 
 window.initMap = function() {
+  const container = document.getElementById('map');
+  if (!container) return;
+
   if (window.mapInstance) {
-    window.mapInstance.invalidateSize();
-    return;
+    if (window.mapInstance.getContainer() !== container) {
+      try { window.mapInstance.remove(); } catch(e){}
+      window.mapInstance = null;
+    } else {
+      window.mapInstance.invalidateSize();
+      if (window.appData && window.appData.properties && window.filterMapMarkers) {
+        window.filterMapMarkers(window._currentMapCriteria || {});
+      }
+      return;
+    }
   }
-  window.mapInstance = L.map('map', {
+  window.mapInstance = L.map(container, {
     zoomControl: false,
     attributionControl: false,
     preferCanvas: true

@@ -3829,12 +3829,37 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  window.addEventListener('view:map:loaded', () => {
+    if (typeof window.initMap === 'function') {
+      window.initMap();
+    }
+    if (window.mapInstance) {
+      setTimeout(() => {
+        window.mapInstance.invalidateSize();
+        if (typeof window.filterMapMarkers === 'function') {
+          window.filterMapMarkers(window._currentMapCriteria || {});
+        }
+      }, 100);
+    }
+  });
+
   window.addEventListener('view:analytics:loaded', () => {
+    const props = window.appData ? window.appData.properties : [];
     if (typeof window.syncAnalyticsDashboardView === 'function') {
       window.syncAnalyticsDashboardView();
     }
-    if (typeof updateAnalytics === 'function' && window.appData?.properties) {
-      updateAnalytics(window.appData.properties);
+    if (typeof updateAnalytics === 'function' && props.length) {
+      updateAnalytics(props);
+    }
+    if (window.heatmapInstance) {
+      setTimeout(() => {
+        window.heatmapInstance.invalidateSize();
+        if (typeof updateHeatmapMetric === 'function') {
+          const activeBtn = document.querySelector('.heatmap-ctrl-btn.active');
+          const activeMetric = activeBtn ? activeBtn.getAttribute('data-metric') : 'demand';
+          updateHeatmapMetric(activeMetric);
+        }
+      }, 150);
     }
   });
 

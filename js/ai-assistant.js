@@ -321,6 +321,8 @@ class GeoHogarAI {
 
         if (isMapFilter) {
             criteria.highlight = true;
+            document.querySelectorAll('.sidebar-link, .bottom-nav-btn').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.sidebar-link[data-view="map"], .bottom-nav-btn[data-view="map"]').forEach(el => el.classList.add('active'));
             if (window.appRouter) window.appRouter.navigate('map');
             setTimeout(() => {
                 if (window.filterMapMarkers) window.filterMapMarkers(criteria);

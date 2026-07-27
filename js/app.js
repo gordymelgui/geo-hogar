@@ -774,7 +774,12 @@ function updateAnalytics(props) {
   window.zoneStats = Object.keys(dynStats).length ? dynStats : window.zoneStats;
 
   updateAnalyticsKPIs(props);
-  if (!window._analyticsCharts.initialized) return;
+  if (!window._analyticsCharts.initialized) {
+    if (typeof initCharts === 'function' && document.getElementById('chart-prices')) {
+      initCharts(props);
+    }
+    return;
+  }
 
   updatePriceChart(props, window._priceViewMode || 'neighborhood');
   updateRangeChart(props, window._rangeViewMode || 'neighborhood');
@@ -1183,7 +1188,7 @@ function initCharts(passedProps) {
   if (!props || props.length === 0) {
     props = window.appData && window.appData.properties ? window.appData.properties : [];
   }
-  if (window.currentDataSourceFilter && window.currentDataSourceFilter !== 'all') {
+  if (window.currentDataSourceFilter && window.currentDataSourceFilter !== 'all' && window.currentDataSourceFilter !== 'official') {
     props = props.filter(p => p.dataSource === window.currentDataSourceFilter);
   }
 
