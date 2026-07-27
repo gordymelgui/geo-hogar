@@ -5054,8 +5054,17 @@ body.dark-theme .google-sheets-sync-card { background: var(--surface) !important
     gap: 0.8rem;
   }
   .valuation-grid-3 {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(95px, 1fr));
     gap: 0.5rem;
+  }
+  .val-price-hero {
+    font-size: clamp(1.4rem, 6.5vw, 2.2rem) !important;
+    word-break: break-word !important;
+    overflow-wrap: anywhere !important;
+  }
+  .val-range-subtext {
+    font-size: 0.8rem !important;
+    word-break: break-word !important;
   }
   .val-field-label {
     font-size: 0.72rem;
