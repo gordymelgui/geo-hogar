@@ -216,11 +216,14 @@ window._cachedBrokerLeads = [];
 let _showOnlyOwners = false;
 
 window.initBrokerLeads = async function() {
-  if (leadsListenerActive) return;
+  if (leadsListenerActive) {
+    refreshLeadsView();
+    return;
+  }
 
   const uid = window.firebaseAuth?.currentUser?.uid;
   if (!uid) {
-    // Aún no hay sesión, esperar al evento de auth
+    refreshLeadsView();
     return;
   }
 
@@ -236,35 +239,33 @@ window.initBrokerLeads = async function() {
     const db = firebase.firestore();
     const leadsRef = db.collection('broker_leads');
 
-    // Verificar si hay datos
-    const snap = await leadsRef.limit(1).get();
-
-    // Escuchar en tiempo real (sin orderBy para evitar índice requerido)
     if (_leadsUnsubscribe) _leadsUnsubscribe();
     _leadsUnsubscribe = leadsRef.limit(50).onSnapshot(snapshot => {
       window._cachedBrokerLeads = [];
       snapshot.forEach(doc => {
         const leadData = doc.data();
-        leadData.id = doc.id; // Asignar el ID real (que es el userId)
+        leadData.id = doc.id;
         window._cachedBrokerLeads.push(leadData);
       });
-      // Ordenar localmente por timestamp descendente
       window._cachedBrokerLeads.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
       refreshLeadsView();
     }, (error) => {
-      console.error('Error escuchando broker leads:', error);
+      console.warn('Warning escuchando broker leads:', error);
       leadsListenerActive = false;
-      window._cachedBrokerLeads = [];
       refreshLeadsView();
     });
 
   } catch (err) {
-    console.error('Error inicializando broker leads:', err);
+    console.warn('Warning inicializando broker leads:', err);
     leadsListenerActive = false;
-    window._cachedBrokerLeads = [];
     refreshLeadsView();
   }
 };
+
+document.addEventListener('geohogar:auth:loggedin', () => {
+  leadsListenerActive = false;
+  window.initBrokerLeads();
+});
 
 // Resetear listener al cerrar sesión
 document.addEventListener('geohogar:auth:loggedout', () => {
