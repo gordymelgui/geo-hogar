@@ -216,8 +216,35 @@ class GeoHogarAI {
 
         // ===== GREETINGS & CONVERSATIONAL INTENTS =====
         const greetings = ['hola', 'buenas', 'buenos dias', 'buenas tardes', 'buenas noches', 'que tal', 'como estas', 'quien sos', 'quien eres', 'quien te creo', 'ayuda', 'gracias', 'que podes hacer', 'que puedes hacer'];
-        if (greetings.some(g => norm === g || norm.startsWith(g + ' ') || norm.endsWith(' ' + g))) {
+        if (greetings.some(g => norm === g || norm === g + '?' || norm.startsWith(g + ' ') || norm.endsWith(' ' + g))) {
             return false;
+        }
+
+        // ===== DIRECCIONAMIENTO DE SECCIONES (NAVEGACIÓN DIRECTA) =====
+        if (norm.includes('mercado') || norm.includes('ir al mercado') || norm.includes('ver mercado') || norm.includes('ir a la tienda') || norm.includes('catalogo') || norm.includes('propiedades')) {
+            if (window.appRouter) window.appRouter.navigate('explore');
+            navigated = true;
+            return navigated;
+        }
+        if (norm.includes('ir al mapa') || norm.includes('ver el mapa') || norm.includes('abrir mapa')) {
+            if (window.appRouter) window.appRouter.navigate('map');
+            navigated = true;
+            return navigated;
+        }
+        if (norm.includes('ir a broker') || norm.includes('zona broker') || norm.includes('panel broker')) {
+            if (window.appRouter) window.appRouter.navigate('broker');
+            navigated = true;
+            return navigated;
+        }
+        if (norm.includes('analitica') || norm.includes('estadistica') || norm.includes('metricas')) {
+            if (window.appRouter) window.appRouter.navigate('analytics');
+            navigated = true;
+            return navigated;
+        }
+        if (norm.includes('mensajes') || norm.includes('mis chats') || norm.includes('ver mensajes')) {
+            if (window.appRouter) window.appRouter.navigate('messages');
+            navigated = true;
+            return navigated;
         }
 
         // ===== CLEAR/RESET FILTERS COMMAND =====
@@ -245,8 +272,8 @@ class GeoHogarAI {
         const criteria = {};
         
         // Precio
-        const priceMax = norm.match(/(?:menos de|bajo de|menor a|por debajo de|hasta|maximo|mÁximo)\s*(?:usd\s*)?(\d[\d.,]*)/i);
-        const priceMin = norm.match(/(?:mas de|mayor a|minimo|mÍnimo|desde|sobre)\s*(?:usd\s*)?(\d[\d.,]*)/i);
+        const priceMax = norm.match(/(?:menos de|bajo de|menor a|por debajo de|hasta|maximo|máximo)\s*(?:usd\s*)?(\d[\d.,]*)/i);
+        const priceMin = norm.match(/(?:mas de|mayor a|minimo|mínimo|desde|sobre)\s*(?:usd\s*)?(\d[\d.,]*)/i);
         if (priceMax) criteria.maxPrice = parseInt(priceMax[1].replace(/\D/g,''));
         if (priceMin) criteria.minPrice = parseInt(priceMin[1].replace(/\D/g,''));
 
@@ -274,23 +301,19 @@ class GeoHogarAI {
         const roomsMatch = norm.match(/(\d+)\s*(?:ambientes?|habitaciones?|cuartos?|dormitorios?)/);
         if (roomsMatch) {
             criteria.rooms = parseInt(roomsMatch[1]);
-        } else {
-            // Heurística de tamaño
-            if (norm.match(/\b(grande|espacioso|amplio|enorme|familia numerosa|muchas habitaciones)\b/)) criteria.rooms = 3;
-            else if (norm.match(/\b(pequeo|chico|compacto|soltero|una persona|mi solo)\b/)) criteria.rooms = 1;
         }
 
         // m2
-        const m2Max = norm.match(/(?:hasta|menos de|maximo|mǭximo)\s*(\d+)\s*m/);
-        const m2Min = norm.match(/(?:minimo|mnimo|mas de|desde)\s*(\d+)\s*m/);
+        const m2Max = norm.match(/(?:hasta|menos de|maximo|máximo)\s*(\d+)\s*m/);
+        const m2Min = norm.match(/(?:minimo|mínimo|mas de|desde)\s*(\d+)\s*m/);
         if (m2Max) criteria.maxM2 = parseInt(m2Max[1]);
         if (m2Min) criteria.minM2 = parseInt(m2Min[1]);
 
         // Puntos de Interés (POI) y Entorno
-        if (norm.match(/\b(hospital|clinica|clnica|medico|mǸdico|sanatorio)\b/)) criteria.poiType = 'hospital';
+        if (norm.match(/\b(hospital|clinica|clínica|medico|médico|sanatorio)\b/)) criteria.poiType = 'hospital';
         else if (norm.match(/\b(escuela|colegio|facultad|instituto)\b/)) criteria.poiType = 'escuela';
         else if (norm.match(/\b(universidad|facultad)\b/)) criteria.poiType = 'universidad';
-        else if (norm.match(/\b(supermercado|comercio|tienda|despensa|mercado)\b/)) criteria.poiType = 'supermercado';
+        else if (norm.match(/\b(supermercado|comercio|tienda|despensa)\b/)) criteria.poiType = 'supermercado';
         else if (norm.match(/\b(parque|verde|plaza|aire libre|naturaleza)\b/)) criteria.poiType = 'parque';
 
         // Ubicación / Ciudad / País
@@ -300,74 +323,22 @@ class GeoHogarAI {
                 break;
             }
         }
-        if (!criteria.location) {
-            const matchEn = norm.match(/(?:en|de)\s+([a-zñáéíóú]+)/i);
-            if (matchEn) {
-                const candidate = matchEn[1].trim();
-                const stopWords = ['el', 'la', 'un', 'una', 'mi', 'mis', 'este', 'esta', 'mapa', 'venta', 'alquiler', 'casa', 'depto', 'departamento', 'ph', 'terreno', 'oficina', 'local', 'duplex', 'penthouse', 'galpon', 'estancia', 'chacra', 'quinta', 'campo', 'tinglado', 'deposito'];
-                if (!stopWords.includes(candidate)) {
-                    criteria.location = candidate;
-                }
-            }
-        }
 
         if (isMapFilter) {
             // ===== RUTA 1: FILTRAR Y IR AL MAPA =====
             criteria.highlight = true;
-            document.getElementById('nav-map')?.click();
+            if (window.appRouter) window.appRouter.navigate('map');
             setTimeout(() => {
                 if (window.filterMapMarkers) window.filterMapMarkers(criteria);
             }, 300);
             navigated = true;
-        } else if (Object.keys(criteria).length > 0 || norm.includes('buscar') || norm.includes('encontrar') || norm.includes('ver') || norm.includes('mostrar')) {
+        } else if (Object.keys(criteria).length > 0) {
             // ===== RUTA 2: FILTRAR EXPLORADOR PRINCIPAL Y IR A EXPLORAR =====
-            document.getElementById('nav-explore')?.click();
+            if (window.appRouter) window.appRouter.navigate('explore');
 
-            // 1. Sincronizar pastillas de categorías
-            const catValue = criteria.type || '';
-            const catBtns = document.querySelectorAll('.cat-btn');
-            catBtns.forEach(btn => {
-                if ((btn.getAttribute('data-cat') || '').toLowerCase() === catValue.toLowerCase()) {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
-                }
-            });
-
-            // 2. Sincronizar pastillas de países (siempre Paraguay)
-            const countryValue = 'Paraguay';
-            const countryPills = document.querySelectorAll('.country-pill');
-            countryPills.forEach(pill => {
-                if ((pill.getAttribute('data-country') || '') === 'Paraguay') {
-                    pill.classList.add('active');
-                } else {
-                    pill.classList.remove('active');
-                }
-            });
-
-            // 3. Sincronizar inputs de filtros avanzados en la UI
             if (criteria.maxPrice) {
                 const el = document.getElementById('f-pmax');
                 if (el) el.value = criteria.maxPrice;
-            } else {
-                const el = document.getElementById('f-pmax');
-                if (el) el.value = '';
-            }
-
-            if (criteria.minPrice) {
-                const el = document.getElementById('f-pmin');
-                if (el) el.value = criteria.minPrice;
-            } else {
-                const el = document.getElementById('f-pmin');
-                if (el) el.value = '';
-            }
-
-            if (criteria.type) {
-                const el = document.getElementById('f-type');
-                if (el) el.value = criteria.type;
-            } else {
-                const el = document.getElementById('f-type');
-                if (el) el.value = '';
             }
 
             if (criteria.rooms) {
@@ -443,50 +414,52 @@ class GeoHogarAI {
 
     async callAI(prompt) {
         const cleanKey = (window.CONFIG?.GEMINI_API_KEY_1 || window.CONFIG?.GEMINI_API_KEY_2 || '').trim();
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${cleanKey}`;
+        const isKeyValid = cleanKey && !cleanKey.includes('YOUR_') && cleanKey.startsWith('AIza');
         
-        const systemPrompt = `Eres el Asistente Inteligente de GeoHogar, la plataforma inmobiliaria premium de Paraguay.
-        Tu objetivo es dialogar de forma amable, natural, fluida y experta.
-        
-        REGLAS DE RESPUESTA:
-        1. Si el usuario te saluda ("hola", "buenas", "qué tal", etc.) o pregunta quien sos, salúdalo amablemente y dile brevemente cómo puedes ayudarlo en la app.
-        2. Si el usuario realiza una búsqueda de propiedades (ej. "casas en Villa Morra", "deptos de 2 dormitorios"), confirma que estás filtrando la lista o el mapa.
-        3. Si pregunta sobre terminología o valuaciones inmobiliarias, respóndele brevemente.
-        4. Tolera errores de tipeo y modismos (ej: "barato", "depto", "asunsion").
-        5. Responde SIEMPRE en texto plano. NO uses asteriscos (*), ni negritas (**), ni viñetas.
-        6. Responde de forma concisa en 1 a 3 oraciones.`;
+        if (isKeyValid) {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${cleanKey}`;
+            const systemPrompt = `Eres el Asistente Inteligente de GeoHogar, la plataforma inmobiliaria de Paraguay.
+            Tu objetivo es dialogar de forma amable, clara y útil. Responde en texto plano sin asteriscos ni markdown en 1-2 frases.`;
 
-        try {
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    contents: [{ parts: [{ text: systemPrompt + "\n\nUsuario: " + prompt }] }]
-                })
-            });
-            
-            const data = await response.json();
-            if (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts[0]) {
-                let rawText = data.candidates[0].content.parts[0].text;
-                return rawText.replace(/\*/g, '').replace(/_/g, '').trim();
-            }
-        } catch (e) {
-            console.warn("Gemini API call error, using conversational fallback:", e);
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: systemPrompt + "\n\nUsuario: " + prompt }] }]
+                    })
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts[0]) {
+                        let rawText = data.candidates[0].content.parts[0].text;
+                        return rawText.replace(/\*/g, '').replace(/_/g, '').trim();
+                    }
+                }
+            } catch (e) {}
         }
 
-        // Intelligent Conversational Fallback Classifier
+        // Rich Intelligent Offline NLP Engine
         const norm = prompt.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+        
+        if (norm.includes('mercado') || norm.includes('tienda') || norm.includes('comprar')) {
+            return "Te he redirigido al mercado principal de propiedades de GeoHogar. Podés explorar todas las opciones disponibles en vivo.";
+        }
+        if (norm.includes('mapa')) {
+            return "Te abrí el mapa interactivo para ver la ubicación geográfica y distribución de valor de los inmuebles.";
+        }
         if (norm.includes('hola') || norm.includes('buenas') || norm.includes('que tal') || norm.includes('buenos dias')) {
-            return "¡Hola! Soy tu asistente de GeoHogar. Puedo buscar inmuebles por zona o precio, mostrarte oportunidades en el mapa y guiarte en tus tasaciones. ¿En qué te ayudo?";
+            return "¡Hola! Soy el asistente de GeoHogar. Puedo ayudarte a buscar propiedades por barrio o precio, mostrarte zonas en el mapa y guiarte por la app. ¿En qué te ayudo?";
         }
         if (norm.includes('quien sos') || norm.includes('quien eres') || norm.includes('que haces')) {
-            return "Soy el asistente virtual de GeoHogar. Estoy entrenado para ayudarte a explorar casas, departamentos, terrenos y analizar el mercado inmobiliario en Paraguay.";
+            return "Soy el asistente virtual de GeoHogar, creado para ayudarte a encontrar la propiedad ideal y navegar rápidamente por toda la plataforma.";
         }
         if (norm.includes('gracias')) {
-            return "¡De nada! Estoy para ayudarte cuando lo necesites.";
+            return "¡De nada! Quedo a tu disposición para ayudarte en tu búsqueda inmobiliaria.";
         }
 
-        return "Filtros y consultas procesadas con éxito. Revisa los resultados en pantalla.";
+        return "Entendido. He procesado tu solicitud y podés ver las actualizaciones correspondientes en pantalla.";
     }
     showTypingIndicator() {
         const container = document.getElementById('ai-messages');
