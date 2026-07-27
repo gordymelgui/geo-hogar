@@ -3066,29 +3066,23 @@ document.addEventListener('DOMContentLoaded', () => {
             label: 'ROI Bruto Anual (%)',
             data: [8.0, 5.0, 4.5, 4.0, 3.0],
             backgroundColor: [
-              'rgba(16, 185, 129, 0.85)',
-              'rgba(148, 163, 184, 0.3)',
-              'rgba(148, 163, 184, 0.3)',
-              'rgba(148, 163, 184, 0.3)',
-              'rgba(148, 163, 184, 0.3)'
+              '#84a375',
+              'rgba(148, 163, 184, 0.35)',
+              'rgba(148, 163, 184, 0.35)',
+              'rgba(148, 163, 184, 0.35)',
+              'rgba(148, 163, 184, 0.35)'
             ],
             hoverBackgroundColor: [
-              'rgba(16, 185, 129, 1)',
+              '#79986a',
               'rgba(148, 163, 184, 0.5)',
               'rgba(148, 163, 184, 0.5)',
               'rgba(148, 163, 184, 0.5)',
               'rgba(148, 163, 184, 0.5)'
             ],
-            borderColor: [
-              '#10b981',
-              'rgba(148, 163, 184, 0)',
-              'rgba(148, 163, 184, 0)',
-              'rgba(148, 163, 184, 0)',
-              'rgba(148, 163, 184, 0)'
-            ],
-            borderWidth: 2,
+            borderWidth: 0,
             borderRadius: 8,
-            borderSkipped: false
+            borderSkipped: false,
+            maxBarThickness: 24
           }]
         },
         options: {
@@ -3099,10 +3093,10 @@ document.addEventListener('DOMContentLoaded', () => {
             legend: { display: false },
             tooltip: { 
               backgroundColor: 'rgba(15, 23, 42, 0.9)',
-              titleFont: { size: 13, family: 'Inter' },
-              bodyFont: { size: 14, weight: 'bold', family: 'Inter' },
-              padding: 12,
-              cornerRadius: 12,
+              titleFont: { size: 12, family: "'Outfit', sans-serif" },
+              bodyFont: { size: 13, weight: 'bold', family: "'Outfit', sans-serif" },
+              padding: 10,
+              cornerRadius: 8,
               callbacks: { label: ctx => ' ' + ctx.parsed.x + '%' } 
             }
           },
@@ -3110,8 +3104,8 @@ document.addEventListener('DOMContentLoaded', () => {
             x: { 
               beginAtZero: true, 
               max: 10, 
-              grid: { color: 'rgba(0,0,0,0.04)', drawBorder: false, borderDash: [5, 5] }, 
-              ticks: { padding: 5, font: { family: 'Inter', weight: '600' }, color: '#64748b', callback: v => v + '%' } 
+              grid: { color: 'rgba(0,0,0,0.05)', drawBorder: false, borderDash: [3, 3] }, 
+              ticks: { padding: 5, font: { family: "'Outfit', sans-serif", weight: '600' }, color: '#64748b', callback: v => v + '%' } 
             },
             y: { 
               grid: { display: false, drawTicks: true }, 

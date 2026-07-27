@@ -460,15 +460,18 @@ export function renderAnalyticsView() {
 
             <!-- Prices by Neighborhood / City -->
             <div class="analytics-card wide">
-              <div class="card-header-flex" style="margin-bottom:1rem;">
-                <h3 data-i18n="chart_prices_title" style="margin-bottom:0;">Precio Promedio por Zona (USD/m²)</h3>
+              <div class="card-header-flex" style="margin-bottom:1rem; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+                <div>
+                  <h3 data-i18n="chart_prices_title" style="margin-bottom:0.2rem;">Precio Promedio m² por Zona</h3>
+                  <span class="chart-subtitle" style="display:block; font-size:0.82rem; color:var(--text2); font-weight:500;">Comparación de valores de venta (USD/m²)</span>
+                </div>
                 <div class="zone-view-tabs" id="price-view-tabs">
                   <button class="zone-tab-btn active" data-view="neighborhood"
                     id="price-tab-neighborhoods">Barrios</button>
                   <button class="zone-tab-btn" data-view="city" id="price-tab-cities">Ciudades</button>
                 </div>
               </div>
-              <div class="chart-wrapper" style="height: 280px;">
+              <div class="chart-wrapper horizontal-bar-wrapper" style="height: 310px;">
                 <canvas id="chart-prices"></canvas>
               </div>
               <p class="chart-explanation" id="price-chart-explanation"
@@ -479,8 +482,13 @@ export function renderAnalyticsView() {
 
             <!-- Macro vs Real ROI Projection -->
             <div class="analytics-card wide">
-              <h3>Rentabilidad Promedio vs. Referencia del Sector</h3>
-              <div class="chart-wrapper" style="height: 280px;">
+              <div class="card-header-flex" style="margin-bottom:1rem; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+                <div>
+                  <h3 style="margin-bottom:0.2rem;">Rentabilidad Promedio vs. Referencia del Sector</h3>
+                  <span class="chart-subtitle" style="display:block; font-size:0.82rem; color:var(--text2); font-weight:500;">Retorno ROI estimado (%) en comparación con el mercado</span>
+                </div>
+              </div>
+              <div class="chart-wrapper horizontal-bar-wrapper" style="height: 240px;">
                 <canvas id="chart-macro"></canvas>
               </div>
               <p class="chart-explanation"
@@ -490,8 +498,9 @@ export function renderAnalyticsView() {
 
             <!-- Distribution by type -->
             <div class="analytics-card">
-              <h3 data-i18n="chart_types_title">Distribución de Oferta por Tipo</h3>
-              <div class="chart-wrapper">
+              <h3 data-i18n="chart_types_title" style="margin-bottom:0.2rem;">Distribución de Oferta por Tipo</h3>
+              <span class="chart-subtitle" style="display:block; font-size:0.8rem; color:var(--text2); font-weight:500; margin-bottom:1rem;">Tipos de inmuebles (departamentos, casas, etc.)</span>
+              <div class="chart-wrapper" style="height: 280px;">
                 <canvas id="chart-types"></canvas>
               </div>
               <p class="chart-explanation"
@@ -501,15 +510,18 @@ export function renderAnalyticsView() {
 
             <!-- Price Range Distribution -->
             <div class="analytics-card">
-              <div class="card-header-flex" style="margin-bottom:0.8rem;">
-                <h3 data-i18n="chart_price_range_title" style="margin-bottom:0;">Distribución por Rango de Precio</h3>
+              <div class="card-header-flex" style="margin-bottom:0.8rem; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+                <div>
+                  <h3 data-i18n="chart_price_range_title" style="margin-bottom:0.2rem;">Distribución por Rango de Precio</h3>
+                  <span class="chart-subtitle" style="display:block; font-size:0.8rem; color:var(--text2); font-weight:500;">Volumen de oferta por bandas de valor (USD)</span>
+                </div>
                 <div class="zone-view-tabs" id="range-view-tabs">
                   <button class="zone-tab-btn active" data-view="neighborhood"
                     id="range-tab-neighborhoods">Barrios</button>
                   <button class="zone-tab-btn" data-view="city" id="range-tab-cities">Ciudades</button>
                 </div>
               </div>
-              <div class="chart-wrapper">
+              <div class="chart-wrapper horizontal-bar-wrapper" style="height: 310px;">
                 <canvas id="chart-ops"></canvas>
               </div>
               <p class="chart-explanation" id="range-chart-explanation"

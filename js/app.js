@@ -1093,29 +1093,21 @@ function initCharts(passedProps) {
   const chartPrices = document.getElementById('chart-prices');
   if (!chartPrices) return;
 
-  // Usa las props pasadas, o appData (nunca usar _currentFilteredProperties para el mercado total)
-  let props = passedProps;
-  if (!props || props.length === 0) {
-     props = window.appData && window.appData.properties ? window.appData.properties : [];
-  }
-  if (window.currentDataSourceFilter && window.currentDataSourceFilter !== 'all') {
-    props = props.filter(p => p.dataSource === window.currentDataSourceFilter);
-  }
-
-  // If already initialized, just update data
   if (window._analyticsCharts.initialized) {
-    updateAnalytics(props);
+    if (props && props.length) {
+      updatePriceChart(props, window._priceViewMode || 'neighborhood');
+      updateRangeChart(props, window._rangeViewMode || 'neighborhood');
+      updateNeighborhoodRanking(props, window._rankViewMode || 'neighborhood');
+    }
     return;
   }
 
   Chart.defaults.font.family = "'Outfit', sans-serif";
   Chart.defaults.color = '#64748b';
 
-  // Build dynamic zone stats from live data at startup
   const dynStats = buildDynamicZoneStats(props);
   if (Object.keys(dynStats).length) window.zoneStats = dynStats;
 
-  // --- Compute initial data (neighborhoods by default) ---
   const neighborhoodMap = {};
   props.forEach(p => {
     const zone = getPropNeighborhood(p);
@@ -1127,9 +1119,9 @@ function initCharts(passedProps) {
     .filter(([, v]) => v.count > 0)
     .map(([name, v]) => ({ name, avg: Math.round(v.total / v.count) }))
     .sort((a, b) => b.avg - a.avg).slice(0, 8);
-  const priceColors = ['#ff2a5f','#f97316','#f59e0b','#10b981','#38bdf8','#6366f1','#a855f7','#ec4899'];
 
-  // 1. Price/m² by Neighborhood (Horizontal Bar)
+  const sageGreenPalette = ['#79986a','#84a375','#8ea981','#98b08c','#a1b696','#abbc9f','#b4c2a9','#bec9b4'];
+
   window._analyticsCharts.priceChart = new Chart(chartPrices, {
     type: 'bar',
     data: {
@@ -1137,13 +1129,13 @@ function initCharts(passedProps) {
       datasets: [{
         label: 'USD/m²',
         data: zonesSorted.map(z => z.avg),
-        backgroundColor: zonesSorted.map((_, i) => priceColors[i % priceColors.length] + 'cc'),
-        borderColor: zonesSorted.map((_, i) => priceColors[i % priceColors.length]),
-        borderWidth: 1.5,
+        backgroundColor: zonesSorted.map((_, i) => sageGreenPalette[i % sageGreenPalette.length]),
+        borderColor: zonesSorted.map((_, i) => sageGreenPalette[i % sageGreenPalette.length]),
+        borderWidth: 0,
         borderRadius: 8,
         borderSkipped: false,
         barThickness: 'flex',
-        maxBarThickness: 36
+        maxBarThickness: 26
       }]
     },
     options: {
@@ -1153,16 +1145,37 @@ function initCharts(passedProps) {
       animation: { duration: 700, easing: 'easeInOutQuart' },
       plugins: {
         legend: { display: false },
-        tooltip: { callbacks: { label: ctx => ` ${window.formatPriceM2(ctx.parsed.x)}` } }
+        tooltip: {
+          backgroundColor: 'rgba(26, 36, 28, 0.95)',
+          titleFont: { family: "'Outfit', sans-serif", size: 12 },
+          bodyFont: { family: "'Outfit', sans-serif", size: 13, weight: 'bold' },
+          padding: 10,
+          cornerRadius: 8,
+          callbacks: { label: ctx => ` ${window.formatPriceM2(ctx.parsed.x)}` }
+        }
       },
       scales: {
-        x: { beginAtZero: false, grid: { color: 'rgba(0,0,0,0.04)' }, border: { display: false }, ticks: { font: { size: 10 }, callback: v => window.formatPrice(v, true) } },
-        y: { grid: { display: false }, border: { display: false }, ticks: { autoSkip: false, font: { size: 10, weight: '600' } } }
+        x: {
+          beginAtZero: true,
+          grid: { color: 'rgba(0,0,0,0.05)', borderDash: [3, 3] },
+          border: { display: false },
+          ticks: {
+            font: { family: "'Outfit', sans-serif", size: 10, weight: '500' },
+            callback: v => '$' + v
+          }
+        },
+        y: {
+          grid: { display: false },
+          border: { display: false },
+          ticks: {
+            autoSkip: false,
+            font: { family: "'Outfit', sans-serif", size: 11, weight: '600' }
+          }
+        }
       }
     }
   });
 
-  // 2. Distribution by Type (Doughnut)
   const chartTypesEl = document.getElementById('chart-types');
   const typeMap = {};
   props.forEach(p => {
@@ -1170,7 +1183,7 @@ function initCharts(passedProps) {
     typeMap[t] = (typeMap[t] || 0) + 1;
   });
   const typeEntries = Object.entries(typeMap).sort((a, b) => b[1] - a[1]).slice(0, 6);
-  const typeColors = ['#ff2a5f','#38bdf8','#10b981','#f59e0b','#6366f1','#ec4899'];
+  const typeColors = ['#84a375','#38bdf8','#f59e0b','#6366f1','#ec4899','#14b8a6'];
 
   window._analyticsCharts.typesChart = new Chart(chartTypesEl, {
     type: 'doughnut',
@@ -1195,16 +1208,7 @@ function initCharts(passedProps) {
     }
   });
 
-  // 3. Price Range Distribution (defaults to Asunción neighborhoods)
   const chartOpsEl = document.getElementById('chart-ops');
-  const initRanges = [
-    { label: '<50k', min: 0, max: 50000 },
-    { label: '50k–100k', min: 50000, max: 100000 },
-    { label: '100k–200k', min: 100000, max: 200000 },
-    { label: '200k–400k', min: 200000, max: 400000 },
-    { label: '400k–700k', min: 400000, max: 700000 },
-    { label: '>700k', min: 700000, max: Infinity }
-  ];
   window._analyticsCharts.rangeChart = new Chart(chartOpsEl, {
     type: 'bar',
     data: {
@@ -1212,47 +1216,43 @@ function initCharts(passedProps) {
       datasets: []
     },
     options: {
+      indexAxis: 'y',
       responsive: true,
       maintainAspectRatio: false,
-      animation: { duration: 900, easing: 'easeOutBounce' },
+      animation: { duration: 700, easing: 'easeInOutQuart' },
       plugins: {
-        legend: { position: 'bottom', labels: { font: { family: "'Outfit', sans-serif" }, boxWidth: 12, padding: 10 } },
+        legend: { position: 'bottom', labels: { font: { family: "'Outfit', sans-serif", size: 10, weight: '600' }, boxWidth: 10, padding: 8 } },
         tooltip: {
           mode: 'index',
           intersect: false,
           callbacks: {
             footer: (tooltipItems) => {
               let sum = 0;
-              tooltipItems.forEach(function(tooltipItem) { sum += tooltipItem.parsed.y; });
+              tooltipItems.forEach(function(tooltipItem) { sum += tooltipItem.parsed.x; });
               return 'Total: ' + sum + ' prop.';
             }
           }
         }
       },
       scales: {
-        x: { stacked: true, grid: { display: false }, border: { display: false }, ticks: { autoSkip: false } },
-        y: { stacked: true, beginAtZero: true, grid: { color: 'rgba(0,0,0,0.04)' }, border: { display: false } }
+        x: { stacked: true, beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)', borderDash: [3, 3] }, border: { display: false } },
+        y: { stacked: true, grid: { display: false }, border: { display: false }, ticks: { autoSkip: false, font: { family: "'Outfit', sans-serif", size: 11, weight: '600' } } }
       }
     }
   });
   
-  // Populate dynamically initially
   updateRangeChart(props, 'neighborhood');
 
-  // 4. Macro Projection vs Real ROI (Bar Chart)
   const chartMacro = document.getElementById('chart-macro');
   if (chartMacro) {
-    // Extract macro projected ROI from text if available, fallback to 8.5%
-    let projectedRoi = 8.5; // default
+    let projectedRoi = 8.5;
     const macroNews = window.appData ? window.appData.marketNews || [] : [];
     const textCombined = macroNews.map(n => (n.title || '') + ' ' + (n.excerpt || '')).join(' ');
-    // Look for patterns like "7% al 9%" or "8%"
     const roiMatch = textCombined.match(/(\d+(?:\.\d+)?)\s*%\s*al\s*(\d+(?:\.\d+)?)\s*%/i);
     if (roiMatch) {
       projectedRoi = (parseFloat(roiMatch[1]) + parseFloat(roiMatch[2])) / 2;
     }
     
-    // Compute Real average ROI from props
     const roiProps = props.filter(p => p.roi > 0);
     const realRoi = roiProps.length ? (roiProps.reduce((s, p) => s + p.roi, 0) / roiProps.length) : 0;
     
@@ -1263,23 +1263,26 @@ function initCharts(passedProps) {
         datasets: [{
           label: 'ROI (%)',
           data: [realRoi.toFixed(1), projectedRoi.toFixed(1)],
-          backgroundColor: ['#10b981cc', '#38bdf8cc'],
-          borderColor: ['#10b981', '#38bdf8'],
-          borderWidth: 2,
+          backgroundColor: ['#84a375', '#38bdf8'],
+          borderColor: ['#79986a', '#0284c7'],
+          borderWidth: 0,
           borderRadius: 8,
-          barThickness: 60
+          borderSkipped: false,
+          barThickness: 'flex',
+          maxBarThickness: 26
         }]
       },
       options: {
+        indexAxis: 'y',
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
           legend: { display: false },
-          tooltip: { callbacks: { label: ctx => ` ${ctx.parsed.y}%` } }
+          tooltip: { callbacks: { label: ctx => ` ${ctx.parsed.x}%` } }
         },
         scales: {
-          x: { grid: { display: false }, border: { display: false }, ticks: { font: { size: 11 }, maxRotation: 0, minRotation: 0 } },
-          y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.04)' }, border: { display: false }, ticks: { callback: v => v + '%' } }
+          x: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)', borderDash: [3, 3] }, border: { display: false }, ticks: { callback: v => v + '%' } },
+          y: { grid: { display: false }, border: { display: false }, ticks: { font: { family: "'Outfit', sans-serif", size: 11, weight: '600' } } }
         }
       }
     });
