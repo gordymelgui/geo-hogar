@@ -4811,14 +4811,6 @@ body.dark-theme .ai-suggestion-pill:hover {
 
   /* Property cards full polish on mobile */
   .property-card {
-    border-radius: 18px;
-  }
-  .prop-img-wrap {
-    aspect-ratio: 4 / 3;
-  }
-  .prop-img-wrap img {
-    height: 100%;
-    object-fit: cover;
   }
   .prop-info {
     padding: 1rem 1.1rem 1.1rem;
@@ -5871,4 +5863,114 @@ body.tour-active .view-analytics {
 .driver-popover.premium-driver-theme .driver-popover-footer .driver-popover-navigation-btns button:last-child:hover {
   transform: translateY(-2px) !important;
   box-shadow: 0 8px 20px rgba(255, 42, 95, 0.35) !important;
+}
+
+/* ===== COMPARADOR LADO A LADO ===== */
+.geo-compare-bar {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(140%);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+  border-radius: 100px;
+  padding: 8px 16px 8px 22px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  z-index: 4000;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(12px);
+}
+.geo-compare-bar.show {
+  transform: translateX(-50%) translateY(0);
+}
+.geo-compare-count {
+  font-weight: 800;
+  font-size: 0.9rem;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-compare-action {
+  background: #84a375;
+  color: white;
+  border: none;
+  border-radius: 100px;
+  padding: 8px 20px;
+  font-weight: 700;
+  font-size: 0.88rem;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(132, 163, 117, 0.4);
+  transition: transform 0.2s, background 0.2s;
+}
+.btn-compare-action:hover {
+  transform: scale(1.04);
+}
+.btn-compare-card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s ease;
+}
+.btn-compare-card.active {
+  background: #84a375;
+  color: white;
+  border-color: #84a375;
+}
+
+/* ===== MODAL DE COMPARACIÓN ===== */
+.compare-modal-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 10px 0;
+  overflow-x: auto;
+}
+.compare-modal-table th, .compare-modal-table td {
+  padding: 12px 14px;
+  background: var(--surface2);
+  border-radius: 12px;
+  vertical-align: top;
+  border: 1px solid var(--border);
+}
+.compare-modal-table th {
+  background: var(--surface);
+  text-align: left;
+  font-weight: 800;
+  font-size: 0.85rem;
+  color: var(--text2);
+  width: 150px;
+}
+
+/* Print Styles for PDF Report Export */
+@media print {
+  body * {
+    visibility: hidden !important;
+  }
+  #property-modal-overlay, #property-modal-overlay *,
+  #pdf-report-container, #pdf-report-container * {
+    visibility: visible !important;
+  }
+  #property-modal-overlay {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+  }
+  .modal-close, .btn-primary, .btn-secondary, .geo-compare-bar, nav, header, sidebar {
+    display: none !important;
+  }
 }

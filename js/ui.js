@@ -795,19 +795,25 @@ document.addEventListener('DOMContentLoaded', () => {
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
             ${prop.address}
           </div>
-          <div class="prop-features">
-            <span class="feat-chip">
-              <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-              ${prop.rooms} ${window.t('card_rooms')}
-            </span>
-            <span class="feat-chip">
-              <svg viewBox="0 0 24 24"><path d="M4 12h16M4 12a2 2 0 0 1-2-2V6h2"/><path d="M20 12v8H4v-8"/><path d="M6 12V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v6"/></svg>
-              ${prop.baths} ${window.t('card_baths')}
-            </span>
-            <span class="feat-chip">
-              <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-              ${prop.m2} ${window.t('card_m2')}
-            </span>
+          <div class="prop-features" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:4px;">
+            <div style="display:flex; gap:6px; flex-wrap:wrap;">
+              <span class="feat-chip">
+                <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                ${prop.rooms} ${window.t('card_rooms')}
+              </span>
+              <span class="feat-chip">
+                <svg viewBox="0 0 24 24"><path d="M4 12h16M4 12a2 2 0 0 1-2-2V6h2"/><path d="M20 12v8H4v-8"/><path d="M6 12V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v6"/></svg>
+                ${prop.baths} ${window.t('card_baths')}
+              </span>
+              <span class="feat-chip">
+                <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                ${prop.m2} ${window.t('card_m2')}
+              </span>
+            </div>
+            <button class="btn-compare-card ${(window._selectedCompareIds && window._selectedCompareIds.has(prop.id)) ? 'active' : ''}" onclick="event.stopPropagation(); window.toggleCompareProp(${prop.id}, this)">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="16 3 21 3 21 9"/><polyline points="8 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+              ${(window._selectedCompareIds && window._selectedCompareIds.has(prop.id)) ? 'Comparando' : 'Comparar'}
+            </button>
           </div>
         </div>
       `;
@@ -845,6 +851,138 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       showToast(isAdded ? window.t('toast_fav_added_local') : window.t('toast_fav_removed_local'));
     }
+  };
+
+  // ===== COMPARADOR LADO A LADO =====
+  window._selectedCompareIds = new Set();
+
+  window.toggleCompareProp = function(id, btnElement) {
+    if (window._selectedCompareIds.has(id)) {
+      window._selectedCompareIds.delete(id);
+      if (btnElement) {
+        btnElement.classList.remove('active');
+        btnElement.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="16 3 21 3 21 9"/><polyline points="8 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg> Comparar`;
+      }
+    } else {
+      if (window._selectedCompareIds.size >= 4) {
+        if (window.showToast) window.showToast('Puedes comparar hasta 4 propiedades simultáneamente', 'error');
+        return;
+      }
+      window._selectedCompareIds.add(id);
+      if (btnElement) {
+        btnElement.classList.add('active');
+        btnElement.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="16 3 21 3 21 9"/><polyline points="8 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg> Comparando`;
+      }
+    }
+    updateCompareBar();
+  };
+
+  function updateCompareBar() {
+    let bar = document.getElementById('geo-compare-bar');
+    if (!bar) {
+      bar = document.createElement('div');
+      bar.id = 'geo-compare-bar';
+      bar.className = 'geo-compare-bar';
+      document.body.appendChild(bar);
+    }
+
+    const count = window._selectedCompareIds.size;
+    if (count === 0) {
+      bar.classList.remove('show');
+      return;
+    }
+
+    bar.innerHTML = `
+      <div class="geo-compare-count">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#84a375" stroke-width="2.5"><polyline points="16 3 21 3 21 9"/><polyline points="8 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        <span>${count}/4 Inmuebles seleccionados</span>
+      </div>
+      <button class="btn-compare-action" onclick="window.openCompareModal()">Comparar Lado a Lado</button>
+      <button onclick="window._selectedCompareIds.clear(); window.updateCompareBar(); if(window.renderProperties) window.renderProperties(window._currentFilteredProperties || window.appData.properties);" style="background:none; border:none; color:var(--text2); font-size:0.8rem; font-weight:700; cursor:pointer;">Limpiar</button>
+    `;
+    bar.classList.add('show');
+  }
+  window.updateCompareBar = updateCompareBar;
+
+  window.openCompareModal = function() {
+    const ids = Array.from(window._selectedCompareIds);
+    if (ids.length === 0) return;
+    const allProps = window.appData?.properties || [];
+    const props = ids.map(id => allProps.find(p => p.id === id)).filter(Boolean);
+
+    let modalOverlay = document.getElementById('compare-modal-overlay');
+    if (!modalOverlay) {
+      modalOverlay = document.createElement('div');
+      modalOverlay.id = 'compare-modal-overlay';
+      modalOverlay.className = 'modal-overlay hidden';
+      document.body.appendChild(modalOverlay);
+    }
+
+    modalOverlay.innerHTML = `
+      <div class="modal-card" style="max-width: 1080px; width: 95vw; padding: 2rem;">
+        <button class="modal-close" onclick="document.getElementById('compare-modal-overlay').classList.add('hidden')">&times;</button>
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:1.5rem;">
+          <div>
+            <h2 style="margin:0; font-size:1.4rem; font-weight:800; color:var(--text);">Comparador Lado a Lado de Propiedades</h2>
+            <p style="margin:4px 0 0 0; font-size:0.85rem; color:var(--text2);">Análisis comparativo unificado de m², ROI, expensas y precios</p>
+          </div>
+          <button class="btn-primary" onclick="window.print()" style="background:#84a375; border:none; display:flex; align-items:center; gap:6px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Exportar Informe PDF
+          </button>
+        </div>
+
+        <div style="overflow-x:auto;">
+          <table class="compare-modal-table">
+            <thead>
+              <tr>
+                <th>Característica</th>
+                ${props.map(p => `
+                  <td style="min-width:200px; text-align:center;">
+                    <img src="${p.img}" style="width:100%; height:130px; object-fit:cover; border-radius:12px; margin-bottom:8px;">
+                    <strong style="display:block; font-size:0.95rem; color:var(--text);">${p.title}</strong>
+                    <span style="font-size:0.8rem; color:var(--text2);">${p.address}</span>
+                  </td>
+                `).join('')}
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>Precio Total</th>
+                ${props.map(p => `<td style="font-weight:800; font-size:1.1rem; color:var(--accent); text-align:center;">${window.formatPrice(p.price)}</td>`).join('')}
+              </tr>
+              <tr>
+                <th>Precio / m²</th>
+                ${props.map(p => `<td style="font-weight:700; text-align:center;">${window.formatPriceM2(p.priceM2 || Math.round(p.price / (p.m2 || 1)))}</td>`).join('')}
+              </tr>
+              <tr>
+                <th>Superficie</th>
+                ${props.map(p => `<td style="font-weight:700; text-align:center;">${p.m2} m²</td>`).join('')}
+              </tr>
+              <tr>
+                <th>Dormitorios / Baños</th>
+                ${props.map(p => `<td style="text-align:center;">${p.rooms} dorm. | ${p.baths} baños</td>`).join('')}
+              </tr>
+              <tr>
+                <th>ROI Estimativo</th>
+                ${props.map(p => `<td style="font-weight:800; color:#10b981; text-align:center;">${p.roi ? p.roi + '%' : '6.5% est.'}</td>`).join('')}
+              </tr>
+              <tr>
+                <th>Expensas Estimadas</th>
+                ${props.map(p => `<td style="text-align:center;">${window.formatPrice(p.expensas || Math.round(p.m2 * 1.2))} / mes</td>`).join('')}
+              </tr>
+              <tr>
+                <th>Tipo y Fuente</th>
+                ${props.map(p => `<td style="font-size:0.8rem; color:var(--text2); text-align:center;">${p.type} (${p.op})<br><span class="clean-badge badge-type" style="margin-top:4px;">${p.dataSource || 'Radar'}</span></td>`).join('')}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `;
+
+    modalOverlay.classList.remove('hidden');
+    modalOverlay.classList.add('active');
   };
 
   function updateFavBadges() {
@@ -1231,6 +1369,22 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         phoneBtn.style.display = 'none';
       }
+    }
+
+    // Exportar Ficha PDF de la propiedad
+    let modalPdfBtn = document.getElementById('modal-pdf-export-btn');
+    if (!modalPdfBtn) {
+      modalPdfBtn = document.createElement('button');
+      modalPdfBtn.id = 'modal-pdf-export-btn';
+      modalPdfBtn.className = 'btn-secondary';
+      modalPdfBtn.style.cssText = 'display:flex; align-items:center; justify-content:center; gap:6px; width:100%; border-radius:12px; padding:10px; font-weight:700; background:var(--surface2); border:1px solid var(--border); color:var(--text); font-size:0.9rem; cursor:pointer; margin-top:8px;';
+      if (whatsappBtn && whatsappBtn.parentNode) {
+        whatsappBtn.parentNode.appendChild(modalPdfBtn);
+      }
+    }
+    if (modalPdfBtn) {
+      modalPdfBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Exportar Ficha PDF`;
+      modalPdfBtn.onclick = () => window.print();
     }
 
     // Mini mapa del modal
