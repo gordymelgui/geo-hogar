@@ -3877,6 +3877,62 @@ window.startBrokerTour = function() {
       }
       return;
     }
+
+    // 9. Delegation for Feed Toggle & Radar PRO Buttons (Anuncios Comunidad vs Radar de Oportunidades PRO)
+    const feedToggleScraped = e.target.closest('#feed-toggle-scraped, #map-toggle-scraped, .feed-toggle-btn[data-source="scraped"]');
+    if (feedToggleScraped) {
+      e.preventDefault();
+      const isPremium = !!(window.currentUserProfile && window.currentUserProfile.isPremium);
+      if (!isPremium) {
+        if (typeof window.showPremiumPaywall === 'function') {
+          window.showPremiumPaywall();
+        }
+        return; // Always launch premium paywall modal for non-premium users
+      }
+      
+      // If user is premium:
+      window.currentFeedSource = 'scraped';
+      const organicBtn = document.getElementById('feed-toggle-organic');
+      const scrapedBtn = document.getElementById('feed-toggle-scraped');
+      if (organicBtn && scrapedBtn) {
+        organicBtn.classList.remove('active');
+        scrapedBtn.classList.add('active');
+      }
+
+      const mapOrgBtn = document.getElementById('map-toggle-organic');
+      const mapScrBtn = document.getElementById('map-toggle-scraped');
+      if (mapOrgBtn && mapScrBtn) {
+        mapOrgBtn.classList.remove('active');
+        mapScrBtn.classList.add('active');
+      }
+
+      if (typeof window.applyExploreFilters === 'function') window.applyExploreFilters(true);
+      if (typeof window.filterMapMarkers === 'function') window.filterMapMarkers(window._currentMapCriteria || {});
+      return;
+    }
+
+    const feedToggleOrganic = e.target.closest('#feed-toggle-organic, #map-toggle-organic, .feed-toggle-btn[data-source="organic"]');
+    if (feedToggleOrganic) {
+      e.preventDefault();
+      window.currentFeedSource = 'organic';
+      const organicBtn = document.getElementById('feed-toggle-organic');
+      const scrapedBtn = document.getElementById('feed-toggle-scraped');
+      if (organicBtn && scrapedBtn) {
+        organicBtn.classList.add('active');
+        scrapedBtn.classList.remove('active');
+      }
+
+      const mapOrgBtn = document.getElementById('map-toggle-organic');
+      const mapScrBtn = document.getElementById('map-toggle-scraped');
+      if (mapOrgBtn && mapScrBtn) {
+        mapOrgBtn.classList.add('active');
+        mapScrBtn.classList.remove('active');
+      }
+
+      if (typeof window.applyExploreFilters === 'function') window.applyExploreFilters(true);
+      if (typeof window.filterMapMarkers === 'function') window.filterMapMarkers(window._currentMapCriteria || {});
+      return;
+    }
   });
 
   // ===== LISTENERS DE CICLO DE VIDA PARA SECCIONES =====
