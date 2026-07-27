@@ -3758,6 +3758,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (typeof updateAnalytics === 'function' && window.appData?.properties) {
           updateAnalytics(window.appData.properties);
         }
+        if (typeof window.syncAnalyticsDashboardView === 'function') {
+          window.syncAnalyticsDashboardView();
+        }
       }
       return;
     }
