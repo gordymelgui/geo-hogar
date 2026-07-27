@@ -3180,21 +3180,25 @@ document.addEventListener('DOMContentLoaded', () => {
         if (typeof window.refreshLeadsView === 'function') window.refreshLeadsView();
 
         // Toggle Macro Dashboard
-        if (containerId === 'analytics-source-tabs') {
-          const standardContent = document.getElementById('standard-analytics-content');
-          const macroDashboard = document.getElementById('macro-intelligence-dashboard');
-          if (window.currentDataSourceFilter === 'official') {
-            if (standardContent) standardContent.style.display = 'none';
-            if (macroDashboard) macroDashboard.style.display = 'block';
-            initMacroDashboard();
-          } else {
-            if (standardContent) standardContent.style.display = 'block';
-            if (macroDashboard) macroDashboard.style.display = 'none';
-          }
-        }
+        window.syncAnalyticsDashboardView();
       });
     });
   }
+
+  window.syncAnalyticsDashboardView = function() {
+    const standardContent = document.getElementById('standard-analytics-content');
+    const macroDashboard = document.getElementById('macro-intelligence-dashboard');
+    if (!standardContent || !macroDashboard) return;
+
+    if (window.currentDataSourceFilter === 'official') {
+      standardContent.style.display = 'none';
+      macroDashboard.style.display = 'block';
+      initMacroDashboard();
+    } else {
+      standardContent.style.display = 'block';
+      macroDashboard.style.display = 'none';
+    }
+  };
 
   let macroIedChartInstance = null;
   let macroRoiChartInstance = null;
@@ -3823,6 +3827,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   window.addEventListener('view:analytics:loaded', () => {
+    if (typeof window.syncAnalyticsDashboardView === 'function') {
+      window.syncAnalyticsDashboardView();
+    }
     if (typeof updateAnalytics === 'function' && window.appData?.properties) {
       updateAnalytics(window.appData.properties);
     }

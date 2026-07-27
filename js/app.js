@@ -575,7 +575,7 @@ window._analyticsCharts = { initialized: false, priceChart: null, typesChart: nu
 function updateAnalyticsKPIs(props) {
   // Always use all properties for the market overview
   let allProps = window.appData ? window.appData.properties : [];
-  if (window.currentDataSourceFilter && window.currentDataSourceFilter !== 'all') {
+  if (window.currentDataSourceFilter && window.currentDataSourceFilter !== 'all' && window.currentDataSourceFilter !== 'official') {
     allProps = allProps.filter(p => p.dataSource === window.currentDataSourceFilter);
   }
   props = allProps;
@@ -743,7 +743,7 @@ window._rankViewMode = 'neighborhood';
 function updateAnalytics(props) {
   // Use all properties for the market overview, but respect the dataSource layer filter
   let allProps = window.appData ? window.appData.properties : [];
-  if (window.currentDataSourceFilter && window.currentDataSourceFilter !== 'all') {
+  if (window.currentDataSourceFilter && window.currentDataSourceFilter !== 'all' && window.currentDataSourceFilter !== 'official') {
     allProps = allProps.filter(p => p.dataSource === window.currentDataSourceFilter);
   }
   props = allProps;
