@@ -45,7 +45,7 @@ export function renderAnalyticsView() {
               </svg>
               <h3 style="margin:0;font-size:1.3rem;font-weight:800;" data-i18n="macro_intel_title">Inteligencia Macro (Paraguay)</h3>
             </div>
-            <p class="macro-subtitle" style="margin:5px 0 0 0;color:var(--text2);font-size:0.9rem;">Datos oficiales para
+            <p class="macro-subtitle" style="margin:5px 0 0 0;color:var(--text2);font-size:0.9rem;" data-i18n="macro_subtitle">Datos oficiales para
               toma de decisiones y validación de inversiones.</p>
           </div>
 
@@ -56,7 +56,7 @@ export function renderAnalyticsView() {
                   <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
                   <polyline points="17 6 23 6 23 12" />
                 </svg></div>
-              <h4>IED Inmobiliaria</h4>
+              <h4 data-i18n="macro_ied_title">IED Inmobiliaria</h4>
               <div class="macro-value">USD 931M</div>
               <p class="macro-trend positive">+15% vs 2023</p>
             </div>
@@ -66,9 +66,9 @@ export function renderAnalyticsView() {
                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
                 </svg></div>
-              <h4>Rentabilidad Forbes</h4>
+              <h4 data-i18n="macro_forbes_title">Rentabilidad Forbes</h4>
               <div class="macro-value">7.5% - 9%</div>
-              <p class="macro-desc">ROI bruto anual (USD)</p>
+              <p class="macro-desc" data-i18n="macro_forbes_desc">ROI bruto anual (USD)</p>
             </div>
 
             <div class="macro-card" id="card-moody">
@@ -76,7 +76,7 @@ export function renderAnalyticsView() {
                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                 </svg></div>
-              <h4>Grado Inversión</h4>
+              <h4 data-i18n="macro_moody_title">Grado Inversión</h4>
               <div class="macro-value" id="val-moody">Baa3</div>
               <p class="macro-desc">Moody's (Grado de Inversión)</p>
             </div>
@@ -89,7 +89,7 @@ export function renderAnalyticsView() {
                   <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
                   <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                 </svg></div>
-              <h4>Precio Promedio M²</h4>
+              <h4 data-i18n="macro_avg_m2_title">Precio Promedio M²</h4>
               <div class="macro-value">$1,385</div>
               <p class="macro-desc">Asunción (Crecimiento +4%)</p>
             </div>
@@ -102,7 +102,7 @@ export function renderAnalyticsView() {
                   <line x1="18" y1="20" x2="18" y2="4" />
                   <line x1="6" y1="20" x2="6" y2="16" />
                 </svg></div>
-              <h4>Crecimiento PIB</h4>
+              <h4 data-i18n="macro_gdp_title">Crecimiento PIB</h4>
               <div class="macro-value" id="val-gdp">--%</div>
               <p class="macro-desc">Banco Mundial</p>
             </div>
@@ -113,7 +113,7 @@ export function renderAnalyticsView() {
                   <circle cx="12" cy="12" r="10" />
                   <polyline points="12 6 12 12 16 14" />
                 </svg></div>
-              <h4>Inflación IPC</h4>
+              <h4 data-i18n="macro_inflation_title">Inflación IPC</h4>
               <div class="macro-value" id="val-inflation">--%</div>
               <p class="macro-desc">Meta BCP (Banco Mundial)</p>
             </div>
@@ -125,7 +125,7 @@ export function renderAnalyticsView() {
                   <path d="M12 1v22" />
                   <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
                 </svg>
-                Cotizaciones
+                <span data-i18n="macro_quotes_title">Cotizaciones</span>
               </h4>
               <div style="display: flex; flex-direction: column; gap: 6px; font-size: 0.9rem;">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -135,10 +135,6 @@ export function renderAnalyticsView() {
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                   <span style="color: var(--text2); font-weight: 600;">🇪🇺 EUR</span>
                   <span id="val-eur" style="font-weight: 800; color: var(--text);">--</span>
-                </div>
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                  <span style="color: var(--text2); font-weight: 600;">🇧🇷 BRL</span>
-                  <span id="val-brl" style="font-weight: 800; color: var(--text);">--</span>
                 </div>
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                   <span style="color: var(--text2); font-weight: 600;">🇧🇷 BRL</span>

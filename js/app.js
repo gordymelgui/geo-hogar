@@ -808,7 +808,7 @@ function updatePriceChart(props, mode) {
       window._analyticsCharts.priceChart.data.datasets[0].backgroundColor = zonesSorted.map((_, i) => themePalette[i % themePalette.length]);
       window._analyticsCharts.priceChart.data.datasets[0].borderColor = zonesSorted.map((_, i) => themePalette[i % themePalette.length]);
     } else {
-      window._analyticsCharts.priceChart.data.labels = ['Sin datos'];
+      window._analyticsCharts.priceChart.data.labels = [window.t ? window.t('chart_no_data') : 'Sin datos'];
       window._analyticsCharts.priceChart.data.datasets[0].data = [0];
     }
     window._analyticsCharts.priceChart.update('active');
@@ -817,9 +817,11 @@ function updatePriceChart(props, mode) {
   // Update explanation text
   const expEl = document.getElementById('price-chart-explanation');
   if (expEl) {
-    expEl.textContent = mode === 'city'
-      ? 'Precio promedio por m² en cada ciudad del área metropolitana de Paraguay.'
-      : 'Precio promedio por m² de los barrios más activos. Ideal para detectar zonas subvaluadas.';
+    expEl.textContent = window.t
+      ? window.t(mode === 'city' ? 'price_chart_exp_cities' : 'price_chart_exp_barrios')
+      : (mode === 'city'
+        ? 'Precio promedio por m² en cada ciudad del área metropolitana de Paraguay.'
+        : 'Precio promedio por m² de los barrios más activos. Ideal para detectar zonas subvaluadas.');
   }
 }
 
@@ -891,9 +893,10 @@ function updateRangeChart(props, mode) {
       window._analyticsCharts.rangeChart.data.labels = ranges.map(r => r.label);
       window._analyticsCharts.rangeChart.data.datasets = Object.values(datasetsMap);
     } else {
-      window._analyticsCharts.rangeChart.data.labels = ['Sin datos'];
+      const noDataStr = window.t ? window.t('chart_no_data') : 'Sin datos';
+      window._analyticsCharts.rangeChart.data.labels = [noDataStr];
       window._analyticsCharts.rangeChart.data.datasets = [{
-        label: 'Sin datos',
+        label: noDataStr,
         data: [0],
         backgroundColor: '#cbd5e1'
       }];
@@ -907,9 +910,11 @@ function updateRangeChart(props, mode) {
 
   const expEl = document.getElementById('range-chart-explanation');
   if (expEl) {
-    expEl.textContent = mode === 'city'
-      ? 'Distribución de propiedades en venta por rango de precio, desglosado por ciudades.'
-      : 'Distribución de propiedades en venta en Asunción por rango de precio (USD), desglosado por barrios.';
+    expEl.textContent = window.t
+      ? window.t(mode === 'city' ? 'range_chart_exp_cities' : 'range_chart_exp_barrios')
+      : (mode === 'city'
+        ? 'Distribución de propiedades en venta por rango de precio, desglosado por ciudades.'
+        : 'Distribución de propiedades en venta en Asunción por rango de precio (USD), desglosado por barrios.');
   }
 }
 
@@ -1029,7 +1034,9 @@ function updateNeighborhoodRanking(props, viewMode) {
   
   const titleEl = document.getElementById('ranking-section-title');
   if (titleEl) {
-    titleEl.textContent = mode === 'city' ? 'Ranking de Ciudades' : 'Ranking de Barrios';
+    titleEl.textContent = window.t
+      ? window.t(mode === 'city' ? 'rank_cities_title' : 'rank_barrios_title')
+      : (mode === 'city' ? 'Ranking de Ciudades' : 'Ranking de Barrios');
   }
 
   const zoneMap = {};
@@ -1077,7 +1084,7 @@ function updateNeighborhoodRanking(props, viewMode) {
       const rentStr = e.avgRent > 0 ? window.formatPrice(e.avgRent) : '---';
       subtext = window.t ? window.t('ranking_avg_rent', { amount: rentStr }) : `Alquiler prom: USD ${rentStr}/mes`;
     } else {
-      subtext = `${e.count} prop. registradas`;
+      subtext = window.t ? window.t('ranking_props_registered', { count: e.count }) : `${e.count} prop. registradas`;
     }
 
     let displayName = e.name;
