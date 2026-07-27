@@ -4795,10 +4795,16 @@ body.dark-theme #profile-logout-btn {
 /* ===== BROKER PRO: scroll & layout fix ===== */
 #view-broker { padding-bottom: 80px !important; }
 #view-broker .broker-content-wrapper { padding-top: 0; }
+.val-card-container { padding: 2rem; margin-bottom: 1.8rem; width: 100%; box-sizing: border-box; }
+.val-result-card { padding: 1.5rem; width: 100%; box-sizing: border-box; }
+
 @media (max-width: 768px) {
-  #view-broker { padding: 1.2rem 1rem 90px 1rem !important; }
-  .broker-kpi-strip { grid-template-columns: repeat(2, 1fr); }
-  .broker-main-title { font-size: 1.6rem !important; }
+  #view-broker { padding: 0.5rem 0.5rem 90px 0.5rem !important; width: 100% !important; box-sizing: border-box !important; }
+  #view-broker .broker-content-wrapper { padding: 0.5rem 0 80px 0 !important; max-width: 100% !important; width: 100% !important; box-sizing: border-box !important; }
+  .val-card-container { padding: 1rem 0.8rem !important; margin-bottom: 1rem !important; border-radius: 16px !important; }
+  .val-result-card { padding: 1rem 0.8rem !important; border-radius: 16px !important; }
+  .broker-kpi-strip { grid-template-columns: repeat(2, 1fr); gap: 8px !important; }
+  .broker-main-title { font-size: 1.5rem !important; }
 }
 
 /* ===== AI ASSISTANT DARK MODE ===== */

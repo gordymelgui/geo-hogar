@@ -11,7 +11,7 @@ function renderValuationTab() {
   if (!container) return;
 
   container.innerHTML = `
-    <div class="glass-card stagger-in" style="padding:2.5rem;margin-bottom:2rem;">
+    <div class="glass-card stagger-in val-card-container">
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;">
         <div style="width:50px;height:50px;border-radius:14px;background:rgba(255,42,95,0.1);display:flex;align-items:center;justify-content:center;">
           <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><line x1="8" y1="16" x2="8" y2="16.01"/><line x1="16" y1="16" x2="16" y2="16.01"/></svg>
@@ -249,7 +249,7 @@ function displayValuationResult(type, op, address, m2, rooms, baths, stats, aiAn
 
   resultDiv.style.display = 'block';
   resultDiv.innerHTML = `
-    <div class="glass-card stagger-in" style="padding:1.2rem;border-top:4px solid var(--accent);width:100%;box-sizing:border-box;">
+    <div class="glass-card stagger-in val-result-card" style="border-top:4px solid var(--accent);width:100%;box-sizing:border-box;">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.2rem;flex-wrap:wrap;gap:0.8rem;">
         <div style="max-width:100%;min-width:0;">
           <div style="font-size:0.75rem;font-weight:800;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Tasación Estimada</div>
