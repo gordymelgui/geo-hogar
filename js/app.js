@@ -44,8 +44,29 @@ window.fixMojibake = function(text) {
   return fixed;
 };
 
+window.resetAppSessionState = function() {
+  try {
+    document.querySelectorAll('.sidebar-settings-accordion').forEach(el => el.removeAttribute('open'));
+
+    const globalSearch = document.getElementById('global-search');
+    if (globalSearch) globalSearch.value = '';
+
+    const fType = document.getElementById('f-type'); if (fType) fType.value = '';
+    const fCity = document.getElementById('f-city'); if (fCity) fCity.value = '';
+    const fPmin = document.getElementById('f-pmin'); if (fPmin) fPmin.value = '';
+    const fPmax = document.getElementById('f-pmax'); if (fPmax) fPmax.value = '';
+    const fMmin = document.getElementById('f-mmin'); if (fMmin) fMmin.value = '';
+
+    document.getElementById('filter-panel')?.classList.add('hidden');
+
+    sessionStorage.removeItem('geohogar_temp_search');
+    sessionStorage.removeItem('geohogar_active_filters');
+  } catch (e) {}
+};
+
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialize Global App State safely since data.js is removed
+  window.resetAppSessionState();
+
   if (!window.appData) {
     window.appData = {
       properties: [],
@@ -60,7 +81,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Filter Apply
   document.getElementById('filter-apply')?.addEventListener('click', () => {
-    // Sincronizar visualmente los tags rápidos (cat-btn) con lo seleccionado en f-type
     const fType = document.getElementById('f-type');
     if (fType) {
       document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
@@ -73,9 +93,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (window.applyExploreFilters) {
       window.applyExploreFilters(true);
     }
-    filterPanel.classList.add('hidden');
+    if (filterPanel) filterPanel.classList.add('hidden');
     const count = window._currentFilteredProperties ? window._currentFilteredProperties.length : 0;
-    showToast(window.t('toast_props_found', { count: count }));
+    if (window.showToast) window.showToast(window.t('toast_props_found', { count: count }) || `Filtros aplicados (${count} resultados)`);
   });
 
   window.clearAllFilters = () => {

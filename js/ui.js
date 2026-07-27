@@ -558,12 +558,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const triggerSearchLead = () => {
       const val = globalSearch.value.trim();
       
-      // Intentar centrar en el mapa
+      const filterPanel = document.getElementById('filter-panel');
+      if (filterPanel && !filterPanel.classList.contains('hidden')) {
+        filterPanel.classList.add('hidden');
+      }
+      globalSearch.blur();
+
       if (window.smartCenterMap && val) {
          window.smartCenterMap(val);
       }
       
-      // Solo registrar lead si hay sentido en la búsqueda (ej: >= 3 chars y contiene vocales)
+      const count = window._currentFilteredProperties ? window._currentFilteredProperties.length : 0;
+      if (val && window.showToast) {
+        window.showToast(window.t('toast_props_found', { count: count }) || `Búsqueda activada (${count} resultados)`);
+      }
+
       if (val.length >= 3 && /[aeiouáéíóú]/i.test(val)) {
         if (window.firebaseAuth && window.firebaseDb) {
           const u = window.firebaseAuth.currentUser;
