@@ -3685,23 +3685,7 @@ window.startBrokerTour = function() {
   }
 };
 
-// Autostart fallback just in case
-document.addEventListener('DOMContentLoaded', () => {
-  // Inject the button to open modal if it's missing (though it shouldn't be)
-  if (!document.getElementById('nav-tour')) {
-    const glossaryBtn = document.getElementById('nav-glossary')?.parentElement;
-    if (glossaryBtn) {
-      const tourLi = document.createElement('li');
-      tourLi.innerHTML = `<a href="#" class="sidebar-link" id="nav-tour" onclick="const overlay = document.getElementById('tour-selection-overlay'); if(overlay) { overlay.classList.remove('hidden'); overlay.classList.add('active'); }">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 22px; height: 22px; margin-right: 12px; flex-shrink: 0; transition: transform 0.2s;">
-            <polygon points="5 3 19 12 5 21 5 3"></polygon>
-          </svg>
-          <span style="color:#10b981; font-weight:700;">Iniciar Tutorial</span>
-        </a>`;
-      glossaryBtn.insertAdjacentElement('afterend', tourLi);
-    }
-  }
-});
+
 
 
   // ===== DELEGACIÓN GLOBAL DE EVENTOS PARA SUB-TABS Y SECCIONES SPA =====
