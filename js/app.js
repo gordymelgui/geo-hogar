@@ -791,7 +791,7 @@ function updatePriceChart(props, mode) {
   const priceColors = ['#ff2a5f','#f97316','#f59e0b','#10b981','#38bdf8','#6366f1','#a855f7','#ec4899','#14b8a6','#fb7185'];
   if (window._analyticsCharts.priceChart) {
     if (zonesSorted.length > 0) {
-      window._analyticsCharts.priceChart.data.labels = zonesSorted.map(z => z.name);
+      window._analyticsCharts.priceChart.data.labels = zonesSorted.map(z => window.fixUtf8Encoding ? window.fixUtf8Encoding(z.name) : z.name);
       window._analyticsCharts.priceChart.data.datasets[0].data = zonesSorted.map(z => z.avg);
       window._analyticsCharts.priceChart.data.datasets[0].backgroundColor = zonesSorted.map((_, i) => priceColors[i % priceColors.length] + 'cc');
       window._analyticsCharts.priceChart.data.datasets[0].borderColor = zonesSorted.map((_, i) => priceColors[i % priceColors.length]);
@@ -842,8 +842,9 @@ function updateRangeChart(props, mode) {
 
   const datasetsMap = {};
   topZones.forEach((z, i) => {
+    const cleanLabel = window.fixUtf8Encoding ? window.fixUtf8Encoding(z) : z;
     datasetsMap[z] = {
-      label: z,
+      label: cleanLabel,
       data: Array(ranges.length).fill(0),
       backgroundColor: priceColors[i % priceColors.length],
       borderRadius: 4,
@@ -852,9 +853,10 @@ function updateRangeChart(props, mode) {
     };
   });
 
+  const otrosLabel = window.t ? window.t('chart_other') : 'Otros';
   if (sortedZones.length > 6) {
     datasetsMap['Otros'] = {
-      label: 'Otros',
+      label: otrosLabel !== 'chart_other' ? otrosLabel : 'Otros',
       data: Array(ranges.length).fill(0),
       backgroundColor: '#cbd5e1',
       borderRadius: 4,

@@ -58,6 +58,20 @@ const translations = {
     theme_mode: "Tema Visual",
     user_status_connected: "Conectado",
     nav_tour: "Iniciar Tutorial",
+    sidebar_start_tutorial: "Iniciar Tutorial",
+    tab_barrios: "Barrios",
+    tab_ciudades: "Ciudades",
+    cat_tinglado: "Tinglado o Depósito",
+    cat_comercial: "Comercial",
+    cat_edificio: "Edificio",
+    cat_quinta: "Quinta",
+    chart_prices_subtitle: "Comparación de valores de venta (USD/m²)",
+    chart_types_subtitle: "Tipos de inmuebles (departamentos, casas, etc.)",
+    chart_types_desc: "Proporción de tipos de propiedades en el mercado (casas, departamentos, terrenos, etc.).",
+    chart_range_subtitle: "Volumen de oferta por bandas de valor (USD)",
+    chart_macro_title: "Rentabilidad Promedio vs. Referencia del Sector",
+    chart_macro_subtitle: "Retorno ROI estimado (%) en comparación con el mercado",
+    chart_macro_desc: "Compara el retorno promedio estimado de las propiedades en la app vs. referencias externas del mercado regional.",
     glossary_roi_title: "ROI (Retorno de Inversión)",
     glossary_roi_desc: "Mide la rentabilidad anual bruta estimada del alquiler en relación al precio de compra de la propiedad. Fórmula: (Alquiler Mensual × 12) / Precio de Compra. Un ROI mayor al 7.0% anual se considera un rendimiento alto y óptimo para inversiones inmobiliarias en Paraguay.",
     glossary_low_value_title: "Bajo Valor de Mercado (Oportunidad)",
@@ -644,6 +658,20 @@ const translations = {
     theme_mode: "Visual Theme",
     user_status_connected: "Connected",
     nav_tour: "Start Tutorial",
+    sidebar_start_tutorial: "Start Tutorial",
+    tab_barrios: "Neighborhoods",
+    tab_ciudades: "Cities",
+    cat_tinglado: "Warehouse & Storage",
+    cat_comercial: "Commercial Property",
+    cat_edificio: "Full Building",
+    cat_quinta: "Country House / Quinta",
+    chart_prices_subtitle: "Comparison of sale prices (USD/sqm)",
+    chart_types_subtitle: "Property types (apartments, houses, etc.)",
+    chart_types_desc: "Proportion of property types in the market (houses, apartments, land, etc.).",
+    chart_range_subtitle: "Supply volume by price range (USD)",
+    chart_macro_title: "Average Yield vs. Sector Benchmark",
+    chart_macro_subtitle: "Estimated ROI yield (%) compared to the market",
+    chart_macro_desc: "Compares estimated app property returns against regional market benchmarks.",
     glossary_roi_title: "ROI (Return on Investment)",
     glossary_roi_desc: "Measures the estimated annual gross rental yield relative to the property's purchase price. Formula: (Monthly Rent × 12) / Purchase Price. An ROI over 7.0% per year is considered high and optimal for real estate investments in Paraguay.",
     glossary_low_value_title: "Below Market Value (Opportunity)",
@@ -1246,6 +1274,20 @@ const translations = {
     theme_mode: "Visuelles Thema",
     user_status_connected: "Verbunden",
     nav_tour: "Tutorial starten",
+    sidebar_start_tutorial: "Tutorial starten",
+    tab_barrios: "Stadtteile",
+    tab_ciudades: "Städte",
+    cat_tinglado: "Gewerbe / Lagerhalle",
+    cat_comercial: "Gewerbeimmobilie",
+    cat_edificio: "Gebäude",
+    cat_quinta: "Landhaus / Quinta",
+    chart_prices_subtitle: "Vergleich der Verkaufspreise (USD/m²)",
+    chart_types_subtitle: "Immobilientypen (Wohnungen, Häuser, etc.)",
+    chart_types_desc: "Anteil der Immobilientypen auf dem Markt (Häuser, Wohnungen, Grundstücke, etc.).",
+    chart_range_subtitle: "Angebotsvolumen nach Preisklassen (USD)",
+    chart_macro_title: "Durchschnittliche Rendite vs. Branchen-Benchmark",
+    chart_macro_subtitle: "Geschätzte ROI-Rendite (%) im Vergleich zum Gesamtmarkt",
+    chart_macro_desc: "Vergleicht die geschätzte Rendite der App-Immobilien mit externen regionalen Markt-Benchmarks.",
     glossary_roi_title: "ROI (Return on Investment)",
     glossary_roi_desc: "Misst die geschätzte jährliche Bruttomietrendite im Verhältnis zum Kaufpreis der Immobilie. Formel: (Monatsmiete × 12) / Kaufpreis. Ein ROI von über 7,0 % pro Jahr gilt als hoch und optimal für Immobilieninvestitionen in Paraguay.",
     glossary_low_value_title: "Unter Marktwert (Gelegenheit)",
@@ -1845,9 +1887,22 @@ const translations = {
     val_field_rooms: "DORMITÓRIOS",
     val_field_baths: "BANHEIROS",
     val_calc_btn: "Calcular Avaliação com IA",
-    theme_mode: "Tema Visual",
     user_status_connected: "Conectado",
     nav_tour: "Iniciar Tutorial",
+    sidebar_start_tutorial: "Iniciar Tutorial",
+    tab_barrios: "Bairros",
+    tab_ciudades: "Cidades",
+    cat_tinglado: "Galpão / Depósito",
+    cat_comercial: "Imóvel Comercial",
+    cat_edificio: "Edifício",
+    cat_quinta: "Sítio / Quinta",
+    chart_prices_subtitle: "Comparação de valores de venda (USD/m²)",
+    chart_types_subtitle: "Tipos de imóveis (apartamentos, casas, etc.)",
+    chart_types_desc: "Proporção de tipos de propriedades no mercado (casas, apartamentos, terrenos, etc.).",
+    chart_range_subtitle: "Volume de oferta por faixas de preço (USD)",
+    chart_macro_title: "Rentabilidade Média vs. Referência do Setor",
+    chart_macro_subtitle: "Retorno ROI estimado (%) em comparação com o mercado",
+    chart_macro_desc: "Compara o retorno médio estimado das propriedades no app vs. referências externas do mercado regional.",
     glossary_roi_title: "ROI (Retorno sobre Investimento)",
     glossary_roi_desc: "Mede o rendimento bruto anual estimado de aluguel em relação ao preço de compra do imóvel. Fórmula: (Aluguel Mensal × 12) / Preço de Compra. Um ROI superior a 7,0% ao ano é considerado alto e ideal para investimentos imobiliários no Paraguai.",
     glossary_low_value_title: "Abaixo do Valor de Mercado (Oportunidade)",
@@ -2412,8 +2467,40 @@ window.t = function(key, variables = {}) {
   return text;
 };
 
+window.fixUtf8Encoding = function(str) {
+  if (!str || typeof str !== 'string') return str || '';
+  return str
+    .replace(/Ã'|Ã±|Ã‘|Ã‘/g, 'Ñ')
+    .replace(/Ã‘/g, 'Ñ')
+    .replace(/Ã±/g, 'ñ')
+    .replace(/Ã¡/g, 'á')
+    .replace(/Ã©/g, 'é')
+    .replace(/Ã/g, 'í')
+    .replace(/Ã³/g, 'ó')
+    .replace(/Ãº/g, 'ú')
+    .replace(/Ã€/g, 'À')
+    .replace(/Ã /g, 'à')
+    .replace(/Ã‰/g, 'É')
+    .replace(/Ã/g, 'ã')
+    .replace(/Ãµ/g, 'õ')
+    .replace(/Ã¢/g, 'â')
+    .replace(/Ãª/g, 'ê')
+    .replace(/Ã´/g, 'ô')
+    .replace(/Ã¼/g, 'ü')
+    .replace(/Ã„/g, 'Ä')
+    .replace(/Ã–/g, 'Ö')
+    .replace(/Ãœ/g, 'Ü')
+    .replace(/ÃŸ/g, 'ß');
+};
+
+window.translateZoneName = function(zone) {
+  if (!zone) return '';
+  return window.fixUtf8Encoding(zone);
+};
+
 window.translatePropType = function(type) {
   if (!type) return "";
+  const cleaned = window.fixUtf8Encoding(type);
   const keyMap = {
     'Casa': 'cat_casa',
     'Departamento': 'cat_depto',
@@ -2424,11 +2511,17 @@ window.translatePropType = function(type) {
     'Oficina': 'cat_oficina',
     'Local': 'cat_local',
     'Galpón': 'cat_galpon',
-    'Estancia': 'cat_estancia'
+    'Estancia': 'cat_estancia',
+    'Tinglado o Depósito': 'cat_tinglado',
+    'Tinglado': 'cat_tinglado',
+    'Depósito': 'cat_tinglado',
+    'Comercial': 'cat_comercial',
+    'Edificio': 'cat_edificio',
+    'Quinta': 'cat_quinta'
   };
-  const key = keyMap[type] || `cat_${type.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")}`;
+  const key = keyMap[cleaned] || `cat_${cleaned.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")}`;
   const translated = window.t(key);
-  return translated !== key ? translated : type;
+  return (translated && translated !== key) ? translated : cleaned;
 };
 
 window.applyGlobalState = function(container = document) {

@@ -492,18 +492,18 @@ export function renderAnalyticsView() {
               <div class="card-header-flex" style="margin-bottom:1rem; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; gap:10px;">
                 <div>
                   <h3 data-i18n="chart_prices_title" style="margin-bottom:0.2rem;">Precio Promedio m² por Zona</h3>
-                  <span class="chart-subtitle" style="display:block; font-size:0.82rem; color:var(--text2); font-weight:500;">Comparación de valores de venta (USD/m²)</span>
+                  <span class="chart-subtitle" data-i18n="chart_prices_subtitle" style="display:block; font-size:0.82rem; color:var(--text2); font-weight:500;">Comparación de valores de venta (USD/m²)</span>
                 </div>
                 <div class="zone-view-tabs" id="price-view-tabs">
                   <button class="zone-tab-btn active" data-view="neighborhood"
-                    id="price-tab-neighborhoods">Barrios</button>
-                  <button class="zone-tab-btn" data-view="city" id="price-tab-cities">Ciudades</button>
+                    id="price-tab-neighborhoods" data-i18n="tab_barrios">Barrios</button>
+                  <button class="zone-tab-btn" data-view="city" id="price-tab-cities" data-i18n="tab_ciudades">Ciudades</button>
                 </div>
               </div>
               <div class="chart-wrapper horizontal-bar-wrapper" style="height: 310px;">
                 <canvas id="chart-prices"></canvas>
               </div>
-              <p class="chart-explanation" id="price-chart-explanation"
+              <p class="chart-explanation" id="price-chart-explanation" data-i18n="chart_prices_desc"
                 style="font-size:0.75rem;color:var(--text2);margin-top:0.8rem;text-align:center;">Muestra el precio
                 promedio por metro cuadrado de los barrios más demandados, permitiendo identificar zonas subvaluadas.
               </p>
@@ -513,14 +513,14 @@ export function renderAnalyticsView() {
             <div class="analytics-card wide">
               <div class="card-header-flex" style="margin-bottom:1rem; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; gap:10px;">
                 <div>
-                  <h3 style="margin-bottom:0.2rem;">Rentabilidad Promedio vs. Referencia del Sector</h3>
-                  <span class="chart-subtitle" style="display:block; font-size:0.82rem; color:var(--text2); font-weight:500;">Retorno ROI estimado (%) en comparación con el mercado</span>
+                  <h3 data-i18n="chart_macro_title" style="margin-bottom:0.2rem;">Rentabilidad Promedio vs. Referencia del Sector</h3>
+                  <span class="chart-subtitle" data-i18n="chart_macro_subtitle" style="display:block; font-size:0.82rem; color:var(--text2); font-weight:500;">Retorno ROI estimado (%) en comparación con el mercado</span>
                 </div>
               </div>
               <div class="chart-wrapper horizontal-bar-wrapper" style="height: 240px;">
                 <canvas id="chart-macro"></canvas>
               </div>
-              <p class="chart-explanation"
+              <p class="chart-explanation" data-i18n="chart_macro_desc"
                 style="font-size:0.75rem;color:var(--text2);margin-top:0.8rem;text-align:center;">Compara el retorno
                 promedio estimado de las propiedades en la app vs. referencias externas del mercado regional.</p>
             </div>
@@ -528,11 +528,11 @@ export function renderAnalyticsView() {
             <!-- Distribution by type -->
             <div class="analytics-card">
               <h3 data-i18n="chart_types_title" style="margin-bottom:0.2rem;">Distribución de Oferta por Tipo</h3>
-              <span class="chart-subtitle" style="display:block; font-size:0.8rem; color:var(--text2); font-weight:500; margin-bottom:1rem;">Tipos de inmuebles (departamentos, casas, etc.)</span>
+              <span class="chart-subtitle" data-i18n="chart_types_subtitle" style="display:block; font-size:0.8rem; color:var(--text2); font-weight:500; margin-bottom:1rem;">Tipos de inmuebles (departamentos, casas, etc.)</span>
               <div class="chart-wrapper" style="height: 280px;">
                 <canvas id="chart-types"></canvas>
               </div>
-              <p class="chart-explanation"
+              <p class="chart-explanation" data-i18n="chart_types_desc"
                 style="font-size:0.75rem;color:var(--text2);margin-top:0.8rem;text-align:center;">Proporción de tipos de
                 propiedades en el mercado (casas, departamentos, terrenos, etc.).</p>
             </div>
@@ -542,12 +542,12 @@ export function renderAnalyticsView() {
               <div class="card-header-flex" style="margin-bottom:0.8rem; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; gap:10px;">
                 <div>
                   <h3 data-i18n="chart_price_range_title" style="margin-bottom:0.2rem;">Distribución por Rango de Precio</h3>
-                  <span class="chart-subtitle" style="display:block; font-size:0.8rem; color:var(--text2); font-weight:500;">Volumen de oferta por bandas de valor (USD)</span>
+                  <span class="chart-subtitle" data-i18n="chart_range_subtitle" style="display:block; font-size:0.8rem; color:var(--text2); font-weight:500;">Volumen de oferta por bandas de valor (USD)</span>
                 </div>
                 <div class="zone-view-tabs" id="range-view-tabs">
                   <button class="zone-tab-btn active" data-view="neighborhood"
-                    id="range-tab-neighborhoods">Barrios</button>
-                  <button class="zone-tab-btn" data-view="city" id="range-tab-cities">Ciudades</button>
+                    id="range-tab-neighborhoods" data-i18n="tab_barrios">Barrios</button>
+                  <button class="zone-tab-btn" data-view="city" id="range-tab-cities" data-i18n="tab_ciudades">Ciudades</button>
                 </div>
               </div>
               <div class="chart-wrapper horizontal-bar-wrapper" style="height: 310px;">
