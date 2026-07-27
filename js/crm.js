@@ -9,6 +9,9 @@
   let currentEditIndex = -1;
 
   function getLeads() {
+    if (window._userCRMLeads && Array.isArray(window._userCRMLeads) && window._userCRMLeads.length > 0) {
+      return window._userCRMLeads;
+    }
     try {
       const data = localStorage.getItem('geohogar_crm_leads');
       return data ? JSON.parse(data) : [];
@@ -208,12 +211,20 @@
     });
 
     crmTableBody.querySelectorAll('.crm-delete-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
+      btn.addEventListener('click', async () => {
         if(confirm('¿Seguro que deseas eliminar este cliente?')) {
           const index = parseInt(btn.getAttribute('data-index'));
           const leads = getLeads();
+          const target = leads[index];
           leads.splice(index, 1);
           saveLeads(leads);
+          if (target && target.id && window.deleteCRMLead) {
+            try {
+              await window.deleteCRMLead(target.id);
+            } catch (err) {
+              console.warn("Could not delete CRM lead from Firestore:", err);
+            }
+          }
           renderCRMTable();
           renderCalendar();
         }
@@ -347,10 +358,14 @@
     }
   });
 
-  document.body.addEventListener('submit', (e) => {
+  document.body.addEventListener('submit', async (e) => {
     if (e.target && e.target.id === 'crm-lead-form') {
       e.preventDefault();
+      const leads = getLeads();
+      const existingLead = currentEditIndex >= 0 ? leads[currentEditIndex] : {};
+
       const newLead = {
+        ...existingLead,
         name: (document.getElementById('crm-lead-name')?.value || '').trim(),
         contact: (document.getElementById('crm-lead-contact')?.value || '').trim(),
         interest: (document.getElementById('crm-lead-interest')?.value || '').trim(),
@@ -359,7 +374,6 @@
         notes: (document.getElementById('crm-lead-notes')?.value || '').trim()
       };
       
-      const leads = getLeads();
       if (currentEditIndex >= 0) {
         leads[currentEditIndex] = newLead;
       } else {
@@ -367,6 +381,14 @@
       }
       
       saveLeads(leads);
+      if (window.saveCRMLead) {
+        try {
+          await window.saveCRMLead(newLead);
+        } catch (err) {
+          console.warn("Could not save CRM lead to Firestore, stored locally:", err);
+        }
+      }
+
       renderCRMTable();
       renderCalendar();
       closeCrmModal();

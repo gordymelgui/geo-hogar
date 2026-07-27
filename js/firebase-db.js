@@ -369,6 +369,57 @@
   // ===== ALERTS MANAGEMENT =====
   const alertsRef = db.collection('alerts');
 
+  // ===== CRM LEADS MANAGEMENT =====
+  const crmLeadsRef = db.collection('crm_leads');
+
+  window.saveCRMLead = async function(lead) {
+    try {
+      const uid = firebase.auth().currentUser?.uid || currentUserId;
+      if (!uid) throw new Error('Usuario no autenticado');
+      lead.userId = uid;
+      if (!lead.id) {
+        lead.id = 'crm_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5);
+      }
+      lead.createdAt = lead.createdAt || Date.now();
+      lead.updatedAt = Date.now();
+      await crmLeadsRef.doc(lead.id.toString()).set(lead, { merge: true });
+      console.log('CRM Lead saved to Firestore:', lead.id);
+      return lead;
+    } catch (err) {
+      console.error('Error saving CRM lead to Firestore:', err);
+      throw err;
+    }
+  };
+
+  window.deleteCRMLead = async function(leadId) {
+    try {
+      await crmLeadsRef.doc(leadId.toString()).delete();
+      console.log("CRM Lead deleted from Firestore.");
+      return true;
+    } catch (err) {
+      console.error("Error deleting CRM lead from Firestore:", err);
+      throw err;
+    }
+  };
+
+  let unsubscribeCRMLeads = null;
+  window.subscribeCRMLeads = function(userId, callback) {
+    if (unsubscribeCRMLeads) unsubscribeCRMLeads();
+    unsubscribeCRMLeads = crmLeadsRef
+      .where('userId', '==', userId)
+      .onSnapshot((snapshot) => {
+        const leads = [];
+        snapshot.forEach(doc => {
+          leads.push(doc.data());
+        });
+        leads.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+        window._userCRMLeads = leads;
+        if (callback) callback(leads);
+      }, (error) => {
+        console.error("Error subscribing to CRM leads:", error);
+      });
+  };
+
   window.saveAlert = async function(alert) {
     try {
       // Siempre obtenemos el UID actual en el momento exacto del guardado
@@ -595,6 +646,13 @@
           if (viewFavs && viewFavs.classList.contains('active') && window.renderFavorites) {
             window.renderFavorites();
           }
+        });
+      }
+
+      // 5. Subscribe to User CRM Leads
+      if (window.subscribeCRMLeads) {
+        window.subscribeCRMLeads(user.uid, (leads) => {
+          if (window.renderCRM) window.renderCRM();
         });
       }
     });
