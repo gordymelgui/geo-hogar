@@ -1847,8 +1847,8 @@ document.addEventListener('DOMContentLoaded', () => {
               <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
             </svg>
           </div>
-          <h4 style="color:var(--text);font-family:'Plus Jakarta Sans', sans-serif;font-weight:800;font-size:1.1rem;margin-bottom:0.5rem;">Iniciá sesión</h4>
-          <p style="font-size:0.85rem;line-height:1.4;">Debes iniciar sesión para ver y responder tus mensajes.</p>
+          <h4 style="color:var(--text);font-family:'Plus Jakarta Sans', sans-serif;font-weight:800;font-size:1.1rem;margin-bottom:0.5rem;" data-i18n="auth_required_title">Iniciá sesión</h4>
+          <p style="font-size:0.85rem;line-height:1.4;" data-i18n="auth_required_chat_desc">Debes iniciar sesión para ver y responder tus mensajes.</p>
         </div>`;
       const area = document.getElementById('chat-area');
       if (area) {
@@ -1860,19 +1860,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 <circle cx="12" cy="7" r="4" />
               </svg>
             </div>
-            <h3 style="color:var(--text);font-family:'Plus Jakarta Sans', sans-serif;font-weight:800;font-size:1.4rem;margin-bottom:0.5rem;">Iniciá sesión para chatear</h3>
-            <p style="font-size:1rem;max-width:300px;line-height:1.5;">Ingresá a tu cuenta para contactar vendedores o revisar tus consultas.</p>
+            <h3 style="color:var(--text);font-family:'Plus Jakarta Sans', sans-serif;font-weight:800;font-size:1.4rem;margin-bottom:0.5rem;" data-i18n="auth_required_chat_title">Iniciá sesión para chatear</h3>
+            <p style="font-size:1rem;max-width:300px;line-height:1.5;" data-i18n="auth_required_chat_sub">Ingresá a tu cuenta para contactar vendedores o revisar tus consultas.</p>
           </div>`;
       }
       return;
     }
     
-    if (list.children.length === 0) {
-      list.innerHTML = '<div style="padding:2rem; text-align:center; color:var(--text2)">Cargando conversaciones...</div>';
+    if (window._userChatsCache) {
+      window.renderUserConversationsList(window._userChatsCache);
+    } else {
+      window.renderUserConversationsList([]);
     }
   }
+  window.renderMessages = renderMessages;
 
   window.renderUserConversationsList = function(chats) {
+    window._userChatsCache = chats || [];
     const list = document.getElementById('conv-list');
     if (!list) return;
     list.innerHTML = '';
@@ -1880,29 +1884,32 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentUser = window.firebaseAuth?.currentUser;
     if (!currentUser) return;
     
-    if (chats.length === 0) {
+    if (!chats || chats.length === 0) {
       list.innerHTML = `
         <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:3rem 1.5rem;text-align:center;color:var(--text2);">
-          <div style="background:var(--surface2);width:70px;height:70px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;box-shadow:var(--shadow-sm);">
-            <svg viewBox="0 0 24 24" style="width:32px;height:32px;stroke:var(--text2);stroke-width:1.5;fill:none;">
-              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+          <div style="background:linear-gradient(135deg, rgba(255,42,95,0.12), rgba(255,107,53,0.12));width:76px;height:76px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:1.2rem;box-shadow:var(--shadow-sm);">
+            <svg viewBox="0 0 24 24" style="width:36px;height:36px;stroke:#ff2a5f;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+              <line x1="9" y1="9" x2="15" y2="9"/>
+              <line x1="9" y1="13" x2="13" y2="13"/>
             </svg>
           </div>
-          <h4 style="color:var(--text);font-family:'Plus Jakarta Sans', sans-serif;font-weight:800;font-size:1.1rem;margin-bottom:0.5rem;">${window.t('chat_no_chats_yet')}</h4>
-          <p style="font-size:0.85rem;line-height:1.4;">Comienza a chatear con vendedores o brokers contactándolos desde sus propiedades.</p>
+          <h4 style="color:var(--text);font-family:'Plus Jakarta Sans', sans-serif;font-weight:800;font-size:1.15rem;margin-bottom:0.4rem;" data-i18n="chat_no_chats_title">Aún no tenés mensajes</h4>
+          <p style="font-size:0.88rem;max-width:280px;line-height:1.45;color:var(--text2);margin-bottom:1.2rem;" data-i18n="chat_no_chats_desc">Explorá las propiedades y contactá directamente a los propietarios o brokers para consultar sobre inmuebles.</p>
+          <button class="btn-primary" onclick="if(window.appRouter) window.appRouter.navigate('explore')" style="padding:10px 20px;border-radius:12px;font-size:0.88rem;font-weight:700;" data-i18n="explore_properties_btn">Explorar Propiedades</button>
         </div>`;
         
       const area = document.getElementById('chat-area');
       if (area) {
         area.innerHTML = `
           <div class="chat-placeholder" style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;text-align:center;color:var(--text2);padding:2rem;">
-            <div style="background:var(--surface2);width:100px;height:100px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem;box-shadow:var(--shadow-sm);">
-              <svg viewBox="0 0 24 24" style="width:48px;height:48px;stroke:var(--accent);stroke-width:1.5;fill:none;">
+            <div style="background:linear-gradient(135deg, rgba(255,42,95,0.12), rgba(255,107,53,0.12));width:96px;height:96px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem;box-shadow:var(--shadow-sm);">
+              <svg viewBox="0 0 24 24" style="width:48px;height:48px;stroke:#ff2a5f;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;">
                 <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
               </svg>
             </div>
-            <h3 style="color:var(--text);font-family:'Plus Jakarta Sans', sans-serif;font-weight:800;font-size:1.4rem;margin-bottom:0.5rem;">Mis Mensajes</h3>
-            <p style="font-size:1rem;max-width:300px;line-height:1.5;">Aún no tienes conversaciones activas. Contacta a un vendedor desde una propiedad para comenzar a chatear.</p>
+            <h3 style="color:var(--text);font-family:'Plus Jakarta Sans', sans-serif;font-weight:800;font-size:1.4rem;margin-bottom:0.5rem;" data-i18n="chat_area_empty_title">Centro de Mensajes Directos</h3>
+            <p style="font-size:1rem;max-width:320px;line-height:1.5;color:var(--text2);" data-i18n="chat_area_empty_desc">Tus consultas y chats con dueños directos o brokers se mostrarán aquí en tiempo real con cifrado seguro.</p>
           </div>`;
       }
       return;
@@ -3857,5 +3864,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (typeof window.applyExploreFilters === 'function') {
       window.applyExploreFilters(true);
+    }
+  });
+
+  // ===== EVENTO DE CICLO DE VIDA PARA MENSAJES =====
+  window.addEventListener('view:messages:loaded', () => {
+    if (typeof window.renderMessages === 'function') {
+      window.renderMessages();
     }
   });
