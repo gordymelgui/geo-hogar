@@ -3824,7 +3824,7 @@ window.startBrokerTour = function() {
       return;
     }
 
-    // 7. Filtros de Inversión (explore-roi-btn & explore-market-value-btn)
+    // 7. Filtros de Inversión (Alta Rentabilidad >7%, Bajo Valor / Oportunidad, Radar Broker)
     const roiBtn = e.target.closest('#explore-roi-btn, #filter-roi-btn');
     if (roiBtn) {
       e.preventDefault();
@@ -3833,15 +3833,14 @@ window.startBrokerTour = function() {
         if (typeof window.showPremiumPaywall === 'function') window.showPremiumPaywall();
         return;
       }
-      roiBtn.classList.toggle('active');
       const expBtn = document.getElementById('explore-roi-btn');
       const mapBtn = document.getElementById('filter-roi-btn');
-      if (expBtn && mapBtn) {
-        const isActive = roiBtn.classList.contains('active');
-        expBtn.classList.toggle('active', isActive);
-        mapBtn.classList.toggle('active', isActive);
-      }
+      const isActive = !roiBtn.classList.contains('active');
+      if (expBtn) expBtn.classList.toggle('active', isActive);
+      if (mapBtn) mapBtn.classList.toggle('active', isActive);
+
       if (typeof window.applyExploreFilters === 'function') window.applyExploreFilters(true);
+      if (typeof window.filterMapMarkers === 'function') window.filterMapMarkers(window._currentMapCriteria || {});
       return;
     }
 
@@ -3853,15 +3852,33 @@ window.startBrokerTour = function() {
         if (typeof window.showPremiumPaywall === 'function') window.showPremiumPaywall();
         return;
       }
-      marketBtn.classList.toggle('active');
       const expBtn = document.getElementById('explore-market-value-btn');
       const mapBtn = document.getElementById('filter-market-value-btn');
-      if (expBtn && mapBtn) {
-        const isActive = marketBtn.classList.contains('active');
-        expBtn.classList.toggle('active', isActive);
-        mapBtn.classList.toggle('active', isActive);
-      }
+      const isActive = !marketBtn.classList.contains('active');
+      if (expBtn) expBtn.classList.toggle('active', isActive);
+      if (mapBtn) mapBtn.classList.toggle('active', isActive);
+
       if (typeof window.applyExploreFilters === 'function') window.applyExploreFilters(true);
+      if (typeof window.filterMapMarkers === 'function') window.filterMapMarkers(window._currentMapCriteria || {});
+      return;
+    }
+
+    const radarBrokerBtn = e.target.closest('#explore-broker-radar-btn, #filter-radar-broker-btn');
+    if (radarBrokerBtn) {
+      e.preventDefault();
+      const isPremium = !!(window.currentUserProfile && window.currentUserProfile.isPremium);
+      if (!isPremium) {
+        if (typeof window.showPremiumPaywall === 'function') window.showPremiumPaywall();
+        return;
+      }
+      const expBtn = document.getElementById('explore-broker-radar-btn');
+      const mapBtn = document.getElementById('filter-radar-broker-btn');
+      const isActive = !radarBrokerBtn.classList.contains('active');
+      if (expBtn) expBtn.classList.toggle('active', isActive);
+      if (mapBtn) mapBtn.classList.toggle('active', isActive);
+
+      if (typeof window.applyExploreFilters === 'function') window.applyExploreFilters(true);
+      if (typeof window.filterMapMarkers === 'function') window.filterMapMarkers(window._currentMapCriteria || {});
       return;
     }
 
