@@ -375,6 +375,60 @@ window.shareValuationReport = function() {
   });
 };
 
+// ===== HISTORIAL DE TASACIONES =====
+window.saveValuationToHistory = function(entry) {
+  try {
+    const hist = JSON.parse(localStorage.getItem('broker_valuation_history') || '[]');
+    hist.unshift(entry);
+    localStorage.setItem('broker_valuation_history', JSON.stringify(hist.slice(0, 10)));
+    if (typeof window.loadValuationHistory === 'function') window.loadValuationHistory();
+  } catch (e) { console.error('Error saving valuation history:', e); }
+};
+
+window.loadValuationHistory = function() {
+  try {
+    const container = document.getElementById('val-history');
+    if (!container) return;
+    const hist = JSON.parse(localStorage.getItem('broker_valuation_history') || '[]');
+    if (hist.length === 0) {
+      container.innerHTML = '';
+      return;
+    }
+
+    container.innerHTML = `
+      <div style="font-weight:800;font-size:0.8rem;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.8rem;">Historial Reciente de Tasaciones</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        ${hist.map((h, i) => `
+          <div style="display:flex;align-items:center;gap:10px;padding:10px;background:var(--surface2);border:1px solid var(--border);border-radius:12px;cursor:pointer;" onclick="restoreValuation(${i})">
+            <div style="width:28px;height:28px;border-radius:8px;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--accent)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div style="flex:1;min-width:0;">
+              <div style="font-weight:700;font-size:0.85rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${h.type} · ${h.address}</div>
+              <div style="font-size:0.75rem;color:var(--text2);">${h.m2} m² · ${h.marketStats?.estimatedPrice ? window.formatPrice(h.marketStats.estimatedPrice) : 'N/D'}</div>
+            </div>
+            <div style="font-size:0.72rem;color:var(--text2);font-weight:600;">${new Date(h.timestamp).toLocaleDateString('es-PY')}</div>
+          </div>`).join('')}
+      </div>
+    `;
+  } catch (e) { console.error('Error loading valuation history:', e); }
+};
+
+window.restoreValuation = function(index) {
+  try {
+    const hist = JSON.parse(localStorage.getItem('broker_valuation_history') || '[]');
+    const h = hist[index];
+    if (!h) return;
+    if (document.getElementById('val-type')) document.getElementById('val-type').value = h.type;
+    if (document.getElementById('val-op')) document.getElementById('val-op').value = h.op;
+    if (document.getElementById('val-address')) document.getElementById('val-address').value = h.address;
+    if (document.getElementById('val-m2')) document.getElementById('val-m2').value = h.m2;
+    if (document.getElementById('val-rooms')) document.getElementById('val-rooms').value = h.rooms;
+    if (document.getElementById('val-baths')) document.getElementById('val-baths').value = h.baths;
+    document.getElementById('val-address')?.scrollIntoView({ behavior: 'smooth' });
+  } catch (e) { console.error('Error restoring valuation:', e); }
+};
+
 // ===== REPORTE DE ZONA IMPRIMIBLE (EXECUTIVE PRO GRADE) =====
 window.generateZoneReport = function() {
   const type = document.getElementById('val-type')?.value || 'Departamento';
@@ -621,7 +675,7 @@ window.generateZoneReport = function() {
         window.print();
       }, 400);
     };
-  <\/script>
+  </script>
 </body>
 </html>`);
   win.document.close();

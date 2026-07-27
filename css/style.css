@@ -6065,13 +6065,36 @@ body.tour-active .view-analytics {
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
   display: flex;
   flex-direction: column;
-  gap: 12px;
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .sidebar-settings-card:hover {
   border-color: var(--accent);
   box-shadow: var(--shadow-sm);
+}
+
+.sidebar-settings-accordion summary {
+  cursor: pointer;
+  list-style: none;
+}
+.sidebar-settings-accordion summary::-webkit-details-marker {
+  display: none;
+}
+
+.settings-accordion-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+}
+
+.accordion-chevron {
+  transition: transform 0.3s ease;
+  color: var(--text2);
+}
+.sidebar-settings-accordion[open] .accordion-chevron {
+  transform: rotate(180deg);
+  color: var(--accent);
 }
 
 .settings-card-title {

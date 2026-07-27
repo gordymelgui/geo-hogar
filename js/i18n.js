@@ -2808,28 +2808,36 @@ window.changeLanguage = function(lang) {
     window.updateNeighborhoodRanking(props, window._rankViewMode || 'neighborhood');
   }
 
-  if (typeof window.renderMapMarkers === 'function' && props) {
-    window.renderMapMarkers(props);
-  }
-
-  if (typeof window.renderCRM === 'function') {
-    window.renderCRM();
-  }
-
-  if (typeof window.renderValuationTab === 'function') {
-    window.renderValuationTab();
-  }
-
-  if (window._brokerAlertsModule) {
-    const activeTab = document.querySelector('.broker-tab-btn.active');
-    const targetId = activeTab ? activeTab.getAttribute('data-target') : null;
-    if (targetId === 'broker-notifs' && window._brokerAlertsModule.renderNotifs) {
-      window._brokerAlertsModule.renderNotifs();
+  try {
+    if (typeof window.renderMapMarkers === 'function' && props) {
+      window.renderMapMarkers(props);
     }
-    if (targetId === 'broker-alert-config' && window._brokerAlertsModule.renderAlerts) {
-      window._brokerAlertsModule.renderAlerts();
+  } catch (e) { console.error('Map markers re-render error:', e); }
+
+  try {
+    if (typeof window.renderCRM === 'function') {
+      window.renderCRM();
     }
-  }
+  } catch (e) { console.error('CRM re-render error:', e); }
+
+  try {
+    if (typeof window.renderValuationTab === 'function') {
+      window.renderValuationTab();
+    }
+  } catch (e) { console.error('Valuation tab re-render error:', e); }
+
+  try {
+    if (window._brokerAlertsModule) {
+      const activeTab = document.querySelector('.broker-tab-btn.active');
+      const targetId = activeTab ? activeTab.getAttribute('data-target') : null;
+      if (targetId === 'broker-notifs' && window._brokerAlertsModule.renderNotifs) {
+        window._brokerAlertsModule.renderNotifs();
+      }
+      if (targetId === 'broker-alert-config' && window._brokerAlertsModule.renderAlerts) {
+        window._brokerAlertsModule.renderAlerts();
+      }
+    }
+  } catch (e) { console.error('Broker alerts re-render error:', e); }
 
   document.dispatchEvent(new CustomEvent('geohogar:lang:changed', { detail: { lang } }));
 };
