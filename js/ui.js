@@ -42,8 +42,9 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   window.getNormalizedZoneName = function(zone) {
-    if (!zone) return 'Otros';
-    const z = window.normalizeString(zone);
+    if (!zone) return window.t ? window.t('chart_other') : 'Otros';
+    const cleanZone = window.fixUtf8Encoding ? window.fixUtf8Encoding(zone) : zone;
+    const z = window.normalizeString(cleanZone);
     if (z.includes('ycua sati') || z.includes('ykua sati')) return 'Ycuá Satí';
     if (z.includes('villa morra')) return 'Villa Morra';
     if (z.includes('las lomas') || z.includes('lomas')) return 'Las Lomas';
@@ -60,9 +61,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (z.includes('jara') || z.includes('barrio jara')) return 'Barrio Jara';
     if (z.includes('mercedes') || z.includes('las mercedes')) return 'Las Mercedes';
     if (z.includes('san vicente')) return 'San Vicente';
+    if (z.includes('nemby') || z.includes('ñemby')) return 'Ñemby';
+    if (z.includes('manora')) return 'Manorá';
+    if (z.includes('mcal') || z.includes('estigarribia')) return 'Mcal. Estigarribia';
     
-    // Capitalize properly
-    return zone.trim().split(/\s+/).map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
+    return cleanZone.trim();
   };
 
   // Filtro unificado de Explorar — con debounce para evitar spam de llamadas
@@ -3047,6 +3050,32 @@ document.addEventListener('DOMContentLoaded', () => {
       applyTheme(newTheme);
     });
   }
+
+  // ===== MULTI-THEME COLOR SCHEME SYSTEM =====
+  window.applyColorScheme = function(schemeName) {
+    const scheme = schemeName || 'coral';
+    document.documentElement.setAttribute('data-theme-color', scheme);
+    safeStorage.setItem('geohogar_color_scheme', scheme);
+
+    document.querySelectorAll('.color-scheme-dot').forEach(dot => {
+      dot.classList.toggle('active', dot.dataset.scheme === scheme);
+    });
+
+    if (window._analyticsCharts && window._analyticsCharts.initialized) {
+      if (window.renderAnalyticsCharts) window.renderAnalyticsCharts();
+    }
+  };
+
+  const savedColorScheme = safeStorage.getItem('geohogar_color_scheme') || 'coral';
+  window.applyColorScheme(savedColorScheme);
+
+  document.querySelectorAll('.color-scheme-dot').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const scheme = btn.dataset.scheme;
+      window.applyColorScheme(scheme);
+    });
+  });
 
   // Listen to language change to update dynamic content
   document.addEventListener('geohogar:lang:changed', () => {

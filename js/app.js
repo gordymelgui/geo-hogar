@@ -767,6 +767,18 @@ function updateAnalytics(props) {
   updateNeighborhoodRanking(props, window._rankViewMode || 'neighborhood');
 }
 
+window.getThemePalette = function() {
+  const scheme = (document.documentElement && document.documentElement.getAttribute('data-theme-color')) || 'coral';
+  const palettes = {
+    coral:  ['#ff2a5f', '#ff5252', '#f97316', '#f59e0b', '#10b981', '#38bdf8', '#6366f1'],
+    sage:   ['#84a375', '#79986a', '#5b784f', '#8ea981', '#98b08c', '#a1b696', '#38bdf8'],
+    cobalt: ['#2563eb', '#3b82f6', '#0284c7', '#38bdf8', '#06b6d4', '#14b8a6', '#6366f1'],
+    gold:   ['#D4AF37', '#eab308', '#f59e0b', '#d97706', '#b45309', '#78350f', '#10b981'],
+    violet: ['#8b5cf6', '#a855f7', '#d946ef', '#ec4899', '#f43f5e', '#6366f1', '#38bdf8']
+  };
+  return palettes[scheme] || palettes.coral;
+};
+
 /**
  * updatePriceChart — redraws the price/m² horizontal bar chart for the given view mode.
  * mode: 'neighborhood' | 'city'
@@ -788,13 +800,13 @@ function updatePriceChart(props, mode) {
     .sort((a, b) => b.avg - a.avg)
     .slice(0, mode === 'city' ? 10 : 8);
 
-  const priceColors = ['#ff2a5f','#f97316','#f59e0b','#10b981','#38bdf8','#6366f1','#a855f7','#ec4899','#14b8a6','#fb7185'];
+  const themePalette = window.getThemePalette ? window.getThemePalette() : ['#ff2a5f','#f97316','#f59e0b','#10b981','#38bdf8','#6366f1'];
   if (window._analyticsCharts.priceChart) {
     if (zonesSorted.length > 0) {
-      window._analyticsCharts.priceChart.data.labels = zonesSorted.map(z => window.fixUtf8Encoding ? window.fixUtf8Encoding(z.name) : z.name);
+      window._analyticsCharts.priceChart.data.labels = zonesSorted.map(z => window.translateZoneName ? window.translateZoneName(z.name) : z.name);
       window._analyticsCharts.priceChart.data.datasets[0].data = zonesSorted.map(z => z.avg);
-      window._analyticsCharts.priceChart.data.datasets[0].backgroundColor = zonesSorted.map((_, i) => priceColors[i % priceColors.length] + 'cc');
-      window._analyticsCharts.priceChart.data.datasets[0].borderColor = zonesSorted.map((_, i) => priceColors[i % priceColors.length]);
+      window._analyticsCharts.priceChart.data.datasets[0].backgroundColor = zonesSorted.map((_, i) => themePalette[i % themePalette.length]);
+      window._analyticsCharts.priceChart.data.datasets[0].borderColor = zonesSorted.map((_, i) => themePalette[i % themePalette.length]);
     } else {
       window._analyticsCharts.priceChart.data.labels = ['Sin datos'];
       window._analyticsCharts.priceChart.data.datasets[0].data = [0];
@@ -838,15 +850,15 @@ function updateRangeChart(props, mode) {
 
   const sortedZones = Object.entries(zoneCounts).sort((a,b) => b[1] - a[1]);
   const topZones = sortedZones.slice(0, 6).map(e => e[0]);
-  const priceColors = ['#ff2a5f','#f97316','#f59e0b','#10b981','#38bdf8','#6366f1','#a855f7'];
+  const themePalette = window.getThemePalette ? window.getThemePalette() : ['#ff2a5f','#f97316','#f59e0b','#10b981','#38bdf8','#6366f1'];
 
   const datasetsMap = {};
   topZones.forEach((z, i) => {
-    const cleanLabel = window.fixUtf8Encoding ? window.fixUtf8Encoding(z) : z;
+    const cleanLabel = window.translateZoneName ? window.translateZoneName(z) : z;
     datasetsMap[z] = {
       label: cleanLabel,
       data: Array(ranges.length).fill(0),
-      backgroundColor: priceColors[i % priceColors.length],
+      backgroundColor: themePalette[i % themePalette.length],
       borderRadius: 4,
       barThickness: 'flex',
       maxBarThickness: 40
@@ -1130,17 +1142,17 @@ function initCharts(passedProps) {
     .map(([name, v]) => ({ name, avg: Math.round(v.total / v.count) }))
     .sort((a, b) => b.avg - a.avg).slice(0, 8);
 
-  const sageGreenPalette = ['#79986a','#84a375','#8ea981','#98b08c','#a1b696','#abbc9f','#b4c2a9','#bec9b4'];
+  const themePalette = window.getThemePalette ? window.getThemePalette() : ['#ff2a5f','#f97316','#f59e0b','#10b981','#38bdf8','#6366f1'];
 
   window._analyticsCharts.priceChart = new Chart(chartPrices, {
     type: 'bar',
     data: {
-      labels: zonesSorted.map(z => z.name),
+      labels: zonesSorted.map(z => window.translateZoneName ? window.translateZoneName(z.name) : z.name),
       datasets: [{
         label: 'USD/m²',
         data: zonesSorted.map(z => z.avg),
-        backgroundColor: zonesSorted.map((_, i) => sageGreenPalette[i % sageGreenPalette.length]),
-        borderColor: zonesSorted.map((_, i) => sageGreenPalette[i % sageGreenPalette.length]),
+        backgroundColor: zonesSorted.map((_, i) => themePalette[i % themePalette.length]),
+        borderColor: zonesSorted.map((_, i) => themePalette[i % themePalette.length]),
         borderWidth: 0,
         borderRadius: 8,
         borderSkipped: false,
@@ -1193,7 +1205,6 @@ function initCharts(passedProps) {
     typeMap[t] = (typeMap[t] || 0) + 1;
   });
   const typeEntries = Object.entries(typeMap).sort((a, b) => b[1] - a[1]).slice(0, 6);
-  const typeColors = ['#84a375','#38bdf8','#f59e0b','#6366f1','#ec4899','#14b8a6'];
 
   window._analyticsCharts.typesChart = new Chart(chartTypesEl, {
     type: 'doughnut',
@@ -1201,7 +1212,7 @@ function initCharts(passedProps) {
       labels: typeEntries.map(([k]) => k),
       datasets: [{
         data: typeEntries.map(([, v]) => v),
-        backgroundColor: typeEntries.map((_, i) => typeColors[i % typeColors.length]),
+        backgroundColor: typeEntries.map((_, i) => themePalette[i % themePalette.length]),
         borderWidth: 0,
         hoverOffset: 8
       }]
