@@ -992,13 +992,22 @@ function updateHeatmapWithData(props, metric) {
     const lat = parseFloat(p.lat);
     const lng = parseFloat(p.lng);
     if (isNaN(lat) || isNaN(lng) || !lat || !lng) return;
-    const zone = getPropZone(p);
-    if (!zones[zone]) zones[zone] = { lats: [], lngs: [], rois: [], prices: [], count: 0 };
-    zones[zone].lats.push(lat);
-    zones[zone].lngs.push(lng);
-    zones[zone].rois.push(p.roi || 0);
-    zones[zone].prices.push(p.priceM2 || 0);
-    zones[zone].count++;
+
+    // Use uniform spatial grid (~1.2km) for demand metric to eliminate city vs barrio granularity skew
+    const key = (metric === 'demand')
+      ? `${lat.toFixed(2)},${lng.toFixed(2)}`
+      : getPropZone(p);
+
+    const zoneName = getPropZone(p);
+
+    if (!zones[key]) {
+      zones[key] = { name: zoneName, lats: [], lngs: [], rois: [], prices: [], count: 0 };
+    }
+    zones[key].lats.push(lat);
+    zones[key].lngs.push(lng);
+    zones[key].rois.push(p.roi || 0);
+    zones[key].prices.push(p.priceM2 || 0);
+    zones[key].count++;
   });
 
   if (!Object.keys(zones).length) return;
@@ -1011,7 +1020,7 @@ function updateHeatmapWithData(props, metric) {
   const maxVal = Math.max(...values, 1);
   const minVal = Math.min(...values, 0);
 
-  Object.entries(zones).forEach(([zone, data]) => {
+  Object.entries(zones).forEach(([key, data]) => {
     const centerLat = data.lats.reduce((a, b) => a + b, 0) / data.lats.length;
     const centerLng = data.lngs.reduce((a, b) => a + b, 0) / data.lngs.length;
     let val, color, opacity;
@@ -1036,7 +1045,7 @@ function updateHeatmapWithData(props, metric) {
     }
 
     const maxCount = Math.max(...Object.values(zones).map(z => z.count), 1);
-    const radius = 700 + (data.count / maxCount) * 1600;
+    const radius = 600 + (data.count / maxCount) * 1200;
 
     const circle = L.circle([centerLat, centerLng], {
       color: 'none', fillColor: color, fillOpacity: opacity, radius
@@ -1046,13 +1055,13 @@ function updateHeatmapWithData(props, metric) {
     if (metric === 'roi') {
       const roiArr = data.rois.filter(r => r > 0);
       const avgR = roiArr.length ? (roiArr.reduce((a, b) => a + b, 0) / roiArr.length).toFixed(1) : 'N/A';
-      tooltipText = `${zone}: ROI ${avgR}% (${data.count} prop.)`;
+      tooltipText = `${data.name}: ROI ${avgR}% (${data.count} prop.)`;
     } else if (metric === 'price') {
       const prArr = data.prices.filter(p => p > 0);
       const avgP = prArr.length ? Math.round(prArr.reduce((a, b) => a + b, 0) / prArr.length) : 'N/A';
-      tooltipText = `${zone}: ${typeof avgP === 'number' ? window.formatPriceM2(avgP) : avgP}`;
+      tooltipText = `${data.name}: ${typeof avgP === 'number' ? window.formatPriceM2(avgP) : avgP}`;
     } else {
-      tooltipText = `${zone}: ${data.count} propiedades`;
+      tooltipText = `${data.name}: ${data.count} propiedades`;
     }
 
     circle.bindTooltip(tooltipText, { permanent: false, direction: 'center', className: 'heatmap-tooltip' });
