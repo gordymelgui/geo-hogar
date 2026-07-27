@@ -1093,6 +1093,14 @@ function initCharts(passedProps) {
   const chartPrices = document.getElementById('chart-prices');
   if (!chartPrices) return;
 
+  let props = passedProps;
+  if (!props || props.length === 0) {
+    props = window.appData && window.appData.properties ? window.appData.properties : [];
+  }
+  if (window.currentDataSourceFilter && window.currentDataSourceFilter !== 'all') {
+    props = props.filter(p => p.dataSource === window.currentDataSourceFilter);
+  }
+
   if (window._analyticsCharts.initialized) {
     if (props && props.length) {
       updatePriceChart(props, window._priceViewMode || 'neighborhood');
