@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     window._currentFilteredProperties = filtered;
-    renderProperties(filtered, exploreGrid);
+    renderProperties(filtered, document.getElementById('properties-grid'));
     
     // Market/Analytics uses its OWN independent dataset — never affected by explore filters
     applyMarketFilters();
