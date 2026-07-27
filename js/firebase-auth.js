@@ -127,6 +127,9 @@
       });
 
       document.dispatchEvent(new CustomEvent('geohogar:auth:loggedin', { detail: { user } }));
+      if (typeof window.resetToHomeView === 'function') {
+        window.resetToHomeView();
+      }
     } else {
       if (unsubscribeUserDoc) {
         unsubscribeUserDoc();
@@ -135,6 +138,9 @@
       window.currentUserProfile = null;
       document.getElementById('login-screen')?.classList.remove('hidden');
       document.getElementById('app-shell')?.classList.add('hidden');
+      if (typeof window.resetToHomeView === 'function') {
+        window.resetToHomeView();
+      }
     }
 
     // Ocultar Splash Screen con animación fluida
@@ -186,10 +192,10 @@
   // ===== LOGIN =====
   window.doLogin = async function(email, password, rememberMe) {
     try {
-      // Configurar persistencia según el checkbox del usuario
       const persistence = rememberMe ? firebase.auth.Auth.Persistence.LOCAL : firebase.auth.Auth.Persistence.SESSION;
       await auth.setPersistence(persistence);
       await auth.signInWithEmailAndPassword(email, password);
+      if (typeof window.resetToHomeView === 'function') window.resetToHomeView();
       return null;
     } catch (err) {
       return getAuthError(err.code);
@@ -212,6 +218,7 @@
       await firebase.firestore().collection('users').doc(cred.user.uid).set(profile);
       
       updateAppUser(auth.currentUser);
+      if (typeof window.resetToHomeView === 'function') window.resetToHomeView();
       return null;
     } catch (err) {
       return getAuthError(err.code);
@@ -237,6 +244,7 @@
         };
         await userRef.set(profile);
       }
+      if (typeof window.resetToHomeView === 'function') window.resetToHomeView();
       return null;
     } catch (err) {
       console.error("Error en Google Sign-In:", err);
@@ -256,6 +264,11 @@
 
   // ===== CERRAR SESIÓN =====
   window.doLogout = async function() {
+    try {
+      sessionStorage.clear();
+      if (typeof window.resetToHomeView === 'function') window.resetToHomeView();
+      document.dispatchEvent(new CustomEvent('geohogar:auth:loggedout'));
+    } catch (e) {}
     await auth.signOut();
   };
 

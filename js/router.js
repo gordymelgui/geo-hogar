@@ -52,12 +52,18 @@ export class Router {
   }
 
   navigate(viewName) {
-    const renderFn = routes[viewName];
+    const targetView = routes[viewName] ? viewName : 'explore';
+    const renderFn = routes[targetView];
     if (renderFn && this.root) {
-      // 1. Limpiar contenedor e inyectar nuevo HTML
+      // Topbar search bar is ONLY visible on Explore & Map
+      const searchBar = document.getElementById('main-search-bar');
+      if (searchBar) {
+        const isSearchable = (targetView === 'explore' || targetView === 'map');
+        searchBar.style.display = isSearchable ? 'flex' : 'none';
+      }
+
       this.root.innerHTML = renderFn();
 
-      // Asegurar que la vista inyectada tenga la clase active y sea visible
       const injectedView = this.root.firstElementChild;
       if (injectedView) {
         injectedView.classList.add('active');
@@ -66,16 +72,37 @@ export class Router {
         }
       }
       
-      // 2. ESTADO GLOBAL REACTIVO: Aplicar idioma y moneda inmediatamente a la vista inyectada
       if (typeof window.applyGlobalState === 'function') {
         window.applyGlobalState(this.root);
       }
 
-      // 3. CICLO DE VIDA: Emitir evento global para que ui.js reconecte los listeners
-      window.dispatchEvent(new CustomEvent(`view:${viewName}:loaded`));
+      window.dispatchEvent(new CustomEvent(`view:${targetView}:loaded`));
     }
   }
 }
+
+window.resetToHomeView = function() {
+  if (window.appRouter && typeof window.appRouter.navigate === 'function') {
+    window.appRouter.navigate('explore');
+  }
+
+  document.querySelectorAll('.sidebar-link, .bottom-nav-btn').forEach(el => {
+    el.classList.remove('active');
+    if (el.dataset.view === 'explore' || el.getAttribute('href') === '#explore') {
+      el.classList.add('active');
+    }
+  });
+
+  const searchBar = document.getElementById('main-search-bar');
+  if (searchBar) searchBar.style.display = 'flex';
+
+  document.querySelectorAll('.sidebar-settings-accordion').forEach(el => el.removeAttribute('open'));
+
+  const globalSearch = document.getElementById('global-search');
+  if (globalSearch) globalSearch.value = '';
+
+  window.scrollTo({ top: 0, behavior: 'instant' });
+};
 
 // Robust auto-initialization handling both loading & already-loaded DOM states
 function initAppRouter() {
