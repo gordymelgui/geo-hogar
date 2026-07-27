@@ -207,74 +207,103 @@ export function renderAnalyticsView() {
               </div>
             </div>
 
-            <!-- Tool 2: Calculadora de ROI -->
+            <!-- Tool 2: Calculadora Cap Rate Neto Real -->
             <div class="macro-tool-card"
               style="background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:1.5rem; box-shadow: 0 4px 20px rgba(0,0,0,0.03); position:relative; overflow:hidden;">
-              <!-- Glow background -->
-              <div
-                style="position:absolute; top:-50px; right:-50px; width:150px; height:150px; background:radial-gradient(circle, rgba(255,42,95,0.08) 0%, rgba(255,42,95,0) 70%); border-radius:50%; z-index:0;">
-              </div>
-
-              <h4
-                style="margin:0 0 1.2rem 0; font-size:1.05rem; display:flex; align-items:center; gap:8px; position:relative; z-index:1;">
+              <h4 style="margin:0 0 1rem 0; font-size:1.05rem; display:flex; align-items:center; gap:8px;">
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--accent)" stroke-width="2">
-                  <rect x="4" y="2" width="16" height="20" rx="2" />
-                  <line x1="8" y1="6" x2="16" y2="6" />
-                  <line x1="8" y1="10" x2="16" y2="10" />
-                  <line x1="8" y1="14" x2="12" y2="14" />
+                  <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
                 </svg>
-                Calculadora de Inversión (Estándar Forbes)
+                Calculadora Cap Rate Neto Real (Costos PY)
               </h4>
-
-              <div
-                style="display:grid; grid-template-columns: 1fr 1fr; gap:16px; margin-bottom:1.5rem; position:relative; z-index:1;">
+              <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap:10px; margin-bottom:1rem;">
                 <div>
-                  <label
-                    style="font-size:0.8rem; color:var(--text2); font-weight:600; margin-bottom:6px; display:block;">Precio
-                    Propiedad (USD)</label>
-                  <div style="position:relative;">
-                    <span
-                      style="position:absolute; left:12px; top:50%; transform:translateY(-50%); color:var(--text2); font-weight:700;">$</span>
-                    <input type="number" id="macro-calc-price" value="150000"
-                      style="width:100%; padding:12px 12px 12px 30px; border-radius:12px; border:1px solid var(--border); background:var(--bg); font-weight:800; font-size:1.1rem; outline:none; transition:border-color 0.2s;">
-                  </div>
+                  <label style="font-size:0.75rem; color:var(--text2); font-weight:600; margin-bottom:4px; display:block;">Precio Prop. ($)</label>
+                  <input type="number" id="net-cap-price" value="150000" style="width:100%; padding:8px 10px; border-radius:8px; border:1px solid var(--border); background:var(--bg); font-weight:700; font-size:0.95rem; color:var(--text);">
                 </div>
                 <div>
-                  <label
-                    style="font-size:0.8rem; color:var(--text2); font-weight:600; margin-bottom:6px; display:block;">ROI
-                    Esperado (%)</label>
-                  <div style="position:relative;">
-                    <span
-                      style="position:absolute; right:12px; top:50%; transform:translateY(-50%); color:var(--text2); font-weight:700;">%</span>
-                    <input type="number" id="macro-calc-roi" value="8" step="0.5"
-                      style="width:100%; padding:12px 30px 12px 12px; border-radius:12px; border:1px solid var(--border); background:var(--bg); font-weight:800; font-size:1.1rem; outline:none; transition:border-color 0.2s;">
-                  </div>
+                  <label style="font-size:0.75rem; color:var(--text2); font-weight:600; margin-bottom:4px; display:block;">Alquiler/mes ($)</label>
+                  <input type="number" id="net-cap-rent" value="1000" style="width:100%; padding:8px 10px; border-radius:8px; border:1px solid var(--border); background:var(--bg); font-weight:700; font-size:0.95rem; color:var(--text);">
+                </div>
+                <div>
+                  <label style="font-size:0.75rem; color:var(--text2); font-weight:600; margin-bottom:4px; display:block;">Vacancia Est. (%)</label>
+                  <input type="number" id="net-cap-vacancy" value="6" step="0.5" style="width:100%; padding:8px 10px; border-radius:8px; border:1px solid var(--border); background:var(--bg); font-weight:700; font-size:0.95rem; color:var(--text);">
+                </div>
+                <div>
+                  <label style="font-size:0.75rem; color:var(--text2); font-weight:600; margin-bottom:4px; display:block;">Expensas/mes ($)</label>
+                  <input type="number" id="net-cap-expensas" value="80" style="width:100%; padding:8px 10px; border-radius:8px; border:1px solid var(--border); background:var(--bg); font-weight:700; font-size:0.95rem; color:var(--text);">
                 </div>
               </div>
 
-              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px; position:relative; z-index:1;">
-
-                <!-- Left Card: Monthly Income -->
-                <div
-                  style="background:linear-gradient(145deg, rgba(16,185,129,0.08), rgba(16,185,129,0.02)); border:1px solid rgba(16,185,129,0.2); border-radius:16px; padding:16px; text-align:center; transition:transform 0.2s ease, box-shadow 0.2s ease; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
-                  <span
-                    style="display:block; font-size:0.75rem; color:#10b981; font-weight:700; text-transform:uppercase; letter-spacing:0.5px;">Ingreso
-                    Mensual</span>
-                  <span id="macro-calc-monthly"
-                    style="display:block; font-size:1.6rem; font-weight:800; color:#10b981; margin-top:8px;">USD
-                    1,000</span>
+              <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:8px; text-align:center;">
+                <div style="background:var(--surface2); padding:10px; border-radius:12px; border:1px solid var(--border);">
+                  <span style="font-size:0.68rem; color:var(--text2); font-weight:700; display:block;">ROI BRUTO</span>
+                  <strong id="net-cap-gross-out" style="font-size:1.15rem; color:var(--text); font-weight:800;">8.0%</strong>
                 </div>
-
-                <!-- Right Card: ROI -->
-                <div
-                  style="background:linear-gradient(145deg, rgba(255,42,95,0.08), rgba(255,42,95,0.02)); border:1px solid rgba(255,42,95,0.2); border-radius:16px; padding:16px; text-align:center; transition:transform 0.2s ease, box-shadow 0.2s ease; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
-                  <span
-                    style="display:block; font-size:0.75rem; color:#ff2a5f; font-weight:700; text-transform:uppercase; letter-spacing:0.5px;">Recupero</span>
-                  <span id="macro-calc-years"
-                    style="display:block; font-size:1.6rem; font-weight:800; color:#ff2a5f; margin-top:8px;">12.5
-                    Años</span>
+                <div style="background:rgba(16,185,129,0.08); padding:10px; border-radius:12px; border:1px solid rgba(16,185,129,0.2);">
+                  <span style="font-size:0.68rem; color:#10b981; font-weight:700; display:block;">NOI ANUAL</span>
+                  <strong id="net-cap-noi-out" style="font-size:1.1rem; color:#10b981; font-weight:800;">$ 8,832</strong>
                 </div>
+                <div style="background:rgba(255,42,95,0.08); padding:10px; border-radius:12px; border:1px solid rgba(255,42,95,0.2);">
+                  <span style="font-size:0.68rem; color:#ff2a5f; font-weight:700; display:block;">CAP RATE NETO</span>
+                  <strong id="net-cap-net-out" style="font-size:1.15rem; color:#ff2a5f; font-weight:800;">5.89%</strong>
+                </div>
+              </div>
+            </div>
 
+            <!-- Tool 3: Simulador Hipotecario AFD / Che Róga Porã -->
+            <div class="macro-tool-card wide"
+              style="background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:1.5rem; grid-column: 1 / -1; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
+              <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:1.2rem;">
+                <h4 style="margin:0; font-size:1.1rem; display:flex; align-items:center; gap:8px;">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--accent)" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    <polyline points="9 22 9 12 15 12 15 22"/>
+                  </svg>
+                  Simulador de Crédito Hipotecario AFD / Che Róga Porã (Paraguay)
+                </h4>
+                <span style="font-size:0.75rem; padding:4px 10px; background:rgba(56,189,248,0.12); color:#0284c7; border-radius:8px; font-weight:700;">Líneas Oficiales AFD</span>
+              </div>
+
+              <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:14px; margin-bottom:1.5rem;">
+                <div>
+                  <label style="font-size:0.8rem; color:var(--text2); font-weight:600; margin-bottom:6px; display:block;">Línea de Crédito</label>
+                  <select id="afd-credit-line" style="width:100%; padding:10px; border-radius:10px; border:1px solid var(--border); background:var(--bg); font-weight:700; font-size:0.88rem; color:var(--text);">
+                    <option value="cheroga">Che Róga Porã (6.5% - 30 Años)</option>
+                    <option value="afd1" selected>AFD 1ª Vivienda (7.5% - 30 Años)</option>
+                    <option value="banco">Hipotecario Bancario (10.5% - 20 Años)</option>
+                  </select>
+                </div>
+                <div>
+                  <label style="font-size:0.8rem; color:var(--text2); font-weight:600; margin-bottom:6px; display:block;">Valor Inmueble (USD)</label>
+                  <input type="number" id="afd-prop-price" value="65000" style="width:100%; padding:10px; border-radius:10px; border:1px solid var(--border); background:var(--bg); font-weight:800; font-size:0.95rem; color:var(--text);">
+                </div>
+                <div>
+                  <label style="font-size:0.8rem; color:var(--text2); font-weight:600; margin-bottom:6px; display:block;">Entrega Inicial (%)</label>
+                  <select id="afd-downpayment" style="width:100%; padding:10px; border-radius:10px; border:1px solid var(--border); background:var(--bg); font-weight:700; font-size:0.88rem; color:var(--text);">
+                    <option value="0">0% (Financiación 100%)</option>
+                    <option value="10" selected>10% Entrega Inicial</option>
+                    <option value="20">20% Entrega Inicial</option>
+                  </select>
+                </div>
+              </div>
+
+              <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:14px;">
+                <div style="background:linear-gradient(145deg, rgba(56,189,248,0.1), rgba(56,189,248,0.02)); border:1px solid rgba(56,189,248,0.25); border-radius:14px; padding:14px; text-align:center;">
+                  <span style="font-size:0.75rem; color:#0284c7; font-weight:700; text-transform:uppercase;">Cuota Mensual (PYG)</span>
+                  <strong id="afd-quota-pyg" style="display:block; font-size:1.35rem; color:#0284c7; margin-top:4px;">Gs. 2.980.000</strong>
+                  <span id="afd-quota-usd" style="font-size:0.75rem; color:var(--text2); font-weight:600;">~ USD 395/mes</span>
+                </div>
+                <div style="background:linear-gradient(145deg, rgba(16,185,129,0.1), rgba(16,185,129,0.02)); border:1px solid rgba(16,185,129,0.25); border-radius:14px; padding:14px; text-align:center;">
+                  <span style="font-size:0.75rem; color:#10b981; font-weight:700; text-transform:uppercase;">Ingreso Mínimo Familiar</span>
+                  <strong id="afd-income-pyg" style="display:block; font-size:1.35rem; color:#10b981; margin-top:4px;">Gs. 9.930.000</strong>
+                  <span style="font-size:0.72rem; color:var(--text2);">Cuota máx 30% del ingreso</span>
+                </div>
+                <div style="background:linear-gradient(145deg, rgba(245,158,11,0.1), rgba(245,158,11,0.02)); border:1px solid rgba(245,158,11,0.25); border-radius:14px; padding:14px; text-align:center;">
+                  <span style="font-size:0.75rem; color:#d97706; font-weight:700; text-transform:uppercase;">Monto Financiado</span>
+                  <strong id="afd-financed-pyg" style="display:block; font-size:1.35rem; color:#d97706; margin-top:4px;">Gs. 441.000.000</strong>
+                  <span id="afd-financed-usd" style="font-size:0.72rem; color:var(--text2);">USD 58,500</span>
+                </div>
               </div>
             </div>
           </div>

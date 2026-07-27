@@ -88,8 +88,39 @@ window.formatPriceM2 = function(usdValueM2) {
   return `${symbol} ${converted.toLocaleString('es-PY')}/m²`;
 };
 
+window.fetchLiveExchangeRates = async function() {
+  try {
+    const cached = localStorage.getItem('geohogar_live_rates');
+    if (cached) {
+      const parsed = JSON.parse(cached);
+      if (Date.now() - (parsed.timestamp || 0) < 3600000 && parsed.rates) {
+        Object.assign(window.exchangeRates, parsed.rates);
+      }
+    }
+    const res = await fetch('https://open.er-api.com/v6/latest/USD');
+    if (res.ok) {
+      const data = await res.json();
+      if (data && data.rates) {
+        window.exchangeRates.PYG = Math.round(data.rates.PYG || 7550);
+        window.exchangeRates.BRL = parseFloat((data.rates.BRL || 5.5).toFixed(2));
+        localStorage.setItem('geohogar_live_rates', JSON.stringify({
+          rates: window.exchangeRates,
+          timestamp: Date.now()
+        }));
+        console.log("Cotización de divisas en vivo sincronizada:", window.exchangeRates);
+        if (typeof window.changeCurrency === 'function') {
+          window.changeCurrency(window.currentCurrency);
+        }
+      }
+    }
+  } catch (err) {
+    console.warn("Sincronización en vivo de divisas fallback a tasa de referencia:", err);
+  }
+};
+
 // Escuchador de eventos inicial de la UI
 document.addEventListener('DOMContentLoaded', () => {
+  window.fetchLiveExchangeRates();
   // Inicializar estado visual
   window.changeCurrency(window.currentCurrency);
   

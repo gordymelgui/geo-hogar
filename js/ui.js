@@ -3144,27 +3144,100 @@ document.addEventListener('DOMContentLoaded', () => {
     // Calculator Logic (bind only once)
     if (!macroCalcBound) {
       macroCalcBound = true;
-      const calcPriceInput = document.getElementById('macro-calc-price');
-      const calcRoiInput = document.getElementById('macro-calc-roi');
-      const outMonthly = document.getElementById('macro-calc-monthly');
-      const outYears = document.getElementById('macro-calc-years');
 
-      function updateMacroCalc() {
-        if (!calcPriceInput || !calcRoiInput) return;
-        const price = parseFloat(calcPriceInput.value) || 0;
-        const roi = parseFloat(calcRoiInput.value) || 0;
-        if (price > 0 && roi > 0) {
-          const annualIncome = price * (roi / 100);
-          const monthlyIncome = annualIncome / 12;
-          const yearsToRecover = 100 / roi;
-          if (outMonthly) outMonthly.textContent = 'USD ' + Math.round(monthlyIncome).toLocaleString();
-          if (outYears) outYears.textContent = yearsToRecover.toFixed(1) + ' Años';
+      // 1. Cap Rate Neto Real Calculator
+      const netPrice = document.getElementById('net-cap-price');
+      const netRent = document.getElementById('net-cap-rent');
+      const netVacancy = document.getElementById('net-cap-vacancy');
+      const netExpensas = document.getElementById('net-cap-expensas');
+      const grossOut = document.getElementById('net-cap-gross-out');
+      const noiOut = document.getElementById('net-cap-noi-out');
+      const netOut = document.getElementById('net-cap-net-out');
+
+      function updateNetCapCalc() {
+        if (!netPrice || !netRent) return;
+        const p = parseFloat(netPrice.value) || 0;
+        const r = parseFloat(netRent.value) || 0;
+        const vac = parseFloat(netVacancy?.value || 6) / 100;
+        const exp = parseFloat(netExpensas?.value || 80);
+
+        if (p > 0 && r > 0) {
+          const grossAnnual = r * 12;
+          const grossCap = (grossAnnual / p) * 100;
+          const effectiveAnnual = grossAnnual * (1 - vac);
+          const ipuMaintAnnual = Math.round(p * 0.005);
+          const adminAnnual = effectiveAnnual * 0.08;
+          const expensasAnnual = exp * 12;
+          const noi = effectiveAnnual - ipuMaintAnnual - adminAnnual - expensasAnnual;
+          const netCap = (noi / p) * 100;
+
+          if (grossOut) grossOut.textContent = grossCap.toFixed(1) + '%';
+          if (noiOut) noiOut.textContent = '$ ' + Math.round(noi).toLocaleString();
+          if (netOut) netOut.textContent = Math.max(0, netCap).toFixed(2) + '%';
         }
       }
 
-      if (calcPriceInput) calcPriceInput.addEventListener('input', updateMacroCalc);
-      if (calcRoiInput) calcRoiInput.addEventListener('input', updateMacroCalc);
-      updateMacroCalc();
+      [netPrice, netRent, netVacancy, netExpensas].forEach(inp => {
+        if (inp) inp.addEventListener('input', updateNetCapCalc);
+      });
+      updateNetCapCalc();
+
+      // 2. Simulador Hipotecario AFD / Che Róga Porã
+      const afdLine = document.getElementById('afd-credit-line');
+      const afdPrice = document.getElementById('afd-prop-price');
+      const afdDown = document.getElementById('afd-downpayment');
+      const afdQuotaPyg = document.getElementById('afd-quota-pyg');
+      const afdQuotaUsd = document.getElementById('afd-quota-usd');
+      const afdIncomePyg = document.getElementById('afd-income-pyg');
+      const afdFinancedPyg = document.getElementById('afd-financed-pyg');
+      const afdFinancedUsd = document.getElementById('afd-financed-usd');
+
+      function updateAFDCalc() {
+        if (!afdPrice) return;
+        const priceUSD = parseFloat(afdPrice.value) || 0;
+        const line = afdLine ? afdLine.value : 'afd1';
+        const downPct = parseFloat(afdDown ? afdDown.value : 10) / 100;
+        const ratePYG = window.exchangeRates?.PYG || 7550;
+
+        let annualRate = 0.075;
+        let years = 30;
+
+        if (line === 'cheroga') {
+          annualRate = 0.065;
+          years = 30;
+        } else if (line === 'afd1') {
+          annualRate = 0.075;
+          years = 30;
+        } else if (line === 'banco') {
+          annualRate = 0.105;
+          years = 20;
+        }
+
+        const pricePYG = priceUSD * ratePYG;
+        const financedPYG = pricePYG * (1 - downPct);
+        const financedUSD = priceUSD * (1 - downPct);
+
+        const monthlyRate = annualRate / 12;
+        const totalMonths = years * 12;
+        const quotaPYG = financedPYG * (monthlyRate * Math.pow(1 + monthlyRate, totalMonths)) / (Math.pow(1 + monthlyRate, totalMonths) - 1);
+        const quotaUSD = quotaPYG / ratePYG;
+        const reqIncomePYG = quotaPYG / 0.30;
+
+        if (afdQuotaPyg) afdQuotaPyg.textContent = 'Gs. ' + Math.round(quotaPYG).toLocaleString('es-PY');
+        if (afdQuotaUsd) afdQuotaUsd.textContent = '~ USD ' + Math.round(quotaUSD).toLocaleString() + '/mes';
+        if (afdIncomePyg) afdIncomePyg.textContent = 'Gs. ' + Math.round(reqIncomePYG).toLocaleString('es-PY');
+        if (afdFinancedPyg) afdFinancedPyg.textContent = 'Gs. ' + Math.round(financedPYG).toLocaleString('es-PY');
+        if (afdFinancedUsd) afdFinancedUsd.textContent = 'USD ' + Math.round(financedUSD).toLocaleString();
+      }
+
+      [afdLine, afdPrice, afdDown].forEach(inp => {
+        if (inp) {
+          inp.addEventListener('input', updateAFDCalc);
+          inp.addEventListener('change', updateAFDCalc);
+        }
+      });
+      window.addEventListener('currencyRatesUpdated', updateAFDCalc);
+      updateAFDCalc();
     }
 
     // Hot Zone Buttons (bind only once)
