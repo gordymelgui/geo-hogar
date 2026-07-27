@@ -535,88 +535,161 @@ export function renderGlossaryView() {
           </div>
         </div>
 
-        <!-- Tab: User Guide -->
+        <!-- Tab: User Guide (Manual de la App Lectivo) -->
         <div id="help-content-guide" class="help-tab-panel" style="display: none;">
-          <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-            <!-- Step 1 -->
-            <div
-              style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow-sm);">
-              <h3
-                style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: var(--accent); font-size: 1.15rem; margin-bottom: 10px;"
-                data-i18n="guide_step1_title">
-                1. Buscar y Filtrar Oportunidades
-              </h3>
-              <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin: 0; font-weight: 500;"
-                data-i18n="guide_step1_desc">
-                En el feed principal, puedes buscar por barrio o aplicar filtros independientes. El botón de **Alta
-                Rentabilidad** destaca propiedades con ROI >7%, y el de **Bajo Valor** muestra inmuebles rebajados
-                respecto al promedio.
+          <div style="display: flex; flex-direction: column; gap: 2rem;">
+            
+            <!-- Introducción al Manual -->
+            <div style="padding: 1.2rem; background: rgba(16, 185, 129, 0.06); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 14px;">
+              <div style="display:flex; align-items:center; gap:10px; margin-bottom: 6px;">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#10b981" stroke-width="2.5">
+                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                </svg>
+                <h2 style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.15rem; font-weight: 800; color: var(--text); margin: 0;">Manual Operativo Integrado de GeoHogar</h2>
+              </div>
+              <p style="font-size: 0.9rem; color: var(--text2); margin: 0; line-height: 1.5; font-weight: 500;">
+                Guía oficial lectiva organizada en dos pilares fundamentales: la <strong>Sección Mercado & Inteligencia Analítica</strong> y la <strong>Sección Broker PRO & Herramientas de Captación</strong>. Consulta cada herramienta y función sin saltearte ningún detalle.
               </p>
             </div>
 
-            <!-- Step 2 -->
-            <div
-              style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow-sm);">
-              <h3
-                style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: var(--accent); font-size: 1.15rem; margin-bottom: 10px;"
-                data-i18n="guide_step2_title">
-                2. Análisis en el Mapa y Heatmaps
-              </h3>
-              <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin: 0; font-weight: 500;"
-                data-i18n="guide_step2_desc">
-                Usa la vista de Mapa para ubicar propiedades visualmente. Activa la capa de **Zonas de demanda
-                (Heatmap)** para visualizar los barrios con mayor actividad, precios de metro cuadrado más altos o
-                retornos de alquiler más convenientes.
-              </p>
+            <!-- PILAR 1: MERCADO & ANALÍTICAS -->
+            <div style="display: flex; flex-direction: column; gap: 1.2rem;">
+              <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.2rem; font-weight: 900; color: var(--text); border-bottom: 2px solid var(--accent); padding-bottom: 0.5rem; display: flex; align-items: center; justify-content: space-between;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <span style="background: var(--accent); color: white; border-radius: 8px; padding: 4px 10px; font-size: 0.8rem; font-weight: 800;">PILAR 1</span>
+                  <span>Materia de Mercado & Analíticas</span>
+                </div>
+              </div>
+
+              <!-- 1.1 Vista Global de Mercado -->
+              <div style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-left: 5px solid var(--accent); border-radius: 14px; box-shadow: var(--shadow-sm);">
+                <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+                  <span style="background: rgba(16,185,129,0.12); color: #10b981; font-weight: 800; font-size: 0.78rem; padding: 3px 8px; border-radius: 6px;">Módulo 1.1</span>
+                  <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: var(--text); font-size: 1.1rem; margin: 0;">Vista Global de Mercado (Indicadores Clave)</h3>
+                </div>
+                <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin-bottom: 12px; font-weight: 500;">
+                  El panel principal de analíticas procesa de forma continua los datos de oferta inmobiliaria en Paraguay para entregar métricas financieras en tiempo real:
+                </p>
+                <ul style="margin: 0; padding-left: 1.2rem; font-size: 0.9rem; color: var(--text2); line-height: 1.6;">
+                  <li><strong>Precio Promedio por m²:</strong> Muestra el valor medio del metro cuadrado en Guaraníes (PYG) y Dólares (USD), calculado sobre propiedades activas de compra/venta.</li>
+                  <li><strong>Retorno Promedio (ROI %):</strong> Ratio anual bruto estimado de renta sobre inversión de alquileres en la zona.</li>
+                  <li><strong>Oportunidades de Compra:</strong> Total de inmuebles detectados con precios por debajo de la media del barrio.</li>
+                </ul>
+              </div>
+
+              <!-- 1.2 Red Verificada Institucional -->
+              <div style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-left: 5px solid #3b82f6; border-radius: 14px; box-shadow: var(--shadow-sm);">
+                <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+                  <span style="background: rgba(59,130,246,0.12); color: #3b82f6; font-weight: 800; font-size: 0.78rem; padding: 3px 8px; border-radius: 6px;">Módulo 1.2</span>
+                  <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: var(--text); font-size: 1.1rem; margin: 0;">Red Verificada (Inteligencia Macroeconómica Institucional)</h3>
+                </div>
+                <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin-bottom: 12px; font-weight: 500;">
+                  Pestaña exclusiva que conecta la plataforma con fuentes oficiales de datos económicos (BCP, REDIEX, INE, Capadei y Forbes Paraguay):
+                </p>
+                <ul style="margin: 0; padding-left: 1.2rem; font-size: 0.9rem; color: var(--text2); line-height: 1.6;">
+                  <li><strong>Inversión Extranjera Directa (IED Inmobiliaria):</strong> Registra el flujo bruto de capital internacional destinado a desarrollos urbanos en el país (USD 931M+).</li>
+                  <li><strong>Riesgo País & Calificación EMBI:</strong> Indicadores de estabilidad financiera e inflación publicados por el Banco Central del Paraguay.</li>
+                  <li><strong>Calculadora Institucional de Cap Rate Neto:</strong> Herramienta para simular el retorno neto deduciendo tasa de vacancia, mantenimientos y costos de administración.</li>
+                </ul>
+              </div>
+
+              <!-- 1.3 Mapa de Calor Interactivo -->
+              <div style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-left: 5px solid #f59e0b; border-radius: 14px; box-shadow: var(--shadow-sm);">
+                <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+                  <span style="background: rgba(245,158,11,0.12); color: #f59e0b; font-weight: 800; font-size: 0.78rem; padding: 3px 8px; border-radius: 6px;">Módulo 1.3</span>
+                  <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: var(--text); font-size: 1.1rem; margin: 0;">Mapa de Calor Interactivo (Multi-Métrica Geográfica)</h3>
+                </div>
+                <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin-bottom: 12px; font-weight: 500;">
+                  Herramienta espacial que proyecta gradientes de color sobre el mapa de Asunción y Gran Asunción con 3 botones de control independientes:
+                </p>
+                <ul style="margin: 0; padding-left: 1.2rem; font-size: 0.9rem; color: var(--text2); line-height: 1.6;">
+                  <li><strong>Pestaña Demanda:</strong> Círculos proporcionales al volumen de búsquedas y contactos realizados por potenciales compradores en cada barrio.</li>
+                  <li><strong>Pestaña Precios/m²:</strong> Mapeo térmico que diferencia zonas consolidadas de alto valor frente a ejes de desarrollo emergentes.</li>
+                  <li><strong>Pestaña Rendimiento (ROI):</strong> Resalta los barrios con mayor rentabilidad de alquiler sobre inversión.</li>
+                </ul>
+              </div>
+
+              <!-- 1.4 Datos Externos vs Datos Locales -->
+              <div style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-left: 5px solid #8b5cf6; border-radius: 14px; box-shadow: var(--shadow-sm);">
+                <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+                  <span style="background: rgba(139,92,246,0.12); color: #8b5cf6; font-weight: 800; font-size: 0.78rem; padding: 3px 8px; border-radius: 6px;">Módulo 1.4</span>
+                  <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: var(--text); font-size: 1.1rem; margin: 0;">Capa Datos Externos (Radar Web) vs. Datos Locales</h3>
+                </div>
+                <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin: 0; font-weight: 500;">
+                  Permite conmutar la fuente analítica: los <strong>Datos Externos</strong> agregan muestras públicas del mercado general para dar amplitud de visión, mientras que los <strong>Datos Locales</strong> procesan en exclusiva las propiedades publicadas y verificadas dentro de la plataforma GeoHogar.
+                </p>
+              </div>
             </div>
 
-            <!-- Step 3 -->
-            <div
-              style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow-sm);">
-              <h3
-                style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: var(--accent); font-size: 1.15rem; margin-bottom: 10px;"
-                data-i18n="guide_step3_title">
-                3. Centro de Alertas en Tiempo Real
-              </h3>
-              <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin: 0; font-weight: 500;"
-                data-i18n="guide_step3_desc">
-                Configura alertas para tus zonas preferidas. Elige qué te interesa (baja de precio de favoritos, nuevas
-                propiedades, o alertas de flipping) y recibe avisos inmediatos en tu panel y correo para actuar antes
-                que otros compradores.
-              </p>
+            <!-- PILAR 2: BROKER PRO & HERRAMIENTAS DE CAPTACIÓN -->
+            <div style="display: flex; flex-direction: column; gap: 1.2rem; margin-top: 1rem;">
+              <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.2rem; font-weight: 900; color: var(--text); border-bottom: 2px solid #D4AF37; padding-bottom: 0.5rem; display: flex; align-items: center; justify-content: space-between;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <span style="background: linear-gradient(135deg, #FFE07D, #D4AF37); color: #0f172a; border-radius: 8px; padding: 4px 10px; font-size: 0.8rem; font-weight: 800;">PILAR 2</span>
+                  <span>Materia Broker PRO & Herramientas de Captación</span>
+                </div>
+              </div>
+
+              <!-- 2.1 Embudo de Tasación Marca Blanca -->
+              <div style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-left: 5px solid #D4AF37; border-radius: 14px; box-shadow: var(--shadow-sm);">
+                <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+                  <span style="background: rgba(212,175,55,0.15); color: #b45309; font-weight: 800; font-size: 0.78rem; padding: 3px 8px; border-radius: 6px;">Módulo 2.1</span>
+                  <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: var(--text); font-size: 1.1rem; margin: 0;">Embudo de Tasación Marca Blanca (Captador de Exclusivas)</h3>
+                </div>
+                <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin-bottom: 12px; font-weight: 500;">
+                  Herramienta estrella de captación para agentes. El Broker PRO obtiene un enlace web personalizado para compartir en sus redes sociales, WhatsApp o tarjeta digital:
+                </p>
+                <ul style="margin: 0; padding-left: 1.2rem; font-size: 0.9rem; color: var(--text2); line-height: 1.6;">
+                  <li><strong>Experiencia Propietario:</strong> El cliente tasará su inmueble gratis con el motor de IA de GeoHogar sin ver publicidad de terceros.</li>
+                  <li><strong>Captación Automática:</strong> Los datos de contacto del dueño, fotos y el reporte estimado de tasación se envían automáticamente de forma exclusiva al panel del Broker para gestionar el contrato de consignación.</li>
+                </ul>
+              </div>
+
+              <!-- 2.2 Bolsa de Compradores -->
+              <div style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-left: 5px solid #10b981; border-radius: 14px; box-shadow: var(--shadow-sm);">
+                <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+                  <span style="background: rgba(16,185,129,0.12); color: #10b981; font-weight: 800; font-size: 0.78rem; padding: 3px 8px; border-radius: 6px;">Módulo 2.2</span>
+                  <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: var(--text); font-size: 1.1rem; margin: 0;">Bolsa de Compradores (Leads en Vivo en el Mapa)</h3>
+                </div>
+                <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin-bottom: 12px; font-weight: 500;">
+                  Panel de prospección comercial activa que muestra dónde están buscando los compradores en tiempo real:
+                </p>
+                <ul style="margin: 0; padding-left: 1.2rem; font-size: 0.9rem; color: var(--text2); line-height: 1.6;">
+                  <li><strong>Filtros por Zona & Presupuesto:</strong> Permite filtrar solicitudes activas por rango de precio (ej. USD 80k - 150k) y barrio.</li>
+                  <li><strong>Contacto Directo:</strong> Los agentes pueden enviar mensajes directos a los interesados para ofrecer propiedades de su propia cartera que encajen con el perfil.</li>
+                </ul>
+              </div>
+
+              <!-- 2.3 CRM Inmobiliario & Pines Dorados -->
+              <div style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-left: 5px solid #3b82f6; border-radius: 14px; box-shadow: var(--shadow-sm);">
+                <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+                  <span style="background: rgba(59,130,246,0.12); color: #3b82f6; font-weight: 800; font-size: 0.78rem; padding: 3px 8px; border-radius: 6px;">Módulo 2.3</span>
+                  <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: var(--text); font-size: 1.1rem; margin: 0;">CRM de Clientes & Priorización con Pines Dorados</h3>
+                </div>
+                <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin-bottom: 12px; font-weight: 500;">
+                  Gestor de cartera integrado y visibilidad prioritaria en el mapa principal:
+                </p>
+                <ul style="margin: 0; padding-left: 1.2rem; font-size: 0.9rem; color: var(--text2); line-height: 1.6;">
+                  <li><strong>Etapas de Seguimiento CRM:</strong> Clasificación de clientes en Prospecto, Visita Agendada, Negociación y Venta Cerrada.</li>
+                  <li><strong>Pines Dorados (GF):</strong> Las propiedades de los Brokers PRO lucen marcadores dorados destacados en el mapa e interactivos, garantizando 3x más impresiones que los anuncios estándar.</li>
+                  <li><strong>Carga Masiva por CSV:</strong> Conexión con planillas de Google Sheets para publicar o actualizar catálogos completos en segundos.</li>
+                </ul>
+              </div>
+
+              <!-- 2.4 Radar Predictivo & Alertas -->
+              <div style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-left: 5px solid #8b5cf6; border-radius: 14px; box-shadow: var(--shadow-sm);">
+                <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+                  <span style="background: rgba(139,92,246,0.12); color: #8b5cf6; font-weight: 800; font-size: 0.78rem; padding: 3px 8px; border-radius: 6px;">Módulo 2.4</span>
+                  <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: var(--text); font-size: 1.1rem; margin: 0;">Radar Predictivo de Prospección & Configuración de Alertas</h3>
+                </div>
+                <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin: 0; font-weight: 500;">
+                  Analiza el desbalance entre la oferta disponible y la demanda no atendida en cada barrio. Ayuda al Broker a identificar exactamente en qué zonas faltan inmuebles para enfocar sus campañas de captación exclusiva y recibir avisos de flipping antes que la competencia.
+                </p>
+              </div>
+
             </div>
 
-            <!-- Step 4 -->
-            <div
-              style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow-sm);">
-              <h3
-                style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: var(--accent); font-size: 1.15rem; margin-bottom: 10px;"
-                data-i18n="guide_step4_title">
-                4. Publicar y Sincronización Masiva
-              </h3>
-              <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin: 0; font-weight: 500;"
-                data-i18n="guide_step4_desc">
-                Puedes publicar tus propiedades de forma individual llenando el formulario, o usar la opción PRO de
-                **Sincronización con Google Sheets**. Simplemente publica tu planilla como CSV en la web y pégala para
-                cargar todo tu catálogo en segundos.
-              </p>
-            </div>
-
-            <!-- Step 5 -->
-            <div
-              style="padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow-sm);">
-              <h3
-                style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: var(--accent); font-size: 1.15rem; margin-bottom: 10px;"
-                data-i18n="guide_step5_title">
-                5. Broker PRO y Tasador Inteligente
-              </h3>
-              <p style="font-size: 0.92rem; color: var(--text2); line-height: 1.6; margin: 0; font-weight: 500;"
-                data-i18n="guide_step5_desc">
-                Como Broker PRO, accede al listado de compradores activos buscando propiedades, o usa tu enlace de
-                tasación de marca blanca. Compártelo en tus redes; los dueños tasarán sus casas gratis con IA y sus
-                datos te llegarán directamente a ti.
-              </p>
-            </div>
           </div>
         </div>
       </section>
