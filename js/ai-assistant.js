@@ -210,9 +210,15 @@ class GeoHogarAI {
     }
     parseActions(text) {
         const lower = text.toLowerCase();
-        const normalize = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+        const normalize = s => s.normalize('NFD').replace(/[\u0300-\u536f]/g,'').toLowerCase();
         const norm = normalize(lower);
         let navigated = false;
+
+        // ===== GREETINGS & CONVERSATIONAL INTENTS =====
+        const greetings = ['hola', 'buenas', 'buenos dias', 'buenas tardes', 'buenas noches', 'que tal', 'como estas', 'quien sos', 'quien eres', 'quien te creo', 'ayuda', 'gracias', 'que podes hacer', 'que puedes hacer'];
+        if (greetings.some(g => norm === g || norm.startsWith(g + ' ') || norm.endsWith(' ' + g))) {
+            return false;
+        }
 
         // ===== CLEAR/RESET FILTERS COMMAND =====
         if (norm.includes('limpiar') || norm.includes('quitar filtro') || norm.includes('limpiar filtro') || norm.includes('mostrar todo') || norm.includes('muestra todo') || norm.includes('ver todo')) {
@@ -239,28 +245,25 @@ class GeoHogarAI {
         const criteria = {};
         
         // Precio
-        const priceMax = norm.match(/(?:menos de|bajo de|menor a|por debajo de|hasta|maximo|mǭximo)\s*(?:usd\s*)?(\d[\d.,]*)/i);
-        const priceMin = norm.match(/(?:mas de|mayor a|minimo|mnimo|desde|sobre)\s*(?:usd\s*)?(\d[\d.,]*)/i);
+        const priceMax = norm.match(/(?:menos de|bajo de|menor a|por debajo de|hasta|maximo|mÁximo)\s*(?:usd\s*)?(\d[\d.,]*)/i);
+        const priceMin = norm.match(/(?:mas de|mayor a|minimo|mÍnimo|desde|sobre)\s*(?:usd\s*)?(\d[\d.,]*)/i);
         if (priceMax) criteria.maxPrice = parseInt(priceMax[1].replace(/\D/g,''));
         if (priceMin) criteria.minPrice = parseInt(priceMin[1].replace(/\D/g,''));
 
         // Tipo (Synonyms Expansion)
         if (norm.match(/\b(casa|chalet|mansion|residencia|quinta|rancho|villa)\b/))          criteria.type = 'Casa';
         else if (norm.match(/\b(departamento|depto|dpto|apartamento|piso|monoambiente|estudio|loft)\b/)) criteria.type = 'Departamento';
-        else if (norm.includes('duplex'))   criteria.type = 'Dǧplex';
+        else if (norm.includes('duplex'))   criteria.type = 'Dúplex';
         else if (norm.includes('penthouse') || norm.includes('atico')) criteria.type = 'Penthouse';
         else if (norm.includes('ph'))       criteria.type = 'PH';
         else if (norm.match(/\b(terreno|lote|parcela|hectarea)\b/))  criteria.type = 'Terreno';
         else if (norm.match(/\b(oficina|consultorio|corporativo|co-working)\b/))  criteria.type = 'Oficina';
         else if (norm.match(/\b(local|comercial|tienda|negocio)\b/))    criteria.type = 'Local';
-        else if (norm.match(/\b(galpon|deposito|tinglado)\b/)) criteria.type = 'Galpn';
+        else if (norm.match(/\b(galpon|deposito|tinglado)\b/)) criteria.type = 'Galpón';
         else if (norm.match(/\b(estancia|chacra|quinta|campo)\b/)) criteria.type = 'Estancia';
 
-        // Operación (Solo Ventas)
-        criteria.op = 'Venta';
-
         // Heurística de precio e inversión (contexto de "barato" / "oportunidad")
-        if (!criteria.maxPrice && norm.match(/\b(barato|econmico|economico|accesible|ganga|oportunidad|descuento)\b/)) {
+        if (!criteria.maxPrice && norm.match(/\b(barato|económico|economico|accesible|ganga|oportunidad|descuento)\b/)) {
             criteria.maxPrice = 120000;
         }
         if (!criteria.minPrice && norm.match(/\b(lujo|exclusivo|alta gama|caro|premium)\b/)) {
@@ -439,39 +442,51 @@ class GeoHogarAI {
     }
 
     async callAI(prompt) {
-        const cleanKey = (window.CONFIG?.GEMINI_API_KEY_2 || 'YOUR_GEMINI_API_KEY_2_HERE').trim();
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${cleanKey}`;
+        const cleanKey = (window.CONFIG?.GEMINI_API_KEY_1 || window.CONFIG?.GEMINI_API_KEY_2 || '').trim();
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${cleanKey}`;
         
-        const activeView = document.querySelector('.view.active')?.id || 'explore';
-        const isMapRequest = prompt.toLowerCase().includes('mapa');
-        const viewText = isMapRequest ? 'el mapa interactivo' : 'la lista de exploración';
-
-        const systemPrompt = `Eres la Inteligencia Artificial integrada DENTRO de la app GeoHogar. 
-        El usuario YA ESTÁ usando la app.
-        Acción que estás realizando: Filtrando y mostrando los resultados en ${viewText}.
-        REGLA DE ORO: NUNCA digas que vas a mostrar algo en el mapa a menos que el usuario te lo pida con la palabra "mapa". Si no, dile que los ves en la lista o explorador principal.
-        Si el usuario pregunta sobre noticias inmobiliarias (ej. Forbes, Rediex) o análisis de mercado actual, USA el buscador para obtener los datos más recientes.
-        IMPORTANTE: Responde en texto plano. NO uses asteriscos, ni negritas, ni viñetas, ni markdown de ningún tipo.
-        Responde de forma natural, directa y conversacional (máximo 2 frases).`;
+        const systemPrompt = `Eres el Asistente Inteligente de GeoHogar, la plataforma inmobiliaria premium de Paraguay.
+        Tu objetivo es dialogar de forma amable, natural, fluida y experta.
+        
+        REGLAS DE RESPUESTA:
+        1. Si el usuario te saluda ("hola", "buenas", "qué tal", etc.) o pregunta quien sos, salúdalo amablemente y dile brevemente cómo puedes ayudarlo en la app.
+        2. Si el usuario realiza una búsqueda de propiedades (ej. "casas en Villa Morra", "deptos de 2 dormitorios"), confirma que estás filtrando la lista o el mapa.
+        3. Si pregunta sobre terminología o valuaciones inmobiliarias, respóndele brevemente.
+        4. Tolera errores de tipeo y modismos (ej: "barato", "depto", "asunsion").
+        5. Responde SIEMPRE en texto plano. NO uses asteriscos (*), ni negritas (**), ni viñetas.
+        6. Responde de forma concisa en 1 a 3 oraciones.`;
 
         try {
             const response = await fetch(url, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    contents: [{ parts: [{ text: systemPrompt + "\n\nUsuario: " + prompt }] }],
-                    tools: [{ google_search: {} }]
+                    contents: [{ parts: [{ text: systemPrompt + "\n\nUsuario: " + prompt }] }]
                 })
             });
             
             const data = await response.json();
-            if (data.candidates && data.candidates[0].content) {
+            if (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts[0]) {
                 let rawText = data.candidates[0].content.parts[0].text;
                 return rawText.replace(/\*/g, '').replace(/_/g, '').trim();
             }
-        } catch (e) { console.error(e); }
+        } catch (e) {
+            console.warn("Gemini API call error, using conversational fallback:", e);
+        }
 
-        return "Filtros aplicados. Echa un vistazo a los resultados.";
+        // Intelligent Conversational Fallback Classifier
+        const norm = prompt.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+        if (norm.includes('hola') || norm.includes('buenas') || norm.includes('que tal') || norm.includes('buenos dias')) {
+            return "¡Hola! Soy tu asistente de GeoHogar. Puedo buscar inmuebles por zona o precio, mostrarte oportunidades en el mapa y guiarte en tus tasaciones. ¿En qué te ayudo?";
+        }
+        if (norm.includes('quien sos') || norm.includes('quien eres') || norm.includes('que haces')) {
+            return "Soy el asistente virtual de GeoHogar. Estoy entrenado para ayudarte a explorar casas, departamentos, terrenos y analizar el mercado inmobiliario en Paraguay.";
+        }
+        if (norm.includes('gracias')) {
+            return "¡De nada! Estoy para ayudarte cuando lo necesites.";
+        }
+
+        return "Filtros y consultas procesadas con éxito. Revisa los resultados en pantalla.";
     }
     showTypingIndicator() {
         const container = document.getElementById('ai-messages');
