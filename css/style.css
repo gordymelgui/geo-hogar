@@ -218,11 +218,10 @@ button { font-family: inherit; cursor: pointer; outline: none; }
 .logo-icon, .splash-logo .logo-icon, .login-logo .logo-icon, .sidebar-logo .logo-icon {
   background: linear-gradient(135deg, #ff2a5f 0%, #ff6b35 100%) !important;
   color: white !important;
-  box-shadow: 0 8px 24px rgba(255, 42, 95, 0.4) !important;
+  box-shadow: 0 8px 24px rgba(255, 42, 95, 0.3) !important;
+  overflow: hidden;
+  position: relative;
 }
-.logo-icon::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 60%); transform: rotate(45deg); animation: logoShine 6s linear infinite; }
-@keyframes logoGlow { 0% { box-shadow: 0 8px 24px rgba(255, 42, 95, 0.3); } 100% { box-shadow: 0 12px 32px rgba(255, 42, 95, 0.6); } }
-@keyframes logoShine { 0% { transform: translateY(-100%) rotate(45deg); } 100% { transform: translateY(100%) rotate(45deg); } }
 
 .logo-text, .splash-logo .logo-text, .login-logo .logo-text, .sidebar-logo .logo-text {
   background: linear-gradient(135deg, var(--text) 30%, #ff2a5f 100%) !important;
@@ -6192,12 +6191,52 @@ body.tour-active .view-analytics {
 }
 
 .sidebar-select option {
-  background-color: var(--surface);
-  color: var(--text);
+  background-color: #1e293b;
+  color: #f8fafc;
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 0.9rem;
-  font-weight: 600;
-  padding: 10px 14px;
+  font-weight: 700;
+  padding: 12px 14px;
+}
+
+/* ===== CUSTOM MOBILE APP SELECT & OPTION STYLING ===== */
+select, .sidebar-select, .val-select {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  background-color: var(--surface2) !important;
+  color: var(--text) !important;
+  border: 1.5px solid var(--border) !important;
+  border-radius: 14px !important;
+  padding: 12px 38px 12px 14px !important;
+  font-size: 0.92rem !important;
+  font-weight: 700 !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  cursor: pointer !important;
+  outline: none !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+}
+
+select:hover, .sidebar-select:hover, .val-select:hover {
+  border-color: var(--accent) !important;
+}
+
+select option, .sidebar-select option, .val-select option {
+  background-color: #1e293b !important;
+  color: #f8fafc !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 0.95rem !important;
+  font-weight: 700 !important;
+  padding: 14px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+body:not(.dark-theme) select option, 
+body:not(.dark-theme) .sidebar-select option, 
+body:not(.dark-theme) .val-select option {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
 }
 
 .select-chevron {

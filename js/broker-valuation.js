@@ -425,7 +425,13 @@ window.restoreValuation = function(index) {
     if (document.getElementById('val-m2')) document.getElementById('val-m2').value = h.m2;
     if (document.getElementById('val-rooms')) document.getElementById('val-rooms').value = h.rooms;
     if (document.getElementById('val-baths')) document.getElementById('val-baths').value = h.baths;
-    document.getElementById('val-address')?.scrollIntoView({ behavior: 'smooth' });
+    
+    if (typeof window.calcValuation === 'function') {
+      window.calcValuation();
+    }
+    setTimeout(() => {
+      document.getElementById('val-result')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 150);
   } catch (e) { console.error('Error restoring valuation:', e); }
 };
 
