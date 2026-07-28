@@ -184,52 +184,7 @@ function setupInvestorMapFilters() {
   
   if (!roiBtn || !marketBtn) return;
   
-  roiBtn.onclick = (e) => {
-    e.preventDefault();
-    const isPremium = !!(window.currentUserProfile && window.currentUserProfile.isPremium);
-    if (!isPremium) {
-      if (window.showPremiumPaywall) window.showPremiumPaywall();
-      return;
-    }
-    roiBtn.classList.toggle('active');
-    // Sync to explore view button
-    const expBtn = document.getElementById('explore-roi-btn');
-    if (expBtn) {
-      if (roiBtn.classList.contains('active')) expBtn.classList.add('active');
-      else expBtn.classList.remove('active');
-    }
-    window.filterMapMarkers(window._currentMapCriteria || {});
-  };
-  
-  marketBtn.onclick = (e) => {
-    e.preventDefault();
-    const isPremium = !!(window.currentUserProfile && window.currentUserProfile.isPremium);
-    if (!isPremium) {
-      if (window.showPremiumPaywall) window.showPremiumPaywall();
-      return;
-    }
-    marketBtn.classList.toggle('active');
-    // Sync to explore view button
-    const expBtn = document.getElementById('explore-market-value-btn');
-    if (expBtn) {
-      if (marketBtn.classList.contains('active')) expBtn.classList.add('active');
-      else expBtn.classList.remove('active');
-    }
-    window.filterMapMarkers(window._currentMapCriteria || {});
-  };
-
-  if (radarBtn) {
-    radarBtn.onclick = (e) => {
-      e.preventDefault();
-      const isPremium = !!(window.currentUserProfile && window.currentUserProfile.isPremium);
-      if (!isPremium) {
-        if (window.showPremiumPaywall) window.showPremiumPaywall();
-        return;
-      }
-      radarBtn.classList.toggle('active');
-      window.filterMapMarkers(window._currentMapCriteria || {});
-    };
-  }
+  // Event listeners are handled by global delegation in ui.js
 }
 
 // ===== AI MAP FILTER =====

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'geohogar-cache-v70';
+const CACHE_NAME = 'geohogar-cache-v71';
 const ASSETS = [
   '/',
   '/index.html',
@@ -17,6 +17,17 @@ const ASSETS = [
   '/js/broker.js',
   '/js/broker-alerts.js',
   '/js/broker-valuation.js',
+  '/js/router.js',
+  '/views/explore.js',
+  '/views/map.js',
+  '/views/messages.js',
+  '/views/favorites.js',
+  '/views/publish.js',
+  '/views/alerts.js',
+  '/views/analytics.js',
+  '/views/glossary.js',
+  '/views/broker.js',
+  '/views/academy.js',
   '/manifest.json'
 ];
 

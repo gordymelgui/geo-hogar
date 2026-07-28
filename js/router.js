@@ -52,7 +52,25 @@ export class Router {
   }
 
   navigate(viewName) {
-    const targetView = routes[viewName] ? viewName : 'explore';
+    let targetView = routes[viewName] ? viewName : 'explore';
+    
+    // SECURITY CHECK: Prevent unauthorized access to Premium views (Single Source of Truth)
+    const premiumRoutes = ['broker', 'analytics'];
+    if (premiumRoutes.includes(targetView)) {
+      const isPremium = !!(window.currentUserProfile && window.currentUserProfile.isPremium);
+      if (!isPremium) {
+        if (typeof window.enforcePremiumAccess === 'function') {
+          window.enforcePremiumAccess();
+        } else if (typeof window.showPremiumPaywall === 'function') {
+          window.showPremiumPaywall();
+        }
+        if (typeof window.resetToHomeView === 'function') {
+          window.resetToHomeView();
+        }
+        return; // Halt navigation entirely
+      }
+    }
+
     const renderFn = routes[targetView];
     if (renderFn && this.root) {
       // Topbar search bar is ONLY visible on Explore & Map

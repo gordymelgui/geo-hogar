@@ -508,11 +508,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (expRoiBtn) {
     expRoiBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      const isPremium = !!(window.currentUserProfile && window.currentUserProfile.isPremium);
-      if (!isPremium) {
-        window.showPremiumPaywall();
-        return;
-      }
+      if (typeof window.enforcePremiumAccess === 'function' && !window.enforcePremiumAccess()) return;
       expRoiBtn.classList.toggle('active');
       const mapBtn = document.getElementById('filter-roi-btn');
       if (mapBtn) {
@@ -526,11 +522,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (expMarketBtn) {
     expMarketBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      const isPremium = !!(window.currentUserProfile && window.currentUserProfile.isPremium);
-      if (!isPremium) {
-        window.showPremiumPaywall();
-        return;
-      }
+      if (typeof window.enforcePremiumAccess === 'function' && !window.enforcePremiumAccess()) return;
       expMarketBtn.classList.toggle('active');
       const mapBtn = document.getElementById('filter-market-value-btn');
       if (mapBtn) {
@@ -722,8 +714,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Render Propiedades
-  function renderProperties(props, container) {
+  function renderProperties(props, container, limit = 30) {
     if (!container) return;
     
     // SORT PROPERTIES: Broker & Premium first
@@ -741,104 +732,131 @@ document.addEventListener('DOMContentLoaded', () => {
       container.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><h3>${window.t('empty_explore')}</h3><p style="max-width:350px">${window.t('empty_explore_desc')}</p></div>`;
       return;
     }
-    const isPremium = !!(window.currentUserProfile && window.currentUserProfile.isPremium);
-    props.forEach((prop, index) => {
-      const isFav = window.appData.favorites.has(prop.id);
-      const opClass = prop.op === 'Venta' ? 'venta' : 'alquiler';
-      const card = document.createElement('div');
-      const isScrapedLocked = prop.isScraped && !isPremium;
-      card.className = 'property-card' + (isScrapedLocked ? ' scraped-locked' : '');
-      card.style.animationDelay = `${index * 40}ms`;
-      card.onclick = (e) => {
-        if (e.target.closest('.glossary-info-icon, .btn-fav')) {
-          return;
-        }
-        if (isScrapedLocked) {
-          if (window.checkPremiumAccess && window.checkPremiumAccess('consume')) {
+
+    let currentCount = 0;
+
+    const renderChunk = (count) => {
+      const isPremium = !!(window.currentUserProfile && window.currentUserProfile.isPremium);
+      const chunk = props.slice(currentCount, currentCount + count);
+
+      chunk.forEach((prop, index) => {
+        const isFav = window.appData.favorites.has(prop.id);
+        const opClass = prop.op === 'Venta' ? 'venta' : 'alquiler';
+        const card = document.createElement('div');
+        const isScrapedLocked = prop.isScraped && !isPremium;
+        card.className = 'property-card' + (isScrapedLocked ? ' scraped-locked' : '');
+        card.style.animationDelay = `${(currentCount + index) * 40}ms`;
+        card.onclick = (e) => {
+          if (e.target.closest('.glossary-info-icon, .btn-fav')) {
+            return;
+          }
+          if (isScrapedLocked) {
+            if (window.checkPremiumAccess && window.checkPremiumAccess('consume')) {
+              openPropertyModal(prop);
+            }
+          } else {
             openPropertyModal(prop);
           }
-        } else {
-          openPropertyModal(prop);
+        };
+        
+        // ROI & Opportunity badges are strictly premium features. Do not show them for standard users.
+        const roiBadge = (prop.roi && isPremium) ? 
+          `<span class="clean-badge badge-premium-green"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:3px"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>ROI ${prop.roi}%</span>` : '';
+        
+        const discountBadge = (prop.isUnderpriced && isPremium) ? 
+          `<span class="clean-badge badge-premium-orange"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:3px"><path d="M12 2L2 22l10-4 10 4L12 2z"/></svg>-${prop.discount}%</span>` : '';
+
+        const imageBrokerBadge = (prop.publisherType === 'broker') ?
+          `<span class="clean-badge badge-gf-gold" style="position: absolute; top: 12px; left: 12px; z-index: 10; box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4); border: 1px solid rgba(255, 255, 255, 0.4); backdrop-filter: blur(4px);"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none" style="margin-right:2px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>GF</span>` : 
+          (prop.publisherType === 'premium' ? `<span class="clean-badge badge-premium-gold" style="position: absolute; top: 12px; left: 12px; z-index: 10; box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.3); backdrop-filter: blur(4px);">Premium</span>` : '');
+
+        const typeBadge = `<span class="clean-badge badge-type">${window.translatePropType ? window.translatePropType(prop.type) : prop.type}</span>`;
+        const opBadge = `<span class="clean-badge badge-op ${prop.op === 'Venta' ? 'bg-red-soft' : 'bg-blue-soft'}">${prop.op === 'Venta' ? window.t('op_venta') : window.t('op_alquiler')}</span>`;
+        let sourceBadge = '';
+        if (prop.dataSource === 'radar') sourceBadge = `<span class="source-badge algo" style="font-size:0.65rem; padding:2px 6px">${window.t('source_radar')}</span>`;
+        else if (prop.dataSource === 'official') sourceBadge = `<span class="source-badge verified" style="font-size:0.65rem; padding:2px 6px">${window.t('source_official')}</span>`;
+        else if (prop.dataSource === 'estimation') sourceBadge = `<span class="source-badge est" style="font-size:0.65rem; padding:2px 6px">${window.t('source_estimation')}</span>`;
+
+        let aiBadges = '';
+        if (prop.aiTags && prop.aiTags.length > 0) {
+          prop.aiTags.forEach(tag => {
+            aiBadges += `<span class="clean-badge badge-premium-gold" style="box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:3px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>${tag}</span>`;
+          });
         }
-      };
-      
-      // ROI & Opportunity badges are strictly premium features. Do not show them for standard users.
-      const roiBadge = (prop.roi && isPremium) ? 
-        `<span class="clean-badge badge-premium-green"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:3px"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>ROI ${prop.roi}%</span>` : '';
-      
-      const discountBadge = (prop.isUnderpriced && isPremium) ? 
-        `<span class="clean-badge badge-premium-orange"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:3px"><path d="M12 2L2 22l10-4 10 4L12 2z"/></svg>-${prop.discount}%</span>` : '';
 
-      const imageBrokerBadge = (prop.publisherType === 'broker') ?
-        `<span class="clean-badge badge-gf-gold" style="position: absolute; top: 12px; left: 12px; z-index: 10; box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4); border: 1px solid rgba(255, 255, 255, 0.4); backdrop-filter: blur(4px);"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none" style="margin-right:2px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>GF</span>` : 
-        (prop.publisherType === 'premium' ? `<span class="clean-badge badge-premium-gold" style="position: absolute; top: 12px; left: 12px; z-index: 10; box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.3); backdrop-filter: blur(4px);">Premium</span>` : '');
-
-      const typeBadge = `<span class="clean-badge badge-type">${window.translatePropType ? window.translatePropType(prop.type) : prop.type}</span>`;
-      const opBadge = `<span class="clean-badge badge-op ${prop.op === 'Venta' ? 'bg-red-soft' : 'bg-blue-soft'}">${prop.op === 'Venta' ? window.t('op_venta') : window.t('op_alquiler')}</span>`;
-      let sourceBadge = '';
-      if (prop.dataSource === 'radar') sourceBadge = `<span class="source-badge algo" style="font-size:0.65rem; padding:2px 6px">${window.t('source_radar')}</span>`;
-      else if (prop.dataSource === 'official') sourceBadge = `<span class="source-badge verified" style="font-size:0.65rem; padding:2px 6px">${window.t('source_official')}</span>`;
-      else if (prop.dataSource === 'estimation') sourceBadge = `<span class="source-badge est" style="font-size:0.65rem; padding:2px 6px">${window.t('source_estimation')}</span>`;
-
-      let aiBadges = '';
-      if (prop.aiTags && prop.aiTags.length > 0) {
-        prop.aiTags.forEach(tag => {
-          aiBadges += `<span class="clean-badge badge-premium-gold" style="box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:3px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>${tag}</span>`;
-        });
-      }
-
-      // Render the card HTML
-      card.innerHTML = `
-        <div class="prop-img-wrap">
-          ${imageBrokerBadge}
-          <img src="${prop.img}" alt="${prop.title}" loading="lazy">
-          <button class="btn-fav ${isFav ? 'active' : ''}" data-id="${prop.id}" onclick="event.stopPropagation(); toggleFav(${prop.id}, this)">
-            ${isFav ? '<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" stroke="currentColor" stroke-width="2" style="color: #ff2a5f; display: inline-block; vertical-align: middle;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" /></svg>' : '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--text2); display: inline-block; vertical-align: middle;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" /></svg>'}
-          </button>
-        </div>
-        <div class="prop-info" style="padding-top: 14px;">
-          <div class="prop-price" style="margin-bottom: 2px; display: flex; justify-content: space-between; align-items: center;">
-            <span>${window.formatPrice(prop.price)}</span>
-            ${(prop.lat && prop.lng) ? `<a href="https://www.google.com/maps?q=${prop.lat},${prop.lng}" target="_blank" onclick="event.stopPropagation();" style="color: var(--text2); text-decoration: none;" title="Abrir en Maps"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></a>` : ''}
-          </div>
-          <div class="prop-clean-badges">
-            ${typeBadge}
-            ${opBadge}
-            ${roiBadge}
-            ${discountBadge}
-          </div>
-          <div class="prop-clean-badges" style="margin-top:4px;">
-            ${aiBadges}
-          </div>
-          <div class="prop-title">${prop.title}</div>
-          <div class="prop-address" style="margin-top: 4px;">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            ${prop.address}
-          </div>
-          <div class="prop-features" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:4px;">
-            <div style="display:flex; gap:6px; flex-wrap:wrap;">
-              <span class="feat-chip">
-                <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-                ${prop.rooms} ${window.t('card_rooms')}
-              </span>
-              <span class="feat-chip">
-                <svg viewBox="0 0 24 24"><path d="M4 12h16M4 12a2 2 0 0 1-2-2V6h2"/><path d="M20 12v8H4v-8"/><path d="M6 12V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v6"/></svg>
-                ${prop.baths} ${window.t('card_baths')}
-              </span>
-              <span class="feat-chip">
-                <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-                ${prop.m2} ${window.t('card_m2')}
-              </span>
-            </div>
-            <button class="btn-compare-card ${(window._selectedCompareIds && window._selectedCompareIds.has(prop.id)) ? 'active' : ''}" onclick="event.stopPropagation(); window.toggleCompareProp(${prop.id}, this)">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="16 3 21 3 21 9"/><polyline points="8 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-              ${(window._selectedCompareIds && window._selectedCompareIds.has(prop.id)) ? 'Comparando' : 'Comparar'}
+        // Render the card HTML
+        card.innerHTML = `
+          <div class="prop-img-wrap">
+            ${imageBrokerBadge}
+            <img src="${prop.img}" alt="${prop.title}" loading="lazy">
+            <button class="btn-fav ${isFav ? 'active' : ''}" data-id="${prop.id}" onclick="event.stopPropagation(); toggleFav(${prop.id}, this)">
+              ${isFav ? '<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" stroke="currentColor" stroke-width="2" style="color: #ff2a5f; display: inline-block; vertical-align: middle;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" /></svg>' : '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--text2); display: inline-block; vertical-align: middle;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" /></svg>'}
             </button>
           </div>
-        </div>
-      `;
-      container.appendChild(card);
-    });
+          <div class="prop-info" style="padding-top: 14px;">
+            <div class="prop-price" style="margin-bottom: 2px; display: flex; justify-content: space-between; align-items: center;">
+              <span>${window.formatPrice(prop.price)}</span>
+              ${(prop.lat && prop.lng) ? `<a href="https://www.google.com/maps?q=${prop.lat},${prop.lng}" target="_blank" onclick="event.stopPropagation();" style="color: var(--text2); text-decoration: none;" title="Abrir en Maps"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></a>` : ''}
+            </div>
+            <div class="prop-clean-badges">
+              ${typeBadge}
+              ${opBadge}
+              ${roiBadge}
+              ${discountBadge}
+            </div>
+            <div class="prop-clean-badges" style="margin-top:4px;">
+              ${aiBadges}
+            </div>
+            <div class="prop-title">${prop.title}</div>
+            <div class="prop-address" style="margin-top: 4px;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              ${prop.address}
+            </div>
+            <div class="prop-features" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:4px;">
+              <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                <span class="feat-chip">
+                  <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                  ${prop.rooms} ${window.t('card_rooms')}
+                </span>
+                <span class="feat-chip">
+                  <svg viewBox="0 0 24 24"><path d="M4 12h16M4 12a2 2 0 0 1-2-2V6h2"/><path d="M20 12v8H4v-8"/><path d="M6 12V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v6"/></svg>
+                  ${prop.baths} ${window.t('card_baths')}
+                </span>
+                <span class="feat-chip">
+                  <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                  ${prop.m2} ${window.t('card_m2')}
+                </span>
+              </div>
+              <button class="btn-compare-card ${(window._selectedCompareIds && window._selectedCompareIds.has(prop.id)) ? 'active' : ''}" onclick="event.stopPropagation(); window.toggleCompareProp(${prop.id}, this)">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="16 3 21 3 21 9"/><polyline points="8 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                ${(window._selectedCompareIds && window._selectedCompareIds.has(prop.id)) ? 'Comparando' : 'Comparar'}
+              </button>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+
+      currentCount += count;
+
+      const oldBtnWrap = container.querySelector('.load-more-btn-wrap');
+      if (oldBtnWrap) oldBtnWrap.remove();
+
+      if (currentCount < props.length) {
+        const btnWrap = document.createElement('div');
+        btnWrap.className = 'load-more-btn-wrap';
+        btnWrap.style = 'grid-column: 1/-1; text-align: center; padding: 24px 0; margin-bottom: 20px;';
+        const btn = document.createElement('button');
+        btn.className = 'btn-primary';
+        btn.style = 'padding: 14px 28px; border-radius: 20px; font-weight: 700; width: 100%; max-width: 300px;';
+        btn.innerHTML = `Cargar más propiedades (${props.length - currentCount} restantes)`;
+        btn.onclick = () => renderChunk(30);
+        btnWrap.appendChild(btn);
+        container.appendChild(btnWrap);
+      }
+    };
+
+    renderChunk(limit);
   }
   window.renderProperties = renderProperties;
 
@@ -1047,12 +1065,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // Función auxiliar de sanitización
+  function escapeHTML(str) {
+    if (typeof str !== 'string') return '';
+    return str.replace(/[&<>'"]/g, tag => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      "'": '&#39;',
+      '"': '&quot;'
+    }[tag] || tag));
+  }
+
   // Abrir Modal de Propiedad
   function openPropertyModal(prop) {
     const isPremium = !!(window.currentUserProfile && window.currentUserProfile.isPremium);
-    document.getElementById('modal-gallery').innerHTML = `<img src="${prop.img}" alt="Gallery">`;
-    document.getElementById('modal-title').innerText = prop.title;
-    document.getElementById('modal-address').innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> ${prop.address}`;
+    document.getElementById('modal-gallery').innerHTML = `<img src="${escapeHTML(prop.img)}" alt="Gallery">`;
+    document.getElementById('modal-title').textContent = prop.title;
+    document.getElementById('modal-address').innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> ${escapeHTML(prop.address)}`;
     document.getElementById('modal-price').innerText = window.formatPrice(prop.price);
     
     document.getElementById('modal-features').innerHTML = `
@@ -1086,7 +1116,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>` : ''}
     `;
     
-    document.getElementById('modal-desc').innerHTML = prop.description || window.t('modal_default_desc', { type: window.translatePropType ? window.translatePropType(prop.type) : prop.type, rooms: prop.rooms });
+    document.getElementById('modal-desc').innerHTML = escapeHTML(prop.description) || window.t('modal_default_desc', { type: window.translatePropType ? window.translatePropType(prop.type) : prop.type, rooms: prop.rooms });
     
     const gmapsLink = document.getElementById('modal-gmaps-link');
     if (gmapsLink) {
@@ -1222,7 +1252,7 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
         overlay.onclick = (e) => {
           e.stopPropagation();
-          window.showPremiumPaywall();
+          window.enforcePremiumAccess();
         };
         priceAnalysisEl.appendChild(overlay);
       } else {
@@ -1577,11 +1607,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const targetView = link.getAttribute('data-view');
       if (!targetView) return;
       
-      const isPremium = !!(window.currentUserProfile && window.currentUserProfile.isPremium);
-      if ((targetView === 'analytics' || targetView === 'broker') && !isPremium) {
-        window.showPremiumPaywall();
-        return;
-      }
+      // Routing protection is now centrally handled by router.js.
       
       navLinks.forEach(l => l.classList.remove('active'));
       link.classList.add('active');
@@ -2317,6 +2343,17 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ===== PREMIUM STATE & PAYWALL HANDLERS =====
+  window.enforcePremiumAccess = function() {
+    const isPremium = !!(window.currentUserProfile && window.currentUserProfile.isPremium);
+    if (!isPremium) {
+      if (typeof window.showPremiumPaywall === 'function') {
+        window.showPremiumPaywall();
+      }
+      return false;
+    }
+    return true;
+  };
+
   window.showPremiumPaywall = function() {
     const paywallOverlay = document.getElementById('premium-paywall-modal-overlay');
     if (paywallOverlay) {
@@ -3837,11 +3874,7 @@ window.startBrokerTour = function() {
     const roiBtn = e.target.closest('#explore-roi-btn, #filter-roi-btn');
     if (roiBtn) {
       e.preventDefault();
-      const isPremium = !!(window.currentUserProfile && window.currentUserProfile.isPremium);
-      if (!isPremium) {
-        if (typeof window.showPremiumPaywall === 'function') window.showPremiumPaywall();
-        return;
-      }
+      if (typeof window.enforcePremiumAccess === 'function' && !window.enforcePremiumAccess()) return;
       const expBtn = document.getElementById('explore-roi-btn');
       const mapBtn = document.getElementById('filter-roi-btn');
       const isActive = !roiBtn.classList.contains('active');
@@ -3856,11 +3889,7 @@ window.startBrokerTour = function() {
     const marketBtn = e.target.closest('#explore-market-value-btn, #filter-market-value-btn');
     if (marketBtn) {
       e.preventDefault();
-      const isPremium = !!(window.currentUserProfile && window.currentUserProfile.isPremium);
-      if (!isPremium) {
-        if (typeof window.showPremiumPaywall === 'function') window.showPremiumPaywall();
-        return;
-      }
+      if (typeof window.enforcePremiumAccess === 'function' && !window.enforcePremiumAccess()) return;
       const expBtn = document.getElementById('explore-market-value-btn');
       const mapBtn = document.getElementById('filter-market-value-btn');
       const isActive = !marketBtn.classList.contains('active');
@@ -3875,11 +3904,7 @@ window.startBrokerTour = function() {
     const radarBrokerBtn = e.target.closest('#explore-broker-radar-btn, #filter-radar-broker-btn');
     if (radarBrokerBtn) {
       e.preventDefault();
-      const isPremium = !!(window.currentUserProfile && window.currentUserProfile.isPremium);
-      if (!isPremium) {
-        if (typeof window.showPremiumPaywall === 'function') window.showPremiumPaywall();
-        return;
-      }
+      if (typeof window.enforcePremiumAccess === 'function' && !window.enforcePremiumAccess()) return;
       const expBtn = document.getElementById('explore-broker-radar-btn');
       const mapBtn = document.getElementById('filter-radar-broker-btn');
       const isActive = !radarBrokerBtn.classList.contains('active');
@@ -3908,13 +3933,7 @@ window.startBrokerTour = function() {
     const feedToggleScraped = e.target.closest('#feed-toggle-scraped, #map-toggle-scraped, .feed-toggle-btn[data-source="scraped"]');
     if (feedToggleScraped) {
       e.preventDefault();
-      const isPremium = !!(window.currentUserProfile && window.currentUserProfile.isPremium);
-      if (!isPremium) {
-        if (typeof window.showPremiumPaywall === 'function') {
-          window.showPremiumPaywall();
-        }
-        return; // Always launch premium paywall modal for non-premium users
-      }
+      if (typeof window.enforcePremiumAccess === 'function' && !window.enforcePremiumAccess()) return;
       
       // If user is premium:
       window.currentFeedSource = 'scraped';

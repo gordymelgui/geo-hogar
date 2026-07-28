@@ -4895,9 +4895,7 @@ body.dark-theme .ai-suggestion-pill:hover {
     gap: 1rem;
   }
 
-  /* Property cards full polish on mobile */
-  .property-card {
-  }
+
   .prop-info {
     padding: 1rem 1.1rem 1.1rem;
   }
@@ -5873,7 +5871,7 @@ body.tour-active .view-analytics {
 }
 
 /* Ensure Dark Mode Support for the Glass Popover */
-[data-theme=""dark""] .driver-popover.premium-driver-theme {
+[data-theme="dark"] .driver-popover.premium-driver-theme {
   background: rgba(15, 23, 42, 0.85) !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4) !important;
@@ -5945,7 +5943,7 @@ body.tour-active .view-analytics {
   background: var(--surface) !important;
 }
 
-[data-theme=""dark""] .driver-popover.premium-driver-theme {
+[data-theme="dark"] .driver-popover.premium-driver-theme {
   background: var(--surface) !important;
 }
 
@@ -6052,23 +6050,37 @@ body.tour-active .view-analytics {
 
 /* Print Styles for PDF Report Export */
 @media print {
-  body * {
-    visibility: hidden !important;
+  /* Ocultar el resto de la aplicación */
+  body > *:not(#property-modal-overlay) {
+    display: none !important;
   }
-  #property-modal-overlay, #property-modal-overlay *,
-  #pdf-report-container, #pdf-report-container * {
+  
+  /* Des-encapsular el overlay */
+  #property-modal-overlay {
+    position: static !important;
+    background: white !important;
+    overflow: visible !important;
     visibility: visible !important;
   }
-  #property-modal-overlay {
-    position: absolute !important;
-    left: 0 !important;
-    top: 0 !important;
-    width: 100% !important;
-    background: white !important;
-    color: black !important;
+  
+  /* Expander la tarjeta modal para que no se recorte */
+  .property-modal-card {
+    max-height: none !important;
+    overflow: visible !important;
     box-shadow: none !important;
+    border: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
-  .modal-close, .btn-primary, .btn-secondary, .geo-compare-bar, nav, header, sidebar {
+  
+  /* Asegurar visibilidad interna */
+  #property-modal-overlay *, #pdf-report-container, #pdf-report-container * {
+    visibility: visible !important;
+  }
+  
+  /* Ocultar botones interactivos que no deben ir en PDF */
+  .modal-close, .btn-primary, .btn-secondary, #modal-pdf-export-btn, .geo-compare-bar, nav, header, sidebar, .bottom-nav {
     display: none !important;
   }
 }
